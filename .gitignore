@@ -147,3 +147,18 @@ vite.config.ts.timestamp-*
 
 # Turbo Repo
 .turbo
+
+# Foundry
+cache/
+out/
+broadcast/*/31337/
+broadcast/**/dry-run/
+
+# Slither / Echidna (crytic-compile)
+crytic-export/
+echidna/corpus/
+
+# Certora
+.certora_internal/
+.last_confs/
+.zip-output-url.txt
