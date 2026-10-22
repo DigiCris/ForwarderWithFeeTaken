@@ -163,3 +163,4 @@ echidna/corpus-v2/
 .certora_internal/
 .last_confs/
 .zip-output-url.txt
+echidna/corpus-v3/

@@ -1,0 +1,22 @@
+# Echidna campaign for echidna/ForwarderV3Echidna.sol (fee configuration, treasury and override lifecycles, property
+# mode). Run from the repository root (solc 0.8.30 through solc-select):
+#   SOLC_VERSION=0.8.30 echidna echidna/ForwarderV3Echidna.sol --contract ForwarderV3Echidna \
+#     --config echidna/echidna-v3.yaml --workers 4
+testMode: property
+testLimit: 1000000
+seqLen: 100
+shrinkLimit: 5000
+seed: 3301022026
+deployer: "0x30000"
+sender: ["0x10000", "0x20000"]
+# Random time between transactions (up to one week) on top of the harness `warp` action.
+maxTimeDelay: 604800
+maxBlockDelay: 60480
+corpusDir: "echidna/corpus-v3"
+coverage: true
+coverageFormats: ["txt"]
+cryticArgs:
+  - "--solc-remaps"
+  - "@openzeppelin/contracts/=lib/openzeppelin-contracts/contracts/ forge-std/=lib/forge-std/src/"
+  - "--solc-args"
+  - "--evm-version cancun --optimize --optimize-runs 200 --allow-paths ."

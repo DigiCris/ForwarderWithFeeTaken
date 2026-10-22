@@ -20,7 +20,7 @@ import {Actor, IHevm} from "./ForwarderEchidna.sol";
  * always hold. The initial vault is set by the constructor, as in production.
  */
 contract ForwarderVaultChangeEchidna {
-    uint256 internal constant TEST_AMOUNT = 1_000;
+    uint256 internal constant TEST_AMOUNT = 1000;
     uint256 internal constant DELAY = 72 hours;
     uint256 internal constant SHARE_SCALE = 1e12;
     uint256 internal constant MAX = type(uint256).max;
@@ -165,6 +165,7 @@ contract ForwarderVaultChangeEchidna {
     }
 
     function _configHash() internal view returns (bytes32) {
+        (,,,,, uint256 feeExecutableAt) = forwarder.pendingFeeConfig();
         return keccak256(
             abi.encode(
                 forwarder.treasury(),
@@ -173,7 +174,10 @@ contract ForwarderVaultChangeEchidna {
                 forwarder.threshold(),
                 forwarder.fixedFee(),
                 forwarder.variableFee(),
-                forwarder.paused()
+                forwarder.paused(),
+                forwarder.pendingTreasury(),
+                forwarder.pendingTreasuryExecutableAt(),
+                feeExecutableAt
             )
         );
     }
@@ -403,7 +407,7 @@ contract ForwarderVaultChangeEchidna {
 
     function forward(uint64 amount) public {
         uint256 value = uint256(amount) % 1e12;
-        uint256 fee = forwarder.calculateFee(value);
+        uint256 fee = forwarder.calculateFeeFor(USER, value);
         if (fee > value) return;
         Snapshot memory before = _snapshot();
         uint256 vaultUsdcBefore = usdc.balanceOf(mVault);
@@ -423,18 +427,28 @@ contract ForwarderVaultChangeEchidna {
         }
     }
 
+    /// @dev Fee configuration through its delayed lifecycle, interleaved with the vault lifecycle: proposes when
+    /// nothing is pending, executes a matured proposal, cancels an immature one.
     function setFees(uint8 lower, uint8 upper, uint64 threshold, uint32 fixedFee, uint16 variableFee) public {
         Snapshot memory before = _snapshot();
-        bytes memory data = abi.encodeCall(
-            Forwarder.setFeeConfig,
-            (
-                Forwarder.FeeModel(lower % 4),
-                Forwarder.FeeModel(upper % 4),
-                uint256(threshold) % 1e12,
-                uint256(fixedFee) % 10e6,
-                uint256(variableFee) % 10_000
-            )
-        );
+        (,,,,, uint256 executableAt) = forwarder.pendingFeeConfig();
+        bytes memory data;
+        if (executableAt == 0) {
+            data = abi.encodeCall(
+                Forwarder.proposeFeeConfig,
+                (
+                    Forwarder.FeeModel(lower % 4),
+                    Forwarder.FeeModel(upper % 4),
+                    uint256(threshold) % 1e12,
+                    uint256(fixedFee) % 10e6,
+                    uint256(variableFee) % 10_000
+                )
+            );
+        } else if (block.timestamp >= executableAt) {
+            data = abi.encodeCall(Forwarder.executeFeeConfigChange, ());
+        } else {
+            data = abi.encodeCall(Forwarder.cancelFeeConfigChange, ());
+        }
         if (!_call(feeManager, data)) unexpectedOutcomes++;
         mConfig = _configHash();
         _checkUntouched(before);
@@ -449,9 +463,18 @@ contract ForwarderVaultChangeEchidna {
         _checkUntouched(before);
     }
 
+    /// @dev Treasury through its delayed lifecycle, same pattern as `setFees`.
     function setTreasury(uint8 seed) public {
         Snapshot memory before = _snapshot();
-        if (!_call(admin, abi.encodeCall(Forwarder.setTreasury, (treasuries[seed % 2])))) unexpectedOutcomes++;
+        bytes memory data;
+        if (forwarder.pendingTreasury() == address(0)) {
+            data = abi.encodeCall(Forwarder.proposeTreasury, (treasuries[seed % 2]));
+        } else if (block.timestamp >= forwarder.pendingTreasuryExecutableAt()) {
+            data = abi.encodeCall(Forwarder.executeTreasuryChange, ());
+        } else {
+            data = abi.encodeCall(Forwarder.cancelTreasuryChange, ());
+        }
+        if (!_call(admin, data)) unexpectedOutcomes++;
         mConfig = _configHash();
         _checkUntouched(before);
     }

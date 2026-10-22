@@ -35,7 +35,7 @@ contract Actor {
  */
 contract ForwarderEchidna {
     uint256 internal constant SHARE_SCALE = 1e12;
-    uint256 internal constant TEST_AMOUNT = 1_000;
+    uint256 internal constant TEST_AMOUNT = 1000;
     uint256 internal constant MAX = type(uint256).max;
     IHevm internal constant HEVM = IHevm(0x7109709ECfa91a80626fF3989D68f67F5b1DD12D);
 
@@ -156,7 +156,7 @@ contract ForwarderEchidna {
         amount = amount % 1e13;
         address recipient = recipients[recipientSeed % 3];
         IERC4626 currentVault = forwarder.vault();
-        uint256 fee = forwarder.calculateFee(amount);
+        uint256 fee = forwarder.calculateFeeFor(recipient, amount);
         if (forwarder.paused() && fee != 0) pausedFeeCharged++;
 
         usdc.mint(address(sra), amount);
@@ -196,34 +196,68 @@ contract ForwarderEchidna {
         donated += amount;
     }
 
-    function setFeeConfig(uint8 manager, uint8 lower, uint8 upper, uint256 threshold, uint256 fixedFee, uint256 variableFee)
-        public
-    {
-        fixedFee = fixedFee % 12e6;
-        variableFee = variableFee % 12_000;
-        threshold = threshold % 1e13;
+    /// @dev Fee configuration change through the whole delayed lifecycle in one step: propose, wait the delay,
+    /// execute. The targeted lifecycle campaign is echidna/ForwarderV3Echidna.sol.
+    function _changeFees(
+        Actor manager,
+        Forwarder.FeeModel lower,
+        Forwarder.FeeModel upper,
+        uint256 threshold,
+        uint256 fixedFee,
+        uint256 variableFee
+    ) internal {
         bool valid = fixedFee <= 10e6 && variableFee <= 10_000;
         bool success = _call(
-            feeManagers[manager % 2],
-            abi.encodeCall(
-                Forwarder.setFeeConfig,
-                (Forwarder.FeeModel(lower % 4), Forwarder.FeeModel(upper % 4), threshold, fixedFee, variableFee)
-            )
+            manager, abi.encodeCall(Forwarder.proposeFeeConfig, (lower, upper, threshold, fixedFee, variableFee))
         );
         if (success && !valid) unexpectedSuccesses++;
         if (!success && valid) unexpectedReverts++;
+        if (!success) return;
+        (,,,,, uint256 executableAt) = forwarder.pendingFeeConfig();
+        HEVM.warp(executableAt);
+        if (!_call(manager, abi.encodeCall(Forwarder.executeFeeConfigChange, ()))) unexpectedReverts++;
     }
 
+    function setFeeConfig(
+        uint8 manager,
+        uint8 lower,
+        uint8 upper,
+        uint256 threshold,
+        uint256 fixedFee,
+        uint256 variableFee
+    ) public {
+        _changeFees(
+            feeManagers[manager % 2],
+            Forwarder.FeeModel(lower % 4),
+            Forwarder.FeeModel(upper % 4),
+            threshold % 1e13,
+            fixedFee % 12e6,
+            variableFee % 12_000
+        );
+    }
+
+    /// @dev Changes only the variable fee (the rest of the active configuration is kept).
     function setVariableFee(uint8 manager, uint256 value) public {
-        value = value % 12_000;
-        bool success = _call(feeManagers[manager % 2], abi.encodeCall(Forwarder.setVariableFee, (value)));
-        if (success != (value <= 10_000)) success ? unexpectedSuccesses++ : unexpectedReverts++;
+        _changeFees(
+            feeManagers[manager % 2],
+            forwarder.lowerFeeModel(),
+            forwarder.upperFeeModel(),
+            forwarder.threshold(),
+            forwarder.fixedFee(),
+            value % 12_000
+        );
     }
 
+    /// @dev Changes only the fixed fee (the rest of the active configuration is kept).
     function setFixedFee(uint8 manager, uint256 value) public {
-        value = value % 12e6;
-        bool success = _call(feeManagers[manager % 2], abi.encodeCall(Forwarder.setFixedFee, (value)));
-        if (success != (value <= 10e6)) success ? unexpectedSuccesses++ : unexpectedReverts++;
+        _changeFees(
+            feeManagers[manager % 2],
+            forwarder.lowerFeeModel(),
+            forwarder.upperFeeModel(),
+            forwarder.threshold(),
+            value % 12e6,
+            forwarder.variableFee()
+        );
     }
 
     function pause(bool asAdmin, uint8 manager) public {
@@ -258,8 +292,14 @@ contract ForwarderEchidna {
         if (success != healthy) success ? unexpectedSuccesses++ : unexpectedReverts++;
     }
 
+    /// @dev Treasury change through the whole delayed lifecycle in one step: propose, wait the delay, execute.
     function setTreasury(uint8 seed) public {
-        if (!_call(admin, abi.encodeCall(Forwarder.setTreasury, (treasuries[seed % 3])))) unexpectedReverts++;
+        if (!_call(admin, abi.encodeCall(Forwarder.proposeTreasury, (treasuries[seed % 3])))) {
+            unexpectedReverts++;
+            return;
+        }
+        HEVM.warp(forwarder.pendingTreasuryExecutableAt());
+        if (!_call(admin, abi.encodeCall(Forwarder.executeTreasuryChange, ()))) unexpectedReverts++;
     }
 
     function toggleFailure(uint8 kind, uint8 seed, bool on) public {
@@ -290,20 +330,37 @@ contract ForwarderEchidna {
         Actor actor = asFeeManager ? feeManagers[value % 2] : stranger;
         uint8 s = selectorSeed % (asFeeManager ? 8 : 14);
         bytes memory data;
-        if (s == 0) data = abi.encodeCall(Forwarder.setTreasury, (address(actor)));
-        else if (s == 1) data = abi.encodeCall(Forwarder.proposeVault, (IERC4626(address(vaults[1]))));
-        else if (s == 2) data = abi.encodeCall(Forwarder.setRoutingMode, (Forwarder.RoutingMode(value % 4)));
-        else if (s == 3) data = abi.encodeCall(Forwarder.rescueToken, (IERC20(address(usdc))));
-        else if (s == 4) data = abi.encodeCall(Forwarder.rescueNative, ());
-        else if (s == 5) data = abi.encodeCall(Forwarder.unpause, ());
-        else if (s == 6) data = abi.encodeCall(IAccessControl.grantRole, (feeManagerRole, address(actor)));
-        else if (s == 7) data = abi.encodeCall(IAccessControl.grantRole, (adminRole, address(actor)));
-        else if (s == 8) data = abi.encodeCall(Forwarder.pause, ());
-        else if (s == 9) data = abi.encodeCall(Forwarder.setVariableFee, (value % 10_000));
-        else if (s == 10) data = abi.encodeCall(Forwarder.setFixedFee, (value % 10e6));
-        else if (s == 11) data = abi.encodeCall(Forwarder.setThreshold, (value));
-        else if (s == 12) data = abi.encodeCall(Forwarder.setLowerFeeModel, (Forwarder.FeeModel(value % 4)));
-        else data = abi.encodeCall(Forwarder.setUpperFeeModel, (Forwarder.FeeModel(value % 4)));
+        if (s == 0) {
+            data = abi.encodeCall(Forwarder.proposeTreasury, (address(actor)));
+        } else if (s == 1) {
+            data = abi.encodeCall(Forwarder.proposeVault, (IERC4626(address(vaults[1]))));
+        } else if (s == 2) {
+            data = abi.encodeCall(Forwarder.setRoutingMode, (Forwarder.RoutingMode(value % 4)));
+        } else if (s == 3) {
+            data = abi.encodeCall(Forwarder.rescueToken, (IERC20(address(usdc))));
+        } else if (s == 4) {
+            data = abi.encodeCall(Forwarder.rescueNative, ());
+        } else if (s == 5) {
+            data = abi.encodeCall(Forwarder.unpause, ());
+        } else if (s == 6) {
+            data = abi.encodeCall(IAccessControl.grantRole, (feeManagerRole, address(actor)));
+        } else if (s == 7) {
+            data = abi.encodeCall(IAccessControl.grantRole, (adminRole, address(actor)));
+        } else if (s == 8) {
+            data = abi.encodeCall(Forwarder.pause, ());
+        } else if (s == 9) {
+            data = abi.encodeCall(
+                Forwarder.proposeFeeConfig, (Forwarder.FeeModel.FIXED, Forwarder.FeeModel.FIXED, value, 1, 1)
+            );
+        } else if (s == 10) {
+            data = abi.encodeCall(Forwarder.executeFeeConfigChange, ());
+        } else if (s == 11) {
+            data = abi.encodeCall(Forwarder.cancelFeeConfigChange, ());
+        } else if (s == 12) {
+            data = abi.encodeCall(Forwarder.setUserFeeOverride, (address(actor), 0, 0, block.timestamp + 1));
+        } else {
+            data = abi.encodeCall(Forwarder.executeTreasuryChange, ());
+        }
         if (_call(actor, data)) unexpectedSuccesses++;
     }
 
@@ -336,7 +393,7 @@ contract ForwarderEchidna {
         if (pausedFeeCharged != 0) return false;
         if (!forwarder.paused()) return true;
         return forwarder.calculateFee(0) == 0 && forwarder.calculateFee(1e13) == 0
-            && forwarder.calculateFee(forwarder.threshold()) == 0;
+            && forwarder.calculateFee(forwarder.threshold()) == 0 && forwarder.calculateFeeFor(recipients[0], 1e13) == 0;
     }
 
     function echidna_vault_mode_has_vault() public view returns (bool) {
@@ -361,8 +418,9 @@ contract ForwarderEchidna {
             && forwarder.hasRole(feeManagerRole, address(feeManagers[0]))
             && forwarder.hasRole(feeManagerRole, address(feeManagers[1]))
             && !forwarder.hasRole(adminRole, address(feeManagers[0]))
-            && !forwarder.hasRole(adminRole, address(feeManagers[1])) && !forwarder.hasRole(adminRole, address(stranger))
-            && !forwarder.hasRole(feeManagerRole, address(stranger)) && !forwarder.hasRole(feeManagerRole, address(sra));
+            && !forwarder.hasRole(adminRole, address(feeManagers[1]))
+            && !forwarder.hasRole(adminRole, address(stranger)) && !forwarder.hasRole(feeManagerRole, address(stranger))
+            && !forwarder.hasRole(feeManagerRole, address(sra));
     }
 
     function echidna_forwarder_holds_no_shares() public view returns (bool) {
