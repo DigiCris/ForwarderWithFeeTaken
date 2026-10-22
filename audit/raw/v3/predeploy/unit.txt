@@ -1,0 +1,1334 @@
+== commit ae8cd1b / src sha256 22aeb8e536cabe68d5ba3005decb1f43179d38ffc261b032a14085432ffd3d6b
+== forge test --no-match-contract Fork (default profile: fuzz 1000 runs, invariant 256 runs x depth 64)
+Compiling 42 files with Solc 0.8.30
+Solc 0.8.30 finished in 16.41s
+Compiler run successful with warnings:
+Warning (2519): This declaration shadows an existing declaration.
+   --> test/ForwarderVaultChangeFuzz.t.sol:160:9:
+    |
+160 |         address[4] memory pool = [guardian, guardian2, makeAddr("g3"), feeManager];
+    |         ^^^^^^^^^^^^^^^^^^^^^^
+Note: The shadowed declaration is here:
+   --> test/ForwarderVaultChangeFuzz.t.sol:269:5:
+    |
+269 |     MockVault[3] internal pool;
+    |     ^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Warning (5159): "selfdestruct" has been deprecated. Note that, starting from the Cancun hard fork, the underlying opcode no longer deletes the code and data associated with an account and only transfers its Ether to the beneficiary, unless executed in the same transaction in which the contract was created (see EIP-6780). Any use in newly deployed contracts is strongly discouraged even if the new behavior is taken into account. Future changes to the EVM might further reduce the functionality of the opcode.
+  --> test/mocks/MockTokens.sol:79:9:
+   |
+79 |         selfdestruct(target);
+   |         ^^^^^^^^^^^^
+
+
+Ran 11 tests for test/Forwarder.t.sol:ForwarderValidationTest
+[PASS] test_AnyCallerCanForwardItsOwnFunds() (gas: 124923)
+[PASS] test_ForwardWorksWhilePaused() (gas: 132905)
+[PASS] test_RevertWhen_CallerHasNoAllowance() (gas: 72721)
+[PASS] test_RevertWhen_CallerHasNoBalance() (gas: 67962)
+[PASS] test_RevertWhen_RecipientIsForwarder() (gas: 85105)
+[PASS] test_RevertWhen_RecipientIsZero() (gas: 84953)
+[PASS] test_RevertWhen_TokenIsNotUsdc() (gas: 475514)
+[PASS] test_RevertWhen_TreasuryIsZeroOrForwarder() (gas: 25775)
+[PASS] test_RevertWhen_UsdcIsPaused() (gas: 120670)
+[PASS] test_RevertWhen_VaultModeWithoutVault() (gas: 3142257)
+[PASS] test_SetTreasury() (gas: 57183)
+Suite result: ok. 11 passed; 0 failed; 0 skipped; finished in 6.51ms (2.38ms CPU time)
+
+Ran 17 tests for test/Forwarder.t.sol:ForwarderAccessControlTest
+[PASS] test_AdminAndStrangerCannotCallFeeManagerFunctions() (gas: 48190)
+[PASS] test_AdminCanPause() (gas: 22402)
+[PASS] test_AdminCanUnpause() (gas: 26162)
+[PASS] test_AdminManagesFeeManagers() (gas: 92773)
+[PASS] test_CompromisedFeeManagerBlastRadius() (gas: 117781)
+[PASS] test_DefaultAdminCannotBeGrantedDirectly() (gas: 15292)
+[PASS] test_DefaultAdminTransferRespectsDelay() (gas: 120843)
+[PASS] test_EveryFeeManagerCanSetFees() (gas: 394338)
+[PASS] test_FeeManagerAndStrangerCannotCallAdminFunctions() (gas: 219825)
+[PASS] test_FeeManagerCanPause() (gas: 21905)
+[PASS] test_FeeManagerCanRenounce() (gas: 17243)
+[PASS] test_FeeManagerCannotChangeTreasuryVaultRoutingOrRescue() (gas: 69666)
+[PASS] test_FeeManagerCannotGrantRoles() (gas: 32973)
+[PASS] test_FeeManagerCannotUnpause() (gas: 26828)
+[PASS] test_RevertWhen_PauseWhilePaused() (gas: 25305)
+[PASS] test_RevertWhen_StrangerPauses() (gas: 18247)
+[PASS] test_RevertWhen_UnpauseWhileNotPaused() (gas: 15426)
+Suite result: ok. 17 passed; 0 failed; 0 skipped; finished in 8.24ms (3.89ms CPU time)
+
+Ran 7 tests for test/ForwarderVaultChange.t.sol:ForwarderGuardianLifecycleTest
+[PASS] test_AdminRotationDoesNotChangeExecutableAt() (gas: 544215)
+[PASS] test_GrantingAndRenouncingGuardiansDoesNotChangeExecutableAt() (gas: 325754)
+[PASS] test_GuardianHasNoOtherPower() (gas: 1667768)
+[PASS] test_OnlyAdminGrantsAndRevokesGuardians() (gas: 108305)
+[PASS] test_RevokedGuardianCannotCancel() (gas: 304776)
+[PASS] test_RevokingAGuardianDoesNotChangeExecutableAt() (gas: 302704)
+[PASS] test_RevokingAllGuardiansDoesNotShortenTheDelay() (gas: 499428)
+Suite result: ok. 7 passed; 0 failed; 0 skipped; finished in 12.62ms (8.42ms CPU time)
+
+Ran 34 tests for test/ForwarderTreasuryChange.t.sol:ForwarderTreasuryChangeTest
+[PASS] test_AdminCancels() (gas: 104692)
+[PASS] test_AdminProposes() (gas: 72421)
+[PASS] test_AdminRotationDoesNotChangeExecutableAt() (gas: 98204)
+[PASS] test_AnotherGuardianCancels() (gas: 106033)
+[PASS] test_CancelBeforeAtAndAfterMaturity() (gas: 141315)
+[PASS] test_CancelledChangeCannotBeExecuted() (gas: 58346)
+[PASS] test_ExecuteExactlyAtExecutableAt() (gas: 59765)
+[PASS] test_ExecuteLongAfterExecutableAt() (gas: 56328)
+[PASS] test_ExecutionOnlyChangesTheTreasury() (gas: 1756139)
+[PASS] test_ForwardDeliversToTheActiveTreasuryUntilExecution() (gas: 862716)
+[PASS] test_GuardianCancels() (gas: 106084)
+[PASS] test_ProposalDoesNotTouchAnythingElse() (gas: 206540)
+[PASS] test_ProposeAgainAfterCancellationRestartsTheDelay() (gas: 93299)
+[PASS] test_ProposeAgainAfterExecution() (gas: 92612)
+[PASS] test_RescueAfterExecutionGoesToTheNewTreasury() (gas: 154147)
+[PASS] test_RescueNativeBeforeExecutionGoesToTheActiveTreasury() (gas: 108997)
+[PASS] test_RescueTokenBeforeExecutionGoesToTheActiveTreasury() (gas: 655478)
+[PASS] test_RevertWhen_CancellingWithNothingPending() (gas: 25840)
+[PASS] test_RevertWhen_ExecutingImmediately() (gas: 70644)
+[PASS] test_RevertWhen_ExecutingOneSecondEarly() (gas: 72326)
+[PASS] test_RevertWhen_ExecutingTwice() (gas: 55376)
+[PASS] test_RevertWhen_ExecutingWithNothingPending() (gas: 15458)
+[PASS] test_RevertWhen_FeeManagerExecutes() (gas: 77203)
+[PASS] test_RevertWhen_FeeManagerProposes() (gas: 24380)
+[PASS] test_RevertWhen_FeeManagerWithoutGuardianRoleCancels() (gas: 77130)
+[PASS] test_RevertWhen_GuardianExecutes() (gas: 77168)
+[PASS] test_RevertWhen_GuardianProposes() (gas: 24413)
+[PASS] test_RevertWhen_ProposingAnInvalidTreasury() (gas: 28827)
+[PASS] test_RevertWhen_ProposingWhileAChangeIsPending() (gas: 75312)
+[PASS] test_RevertWhen_StrangerCancels() (gas: 77077)
+[PASS] test_RevertWhen_StrangerExecutes() (gas: 77145)
+[PASS] test_RevertWhen_StrangerProposes() (gas: 24379)
+[PASS] test_RevokingAllGuardiansDoesNotShortenTheDelay() (gas: 86675)
+[PASS] test_StuckFeesReachTheNewTreasuryOnlyAfterExecution() (gas: 436347)
+Suite result: ok. 34 passed; 0 failed; 0 skipped; finished in 18.09ms (15.58ms CPU time)
+
+Ran 10 tests for test/ForwarderVaultChange.t.sol:ForwarderProposeVaultTest
+[PASS] test_AdminProposes() (gas: 300272)
+[PASS] test_ExecutableAtIsExactlyProposalTimePlus72Hours() (gas: 288221)
+[PASS] test_ProposeAgainAfterCancellationRestartsTheDelay() (gas: 494658)
+[PASS] test_ProposeAgainAfterExecution() (gas: 687390)
+[PASS] test_ProposeDoesNotTouchFeesTreasuryOrPause() (gas: 516173)
+[PASS] test_ProposeInVaultModeKeepsActiveVaultAllowanceAndRouting() (gas: 478047)
+[PASS] test_RevertWhen_FeeManagerProposes() (gas: 97126)
+[PASS] test_RevertWhen_GuardianProposes() (gas: 97093)
+[PASS] test_RevertWhen_ProposingWhileAChangeIsPending() (gas: 1549629)
+[PASS] test_RevertWhen_StrangerProposes() (gas: 24293)
+Suite result: ok. 10 passed; 0 failed; 0 skipped; finished in 10.07ms (6.61ms CPU time)
+
+Ran 13 tests for test/ForwarderVaultAndRescue.t.sol:ForwarderRescueTest
+[PASS] test_RescueArbitraryToken() (gas: 533062)
+[PASS] test_RescueDaiLikeToken() (gas: 534111)
+[PASS] test_RescueForcedNative() (gas: 92089)
+[PASS] test_RescueGoesToCurrentTreasury() (gas: 122340)
+[PASS] test_RescueNative() (gas: 54551)
+[PASS] test_RescueNativeZeroBalance() (gas: 22024)
+[PASS] test_RescueUsdc() (gas: 80839)
+[PASS] test_RescueUsdcInVaultModeGoesDirectlyToTreasury() (gas: 121978)
+[PASS] test_RescueUsdtLikeToken() (gas: 389949)
+[PASS] test_RescueVaultShares() (gas: 173829)
+[PASS] test_RescueZeroBalance() (gas: 44760)
+[PASS] test_RevertWhen_RescueTokenReturnsFalse() (gas: 513889)
+[PASS] test_RevertWhen_TreasuryRejectsNative() (gas: 105785)
+Suite result: ok. 13 passed; 0 failed; 0 skipped; finished in 27.62ms (19.99ms CPU time)
+
+Ran 21 tests for test/Forwarder.t.sol:ForwarderFeeTest
+[PASS] test_AllModelCombinationsAroundThreshold() (gas: 1709836)
+[PASS] test_DefaultThresholdZero() (gas: 135922)
+[PASS] test_EachFeeModel() (gas: 351010)
+[PASS] test_ExecuteFeeConfigChangeEmitsFullConfig() (gas: 168336)
+[PASS] test_FeeEqualToAmount() (gas: 235389)
+[PASS] test_FeeJustBelowAmount() (gas: 247278)
+[PASS] test_FeeUsesFullAmountAboveThreshold() (gas: 312506)
+[PASS] test_FeeUsesFullAmountWhenUpperIsFixedPlusPercent() (gas: 166653)
+[PASS] test_FixedFeeValues() (gas: 209496)
+[PASS] test_MaxThresholdAlwaysUsesLowerModel() (gas: 166152)
+[PASS] test_MaximumFeeConfiguration() (gas: 133478)
+[PASS] test_PausedFeeIsZero() (gas: 301537)
+[PASS] test_PercentRoundsDown() (gas: 104244)
+[PASS] test_RevertWhen_FeeAboveAmount() (gas: 167224)
+[PASS] test_RevertWhen_FixedFeeAboveMaximum() (gas: 38074)
+[PASS] test_RevertWhen_FixedFeeAndZeroAmount() (gas: 109679)
+[PASS] test_RevertWhen_InvalidEnumValue() (gas: 15835)
+[PASS] test_RevertWhen_VariableFeeAboveMaximum() (gas: 38182)
+[PASS] test_ThresholdBoundaries() (gas: 169062)
+[PASS] test_VariableFeeAtMaximumIsAccepted() (gas: 81053)
+[PASS] test_VariableFeeGranularity() (gas: 334477)
+Suite result: ok. 21 passed; 0 failed; 0 skipped; finished in 18.08ms (14.52ms CPU time)
+
+Ran 8 tests for test/ForwarderVaultChange.t.sol:ForwarderSecondHealthCheckTest
+[PASS] test_CandidateAssetChangesAfterProposal() (gas: 2012230)
+[PASS] test_CandidateCodeRemovedAfterProposal() (gas: 503715)
+[PASS] test_CandidatePausedAfterProposal() (gas: 569275)
+[PASS] test_CandidateStopsMintingSharesAfterProposal() (gas: 595047)
+[PASS] test_CandidateStopsReturningAssetsAfterProposal() (gas: 642240)
+[PASS] test_DepositStartsFailingAfterProposal() (gas: 571112)
+[PASS] test_FailedExecutionCanBeCancelled() (gas: 467434)
+[PASS] test_RedeemStartsFailingAfterProposal() (gas: 632468)
+Suite result: ok. 8 passed; 0 failed; 0 skipped; finished in 13.42ms (9.97ms CPU time)
+
+Ran 36 tests for test/ForwarderFeeChange.t.sol:ForwarderFeeChangeTest
+[PASS] test_AdminCancels() (gas: 228608)
+[PASS] test_AdminWithFeeManagerRoleStillWaitsTheDelay() (gas: 126853)
+[PASS] test_AllSixteenCombinationsWithForward() (gas: 5452768)
+[PASS] test_AnotherFeeManagerCancels() (gas: 224865)
+[PASS] test_AnotherFeeManagerExecutes() (gas: 102388)
+[PASS] test_CancelBeforeAtAndAfterMaturity() (gas: 196566)
+[PASS] test_CancelledChangeCannotBeExecuted() (gas: 80494)
+[PASS] test_EveryFeeManagerCanPropose() (gas: 126685)
+[PASS] test_ExecutableAtIsAlwaysProposalTimePlus72Hours() (gas: 170945)
+[PASS] test_ExecuteAfterExecutableAt() (gas: 165391)
+[PASS] test_ExecuteExactlyAtExecutableAt() (gas: 175066)
+[PASS] test_ExecutionOnlyChangesTheFeeConfiguration() (gas: 1812551)
+[PASS] test_FeeManagerProposes() (gas: 133802)
+[PASS] test_GuardianCancels() (gas: 226696)
+[PASS] test_PauseStaysImmediateWhileAChangeIsPending() (gas: 278584)
+[PASS] test_ProposalDoesNotChangeActiveConfiguration() (gas: 360352)
+[PASS] test_ProposalValidatesTheCaps() (gas: 152815)
+[PASS] test_ProposeAgainAfterCancellationRestartsTheDelay() (gas: 127103)
+[PASS] test_ProposeAgainAfterExecution() (gas: 153900)
+[PASS] test_ProposeAndExecuteWhilePausedKeepsTheFeeAtZero() (gas: 268492)
+[PASS] test_ProposingFeeManagerCancels() (gas: 221629)
+[PASS] test_RevertWhen_AdminExecutes() (gas: 101805)
+[PASS] test_RevertWhen_AdminProposes() (gas: 29245)
+[PASS] test_RevertWhen_CancellingWithNothingPending() (gas: 39139)
+[PASS] test_RevertWhen_ExecutingImmediately() (gas: 106424)
+[PASS] test_RevertWhen_ExecutingOneSecondEarly() (gas: 108882)
+[PASS] test_RevertWhen_ExecutingTwice() (gas: 100864)
+[PASS] test_RevertWhen_ExecutingWithNothingPending() (gas: 24208)
+[PASS] test_RevertWhen_GuardianExecutes() (gas: 101904)
+[PASS] test_RevertWhen_GuardianProposes() (gas: 29301)
+[PASS] test_RevertWhen_InvalidModelIsProposed() (gas: 25205)
+[PASS] test_RevertWhen_ProposingWhileAChangeIsPending() (gas: 105439)
+[PASS] test_RevertWhen_StrangerCancels() (gas: 103224)
+[PASS] test_RevertWhen_StrangerExecutes() (gas: 101815)
+[PASS] test_RevertWhen_StrangerProposes() (gas: 29289)
+[PASS] test_V2ImmediateSettersAreGone() (gas: 70663)
+Suite result: ok. 36 passed; 0 failed; 0 skipped; finished in 27.11ms (23.62ms CPU time)
+
+Ran 9 tests for test/ForwarderVaultChange.t.sol:ForwarderVaultChangeReentrancyTest
+[PASS] test_ActiveVaultCannotReenterExecuteFromForward() (gas: 956092)
+[PASS] test_CandidateCannotReenterExecuteDuringExecution() (gas: 548034)
+[PASS] test_CandidateCannotReenterExecuteDuringProposal() (gas: 371564)
+[PASS] test_CandidateCannotReenterForwardDuringExecution() (gas: 618268)
+[PASS] test_CandidateCannotReenterProposeDuringExecution() (gas: 585664)
+[PASS] test_CandidateCannotReenterSetRoutingModeDuringExecution() (gas: 583532)
+[PASS] test_NoReentrantPathExecutesBeforeTheDelay() (gas: 1165139)
+[PASS] test_ReentrantCancelDuringExecutionFindsNothingPending() (gas: 546037)
+[PASS] test_ReentrantCancelDuringProposalLeavesConsistentState() (gas: 358190)
+Suite result: ok. 9 passed; 0 failed; 0 skipped; finished in 13.85ms (9.38ms CPU time)
+
+Ran 5 tests for test/ForwarderVaultChange.t.sol:ForwarderRoutingWhilePendingTest
+[PASS] test_CaseA_DirectDirectSelectedWhilePending() (gas: 505010)
+[PASS] test_CaseB_VaultVaultSelectedWhilePending() (gas: 510631)
+[PASS] test_ForwardWhilePendingUsesTheActiveVault() (gas: 609004)
+[PASS] test_RoutingAtExecutionDecidesForEveryPair() (gas: 23919864)
+[PASS] test_RoutingChangesNeverGiveAllowanceToThePendingVault() (gas: 385116)
+Suite result: ok. 5 passed; 0 failed; 0 skipped; finished in 28.54ms (25.13ms CPU time)
+
+Ran 20 tests for test/ForwarderVaultAndRescue.t.sol:ForwarderVaultHealthCheckTest
+[PASS] test_ExecuteVaultChange() (gas: 472756)
+[PASS] test_FailedHealthCheckLeavesNoPartialState() (gas: 304546)
+[PASS] test_HealthCheckNeverUsesForwarderFunds() (gas: 445278)
+[PASS] test_HealthCheckOnlyRedeemsNewShares() (gas: 478098)
+[PASS] test_HealthCheckRefundsAssetsTheVaultDidNotPull() (gas: 455252)
+[PASS] test_ProposeVault() (gas: 299549)
+[PASS] test_RevertWhen_CallerDidNotFundHealthCheck() (gas: 82550)
+[PASS] test_RevertWhen_ProposingTheActiveVault() (gas: 106300)
+[PASS] test_RevertWhen_ProposingTheActiveVaultInVaultMode() (gas: 141273)
+[PASS] test_RevertWhen_VaultAssetIsNotUsdc() (gas: 1864686)
+[PASS] test_RevertWhen_VaultDepositFails() (gas: 208900)
+[PASS] test_RevertWhen_VaultIsEoa() (gas: 104666)
+[PASS] test_RevertWhen_VaultIsNotErc4626() (gas: 157191)
+[PASS] test_RevertWhen_VaultIsPaused() (gas: 198700)
+[PASS] test_RevertWhen_VaultIsZero() (gas: 100463)
+[PASS] test_RevertWhen_VaultMintsNoShares() (gas: 223431)
+[PASS] test_RevertWhen_VaultRedeemFails() (gas: 260912)
+[PASS] test_RevertWhen_VaultRedeemReturnsNothing() (gas: 270529)
+[PASS] test_VaultReturningLessThanDepositedIsAccepted() (gas: 490276)
+[PASS] test_VaultWithRoundingLossIsAccepted() (gas: 538465)
+Suite result: ok. 20 passed; 0 failed; 0 skipped; finished in 30.62ms (22.63ms CPU time)
+
+Ran 13 tests for test/ForwarderVaultChange.t.sol:ForwarderCancelVaultChangeTest
+[PASS] test_AdminCancels() (gas: 23692)
+[PASS] test_CancelAfterTheDelay() (gas: 22614)
+[PASS] test_CancelBeforeTheDelay() (gas: 21784)
+[PASS] test_CancelDoesNotTouchFeesTreasuryOrPause() (gas: 254335)
+[PASS] test_CancelExactlyAtExecutableAt() (gas: 22562)
+[PASS] test_CancelKeepsActiveVaultAllowanceAndRouting() (gas: 234589)
+[PASS] test_CancelledChangeCannotBeExecuted() (gas: 89160)
+[PASS] test_EveryGuardianCanCancel() (gas: 459824)
+[PASS] test_FeeManagerWithGuardianRoleCancelsAndKeepsFeePowers() (gas: 148317)
+[PASS] test_GuardianCancels() (gas: 21323)
+[PASS] test_RevertWhen_FeeManagerWithoutGuardianRoleCancels() (gas: 23434)
+[PASS] test_RevertWhen_NothingIsPending() (gas: 25416)
+[PASS] test_RevertWhen_StrangerCancels() (gas: 23469)
+Suite result: ok. 13 passed; 0 failed; 0 skipped; finished in 7.58ms (3.47ms CPU time)
+
+Ran 6 tests for test/ForwarderRouting.t.sol:ForwarderRoutingTest
+[PASS] test_DirectDirect() (gas: 175792)
+[PASS] test_DirectUserVaultTreasury() (gas: 265159)
+[PASS] test_RecipientCanBeTheTreasury() (gas: 133775)
+[PASS] test_SequentialForwardsAcrossModeChanges() (gas: 547861)
+[PASS] test_VaultUserDirectTreasury() (gas: 270930)
+[PASS] test_VaultVault() (gas: 274635)
+Suite result: ok. 6 passed; 0 failed; 0 skipped; finished in 22.03ms (18.79ms CPU time)
+
+Ran 13 tests for test/ForwarderVaultChange.t.sol:ForwarderExecuteVaultChangeTest
+[PASS] test_ExecuteExactlyAtExecutableAt() (gas: 213428)
+[PASS] test_ExecuteLongAfterExecutableAt() (gas: 213516)
+[PASS] test_ExecutionDoesNotTouchFeesTreasuryOrPause() (gas: 436004)
+[PASS] test_ForwardUsesTheNewVaultAfterExecution() (gas: 408092)
+[PASS] test_RevertWhen_ExecutingImmediately() (gas: 33971)
+[PASS] test_RevertWhen_ExecutingOneSecondEarly() (gas: 29307)
+[PASS] test_RevertWhen_ExecutionIsNotFunded() (gas: 66125)
+[PASS] test_RevertWhen_FeeManagerExecutes() (gas: 26910)
+[PASS] test_RevertWhen_GuardianExecutes() (gas: 26920)
+[PASS] test_RevertWhen_NothingIsPending() (gas: 22236)
+[PASS] test_RevertWhen_StrangerExecutes() (gas: 26897)
+[PASS] test_SuccessfulExecutionInDirectDirect() (gas: 251403)
+[PASS] test_SuccessfulExecutionInEachVaultMode() (gas: 3152576)
+Suite result: ok. 13 passed; 0 failed; 0 skipped; finished in 14.94ms (11.20ms CPU time)
+
+Ran 41 tests for test/ForwarderFeeOverride.t.sol:ForwarderFeeOverrideTest
+[PASS] test_ActiveOverrideSurvivesGlobalChangesAndPause() (gas: 264783)
+[PASS] test_AnyFeeManagerCanSetAndImproveAnOverride() (gas: 198045)
+[PASS] test_ExpectedOverrideFeeMatchesForEveryModelPair() (gas: 4448636)
+[PASS] test_ExpiredOverrideForwardChargesTheGlobalFee() (gas: 271356)
+[PASS] test_ExpiredOverrideUsesTheGlobalFee() (gas: 173285)
+[PASS] test_ExtendingAnActiveOverride() (gas: 203449)
+[PASS] test_ExtendingWhileTheGlobalFeeIsBelowTheOverride() (gas: 274019)
+[PASS] test_ForwardWithOverrideChargesTheDiscountedFeeInEveryMode() (gas: 771526)
+[PASS] test_ForwardWithoutOverrideChargesTheGlobalFeeInEveryMode() (gas: 714234)
+[PASS] test_ForwardedEventReportsTheEffectiveFee() (gas: 286537)
+[PASS] test_LoweringAnActiveOverride() (gas: 204052)
+[PASS] test_NoOverrideIsExactlyTheGlobalFee() (gas: 2132720)
+[PASS] test_OverrideCanMakeASmallDepositPossible() (gas: 295061)
+[PASS] test_OverrideDoesNotChangeTheGlobalConfiguration() (gas: 288236)
+[PASS] test_OverrideEqualToTheGlobalFeeIsAllowed() (gas: 194185)
+[PASS] test_OverrideExpiresExactlyAtValidUntil() (gas: 196612)
+[PASS] test_OverrideIsActiveOneSecondBeforeValidUntil() (gas: 192615)
+[PASS] test_OverrideLowersFixedPlusPercent() (gas: 197859)
+[PASS] test_OverrideLowersTheFixedFee() (gas: 197065)
+[PASS] test_OverrideLowersThePercentFee() (gas: 199733)
+[PASS] test_OverrideOnlyAffectsItsRecipient() (gas: 137721)
+[PASS] test_OverrideUsesTheGlobalLowerAndUpperModels() (gas: 232829)
+[PASS] test_OverrideWithModelNoneIsZero() (gas: 225993)
+[PASS] test_PausedFeeIsZeroWithOverride() (gas: 328043)
+[PASS] test_ReplacingAnExpiredOverrideFreely() (gas: 194988)
+[PASS] test_RevertWhen_NotAFeeManager() (gas: 40821)
+[PASS] test_RevertWhen_OverrideAboveTheGlobalFee() (gas: 143257)
+[PASS] test_RevertWhen_OverrideWithGlobalFeesAtZero() (gas: 55873)
+[PASS] test_RevertWhen_RaisingTheFixedFeeOfAnActiveOverride() (gas: 196289)
+[PASS] test_RevertWhen_RaisingTheVariableFeeOfAnActiveOverride() (gas: 196512)
+[PASS] test_RevertWhen_RecipientIsZero() (gas: 13700)
+[PASS] test_RevertWhen_ShorteningAnActiveOverride() (gas: 196643)
+[PASS] test_RevertWhen_ValidUntilIsNotInTheFuture() (gas: 63580)
+[PASS] test_RevertWhen_WorseningOneSecondBeforeExpiry() (gas: 192251)
+[PASS] test_SetOverrideStoresAndEmits() (gas: 192865)
+[PASS] test_SettingTheSameActiveOverrideAgain() (gas: 194892)
+[PASS] test_TheUserNeverPaysMoreThanTheCurrentGlobalFee() (gas: 436284)
+[PASS] test_TreasuryBestEffortWithOverride() (gas: 389983)
+[PASS] test_UserVaultFallbackWithOverride() (gas: 336647)
+[PASS] test_ValidationUsesTheActiveConfiguration() (gas: 300563)
+[PASS] test_ZeroOverride() (gas: 395426)
+Suite result: ok. 41 passed; 0 failed; 0 skipped; finished in 56.36ms (52.72ms CPU time)
+
+Ran 8 tests for test/ForwarderRouting.t.sol:ForwarderTreasuryDeliveryTest
+[PASS] test_DirectTreasuryTransferReturningFalse() (gas: 239012)
+[PASS] test_DirectTreasuryTransferReverting() (gas: 237545)
+[PASS] test_FailuresAccumulateAndAreDeliveredTogether() (gas: 354354)
+[PASS] test_NoTreasuryActionWhenNothingIsLeft() (gas: 534512)
+[PASS] test_PendingFundsGoToTheNewTreasury() (gas: 286548)
+[PASS] test_TreasuryLegNeverRevertsOnMalformedVaultReturn() (gas: 1782912)
+[PASS] test_TreasuryOnlyVaultFailureInVaultVault() (gas: 346844)
+[PASS] test_TreasuryVaultFailureKeepsFundsAndRetries() (gas: 336828)
+Suite result: ok. 8 passed; 0 failed; 0 skipped; finished in 28.90ms (25.41ms CPU time)
+
+Ran 21 tests for test/Forwarder.t.sol:ForwarderConstructorTest
+[PASS] test_Constants() (gas: 13637)
+[PASS] test_DeployActivatesInitialVaultWithoutDelay() (gas: 3302266)
+[PASS] test_DeployEmitsConfigurationEvents() (gas: 3315667)
+[PASS] test_DeployWithDuplicatedFeeManagers() (gas: 3126494)
+[PASS] test_DeployWithEachVaultModeSetsMaxAllowance() (gas: 9762250)
+[PASS] test_DeployWithoutGuardians() (gas: 3080424)
+[PASS] test_DeployWithoutVault() (gas: 3124518)
+[PASS] test_DeploymentHealthCheckUsesAndRefundsDeployerFunds() (gas: 27245)
+[PASS] test_InitialState() (gas: 146471)
+[PASS] test_RejectsDirectNativeTransfers() (gas: 17639)
+[PASS] test_RevertWhen_DeployHealthCheckNotFunded() (gas: 172499)
+[PASS] test_RevertWhen_DeployVaultModeWithoutVault() (gas: 427225)
+[PASS] test_RevertWhen_DeployWithFailingVault() (gas: 328988)
+[PASS] test_RevertWhen_DeployWithWrongAssetVault() (gas: 1968714)
+[PASS] test_RevertWhen_DeployZeroAdmin() (gas: 57656)
+[PASS] test_RevertWhen_DeployZeroFeeManager() (gas: 179554)
+[PASS] test_RevertWhen_DeployZeroGuardian() (gas: 229220)
+[PASS] test_RevertWhen_DeployZeroTreasury() (gas: 126917)
+[PASS] test_RevertWhen_DeployZeroUsdc() (gas: 126537)
+[PASS] test_RuntimeCodeHasNoDelegatecallOrSelfdestruct() (gas: 11266269)
+[PASS] test_SupportsInterface() (gas: 9472)
+Suite result: ok. 21 passed; 0 failed; 0 skipped; finished in 110.52ms (106.95ms CPU time)
+
+Ran 9 tests for test/ForwarderRouting.t.sol:ForwarderUserFallbackTest
+[PASS] test_FallbackInVaultVaultKeepsTreasuryFundsWhenBothDepositsFail() (gas: 229321)
+[PASS] test_FallbackWhenAllowanceIsExhausted() (gas: 217476)
+[PASS] test_FallbackWhenDepositCapIsExceededWhileTreasuryDepositWorks() (gas: 266781)
+[PASS] test_FallbackWhenDepositReverts() (gas: 237613)
+[PASS] test_FallbackWhenVaultIsPaused() (gas: 215668)
+[PASS] test_RevertWhen_DirectUserTransferFails() (gas: 123026)
+[PASS] test_RevertWhen_FallbackTransferAlsoFails() (gas: 203793)
+[PASS] test_UserLegRevertsWhenVaultReturnsMalformedData() (gas: 1754791)
+[PASS] test_VaultDepositResumesAfterRecovery() (gas: 368244)
+Suite result: ok. 9 passed; 0 failed; 0 skipped; finished in 22.47ms (19.21ms CPU time)
+
+Ran 9 tests for test/ForwarderVaultAndRescue.t.sol:ForwarderReentrancyTest
+[PASS] test_CandidateVaultCannotReenterForwardDuringHealthCheck() (gas: 1990272)
+[PASS] test_CandidateVaultCannotReenterProposeDuringHealthCheck() (gas: 1949306)
+[PASS] test_ForwardCannotBeReentered() (gas: 370508)
+[PASS] test_ForwardUsesConfigurationSnapshot() (gas: 424915)
+[PASS] test_ProposeVaultCannotBeReenteredFromForward() (gas: 330459)
+[PASS] test_RescueNativeCannotBeReenteredFromForward() (gas: 277471)
+[PASS] test_RescueTokenCannotBeReenteredFromForward() (gas: 329455)
+[PASS] test_RescuedTokenCannotReenter() (gas: 1013501)
+[PASS] test_SetRoutingModeCannotBeReenteredFromForward() (gas: 305399)
+Suite result: ok. 9 passed; 0 failed; 0 skipped; finished in 10.60ms (4.84ms CPU time)
+
+Ran 4 tests for test/ForwarderRouting.t.sol:ForwarderAccidentalBalanceTest
+[PASS] test_DonationIsDepositedForTreasury() (gas: 266704)
+[PASS] test_DonationIsSweptDirectly() (gas: 163847)
+[PASS] test_DonationIsSweptEvenWithoutFees() (gas: 207761)
+[PASS] test_UserNeverReceivesTheDonation() (gas: 228167)
+Suite result: ok. 4 passed; 0 failed; 0 skipped; finished in 8.50ms (5.18ms CPU time)
+
+Ran 6 tests for test/ForwarderRouting.t.sol:ForwarderZeroValuesTest
+[PASS] test_ZeroAmountDirect() (gas: 67292)
+[PASS] test_ZeroAmountVaultDepositThatRevertsFallsBack() (gas: 151061)
+[PASS] test_ZeroAmountVaultDepositThatWorks() (gas: 133156)
+[PASS] test_ZeroFee() (gas: 129113)
+[PASS] test_ZeroUserAmountWithFallback() (gas: 300080)
+[PASS] test_ZeroUserAmountWithWorkingZeroDeposit() (gas: 321579)
+Suite result: ok. 6 passed; 0 failed; 0 skipped; finished in 19.15ms (15.61ms CPU time)
+
+Ran 6 tests for test/ForwarderRouting.t.sol:ForwarderAllowanceTest
+[PASS] test_EveryRoutingTransition() (gas: 441735)
+[PASS] test_FailedReplacementKeepsAllowances() (gas: 1582080)
+[PASS] test_ForwardNeverApproves() (gas: 584884)
+[PASS] test_UsdcStyleAllowanceDecrementAndRefresh() (gas: 283036)
+[PASS] test_VaultReplacementInDirectMode() (gas: 1582564)
+[PASS] test_VaultReplacementInVaultMode() (gas: 1749076)
+Suite result: ok. 6 passed; 0 failed; 0 skipped; finished in 16.41ms (12.69ms CPU time)
+
+Ran 13 tests for test/ForwarderFuzz.t.sol:ForwarderFuzzTest
+[PASS] testFuzz_AnyValidRecipient(address,uint256) (runs: 1000, μ: 127198, ~: 127540)
+[PASS] testFuzz_CalculateFeeMatchesSpecification((uint8,uint8,uint256,uint256,uint256,bool),uint256) (runs: 1000, μ: 171353, ~: 173621)
+[PASS] testFuzz_CalculateFeeNeverRevertsForRealisticAmounts((uint8,uint8,uint256,uint256,uint256,bool),uint256) (runs: 1000, μ: 170816, ~: 172834)
+[PASS] testFuzz_FeeAboveThresholdUsesFullAmount(uint256,uint256,uint256) (runs: 1000, μ: 139216, ~: 139648)
+[PASS] testFuzz_FeeIsBoundedByCaps((uint8,uint8,uint256,uint256,uint256,bool),uint256) (runs: 1000, μ: 171087, ~: 173166)
+[PASS] testFuzz_FeeProposalBounds(uint256,uint256) (runs: 1000, μ: 42679, ~: 34245)
+[PASS] testFuzz_ForwardAccounting((uint8,uint8,uint256,uint256,uint256,bool),uint256,uint8,uint256,bool,bool) (runs: 1000, μ: 382531, ~: 385502)
+[PASS] testFuzz_HealthCheckAcceptsAnyPositiveReturn(uint256) (runs: 1000, μ: 1593985, ~: 1598724)
+[PASS] testFuzz_PausedFeeIsZero((uint8,uint8,uint256,uint256,uint256,bool),uint256) (runs: 1000, μ: 172283, ~: 175971)
+[PASS] testFuzz_RescueSendsEverythingToTreasury(uint256,uint256) (runs: 1000, μ: 574497, ~: 575187)
+[PASS] testFuzz_RevertWhen_TokenIsNotUsdc(address,uint256) (runs: 1000, μ: 14326, ~: 14326)
+[PASS] testFuzz_RoutingSequenceAllowance(uint8[8]) (runs: 1000, μ: 128186, ~: 127197)
+[PASS] testFuzz_UnprivilegedCallerCannotConfigure(address,uint8,uint256) (runs: 1000, μ: 1714916, ~: 1714496)
+Suite result: ok. 13 passed; 0 failed; 0 skipped; finished in 15.76s (9.56s CPU time)
+
+Ran 10 tests for test/ForwarderVaultChangeFuzz.t.sol:ForwarderVaultChangeFuzzTest
+[PASS] testFuzz_CancelAuthorization(address,bool,bool,uint256) (runs: 1000, μ: 327382, ~: 325860)
+[PASS] testFuzz_DelayBoundary(uint256,uint256) (runs: 1000, μ: 394898, ~: 323524)
+[PASS] testFuzz_DelayBoundaryNeighbourhood(uint256,uint256) (runs: 1000, μ: 390095, ~: 323525)
+[PASS] testFuzz_ExecutableAtCannotOverflow(uint256) (runs: 1000, μ: 104380, ~: 104421)
+[PASS] testFuzz_ExecutableAtIsProposalTimePlusDelay(uint256) (runs: 1000, μ: 291016, ~: 291015)
+[PASS] testFuzz_FailedSecondHealthCheckKeepsPending(uint8,uint256,uint8) (runs: 1000, μ: 600660, ~: 586448)
+[PASS] testFuzz_GuardianChangesKeepTheDelay(uint8[10],uint256) (runs: 1000, μ: 571736, ~: 569733)
+[PASS] testFuzz_LifecycleStateMachine(uint256[32]) (runs: 1000, μ: 4394915, ~: 4374127)
+[PASS] testFuzz_OnlyAdminProposesOrExecutes(address,bool,bool) (runs: 1000, μ: 372657, ~: 372809)
+[PASS] testFuzz_RoutingWhilePending(uint8,uint8[6]) (runs: 1000, μ: 569520, ~: 573824)
+Suite result: ok. 10 passed; 0 failed; 0 skipped; finished in 38.29s (24.05s CPU time)
+
+Ran 8 tests for test/ForwarderV3Fuzz.t.sol:ForwarderV3FuzzTest
+[PASS] testFuzz_ActiveOverrideNeverExceedsTheGlobalFee((uint8,uint8,uint256,uint256,uint256),(uint8,uint8,uint256,uint256,uint256),uint256,uint256,uint256,bool) (runs: 1000, μ: 325635, ~: 330780)
+[PASS] testFuzz_CancellationsKeepTheActiveConfiguration(uint8,uint256,(uint8,uint8,uint256,uint256,uint256)) (runs: 1000, μ: 252335, ~: 254834)
+[PASS] testFuzz_ExpiredOverrideIsTheGlobalFee((uint8,uint8,uint256,uint256,uint256),uint256,uint256,uint256,uint256,uint256) (runs: 1000, μ: 227002, ~: 232962)
+[PASS] testFuzz_FeeConfigChangesOnlyAfterTheDelay((uint8,uint8,uint256,uint256,uint256),(uint8,uint8,uint256,uint256,uint256),uint256) (runs: 1000, μ: 254660, ~: 259778)
+[PASS] testFuzz_ForwardAccountingWithTheEffectiveFee((uint8,uint8,uint256,uint256,uint256),uint256,uint256,uint256,uint256,uint256,uint8,bool,bool) (runs: 1000, μ: 388531, ~: 396904)
+[PASS] testFuzz_OverrideUpdateRule(uint256,uint256,uint256,uint256,uint256,uint256,uint256) (runs: 1000, μ: 202781, ~: 203016)
+[PASS] testFuzz_TreasuryChangesOnlyAfterTheDelay(address,uint256) (runs: 1000, μ: 67495, ~: 72774)
+[PASS] testFuzz_WithoutOverrideTheFeeIsTheGlobalFee((uint8,uint8,uint256,uint256,uint256),address,uint256) (runs: 1000, μ: 168666, ~: 171813)
+Suite result: ok. 8 passed; 0 failed; 0 skipped; finished in 40.23s (3.89s CPU time)
+
+Ran 12 tests for test/ForwarderInvariant.t.sol:ForwarderInvariantTest
+[PASS] invariant_Allowances() (runs: 256, calls: 16384, reverts: 0)
+
+╭------------------+-----------------------+-------+---------+----------╮
+| Contract         | Selector              | Calls | Reverts | Discards |
++=======================================================================+
+| ForwarderHandler | donate                | 1234  | 0       | 0        |
+|------------------+-----------------------+-------+---------+----------|
+| ForwarderHandler | forward               | 2305  | 0       | 0        |
+|------------------+-----------------------+-------+---------+----------|
+| ForwarderHandler | pause                 | 1168  | 0       | 0        |
+|------------------+-----------------------+-------+---------+----------|
+| ForwarderHandler | replaceVault          | 1210  | 0       | 0        |
+|------------------+-----------------------+-------+---------+----------|
+| ForwarderHandler | rescueNative          | 1160  | 0       | 0        |
+|------------------+-----------------------+-------+---------+----------|
+| ForwarderHandler | rescueUsdc            | 1097  | 0       | 0        |
+|------------------+-----------------------+-------+---------+----------|
+| ForwarderHandler | setFeeConfig          | 1165  | 0       | 0        |
+|------------------+-----------------------+-------+---------+----------|
+| ForwarderHandler | setRoutingMode        | 1155  | 0       | 0        |
+|------------------+-----------------------+-------+---------+----------|
+| ForwarderHandler | setSingleFeeParameter | 1194  | 0       | 0        |
+|------------------+-----------------------+-------+---------+----------|
+| ForwarderHandler | setTreasury           | 1185  | 0       | 0        |
+|------------------+-----------------------+-------+---------+----------|
+| ForwarderHandler | toggleFailure         | 1191  | 0       | 0        |
+|------------------+-----------------------+-------+---------+----------|
+| ForwarderHandler | unauthorizedCall      | 1098  | 0       | 0        |
+|------------------+-----------------------+-------+---------+----------|
+| ForwarderHandler | unpause               | 1222  | 0       | 0        |
+╰------------------+-----------------------+-------+---------+----------╯
+
+[PASS] invariant_CodeNeverChanges() (runs: 256, calls: 16384, reverts: 0)
+
+╭------------------+-----------------------+-------+---------+----------╮
+| Contract         | Selector              | Calls | Reverts | Discards |
++=======================================================================+
+| ForwarderHandler | donate                | 1234  | 0       | 0        |
+|------------------+-----------------------+-------+---------+----------|
+| ForwarderHandler | forward               | 2305  | 0       | 0        |
+|------------------+-----------------------+-------+---------+----------|
+| ForwarderHandler | pause                 | 1168  | 0       | 0        |
+|------------------+-----------------------+-------+---------+----------|
+| ForwarderHandler | replaceVault          | 1210  | 0       | 0        |
+|------------------+-----------------------+-------+---------+----------|
+| ForwarderHandler | rescueNative          | 1160  | 0       | 0        |
+|------------------+-----------------------+-------+---------+----------|
+| ForwarderHandler | rescueUsdc            | 1097  | 0       | 0        |
+|------------------+-----------------------+-------+---------+----------|
+| ForwarderHandler | setFeeConfig          | 1165  | 0       | 0        |
+|------------------+-----------------------+-------+---------+----------|
+| ForwarderHandler | setRoutingMode        | 1155  | 0       | 0        |
+|------------------+-----------------------+-------+---------+----------|
+| ForwarderHandler | setSingleFeeParameter | 1194  | 0       | 0        |
+|------------------+-----------------------+-------+---------+----------|
+| ForwarderHandler | setTreasury           | 1185  | 0       | 0        |
+|------------------+-----------------------+-------+---------+----------|
+| ForwarderHandler | toggleFailure         | 1191  | 0       | 0        |
+|------------------+-----------------------+-------+---------+----------|
+| ForwarderHandler | unauthorizedCall      | 1098  | 0       | 0        |
+|------------------+-----------------------+-------+---------+----------|
+| ForwarderHandler | unpause               | 1222  | 0       | 0        |
+╰------------------+-----------------------+-------+---------+----------╯
+
+[PASS] invariant_Conservation() (runs: 256, calls: 16384, reverts: 0)
+
+╭------------------+-----------------------+-------+---------+----------╮
+| Contract         | Selector              | Calls | Reverts | Discards |
++=======================================================================+
+| ForwarderHandler | donate                | 1234  | 0       | 0        |
+|------------------+-----------------------+-------+---------+----------|
+| ForwarderHandler | forward               | 2305  | 0       | 0        |
+|------------------+-----------------------+-------+---------+----------|
+| ForwarderHandler | pause                 | 1168  | 0       | 0        |
+|------------------+-----------------------+-------+---------+----------|
+| ForwarderHandler | replaceVault          | 1210  | 0       | 0        |
+|------------------+-----------------------+-------+---------+----------|
+| ForwarderHandler | rescueNative          | 1160  | 0       | 0        |
+|------------------+-----------------------+-------+---------+----------|
+| ForwarderHandler | rescueUsdc            | 1097  | 0       | 0        |
+|------------------+-----------------------+-------+---------+----------|
+| ForwarderHandler | setFeeConfig          | 1165  | 0       | 0        |
+|------------------+-----------------------+-------+---------+----------|
+| ForwarderHandler | setRoutingMode        | 1155  | 0       | 0        |
+|------------------+-----------------------+-------+---------+----------|
+| ForwarderHandler | setSingleFeeParameter | 1194  | 0       | 0        |
+|------------------+-----------------------+-------+---------+----------|
+| ForwarderHandler | setTreasury           | 1185  | 0       | 0        |
+|------------------+-----------------------+-------+---------+----------|
+| ForwarderHandler | toggleFailure         | 1191  | 0       | 0        |
+|------------------+-----------------------+-------+---------+----------|
+| ForwarderHandler | unauthorizedCall      | 1098  | 0       | 0        |
+|------------------+-----------------------+-------+---------+----------|
+| ForwarderHandler | unpause               | 1222  | 0       | 0        |
+╰------------------+-----------------------+-------+---------+----------╯
+
+[PASS] invariant_FeeConfigWithinCaps() (runs: 256, calls: 16384, reverts: 0)
+
+╭------------------+-----------------------+-------+---------+----------╮
+| Contract         | Selector              | Calls | Reverts | Discards |
++=======================================================================+
+| ForwarderHandler | donate                | 1234  | 0       | 0        |
+|------------------+-----------------------+-------+---------+----------|
+| ForwarderHandler | forward               | 2305  | 0       | 0        |
+|------------------+-----------------------+-------+---------+----------|
+| ForwarderHandler | pause                 | 1168  | 0       | 0        |
+|------------------+-----------------------+-------+---------+----------|
+| ForwarderHandler | replaceVault          | 1210  | 0       | 0        |
+|------------------+-----------------------+-------+---------+----------|
+| ForwarderHandler | rescueNative          | 1160  | 0       | 0        |
+|------------------+-----------------------+-------+---------+----------|
+| ForwarderHandler | rescueUsdc            | 1097  | 0       | 0        |
+|------------------+-----------------------+-------+---------+----------|
+| ForwarderHandler | setFeeConfig          | 1165  | 0       | 0        |
+|------------------+-----------------------+-------+---------+----------|
+| ForwarderHandler | setRoutingMode        | 1155  | 0       | 0        |
+|------------------+-----------------------+-------+---------+----------|
+| ForwarderHandler | setSingleFeeParameter | 1194  | 0       | 0        |
+|------------------+-----------------------+-------+---------+----------|
+| ForwarderHandler | setTreasury           | 1185  | 0       | 0        |
+|------------------+-----------------------+-------+---------+----------|
+| ForwarderHandler | toggleFailure         | 1191  | 0       | 0        |
+|------------------+-----------------------+-------+---------+----------|
+| ForwarderHandler | unauthorizedCall      | 1098  | 0       | 0        |
+|------------------+-----------------------+-------+---------+----------|
+| ForwarderHandler | unpause               | 1222  | 0       | 0        |
+╰------------------+-----------------------+-------+---------+----------╯
+
+[PASS] invariant_ForwarderNeverHoldsShares() (runs: 256, calls: 16384, reverts: 0)
+
+╭------------------+-----------------------+-------+---------+----------╮
+| Contract         | Selector              | Calls | Reverts | Discards |
++=======================================================================+
+| ForwarderHandler | donate                | 1234  | 0       | 0        |
+|------------------+-----------------------+-------+---------+----------|
+| ForwarderHandler | forward               | 2305  | 0       | 0        |
+|------------------+-----------------------+-------+---------+----------|
+| ForwarderHandler | pause                 | 1168  | 0       | 0        |
+|------------------+-----------------------+-------+---------+----------|
+| ForwarderHandler | replaceVault          | 1210  | 0       | 0        |
+|------------------+-----------------------+-------+---------+----------|
+| ForwarderHandler | rescueNative          | 1160  | 0       | 0        |
+|------------------+-----------------------+-------+---------+----------|
+| ForwarderHandler | rescueUsdc            | 1097  | 0       | 0        |
+|------------------+-----------------------+-------+---------+----------|
+| ForwarderHandler | setFeeConfig          | 1165  | 0       | 0        |
+|------------------+-----------------------+-------+---------+----------|
+| ForwarderHandler | setRoutingMode        | 1155  | 0       | 0        |
+|------------------+-----------------------+-------+---------+----------|
+| ForwarderHandler | setSingleFeeParameter | 1194  | 0       | 0        |
+|------------------+-----------------------+-------+---------+----------|
+| ForwarderHandler | setTreasury           | 1185  | 0       | 0        |
+|------------------+-----------------------+-------+---------+----------|
+| ForwarderHandler | toggleFailure         | 1191  | 0       | 0        |
+|------------------+-----------------------+-------+---------+----------|
+| ForwarderHandler | unauthorizedCall      | 1098  | 0       | 0        |
+|------------------+-----------------------+-------+---------+----------|
+| ForwarderHandler | unpause               | 1222  | 0       | 0        |
+╰------------------+-----------------------+-------+---------+----------╯
+
+[PASS] invariant_NoUnexpectedOutcome() (runs: 256, calls: 16384, reverts: 0)
+
+╭------------------+-----------------------+-------+---------+----------╮
+| Contract         | Selector              | Calls | Reverts | Discards |
++=======================================================================+
+| ForwarderHandler | donate                | 1234  | 0       | 0        |
+|------------------+-----------------------+-------+---------+----------|
+| ForwarderHandler | forward               | 2305  | 0       | 0        |
+|------------------+-----------------------+-------+---------+----------|
+| ForwarderHandler | pause                 | 1168  | 0       | 0        |
+|------------------+-----------------------+-------+---------+----------|
+| ForwarderHandler | replaceVault          | 1210  | 0       | 0        |
+|------------------+-----------------------+-------+---------+----------|
+| ForwarderHandler | rescueNative          | 1160  | 0       | 0        |
+|------------------+-----------------------+-------+---------+----------|
+| ForwarderHandler | rescueUsdc            | 1097  | 0       | 0        |
+|------------------+-----------------------+-------+---------+----------|
+| ForwarderHandler | setFeeConfig          | 1165  | 0       | 0        |
+|------------------+-----------------------+-------+---------+----------|
+| ForwarderHandler | setRoutingMode        | 1155  | 0       | 0        |
+|------------------+-----------------------+-------+---------+----------|
+| ForwarderHandler | setSingleFeeParameter | 1194  | 0       | 0        |
+|------------------+-----------------------+-------+---------+----------|
+| ForwarderHandler | setTreasury           | 1185  | 0       | 0        |
+|------------------+-----------------------+-------+---------+----------|
+| ForwarderHandler | toggleFailure         | 1191  | 0       | 0        |
+|------------------+-----------------------+-------+---------+----------|
+| ForwarderHandler | unauthorizedCall      | 1098  | 0       | 0        |
+|------------------+-----------------------+-------+---------+----------|
+| ForwarderHandler | unpause               | 1222  | 0       | 0        |
+╰------------------+-----------------------+-------+---------+----------╯
+
+[PASS] invariant_PausedImpliesZeroFee() (runs: 256, calls: 16384, reverts: 0)
+
+╭------------------+-----------------------+-------+---------+----------╮
+| Contract         | Selector              | Calls | Reverts | Discards |
++=======================================================================+
+| ForwarderHandler | donate                | 1234  | 0       | 0        |
+|------------------+-----------------------+-------+---------+----------|
+| ForwarderHandler | forward               | 2305  | 0       | 0        |
+|------------------+-----------------------+-------+---------+----------|
+| ForwarderHandler | pause                 | 1168  | 0       | 0        |
+|------------------+-----------------------+-------+---------+----------|
+| ForwarderHandler | replaceVault          | 1210  | 0       | 0        |
+|------------------+-----------------------+-------+---------+----------|
+| ForwarderHandler | rescueNative          | 1160  | 0       | 0        |
+|------------------+-----------------------+-------+---------+----------|
+| ForwarderHandler | rescueUsdc            | 1097  | 0       | 0        |
+|------------------+-----------------------+-------+---------+----------|
+| ForwarderHandler | setFeeConfig          | 1165  | 0       | 0        |
+|------------------+-----------------------+-------+---------+----------|
+| ForwarderHandler | setRoutingMode        | 1155  | 0       | 0        |
+|------------------+-----------------------+-------+---------+----------|
+| ForwarderHandler | setSingleFeeParameter | 1194  | 0       | 0        |
+|------------------+-----------------------+-------+---------+----------|
+| ForwarderHandler | setTreasury           | 1185  | 0       | 0        |
+|------------------+-----------------------+-------+---------+----------|
+| ForwarderHandler | toggleFailure         | 1191  | 0       | 0        |
+|------------------+-----------------------+-------+---------+----------|
+| ForwarderHandler | unauthorizedCall      | 1098  | 0       | 0        |
+|------------------+-----------------------+-------+---------+----------|
+| ForwarderHandler | unpause               | 1222  | 0       | 0        |
+╰------------------+-----------------------+-------+---------+----------╯
+
+[PASS] invariant_PrivilegesNeverChange() (runs: 256, calls: 16384, reverts: 0)
+
+╭------------------+-----------------------+-------+---------+----------╮
+| Contract         | Selector              | Calls | Reverts | Discards |
++=======================================================================+
+| ForwarderHandler | donate                | 1234  | 0       | 0        |
+|------------------+-----------------------+-------+---------+----------|
+| ForwarderHandler | forward               | 2305  | 0       | 0        |
+|------------------+-----------------------+-------+---------+----------|
+| ForwarderHandler | pause                 | 1168  | 0       | 0        |
+|------------------+-----------------------+-------+---------+----------|
+| ForwarderHandler | replaceVault          | 1210  | 0       | 0        |
+|------------------+-----------------------+-------+---------+----------|
+| ForwarderHandler | rescueNative          | 1160  | 0       | 0        |
+|------------------+-----------------------+-------+---------+----------|
+| ForwarderHandler | rescueUsdc            | 1097  | 0       | 0        |
+|------------------+-----------------------+-------+---------+----------|
+| ForwarderHandler | setFeeConfig          | 1165  | 0       | 0        |
+|------------------+-----------------------+-------+---------+----------|
+| ForwarderHandler | setRoutingMode        | 1155  | 0       | 0        |
+|------------------+-----------------------+-------+---------+----------|
+| ForwarderHandler | setSingleFeeParameter | 1194  | 0       | 0        |
+|------------------+-----------------------+-------+---------+----------|
+| ForwarderHandler | setTreasury           | 1185  | 0       | 0        |
+|------------------+-----------------------+-------+---------+----------|
+| ForwarderHandler | toggleFailure         | 1191  | 0       | 0        |
+|------------------+-----------------------+-------+---------+----------|
+| ForwarderHandler | unauthorizedCall      | 1098  | 0       | 0        |
+|------------------+-----------------------+-------+---------+----------|
+| ForwarderHandler | unpause               | 1222  | 0       | 0        |
+╰------------------+-----------------------+-------+---------+----------╯
+
+[PASS] invariant_TreasuryAccounting() (runs: 256, calls: 16384, reverts: 0)
+
+╭------------------+-----------------------+-------+---------+----------╮
+| Contract         | Selector              | Calls | Reverts | Discards |
++=======================================================================+
+| ForwarderHandler | donate                | 1234  | 0       | 0        |
+|------------------+-----------------------+-------+---------+----------|
+| ForwarderHandler | forward               | 2305  | 0       | 0        |
+|------------------+-----------------------+-------+---------+----------|
+| ForwarderHandler | pause                 | 1168  | 0       | 0        |
+|------------------+-----------------------+-------+---------+----------|
+| ForwarderHandler | replaceVault          | 1210  | 0       | 0        |
+|------------------+-----------------------+-------+---------+----------|
+| ForwarderHandler | rescueNative          | 1160  | 0       | 0        |
+|------------------+-----------------------+-------+---------+----------|
+| ForwarderHandler | rescueUsdc            | 1097  | 0       | 0        |
+|------------------+-----------------------+-------+---------+----------|
+| ForwarderHandler | setFeeConfig          | 1165  | 0       | 0        |
+|------------------+-----------------------+-------+---------+----------|
+| ForwarderHandler | setRoutingMode        | 1155  | 0       | 0        |
+|------------------+-----------------------+-------+---------+----------|
+| ForwarderHandler | setSingleFeeParameter | 1194  | 0       | 0        |
+|------------------+-----------------------+-------+---------+----------|
+| ForwarderHandler | setTreasury           | 1185  | 0       | 0        |
+|------------------+-----------------------+-------+---------+----------|
+| ForwarderHandler | toggleFailure         | 1191  | 0       | 0        |
+|------------------+-----------------------+-------+---------+----------|
+| ForwarderHandler | unauthorizedCall      | 1098  | 0       | 0        |
+|------------------+-----------------------+-------+---------+----------|
+| ForwarderHandler | unpause               | 1222  | 0       | 0        |
+╰------------------+-----------------------+-------+---------+----------╯
+
+[PASS] invariant_TreasuryIsAlwaysValid() (runs: 256, calls: 16384, reverts: 0)
+
+╭------------------+-----------------------+-------+---------+----------╮
+| Contract         | Selector              | Calls | Reverts | Discards |
++=======================================================================+
+| ForwarderHandler | donate                | 1234  | 0       | 0        |
+|------------------+-----------------------+-------+---------+----------|
+| ForwarderHandler | forward               | 2305  | 0       | 0        |
+|------------------+-----------------------+-------+---------+----------|
+| ForwarderHandler | pause                 | 1168  | 0       | 0        |
+|------------------+-----------------------+-------+---------+----------|
+| ForwarderHandler | replaceVault          | 1210  | 0       | 0        |
+|------------------+-----------------------+-------+---------+----------|
+| ForwarderHandler | rescueNative          | 1160  | 0       | 0        |
+|------------------+-----------------------+-------+---------+----------|
+| ForwarderHandler | rescueUsdc            | 1097  | 0       | 0        |
+|------------------+-----------------------+-------+---------+----------|
+| ForwarderHandler | setFeeConfig          | 1165  | 0       | 0        |
+|------------------+-----------------------+-------+---------+----------|
+| ForwarderHandler | setRoutingMode        | 1155  | 0       | 0        |
+|------------------+-----------------------+-------+---------+----------|
+| ForwarderHandler | setSingleFeeParameter | 1194  | 0       | 0        |
+|------------------+-----------------------+-------+---------+----------|
+| ForwarderHandler | setTreasury           | 1185  | 0       | 0        |
+|------------------+-----------------------+-------+---------+----------|
+| ForwarderHandler | toggleFailure         | 1191  | 0       | 0        |
+|------------------+-----------------------+-------+---------+----------|
+| ForwarderHandler | unauthorizedCall      | 1098  | 0       | 0        |
+|------------------+-----------------------+-------+---------+----------|
+| ForwarderHandler | unpause               | 1222  | 0       | 0        |
+╰------------------+-----------------------+-------+---------+----------╯
+
+[PASS] invariant_UserGetsExactlyAmountMinusFee() (runs: 256, calls: 16384, reverts: 0)
+
+╭------------------+-----------------------+-------+---------+----------╮
+| Contract         | Selector              | Calls | Reverts | Discards |
++=======================================================================+
+| ForwarderHandler | donate                | 1234  | 0       | 0        |
+|------------------+-----------------------+-------+---------+----------|
+| ForwarderHandler | forward               | 2305  | 0       | 0        |
+|------------------+-----------------------+-------+---------+----------|
+| ForwarderHandler | pause                 | 1168  | 0       | 0        |
+|------------------+-----------------------+-------+---------+----------|
+| ForwarderHandler | replaceVault          | 1210  | 0       | 0        |
+|------------------+-----------------------+-------+---------+----------|
+| ForwarderHandler | rescueNative          | 1160  | 0       | 0        |
+|------------------+-----------------------+-------+---------+----------|
+| ForwarderHandler | rescueUsdc            | 1097  | 0       | 0        |
+|------------------+-----------------------+-------+---------+----------|
+| ForwarderHandler | setFeeConfig          | 1165  | 0       | 0        |
+|------------------+-----------------------+-------+---------+----------|
+| ForwarderHandler | setRoutingMode        | 1155  | 0       | 0        |
+|------------------+-----------------------+-------+---------+----------|
+| ForwarderHandler | setSingleFeeParameter | 1194  | 0       | 0        |
+|------------------+-----------------------+-------+---------+----------|
+| ForwarderHandler | setTreasury           | 1185  | 0       | 0        |
+|------------------+-----------------------+-------+---------+----------|
+| ForwarderHandler | toggleFailure         | 1191  | 0       | 0        |
+|------------------+-----------------------+-------+---------+----------|
+| ForwarderHandler | unauthorizedCall      | 1098  | 0       | 0        |
+|------------------+-----------------------+-------+---------+----------|
+| ForwarderHandler | unpause               | 1222  | 0       | 0        |
+╰------------------+-----------------------+-------+---------+----------╯
+
+[PASS] invariant_VaultModeHasVault() (runs: 256, calls: 16384, reverts: 0)
+
+╭------------------+-----------------------+-------+---------+----------╮
+| Contract         | Selector              | Calls | Reverts | Discards |
++=======================================================================+
+| ForwarderHandler | donate                | 1234  | 0       | 0        |
+|------------------+-----------------------+-------+---------+----------|
+| ForwarderHandler | forward               | 2305  | 0       | 0        |
+|------------------+-----------------------+-------+---------+----------|
+| ForwarderHandler | pause                 | 1168  | 0       | 0        |
+|------------------+-----------------------+-------+---------+----------|
+| ForwarderHandler | replaceVault          | 1210  | 0       | 0        |
+|------------------+-----------------------+-------+---------+----------|
+| ForwarderHandler | rescueNative          | 1160  | 0       | 0        |
+|------------------+-----------------------+-------+---------+----------|
+| ForwarderHandler | rescueUsdc            | 1097  | 0       | 0        |
+|------------------+-----------------------+-------+---------+----------|
+| ForwarderHandler | setFeeConfig          | 1165  | 0       | 0        |
+|------------------+-----------------------+-------+---------+----------|
+| ForwarderHandler | setRoutingMode        | 1155  | 0       | 0        |
+|------------------+-----------------------+-------+---------+----------|
+| ForwarderHandler | setSingleFeeParameter | 1194  | 0       | 0        |
+|------------------+-----------------------+-------+---------+----------|
+| ForwarderHandler | setTreasury           | 1185  | 0       | 0        |
+|------------------+-----------------------+-------+---------+----------|
+| ForwarderHandler | toggleFailure         | 1191  | 0       | 0        |
+|------------------+-----------------------+-------+---------+----------|
+| ForwarderHandler | unauthorizedCall      | 1098  | 0       | 0        |
+|------------------+-----------------------+-------+---------+----------|
+| ForwarderHandler | unpause               | 1222  | 0       | 0        |
+╰------------------+-----------------------+-------+---------+----------╯
+
+Suite result: ok. 12 passed; 0 failed; 0 skipped; finished in 40.23s (175.60s CPU time)
+
+Ran 15 tests for test/ForwarderVaultChangeInvariant.t.sol:ForwarderVaultChangeInvariantTest
+[PASS] invariant_ActiveVaultOnlyChangesThroughExecute() (runs: 256, calls: 16384, reverts: 0)
+
+╭--------------------+------------------+-------+---------+----------╮
+| Contract           | Selector         | Calls | Reverts | Discards |
++====================================================================+
+| VaultChangeHandler | cancel           | 967   | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | execute          | 1980  | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | forward          | 906   | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | propose          | 1925  | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | renounceGuardian | 972   | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | setFees          | 950   | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | setGuardian      | 1010  | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | setRoutingMode   | 970   | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | setTreasury      | 929   | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | toggleFailure    | 1965  | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | togglePause      | 941   | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | unauthorizedCall | 961   | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | warp             | 1908  | 0       | 0        |
+╰--------------------+------------------+-------+---------+----------╯
+
+[PASS] invariant_Allowances() (runs: 256, calls: 16384, reverts: 0)
+
+╭--------------------+------------------+-------+---------+----------╮
+| Contract           | Selector         | Calls | Reverts | Discards |
++====================================================================+
+| VaultChangeHandler | cancel           | 967   | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | execute          | 1980  | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | forward          | 906   | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | propose          | 1925  | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | renounceGuardian | 972   | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | setFees          | 950   | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | setGuardian      | 1010  | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | setRoutingMode   | 970   | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | setTreasury      | 929   | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | toggleFailure    | 1965  | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | togglePause      | 941   | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | unauthorizedCall | 961   | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | warp             | 1908  | 0       | 0        |
+╰--------------------+------------------+-------+---------+----------╯
+
+[PASS] invariant_DelayIsImmutable() (runs: 256, calls: 16384, reverts: 0)
+
+╭--------------------+------------------+-------+---------+----------╮
+| Contract           | Selector         | Calls | Reverts | Discards |
++====================================================================+
+| VaultChangeHandler | cancel           | 967   | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | execute          | 1980  | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | forward          | 906   | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | propose          | 1925  | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | renounceGuardian | 972   | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | setFees          | 950   | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | setGuardian      | 1010  | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | setRoutingMode   | 970   | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | setTreasury      | 929   | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | toggleFailure    | 1965  | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | togglePause      | 941   | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | unauthorizedCall | 961   | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | warp             | 1908  | 0       | 0        |
+╰--------------------+------------------+-------+---------+----------╯
+
+[PASS] invariant_ExecutableAtIsProposalTimePlusDelay() (runs: 256, calls: 16384, reverts: 0)
+
+╭--------------------+------------------+-------+---------+----------╮
+| Contract           | Selector         | Calls | Reverts | Discards |
++====================================================================+
+| VaultChangeHandler | cancel           | 967   | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | execute          | 1980  | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | forward          | 906   | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | propose          | 1925  | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | renounceGuardian | 972   | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | setFees          | 950   | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | setGuardian      | 1010  | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | setRoutingMode   | 970   | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | setTreasury      | 929   | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | toggleFailure    | 1965  | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | togglePause      | 941   | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | unauthorizedCall | 961   | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | warp             | 1908  | 0       | 0        |
+╰--------------------+------------------+-------+---------+----------╯
+
+[PASS] invariant_FailedExecutionKeepsState() (runs: 256, calls: 16384, reverts: 0)
+
+╭--------------------+------------------+-------+---------+----------╮
+| Contract           | Selector         | Calls | Reverts | Discards |
++====================================================================+
+| VaultChangeHandler | cancel           | 967   | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | execute          | 1980  | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | forward          | 906   | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | propose          | 1925  | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | renounceGuardian | 972   | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | setFees          | 950   | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | setGuardian      | 1010  | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | setRoutingMode   | 970   | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | setTreasury      | 929   | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | toggleFailure    | 1965  | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | togglePause      | 941   | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | unauthorizedCall | 961   | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | warp             | 1908  | 0       | 0        |
+╰--------------------+------------------+-------+---------+----------╯
+
+[PASS] invariant_LifecycleAuthorization() (runs: 256, calls: 16384, reverts: 0)
+
+╭--------------------+------------------+-------+---------+----------╮
+| Contract           | Selector         | Calls | Reverts | Discards |
++====================================================================+
+| VaultChangeHandler | cancel           | 967   | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | execute          | 1980  | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | forward          | 906   | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | propose          | 1925  | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | renounceGuardian | 972   | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | setFees          | 950   | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | setGuardian      | 1010  | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | setRoutingMode   | 970   | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | setTreasury      | 929   | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | toggleFailure    | 1965  | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | togglePause      | 941   | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | unauthorizedCall | 961   | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | warp             | 1908  | 0       | 0        |
+╰--------------------+------------------+-------+---------+----------╯
+
+[PASS] invariant_LifecycleKeepsFeesTreasuryAndPause() (runs: 256, calls: 16384, reverts: 0)
+
+╭--------------------+------------------+-------+---------+----------╮
+| Contract           | Selector         | Calls | Reverts | Discards |
++====================================================================+
+| VaultChangeHandler | cancel           | 967   | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | execute          | 1980  | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | forward          | 906   | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | propose          | 1925  | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | renounceGuardian | 972   | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | setFees          | 950   | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | setGuardian      | 1010  | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | setRoutingMode   | 970   | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | setTreasury      | 929   | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | toggleFailure    | 1965  | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | togglePause      | 941   | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | unauthorizedCall | 961   | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | warp             | 1908  | 0       | 0        |
+╰--------------------+------------------+-------+---------+----------╯
+
+[PASS] invariant_NoExecutionBeforeTheDelay() (runs: 256, calls: 16384, reverts: 0)
+
+╭--------------------+------------------+-------+---------+----------╮
+| Contract           | Selector         | Calls | Reverts | Discards |
++====================================================================+
+| VaultChangeHandler | cancel           | 967   | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | execute          | 1980  | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | forward          | 906   | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | propose          | 1925  | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | renounceGuardian | 972   | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | setFees          | 950   | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | setGuardian      | 1010  | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | setRoutingMode   | 970   | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | setTreasury      | 929   | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | toggleFailure    | 1965  | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | togglePause      | 941   | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | unauthorizedCall | 961   | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | warp             | 1908  | 0       | 0        |
+╰--------------------+------------------+-------+---------+----------╯
+
+[PASS] invariant_OutcomesMatchModel() (runs: 256, calls: 16384, reverts: 0)
+
+╭--------------------+------------------+-------+---------+----------╮
+| Contract           | Selector         | Calls | Reverts | Discards |
++====================================================================+
+| VaultChangeHandler | cancel           | 967   | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | execute          | 1980  | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | forward          | 906   | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | propose          | 1925  | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | renounceGuardian | 972   | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | setFees          | 950   | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | setGuardian      | 1010  | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | setRoutingMode   | 970   | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | setTreasury      | 929   | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | toggleFailure    | 1965  | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | togglePause      | 941   | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | unauthorizedCall | 961   | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | warp             | 1908  | 0       | 0        |
+╰--------------------+------------------+-------+---------+----------╯
+
+[PASS] invariant_PendingChangeIsNeverTampered() (runs: 256, calls: 16384, reverts: 0)
+
+╭--------------------+------------------+-------+---------+----------╮
+| Contract           | Selector         | Calls | Reverts | Discards |
++====================================================================+
+| VaultChangeHandler | cancel           | 967   | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | execute          | 1980  | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | forward          | 906   | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | propose          | 1925  | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | renounceGuardian | 972   | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | setFees          | 950   | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | setGuardian      | 1010  | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | setRoutingMode   | 970   | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | setTreasury      | 929   | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | toggleFailure    | 1965  | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | togglePause      | 941   | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | unauthorizedCall | 961   | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | warp             | 1908  | 0       | 0        |
+╰--------------------+------------------+-------+---------+----------╯
+
+[PASS] invariant_PendingVaultAndTimestampAreConsistent() (runs: 256, calls: 16384, reverts: 0)
+
+╭--------------------+------------------+-------+---------+----------╮
+| Contract           | Selector         | Calls | Reverts | Discards |
++====================================================================+
+| VaultChangeHandler | cancel           | 967   | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | execute          | 1980  | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | forward          | 906   | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | propose          | 1925  | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | renounceGuardian | 972   | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | setFees          | 950   | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | setGuardian      | 1010  | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | setRoutingMode   | 970   | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | setTreasury      | 929   | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | toggleFailure    | 1965  | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | togglePause      | 941   | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | unauthorizedCall | 961   | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | warp             | 1908  | 0       | 0        |
+╰--------------------+------------------+-------+---------+----------╯
+
+[PASS] invariant_PendingVaultHasNoAllowance() (runs: 256, calls: 16384, reverts: 0)
+
+╭--------------------+------------------+-------+---------+----------╮
+| Contract           | Selector         | Calls | Reverts | Discards |
++====================================================================+
+| VaultChangeHandler | cancel           | 967   | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | execute          | 1980  | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | forward          | 906   | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | propose          | 1925  | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | renounceGuardian | 972   | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | setFees          | 950   | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | setGuardian      | 1010  | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | setRoutingMode   | 970   | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | setTreasury      | 929   | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | toggleFailure    | 1965  | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | togglePause      | 941   | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | unauthorizedCall | 961   | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | warp             | 1908  | 0       | 0        |
+╰--------------------+------------------+-------+---------+----------╯
+
+[PASS] invariant_PendingVaultIsNeverTheActiveVault() (runs: 256, calls: 16384, reverts: 0)
+
+╭--------------------+------------------+-------+---------+----------╮
+| Contract           | Selector         | Calls | Reverts | Discards |
++====================================================================+
+| VaultChangeHandler | cancel           | 967   | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | execute          | 1980  | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | forward          | 906   | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | propose          | 1925  | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | renounceGuardian | 972   | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | setFees          | 950   | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | setGuardian      | 1010  | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | setRoutingMode   | 970   | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | setTreasury      | 929   | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | toggleFailure    | 1965  | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | togglePause      | 941   | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | unauthorizedCall | 961   | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | warp             | 1908  | 0       | 0        |
+╰--------------------+------------------+-------+---------+----------╯
+
+[PASS] invariant_RolesMatchModel() (runs: 256, calls: 16384, reverts: 0)
+
+╭--------------------+------------------+-------+---------+----------╮
+| Contract           | Selector         | Calls | Reverts | Discards |
++====================================================================+
+| VaultChangeHandler | cancel           | 967   | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | execute          | 1980  | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | forward          | 906   | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | propose          | 1925  | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | renounceGuardian | 972   | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | setFees          | 950   | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | setGuardian      | 1010  | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | setRoutingMode   | 970   | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | setTreasury      | 929   | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | toggleFailure    | 1965  | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | togglePause      | 941   | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | unauthorizedCall | 961   | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | warp             | 1908  | 0       | 0        |
+╰--------------------+------------------+-------+---------+----------╯
+
+[PASS] invariant_VaultModeHasVault() (runs: 256, calls: 16384, reverts: 0)
+
+╭--------------------+------------------+-------+---------+----------╮
+| Contract           | Selector         | Calls | Reverts | Discards |
++====================================================================+
+| VaultChangeHandler | cancel           | 967   | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | execute          | 1980  | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | forward          | 906   | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | propose          | 1925  | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | renounceGuardian | 972   | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | setFees          | 950   | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | setGuardian      | 1010  | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | setRoutingMode   | 970   | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | setTreasury      | 929   | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | toggleFailure    | 1965  | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | togglePause      | 941   | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | unauthorizedCall | 961   | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | warp             | 1908  | 0       | 0        |
+╰--------------------+------------------+-------+---------+----------╯
+
+Suite result: ok. 15 passed; 0 failed; 0 skipped; finished in 40.19s (207.96s CPU time)
+
+Ran 28 test suites in 40.24s (175.23s CPU time): 385 tests passed, 0 failed, 0 skipped (385 total tests)
+
+real	0m58.762s
+user	4m44.407s
+sys	0m1.309s

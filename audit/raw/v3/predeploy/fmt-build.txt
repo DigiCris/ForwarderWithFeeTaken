@@ -1,0 +1,198 @@
+== commit ae8cd1b
+== sha256 22aeb8e536cabe68d5ba3005decb1f43179d38ffc261b032a14085432ffd3d6b  src/Forwarder.sol
+== forge fmt --check
+fmt: OK (no diff)
+== forge build --sizes
+Compiling 48 files with Solc 0.8.30
+Solc 0.8.30 finished in 21.90s
+Compiler run successful with warnings:
+Warning (2519): This declaration shadows an existing declaration.
+   --> test/ForwarderVaultChangeFuzz.t.sol:160:9:
+    |
+160 |         address[4] memory pool = [guardian, guardian2, makeAddr("g3"), feeManager];
+    |         ^^^^^^^^^^^^^^^^^^^^^^
+Note: The shadowed declaration is here:
+   --> test/ForwarderVaultChangeFuzz.t.sol:269:5:
+    |
+269 |     MockVault[3] internal pool;
+    |     ^^^^^^^^^^^^^^^^^^^^^^^^^^
+Warning (5159): "selfdestruct" has been deprecated. Note that, starting from the Cancun hard fork, the underlying opcode no longer deletes the code and data associated with an account and only transfers its Ether to the beneficiary, unless executed in the same transaction in which the contract was created (see EIP-6780). Any use in newly deployed contracts is strongly discouraged even if the new behavior is taken into account. Future changes to the EVM might further reduce the functionality of the opcode.
+  --> test/mocks/MockTokens.sol:79:9:
+   |
+79 |         selfdestruct(target);
+   |         ^^^^^^^^^^^^
+╭-----------------------+------------------+-------------------+--------------------+---------------------╮
+| Contract              | Runtime Size (B) | Initcode Size (B) | Runtime Margin (B) | Initcode Margin (B) |
++=========================================================================================================+
+| Address               | 85               | 135               | 24,491             | 49,017              |
+|-----------------------+------------------+-------------------+--------------------+---------------------|
+| AssetSwitchVault      | 6,014            | 6,699             | 18,562             | 42,453              |
+|-----------------------+------------------+-------------------+--------------------+---------------------|
+| Errors                | 85               | 135               | 24,491             | 49,017              |
+|-----------------------+------------------+-------------------+--------------------+---------------------|
+| ForceSendNative       | 62               | 86                | 24,514             | 49,066              |
+|-----------------------+------------------+-------------------+--------------------+---------------------|
+| Forwarder             | 14,330           | 18,483            | 10,246             | 30,669              |
+|-----------------------+------------------+-------------------+--------------------+---------------------|
+| ForwarderDeployConfig | 85               | 135               | 24,491             | 49,017              |
+|-----------------------+------------------+-------------------+--------------------+---------------------|
+| LowLevelCall          | 85               | 135               | 24,491             | 49,017              |
+|-----------------------+------------------+-------------------+--------------------+---------------------|
+| Math                  | 85               | 135               | 24,491             | 49,017              |
+|-----------------------+------------------+-------------------+--------------------+---------------------|
+| MockERC20             | 1,896            | 2,610             | 22,680             | 46,542              |
+|-----------------------+------------------+-------------------+--------------------+---------------------|
+| MockFalseReturnToken  | 1,851            | 2,320             | 22,725             | 46,832              |
+|-----------------------+------------------+-------------------+--------------------+---------------------|
+| MockNoReturnToken     | 1,414            | 1,442             | 23,162             | 47,710              |
+|-----------------------+------------------+-------------------+--------------------+---------------------|
+| MockUSDC              | 2,522            | 2,987             | 22,054             | 46,165              |
+|-----------------------+------------------+-------------------+--------------------+---------------------|
+| MockVault             | 6,008            | 6,725             | 18,568             | 42,427              |
+|-----------------------+------------------+-------------------+--------------------+---------------------|
+| NoReturnDataVault     | 6,105            | 6,825             | 18,471             | 42,327              |
+|-----------------------+------------------+-------------------+--------------------+---------------------|
+| NotAVault             | 121              | 147               | 24,455             | 49,005              |
+|-----------------------+------------------+-------------------+--------------------+---------------------|
+| Panic                 | 85               | 135               | 24,491             | 49,017              |
+|-----------------------+------------------+-------------------+--------------------+---------------------|
+| ReentrantToken        | 3,412            | 3,879             | 21,164             | 45,273              |
+|-----------------------+------------------+-------------------+--------------------+---------------------|
+| ReentrantVault        | 7,558            | 8,278             | 17,018             | 40,874              |
+|-----------------------+------------------+-------------------+--------------------+---------------------|
+| RejectNative          | 122              | 148               | 24,454             | 49,004              |
+|-----------------------+------------------+-------------------+--------------------+---------------------|
+| SafeCast              | 85               | 135               | 24,491             | 49,017              |
+|-----------------------+------------------+-------------------+--------------------+---------------------|
+| SafeERC20             | 85               | 135               | 24,491             | 49,017              |
+|-----------------------+------------------+-------------------+--------------------+---------------------|
+| TransientSlot         | 85               | 135               | 24,491             | 49,017              |
+╰-----------------------+------------------+-------------------+--------------------+---------------------╯
+note[screaming-snake-case-immutable]: immutables should use SCREAMING_SNAKE_CASE
+  --> test/invariants/ForwarderHandler.sol:26:32
+   |
+26 |     Forwarder public immutable forwarder;
+   |                                ^^^^^^^^^ help: consider using: `FORWARDER`
+   |
+   = help: https://book.getfoundry.sh/reference/forge/forge-lint#screaming-snake-case-immutable
+note[screaming-snake-case-immutable]: immutables should use SCREAMING_SNAKE_CASE
+  --> test/invariants/ForwarderHandler.sol:27:31
+   |
+27 |     MockUSDC public immutable usdc;
+   |                               ^^^^ help: consider using: `USDC`
+   |
+   = help: https://book.getfoundry.sh/reference/forge/forge-lint#screaming-snake-case-immutable
+note[screaming-snake-case-immutable]: immutables should use SCREAMING_SNAKE_CASE
+  --> test/invariants/ForwarderHandler.sol:28:30
+   |
+28 |     address public immutable admin;
+   |                              ^^^^^ help: consider using: `ADMIN`
+   |
+   = help: https://book.getfoundry.sh/reference/forge/forge-lint#screaming-snake-case-immutable
+warning[unsafe-typecast]: typecasts that can truncate values should be checked
+   --> test/ForwarderFuzz.t.sol:241:64
+    |
+241 |             abi.encodeCall(Forwarder.proposeTreasury, (address(uint160(value | 1)))),
+    |                                                                ^^^^^^^^^^^^^^^^^^
+    |
+    = note: consider disabling this lint if you're certain the cast is safe
+            // casting to 'uint160' is safe because [explain why]
+            // forge-lint: disable-next-line(unsafe-typecast)
+    = help: https://book.getfoundry.sh/reference/forge/forge-lint#unsafe-typecast
+warning[unsafe-typecast]: typecasts that can truncate values should be checked
+   --> test/ForwarderFuzz.t.sol:244:70
+    |
+244 |             abi.encodeCall(Forwarder.proposeVault, (IERC4626(address(uint160(value))))),
+    |                                                                      ^^^^^^^^^^^^^^
+    |
+    = note: consider disabling this lint if you're certain the cast is safe
+            // casting to 'uint160' is safe because [explain why]
+            // forge-lint: disable-next-line(unsafe-typecast)
+    = help: https://book.getfoundry.sh/reference/forge/forge-lint#unsafe-typecast
+note[unused-import]: unused imports should be removed
+ --> test/ForwarderInvariant.t.sol:7:9
+  |
+7 | import {Forwarder} from "../src/Forwarder.sol";
+  |         ^^^^^^^^^
+  |
+  = help: https://book.getfoundry.sh/reference/forge/forge-lint#unused-import
+note[screaming-snake-case-immutable]: immutables should use SCREAMING_SNAKE_CASE
+  --> test/invariants/VaultChangeHandler.sol:25:32
+   |
+25 |     Forwarder public immutable forwarder;
+   |                                ^^^^^^^^^ help: consider using: `FORWARDER`
+   |
+   = help: https://book.getfoundry.sh/reference/forge/forge-lint#screaming-snake-case-immutable
+note[screaming-snake-case-immutable]: immutables should use SCREAMING_SNAKE_CASE
+  --> test/invariants/VaultChangeHandler.sol:26:31
+   |
+26 |     MockUSDC public immutable usdc;
+   |                               ^^^^ help: consider using: `USDC`
+   |
+   = help: https://book.getfoundry.sh/reference/forge/forge-lint#screaming-snake-case-immutable
+note[screaming-snake-case-immutable]: immutables should use SCREAMING_SNAKE_CASE
+  --> test/invariants/VaultChangeHandler.sol:27:30
+   |
+27 |     address public immutable admin;
+   |                              ^^^^^ help: consider using: `ADMIN`
+   |
+   = help: https://book.getfoundry.sh/reference/forge/forge-lint#screaming-snake-case-immutable
+note[screaming-snake-case-immutable]: immutables should use SCREAMING_SNAKE_CASE
+  --> test/invariants/VaultChangeHandler.sol:28:30
+   |
+28 |     address public immutable feeManager;
+   |                              ^^^^^^^^^^ help: consider using: `FEE_MANAGER`
+   |
+   = help: https://book.getfoundry.sh/reference/forge/forge-lint#screaming-snake-case-immutable
+note[named-struct-fields]: prefer initializing structs with named fields
+   --> test/ForwarderVaultChangeFuzz.t.sol:282:26
+    |
+282 |         Model memory m = Model(address(vault), address(0), 0, DIRECT_DIRECT);
+    |                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: consider using named fields: `Model({ vault: address(vault), pending: address(0), executableAt: 0, mode: DIRECT_DIRECT })`
+    |
+    = help: https://book.getfoundry.sh/reference/forge/forge-lint#named-struct-fields
+warning[unsafe-typecast]: typecasts that can truncate values should be checked
+   --> test/fork/ForkTestBase.sol:736:18
+    |
+736 |         assertEq(bytes4(reason), ERC4626.ERC4626ExceededMaxDeposit.selector);
+    |                  ^^^^^^^^^^^^^^
+    |
+    = note: consider disabling this lint if you're certain the cast is safe
+            // casting to 'bytes4' is safe because [explain why]
+            // forge-lint: disable-next-line(unsafe-typecast)
+    = help: https://book.getfoundry.sh/reference/forge/forge-lint#unsafe-typecast
+warning[incorrect-shift]: the order of args in a shift operation is incorrect
+   --> test/invariants/VaultChangeHandler.sol:409:27
+    |
+409 |         uint8 bit = uint8(1 << kind);
+    |                           ^^^^^^^^^
+    |
+    = help: https://book.getfoundry.sh/reference/forge/forge-lint#incorrect-shift
+note[mixed-case-variable]: mutable variables should use mixedCase
+  --> test/utils/ForwarderTestBase.sol:49:22
+   |
+49 |     bytes32 internal FEE_MANAGER_ROLE;
+   |                      ^^^^^^^^^^^^^^^^ help: consider using: `feeManagerRole`
+   |
+   = help: https://book.getfoundry.sh/reference/forge/forge-lint#mixed-case-variable
+note[mixed-case-variable]: mutable variables should use mixedCase
+  --> test/utils/ForwarderTestBase.sol:50:22
+   |
+50 |     bytes32 internal DEFAULT_ADMIN_ROLE;
+   |                      ^^^^^^^^^^^^^^^^^^ help: consider using: `defaultAdminRole`
+   |
+   = help: https://book.getfoundry.sh/reference/forge/forge-lint#mixed-case-variable
+note[mixed-case-variable]: mutable variables should use mixedCase
+  --> test/utils/ForwarderTestBase.sol:51:22
+   |
+51 |     bytes32 internal VAULT_GUARDIAN_ROLE;
+   |                      ^^^^^^^^^^^^^^^^^^^ help: consider using: `vaultGuardianRole`
+   |
+   = help: https://book.getfoundry.sh/reference/forge/forge-lint#mixed-case-variable
+note[unused-import]: unused imports should be removed
+ --> test/invariants/VaultChangeHandler.sol:6:9
+  |
+6 | import {IERC20} from "@openzeppelin/contracts/token/ERC20/IERC20.sol";
+  |         ^^^^^^
+  |
+  = help: https://book.getfoundry.sh/reference/forge/forge-lint#unused-import
