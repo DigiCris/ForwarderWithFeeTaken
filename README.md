@@ -11,7 +11,10 @@ to the Forwarder and calls `forward(token, amount, recipient)`; the Forwarder:
    the treasury, as USDC or as vault shares. This step is best effort: if it fails the USDC stays in the contract and
    the next `forward` retries.
 
-The contract is not upgradeable. The full specification as implemented, the trust model and the audit results are in
+The contract is not upgradeable.
+
+**Deployed on Base mainnet:** [`0xA7A2Be29D45F0cD465BF4F8775931bfb096d5647`](https://basescan.org/address/0xa7a2be29d45f0cd465bf4f8775931bfb096d5647#code)
+(verified; block 52,925,346; initial routing `DIRECT_DIRECT`, fees off). The full specification as implemented, the trust model and the audit results are in
 [audit/FINAL_AUDIT_REPORT.md](audit/FINAL_AUDIT_REPORT.md); the test matrix is in
 [audit/TEST_MATRIX.md](audit/TEST_MATRIX.md).
 
