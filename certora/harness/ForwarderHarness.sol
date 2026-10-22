@@ -15,10 +15,18 @@ contract ForwarderHarness is Forwarder {
         address initialTreasury,
         IERC4626 initialVault,
         RoutingMode initialRoutingMode,
-        address[] memory initialFeeManagers
+        address[] memory initialFeeManagers,
+        address[] memory initialVaultGuardians
     )
         Forwarder(
-            usdc, initialAdmin, initialAdminDelay, initialTreasury, initialVault, initialRoutingMode, initialFeeManagers
+            usdc,
+            initialAdmin,
+            initialAdminDelay,
+            initialTreasury,
+            initialVault,
+            initialRoutingMode,
+            initialFeeManagers,
+            initialVaultGuardians
         )
     {}
 

@@ -9,6 +9,10 @@ import {Forwarder} from "../src/Forwarder.sol";
 import {MockUSDC} from "../test/mocks/MockUSDC.sol";
 import {MockVault} from "../test/mocks/MockVault.sol";
 
+interface IHevm {
+    function warp(uint256 newTimestamp) external;
+}
+
 /// @dev Account controlled by the harness; `msg.sender` of every call it relays.
 contract Actor {
     address internal immutable owner;
@@ -33,6 +37,7 @@ contract ForwarderEchidna {
     uint256 internal constant SHARE_SCALE = 1e12;
     uint256 internal constant TEST_AMOUNT = 1_000;
     uint256 internal constant MAX = type(uint256).max;
+    IHevm internal constant HEVM = IHevm(0x7109709ECfa91a80626fF3989D68f67F5b1DD12D);
 
     MockUSDC internal usdc;
     Forwarder internal forwarder;
@@ -87,7 +92,8 @@ contract ForwarderEchidna {
             treasuries[0],
             IERC4626(address(0)),
             Forwarder.RoutingMode.DIRECT_DIRECT,
-            managers
+            managers,
+            new address[](0)
         );
         feeManagerRole = forwarder.FEE_MANAGER_ROLE();
         adminRole = forwarder.DEFAULT_ADMIN_ROLE();
@@ -119,13 +125,20 @@ contract ForwarderEchidna {
         }
     }
 
+    /// @dev Vault replacement through the whole lifecycle in one step: propose, wait the delay, execute. The targeted
+    /// lifecycle campaign is echidna/ForwarderVaultChangeEchidna.sol.
     function _adminSetVault(MockVault candidate) internal returns (bool success) {
-        usdc.mint(address(admin), TEST_AMOUNT);
-        admin.exec(address(usdc), abi.encodeCall(IERC20.approve, (address(forwarder), TEST_AMOUNT)));
+        usdc.mint(address(admin), 2 * TEST_AMOUNT);
+        admin.exec(address(usdc), abi.encodeCall(IERC20.approve, (address(forwarder), 2 * TEST_AMOUNT)));
         address previous = address(forwarder.vault());
         uint256 adminBefore = usdc.balanceOf(address(admin));
         uint256 forwarderBefore = usdc.balanceOf(address(forwarder));
-        success = _call(admin, abi.encodeCall(Forwarder.setVault, (IERC4626(address(candidate)))));
+        success = _call(admin, abi.encodeCall(Forwarder.proposeVault, (IERC4626(address(candidate)))));
+        if (success) {
+            HEVM.warp(forwarder.pendingVaultExecutableAt());
+            success = _call(admin, abi.encodeCall(Forwarder.executeVaultChange, ()));
+            if (!success) unexpectedReverts++;
+        }
         if (success) {
             if (previous != address(0)) expectedAllowance[previous] = 0;
             expectedAllowance[address(candidate)] = _usesVault(forwarder.routingMode()) ? MAX : 0;
@@ -239,7 +252,8 @@ contract ForwarderEchidna {
 
     function setVault(uint8 seed) public {
         MockVault candidate = vaults[seed % 3];
-        bool healthy = seed % 3 != 2 && !candidate.depositReverts() && !candidate.paused();
+        bool healthy = seed % 3 != 2 && !candidate.depositReverts() && !candidate.paused()
+            && address(candidate) != address(forwarder.vault());
         bool success = _adminSetVault(candidate);
         if (success != healthy) success ? unexpectedSuccesses++ : unexpectedReverts++;
     }
@@ -277,7 +291,7 @@ contract ForwarderEchidna {
         uint8 s = selectorSeed % (asFeeManager ? 8 : 14);
         bytes memory data;
         if (s == 0) data = abi.encodeCall(Forwarder.setTreasury, (address(actor)));
-        else if (s == 1) data = abi.encodeCall(Forwarder.setVault, (IERC4626(address(vaults[0]))));
+        else if (s == 1) data = abi.encodeCall(Forwarder.proposeVault, (IERC4626(address(vaults[1]))));
         else if (s == 2) data = abi.encodeCall(Forwarder.setRoutingMode, (Forwarder.RoutingMode(value % 4)));
         else if (s == 3) data = abi.encodeCall(Forwarder.rescueToken, (IERC20(address(usdc))));
         else if (s == 4) data = abi.encodeCall(Forwarder.rescueNative, ());

@@ -157,6 +157,7 @@ broadcast/**/dry-run/
 # Slither / Echidna (crytic-compile)
 crytic-export/
 echidna/corpus/
+echidna/corpus-v2/
 
 # Certora
 .certora_internal/
