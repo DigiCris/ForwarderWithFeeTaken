@@ -72,4 +72,56 @@ contract ForwarderHarness is Forwarder {
             value := model
         }
     }
+
+    // Pending fee configuration and overrides, field by field (V3).
+
+    function pendingLowerFeeModel() external view returns (FeeModel) {
+        return pendingFeeConfig.lowerFeeModel;
+    }
+
+    function pendingUpperFeeModel() external view returns (FeeModel) {
+        return pendingFeeConfig.upperFeeModel;
+    }
+
+    function pendingThreshold() external view returns (uint256) {
+        return pendingFeeConfig.threshold;
+    }
+
+    function pendingFixedFee() external view returns (uint256) {
+        return pendingFeeConfig.fixedFee;
+    }
+
+    function pendingVariableFee() external view returns (uint256) {
+        return pendingFeeConfig.variableFee;
+    }
+
+    function pendingFeeExecutableAt() external view returns (uint256) {
+        return pendingFeeConfig.executableAt;
+    }
+
+    function pendingLowerFeeModelRaw() external view returns (uint8 value) {
+        FeeModel model = pendingFeeConfig.lowerFeeModel;
+        assembly ("memory-safe") {
+            value := model
+        }
+    }
+
+    function pendingUpperFeeModelRaw() external view returns (uint8 value) {
+        FeeModel model = pendingFeeConfig.upperFeeModel;
+        assembly ("memory-safe") {
+            value := model
+        }
+    }
+
+    function overrideFixed(address recipient) external view returns (uint256) {
+        return userFeeOverrides[recipient].fixedFee;
+    }
+
+    function overrideVariable(address recipient) external view returns (uint256) {
+        return userFeeOverrides[recipient].variableFee;
+    }
+
+    function overrideUntil(address recipient) external view returns (uint256) {
+        return userFeeOverrides[recipient].validUntil;
+    }
 }
