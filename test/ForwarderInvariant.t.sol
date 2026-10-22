@@ -85,6 +85,7 @@ contract ForwarderInvariantTest is ForwarderTestBase {
             assertEq(forwarder.calculateFee(0), 0);
             assertEq(forwarder.calculateFee(forwarder.threshold()), 0);
             assertEq(forwarder.calculateFee(1e13), 0);
+            assertEq(forwarder.calculateFeeFor(user, 1e13), 0);
         }
     }
 

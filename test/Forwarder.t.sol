@@ -30,6 +30,8 @@ contract ForwarderConstructorTest is ForwarderTestBase {
         assertEq(forwarder.VAULT_GUARDIAN_ROLE(), keccak256("VAULT_GUARDIAN_ROLE"));
         assertEq(forwarder.VAULT_CHANGE_DELAY(), 72 hours);
         assertEq(forwarder.VAULT_CHANGE_DELAY(), 259_200);
+        assertEq(forwarder.FEE_CHANGE_DELAY(), 72 hours);
+        assertEq(forwarder.TREASURY_CHANGE_DELAY(), 72 hours);
     }
 
     function test_InitialState() public view {
@@ -65,8 +67,15 @@ contract ForwarderConstructorTest is ForwarderTestBase {
         assertEq(address(forwarder.pendingVault()), address(0));
         assertEq(forwarder.pendingVaultExecutableAt(), 0);
 
+        assertEq(_pendingFeeExecutableAt(), 0);
+        assertEq(forwarder.pendingTreasury(), address(0));
+        assertEq(forwarder.pendingTreasuryExecutableAt(), 0);
+        (uint256 overrideFixed, uint256 overrideVariable, uint256 validUntil) = forwarder.userFeeOverrides(user);
+        assertEq(overrideFixed + overrideVariable + validUntil, 0);
+
         assertEq(usdc.allowance(address(forwarder), address(vault)), 0);
         assertEq(forwarder.calculateFee(1_000_000e6), 0);
+        assertEq(forwarder.calculateFeeFor(user, 1_000_000e6), 0);
     }
 
     function test_DeploymentHealthCheckUsesAndRefundsDeployerFunds() public view {
@@ -357,21 +366,19 @@ contract ForwarderFeeTest is ForwarderTestBase {
     }
 
     function test_VariableFeeAtMaximumIsAccepted() public {
-        vm.prank(feeManager);
-        forwarder.setVariableFee(10_000);
+        _setFees(NONE, NONE, 0, 0, 10_000);
         assertEq(forwarder.variableFee(), 10_000);
     }
 
     function test_RevertWhen_VariableFeeAboveMaximum() public {
         vm.startPrank(feeManager);
         vm.expectRevert(abi.encodeWithSelector(Forwarder.VariableFeeTooHigh.selector, 10_001));
-        forwarder.setVariableFee(10_001);
-        vm.expectRevert(abi.encodeWithSelector(Forwarder.VariableFeeTooHigh.selector, 10_001));
-        forwarder.setFeeConfig(PERCENT, PERCENT, 0, 0, 10_001);
+        forwarder.proposeFeeConfig(PERCENT, PERCENT, 0, 0, 10_001);
         vm.expectRevert(abi.encodeWithSelector(Forwarder.VariableFeeTooHigh.selector, MAX));
-        forwarder.setVariableFee(MAX);
+        forwarder.proposeFeeConfig(NONE, NONE, 0, 0, MAX);
         vm.stopPrank();
         assertEq(forwarder.variableFee(), 0);
+        assertEq(_pendingFeeExecutableAt(), 0);
     }
 
     function test_FixedFeeValues() public {
@@ -385,11 +392,12 @@ contract ForwarderFeeTest is ForwarderTestBase {
     function test_RevertWhen_FixedFeeAboveMaximum() public {
         vm.startPrank(feeManager);
         vm.expectRevert(abi.encodeWithSelector(Forwarder.FixedFeeTooHigh.selector, 10e6 + 1));
-        forwarder.setFixedFee(10e6 + 1);
-        vm.expectRevert(abi.encodeWithSelector(Forwarder.FixedFeeTooHigh.selector, 10e6 + 1));
-        forwarder.setFeeConfig(FIXED, FIXED, 0, 10e6 + 1, 0);
+        forwarder.proposeFeeConfig(FIXED, FIXED, 0, 10e6 + 1, 0);
+        vm.expectRevert(abi.encodeWithSelector(Forwarder.FixedFeeTooHigh.selector, MAX));
+        forwarder.proposeFeeConfig(NONE, NONE, 0, MAX, 0);
         vm.stopPrank();
         assertEq(forwarder.fixedFee(), 0);
+        assertEq(_pendingFeeExecutableAt(), 0);
     }
 
     function test_EachFeeModel() public {
@@ -537,32 +545,13 @@ contract ForwarderFeeTest is ForwarderTestBase {
         forwarder.forward(address(usdc), 0, user);
     }
 
-    function test_IndividualSettersEmitFullConfig() public {
-        vm.startPrank(feeManager);
-        vm.expectEmit(true, true, true, true, address(forwarder));
-        emit Forwarder.FeeConfigUpdated(NONE, NONE, 0, 0, 1000);
-        forwarder.setVariableFee(1000);
-
-        vm.expectEmit(true, true, true, true, address(forwarder));
-        emit Forwarder.FeeConfigUpdated(NONE, NONE, 0, 2e6, 1000);
-        forwarder.setFixedFee(2e6);
-
-        vm.expectEmit(true, true, true, true, address(forwarder));
-        emit Forwarder.FeeConfigUpdated(NONE, NONE, 100e6, 2e6, 1000);
-        forwarder.setThreshold(100e6);
-
-        vm.expectEmit(true, true, true, true, address(forwarder));
-        emit Forwarder.FeeConfigUpdated(FIXED, NONE, 100e6, 2e6, 1000);
-        forwarder.setLowerFeeModel(FIXED);
-
-        vm.expectEmit(true, true, true, true, address(forwarder));
-        emit Forwarder.FeeConfigUpdated(FIXED, FIXED_PLUS_PERCENT, 100e6, 2e6, 1000);
-        forwarder.setUpperFeeModel(FIXED_PLUS_PERCENT);
-
+    function test_ExecuteFeeConfigChangeEmitsFullConfig() public {
+        _proposeFees(PERCENT, FIXED, 7, 8, 9);
+        vm.warp(_pendingFeeExecutableAt());
         vm.expectEmit(true, true, true, true, address(forwarder));
         emit Forwarder.FeeConfigUpdated(PERCENT, FIXED, 7, 8, 9);
-        forwarder.setFeeConfig(PERCENT, FIXED, 7, 8, 9);
-        vm.stopPrank();
+        vm.prank(feeManager);
+        forwarder.executeFeeConfigChange();
 
         assertEq(uint8(forwarder.lowerFeeModel()), uint8(PERCENT));
         assertEq(uint8(forwarder.upperFeeModel()), uint8(FIXED));
@@ -573,7 +562,11 @@ contract ForwarderFeeTest is ForwarderTestBase {
 
     function test_RevertWhen_InvalidEnumValue() public {
         vm.prank(feeManager);
-        (bool success,) = address(forwarder).call(abi.encodeWithSelector(Forwarder.setLowerFeeModel.selector, 4));
+        (bool success,) =
+            address(forwarder).call(abi.encodeWithSelector(Forwarder.proposeFeeConfig.selector, 4, 0, 0, 0, 0));
+        assertFalse(success);
+        vm.prank(feeManager);
+        (success,) = address(forwarder).call(abi.encodeWithSelector(Forwarder.proposeFeeConfig.selector, 0, 4, 0, 0, 0));
         assertFalse(success);
         vm.prank(admin);
         (success,) = address(forwarder).call(abi.encodeWithSelector(Forwarder.setRoutingMode.selector, 4));
@@ -588,8 +581,8 @@ contract ForwarderAccessControlTest is ForwarderTestBase {
     }
 
     function _adminOnlyCalls() internal view returns (bytes[] memory calls) {
-        calls = new bytes[](15);
-        calls[0] = abi.encodeCall(Forwarder.setTreasury, (stranger));
+        calls = new bytes[](16);
+        calls[0] = abi.encodeCall(Forwarder.proposeTreasury, (stranger));
         calls[1] = abi.encodeCall(Forwarder.proposeVault, (IERC4626(address(vault))));
         calls[2] = abi.encodeCall(Forwarder.setRoutingMode, (VAULT_VAULT));
         calls[3] = abi.encodeCall(Forwarder.rescueToken, (IERC20(address(usdc))));
@@ -604,16 +597,14 @@ contract ForwarderAccessControlTest is ForwarderTestBase {
         calls[12] = abi.encodeCall(Forwarder.executeVaultChange, ());
         calls[13] = abi.encodeCall(IAccessControl.grantRole, (VAULT_GUARDIAN_ROLE, stranger));
         calls[14] = abi.encodeCall(IAccessControl.revokeRole, (VAULT_GUARDIAN_ROLE, guardian));
+        calls[15] = abi.encodeCall(Forwarder.executeTreasuryChange, ());
     }
 
-    function _feeManagerOnlyCalls() internal pure returns (bytes[] memory calls) {
-        calls = new bytes[](6);
-        calls[0] = abi.encodeCall(Forwarder.setFeeConfig, (FIXED, PERCENT, 1, 2, 3));
-        calls[1] = abi.encodeCall(Forwarder.setVariableFee, (1));
-        calls[2] = abi.encodeCall(Forwarder.setFixedFee, (1));
-        calls[3] = abi.encodeCall(Forwarder.setThreshold, (1));
-        calls[4] = abi.encodeCall(Forwarder.setLowerFeeModel, (FIXED));
-        calls[5] = abi.encodeCall(Forwarder.setUpperFeeModel, (FIXED));
+    function _feeManagerOnlyCalls() internal view returns (bytes[] memory calls) {
+        calls = new bytes[](3);
+        calls[0] = abi.encodeCall(Forwarder.proposeFeeConfig, (FIXED, PERCENT, 1, 2, 3));
+        calls[1] = abi.encodeCall(Forwarder.executeFeeConfigChange, ());
+        calls[2] = abi.encodeCall(Forwarder.setUserFeeOverride, (user, 0, 0, block.timestamp + 1));
     }
 
     function test_FeeManagerAndStrangerCannotCallAdminFunctions() public {
@@ -655,14 +646,21 @@ contract ForwarderAccessControlTest is ForwarderTestBase {
     }
 
     function test_EveryFeeManagerCanSetFees() public {
-        bytes[] memory calls = _feeManagerOnlyCalls();
         address[2] memory managers = [feeManager, feeManager2];
         for (uint256 m = 0; m < managers.length; ++m) {
-            for (uint256 i = 0; i < calls.length; ++i) {
-                vm.prank(managers[m]);
-                (bool success,) = address(forwarder).call(calls[i]);
-                assertTrue(success);
-            }
+            vm.startPrank(managers[m]);
+            forwarder.proposeFeeConfig(FIXED, PERCENT, m, m + 1, m + 2);
+            vm.warp(_pendingFeeExecutableAt());
+            forwarder.executeFeeConfigChange();
+            forwarder.proposeFeeConfig(NONE, NONE, 0, 0, 0);
+            forwarder.cancelFeeConfigChange();
+            forwarder.setUserFeeOverride(managers[m], m, m + 1, block.timestamp + 1);
+            vm.stopPrank();
+            assertEq(forwarder.fixedFee(), m + 1);
+            assertEq(forwarder.variableFee(), m + 2);
+            assertEq(_pendingFeeExecutableAt(), 0);
+            (uint256 overrideFixed,,) = forwarder.userFeeOverrides(managers[m]);
+            assertEq(overrideFixed, m);
         }
     }
 
@@ -722,7 +720,11 @@ contract ForwarderAccessControlTest is ForwarderTestBase {
     function test_FeeManagerCannotChangeTreasuryVaultRoutingOrRescue() public {
         vm.startPrank(feeManager);
         _expectUnauthorized(feeManager, DEFAULT_ADMIN_ROLE);
-        forwarder.setTreasury(feeManager);
+        forwarder.proposeTreasury(feeManager);
+        _expectUnauthorized(feeManager, DEFAULT_ADMIN_ROLE);
+        forwarder.executeTreasuryChange();
+        _expectUnauthorized(feeManager, VAULT_GUARDIAN_ROLE);
+        forwarder.cancelTreasuryChange();
         _expectUnauthorized(feeManager, DEFAULT_ADMIN_ROLE);
         forwarder.proposeVault(IERC4626(address(vault)));
         _expectUnauthorized(feeManager, DEFAULT_ADMIN_ROLE);
@@ -759,14 +761,16 @@ contract ForwarderAccessControlTest is ForwarderTestBase {
         vm.prank(admin);
         forwarder.grantRole(FEE_MANAGER_ROLE, stranger);
         vm.prank(stranger);
-        forwarder.setVariableFee(5);
-        assertEq(forwarder.variableFee(), 5);
+        forwarder.proposeFeeConfig(NONE, NONE, 0, 0, 5);
+        (,,,, uint256 pendingVariableFee,) = forwarder.pendingFeeConfig();
+        assertEq(pendingVariableFee, 5);
 
         vm.prank(admin);
         forwarder.revokeRole(FEE_MANAGER_ROLE, stranger);
+        vm.warp(_pendingFeeExecutableAt());
         _expectUnauthorized(stranger, FEE_MANAGER_ROLE);
         vm.prank(stranger);
-        forwarder.setVariableFee(6);
+        forwarder.executeFeeConfigChange();
     }
 
     function test_FeeManagerCanRenounce() public {
@@ -805,27 +809,37 @@ contract ForwarderAccessControlTest is ForwarderTestBase {
 
         _expectUnauthorized(admin, DEFAULT_ADMIN_ROLE);
         vm.prank(admin);
-        forwarder.setTreasury(stranger);
+        forwarder.proposeTreasury(stranger);
         vm.prank(newAdmin);
-        forwarder.setTreasury(stranger);
-        assertEq(forwarder.treasury(), stranger);
+        forwarder.proposeTreasury(stranger);
+        assertEq(forwarder.pendingTreasury(), stranger);
+        assertEq(forwarder.treasury(), treasury);
     }
 
-    /// @dev A compromised fee manager can misconfigure fees (within caps) or pause them, nothing else.
+    /// @dev A compromised fee manager can propose fees (within caps, applicable only after the delay), pause them and
+    /// give overrides that only lower fees; nothing else. A guardian can cancel its proposal.
     function test_CompromisedFeeManagerBlastRadius() public {
         vm.startPrank(feeManager);
-        forwarder.setFeeConfig(FIXED_PLUS_PERCENT, FIXED_PLUS_PERCENT, 0, 10e6, 10_000);
+        forwarder.proposeFeeConfig(FIXED_PLUS_PERCENT, FIXED_PLUS_PERCENT, 0, 10e6, 10_000);
+        vm.expectRevert();
+        forwarder.executeFeeConfigChange();
         forwarder.pause();
         vm.expectRevert();
         forwarder.unpause();
         vm.expectRevert();
-        forwarder.setTreasury(feeManager);
+        forwarder.proposeTreasury(feeManager);
         vm.expectRevert();
-        forwarder.setFeeConfig(FIXED, FIXED, 0, 10e6 + 1, 0);
+        forwarder.setUserFeeOverride(feeManager, 1, 0, block.timestamp + 1);
         vm.stopPrank();
         assertEq(forwarder.treasury(), treasury);
+        assertEq(forwarder.fixedFee(), 0);
+        assertEq(forwarder.variableFee(), 0);
         assertTrue(forwarder.paused());
         assertEq(forwarder.calculateFee(1000e6), 0);
+
+        vm.prank(guardian);
+        forwarder.cancelFeeConfigChange();
+        assertEq(_pendingFeeExecutableAt(), 0);
     }
 }
 
@@ -899,20 +913,24 @@ contract ForwarderValidationTest is ForwarderTestBase {
 
     function test_SetTreasury() public {
         address newTreasury = makeAddr("newTreasury");
+        vm.prank(admin);
+        forwarder.proposeTreasury(newTreasury);
+        vm.warp(forwarder.pendingTreasuryExecutableAt());
         vm.expectEmit(true, true, true, true, address(forwarder));
         emit Forwarder.TreasuryUpdated(treasury, newTreasury);
         vm.prank(admin);
-        forwarder.setTreasury(newTreasury);
+        forwarder.executeTreasuryChange();
         assertEq(forwarder.treasury(), newTreasury);
     }
 
     function test_RevertWhen_TreasuryIsZeroOrForwarder() public {
         vm.startPrank(admin);
         vm.expectRevert(abi.encodeWithSelector(Forwarder.InvalidTreasury.selector, address(0)));
-        forwarder.setTreasury(address(0));
+        forwarder.proposeTreasury(address(0));
         vm.expectRevert(abi.encodeWithSelector(Forwarder.InvalidTreasury.selector, address(forwarder)));
-        forwarder.setTreasury(address(forwarder));
+        forwarder.proposeTreasury(address(forwarder));
         vm.stopPrank();
+        assertEq(forwarder.pendingTreasury(), address(0));
     }
 
     function test_RevertWhen_VaultModeWithoutVault() public {

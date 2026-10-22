@@ -86,6 +86,7 @@ contract DeployForwarder is Script {
         console.log("Vault                :", Config.VAULT);
         console.log("Routing mode         :", uint256(Config.ROUTING_MODE));
         console.log("Initial fees         : NONE/NONE, threshold 0, fixed 0, variable 0, not paused");
+        console.log("Pending changes      : none (vault, fee configuration, treasury); no fee overrides");
         for (uint256 i = 0; i < managers.length; ++i) {
             console.log("Fee manager          :", managers[i]);
         }
@@ -153,6 +154,7 @@ contract DeployForwarder is Script {
         require(address(forwarder.pendingVault()) == address(0), "verify: pending vault");
         require(forwarder.pendingVaultExecutableAt() == 0, "verify: pending vault timestamp");
         require(forwarder.VAULT_CHANGE_DELAY() == 72 hours, "verify: vault change delay");
+        _verifyNoPendingFeeOrTreasuryChange(forwarder);
         require(!forwarder.hasRole(forwarder.DEFAULT_ADMIN_ROLE(), deployer), "verify: deployer is admin");
         uint256 expectedAllowance = Config.ROUTING_MODE == Forwarder.RoutingMode.DIRECT_DIRECT ? 0 : type(uint256).max;
         require(
@@ -164,5 +166,23 @@ contract DeployForwarder is Script {
         uint256 deployerUsdcAfter = IERC20(Config.USDC).balanceOf(deployer);
         console.log("Health check cost    :", deployerUsdcBefore - deployerUsdcAfter, "USDC units");
         require(deployerUsdcBefore - deployerUsdcAfter < 1000, "verify: health check refund");
+    }
+
+    function _verifyNoPendingFeeOrTreasuryChange(Forwarder forwarder) internal view {
+        require(forwarder.FEE_CHANGE_DELAY() == 72 hours, "verify: fee change delay");
+        require(forwarder.TREASURY_CHANGE_DELAY() == 72 hours, "verify: treasury change delay");
+        (
+            Forwarder.FeeModel lower,
+            Forwarder.FeeModel upper,
+            uint256 pendingThreshold,
+            uint256 pendingFixedFee,
+            uint256 pendingVariableFee,
+            uint256 executableAt
+        ) = forwarder.pendingFeeConfig();
+        require(lower == Forwarder.FeeModel.NONE && upper == Forwarder.FeeModel.NONE, "verify: pending fee models");
+        require(pendingThreshold == 0 && pendingFixedFee == 0 && pendingVariableFee == 0, "verify: pending fees");
+        require(executableAt == 0, "verify: pending fee config");
+        require(forwarder.pendingTreasury() == address(0), "verify: pending treasury");
+        require(forwarder.pendingTreasuryExecutableAt() == 0, "verify: pending treasury timestamp");
     }
 }

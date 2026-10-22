@@ -85,17 +85,19 @@ contract ForwarderFuzzTest is ForwarderTestBase {
         forwarder.calculateFee(amount);
     }
 
-    function testFuzz_SetterBounds(uint256 variableFee, uint256 fixedFee) public {
-        vm.startPrank(feeManager);
-        if (variableFee > 10_000) {
+    function testFuzz_FeeProposalBounds(uint256 variableFee, uint256 fixedFee) public {
+        if (fixedFee > 10e6) {
+            vm.expectRevert(abi.encodeWithSelector(Forwarder.FixedFeeTooHigh.selector, fixedFee));
+        } else if (variableFee > 10_000) {
             vm.expectRevert(abi.encodeWithSelector(Forwarder.VariableFeeTooHigh.selector, variableFee));
         }
-        forwarder.setVariableFee(variableFee);
-        if (fixedFee > 10e6) vm.expectRevert(abi.encodeWithSelector(Forwarder.FixedFeeTooHigh.selector, fixedFee));
-        forwarder.setFixedFee(fixedFee);
-        vm.stopPrank();
-        assertLe(forwarder.variableFee(), 10_000);
-        assertLe(forwarder.fixedFee(), 10e6);
+        vm.prank(feeManager);
+        forwarder.proposeFeeConfig(NONE, NONE, 0, fixedFee, variableFee);
+        (,,, uint256 pendingFixedFee, uint256 pendingVariableFee,) = forwarder.pendingFeeConfig();
+        assertLe(pendingVariableFee, 10_000);
+        assertLe(pendingFixedFee, 10e6);
+        assertEq(forwarder.variableFee(), 0);
+        assertEq(forwarder.fixedFee(), 0);
     }
 
     /// @dev Full forward accounting for every routing mode, fee configuration, donation and failure combination.
@@ -229,11 +231,16 @@ contract ForwarderFuzzTest is ForwarderTestBase {
     function testFuzz_UnprivilegedCallerCannotConfigure(address caller, uint8 selectorSeed, uint256 value) public {
         vm.assume(caller != admin && caller != feeManager && caller != feeManager2);
         vm.assume(caller != guardian && caller != guardian2);
-        // A matured proposal, so that cancel/execute can only fail because of the caller.
+        // Matured proposals, so that cancel/execute can only fail because of the caller.
         _proposeVault(address(new MockVault(IERC20(address(usdc)))));
+        _proposeFees(FIXED, FIXED, 0, 1, 1);
+        vm.prank(admin);
+        forwarder.proposeTreasury(makeAddr("pendingTreasury"));
         vm.warp(forwarder.pendingVaultExecutableAt());
-        bytes[15] memory calls = [
-            abi.encodeCall(Forwarder.setTreasury, (address(uint160(value | 1)))),
+        bytes[16] memory calls = [
+            abi.encodeCall(Forwarder.proposeTreasury, (address(uint160(value | 1)))),
+            abi.encodeCall(Forwarder.executeTreasuryChange, ()),
+            abi.encodeCall(Forwarder.cancelTreasuryChange, ()),
             abi.encodeCall(Forwarder.proposeVault, (IERC4626(address(uint160(value))))),
             abi.encodeCall(Forwarder.executeVaultChange, ()),
             abi.encodeCall(Forwarder.cancelVaultChange, ()),
@@ -242,11 +249,10 @@ contract ForwarderFuzzTest is ForwarderTestBase {
             abi.encodeCall(Forwarder.rescueNative, ()),
             abi.encodeCall(Forwarder.pause, ()),
             abi.encodeCall(Forwarder.unpause, ()),
-            abi.encodeCall(Forwarder.setFeeConfig, (FIXED, FIXED, value, value % 10e6, value % 10_000)),
-            abi.encodeCall(Forwarder.setVariableFee, (value % 10_000)),
-            abi.encodeCall(Forwarder.setFixedFee, (value % 10e6)),
-            abi.encodeCall(Forwarder.setThreshold, (value)),
-            abi.encodeCall(Forwarder.setLowerFeeModel, (Forwarder.FeeModel(value % 4))),
+            abi.encodeCall(Forwarder.proposeFeeConfig, (FIXED, FIXED, value, value % 10e6, value % 10_000)),
+            abi.encodeCall(Forwarder.executeFeeConfigChange, ()),
+            abi.encodeCall(Forwarder.cancelFeeConfigChange, ()),
+            abi.encodeCall(Forwarder.setUserFeeOverride, (caller, 0, 0, block.timestamp + 1 + (value % 1e9))),
             abi.encodeCall(IAccessControl.grantRole, (FEE_MANAGER_ROLE, caller))
         ];
         vm.prank(caller);
@@ -257,5 +263,11 @@ contract ForwarderFuzzTest is ForwarderTestBase {
         assertFalse(forwarder.hasRole(VAULT_GUARDIAN_ROLE, caller));
         assertEq(address(forwarder.vault()), address(vault));
         assertTrue(address(forwarder.pendingVault()) != address(0));
+        assertEq(forwarder.treasury(), treasury);
+        assertEq(forwarder.pendingTreasury(), makeAddr("pendingTreasury"));
+        assertTrue(_pendingFeeExecutableAt() != 0);
+        assertEq(forwarder.fixedFee(), 0);
+        (,, uint256 validUntil) = forwarder.userFeeOverrides(caller);
+        assertEq(validUntil, 0);
     }
 }

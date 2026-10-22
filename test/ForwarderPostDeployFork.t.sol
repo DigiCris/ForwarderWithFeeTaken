@@ -64,6 +64,20 @@ contract ForwarderPostDeployForkTest is ForkTestBase {
         assertEq(address(forwarder.pendingVault()), address(0));
         assertEq(forwarder.pendingVaultExecutableAt(), 0);
         assertEq(forwarder.VAULT_CHANGE_DELAY(), 72 hours);
+        (
+            Forwarder.FeeModel pendingLower,
+            Forwarder.FeeModel pendingUpper,
+            uint256 pendingThreshold,
+            uint256 pendingFixedFee,
+            uint256 pendingVariableFee,
+            uint256 pendingFeeExecutableAt
+        ) = forwarder.pendingFeeConfig();
+        assertEq(uint8(pendingLower) + uint8(pendingUpper), 0);
+        assertEq(pendingThreshold + pendingFixedFee + pendingVariableFee + pendingFeeExecutableAt, 0);
+        assertEq(forwarder.pendingTreasury(), address(0));
+        assertEq(forwarder.pendingTreasuryExecutableAt(), 0);
+        assertEq(forwarder.FEE_CHANGE_DELAY(), 72 hours);
+        assertEq(forwarder.TREASURY_CHANGE_DELAY(), 72 hours);
         assertEq(
             USDC.allowance(address(forwarder), Config.VAULT),
             Config.ROUTING_MODE == Forwarder.RoutingMode.DIRECT_DIRECT ? 0 : type(uint256).max

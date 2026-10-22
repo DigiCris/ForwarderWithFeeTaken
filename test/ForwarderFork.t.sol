@@ -35,6 +35,10 @@ contract ForwarderForkTest is ForkTestBase {
         assertFalse(forwarder.hasRole(forwarder.DEFAULT_ADMIN_ROLE(), Config.FEE_MANAGER_CM2));
         assertEq(address(forwarder.pendingVault()), address(0));
         assertEq(forwarder.pendingVaultExecutableAt(), 0);
+        assertEq(_pendingFeeExecutableAt(), 0);
+        assertEq(forwarder.pendingTreasury(), address(0));
+        assertEq(forwarder.pendingTreasuryExecutableAt(), 0);
+        assertEq(forwarder.calculateFeeFor(user, 1_000_000e6), 0);
         assertEq(USDC.allowance(address(forwarder), Config.VAULT), 0);
         assertEq(USDC.allowance(Config.FEE_MANAGER_CM2, address(forwarder)), 0);
         assertEq(USDC.balanceOf(address(forwarder)), 0);

@@ -13,7 +13,8 @@ import {MockVault} from "../mocks/MockVault.sol";
 /**
  * @dev Stateful handler: random sequences of forwards, fee configuration, pause/unpause, routing changes, vault and
  * treasury replacements, failure injection, donations, rescues and unauthorized attempts. It never reverts; every
- * unexpected outcome increments a ghost counter that the invariants require to stay at zero.
+ * unexpected outcome increments a ghost counter that the invariants require to stay at zero. Fee configuration,
+ * vault and treasury changes run their whole delayed lifecycle (propose, wait, execute) in one action.
  *
  * All vaults are 1:1 (1 USDC unit = 1e12 shares) because nothing donates to them, so share values are exact.
  */
@@ -117,7 +118,7 @@ contract ForwarderHandler is Test {
         address recipient = recipients[recipientSeed % recipients.length];
         IERC4626 currentVault = forwarder.vault();
         bool paused = forwarder.paused();
-        uint256 fee = forwarder.calculateFee(amount);
+        uint256 fee = forwarder.calculateFeeFor(recipient, amount);
         if (paused && fee != 0) ghostPausedFeeCharged++;
 
         usdc.mint(sra, amount);
@@ -181,41 +182,58 @@ contract ForwarderHandler is Test {
         variableFee = bound(variableFee, 0, 12_000);
         threshold = bound(threshold, 0, 1e13);
         bool valid = fixedFee <= 10e6 && variableFee <= 10_000;
-        vm.prank(manager);
-        try forwarder.setFeeConfig(
-            Forwarder.FeeModel(lower % 4), Forwarder.FeeModel(upper % 4), threshold, fixedFee, variableFee
-        ) {
-            if (!valid) ghostUnexpectedSuccesses++;
-        } catch {
-            if (valid) ghostUnexpectedReverts++;
-        }
+        _changeFees(
+            manager,
+            Forwarder.FeeModel(lower % 4),
+            Forwarder.FeeModel(upper % 4),
+            threshold,
+            fixedFee,
+            variableFee,
+            valid
+        );
     }
 
+    /// @dev Changes one fee parameter and keeps the rest of the active configuration.
     function setSingleFeeParameter(uint256 managerSeed, uint8 which, uint256 value) external {
         calls["setSingleFeeParameter"]++;
         address manager = feeManagers[managerSeed % feeManagers.length];
         which = which % 5;
-        bool valid = true;
-        bytes memory data;
-        if (which == 0) {
-            value = bound(value, 0, 12_000);
-            valid = value <= 10_000;
-            data = abi.encodeCall(Forwarder.setVariableFee, (value));
-        } else if (which == 1) {
-            value = bound(value, 0, 12e6);
-            valid = value <= 10e6;
-            data = abi.encodeCall(Forwarder.setFixedFee, (value));
-        } else if (which == 2) {
-            data = abi.encodeCall(Forwarder.setThreshold, (bound(value, 0, 1e13)));
-        } else if (which == 3) {
-            data = abi.encodeCall(Forwarder.setLowerFeeModel, (Forwarder.FeeModel(value % 4)));
-        } else {
-            data = abi.encodeCall(Forwarder.setUpperFeeModel, (Forwarder.FeeModel(value % 4)));
-        }
+        Forwarder.FeeModel lower = forwarder.lowerFeeModel();
+        Forwarder.FeeModel upper = forwarder.upperFeeModel();
+        uint256 threshold = forwarder.threshold();
+        uint256 fixedFee = forwarder.fixedFee();
+        uint256 variableFee = forwarder.variableFee();
+        if (which == 0) variableFee = bound(value, 0, 12_000);
+        else if (which == 1) fixedFee = bound(value, 0, 12e6);
+        else if (which == 2) threshold = bound(value, 0, 1e13);
+        else if (which == 3) lower = Forwarder.FeeModel(value % 4);
+        else upper = Forwarder.FeeModel(value % 4);
+        _changeFees(manager, lower, upper, threshold, fixedFee, variableFee, fixedFee <= 10e6 && variableFee <= 10_000);
+    }
+
+    /// @dev Propose, wait `FEE_CHANGE_DELAY`, execute. An invalid configuration must be rejected by the proposal.
+    function _changeFees(
+        address manager,
+        Forwarder.FeeModel lower,
+        Forwarder.FeeModel upper,
+        uint256 threshold,
+        uint256 fixedFee,
+        uint256 variableFee,
+        bool valid
+    ) internal {
         vm.prank(manager);
-        (bool success,) = address(forwarder).call(data);
-        if (success && !valid) ghostUnexpectedSuccesses++;
-        if (!success && valid) ghostUnexpectedReverts++;
+        try forwarder.proposeFeeConfig(lower, upper, threshold, fixedFee, variableFee) {
+            if (!valid) ghostUnexpectedSuccesses++;
+            (,,,,, uint256 executableAt) = forwarder.pendingFeeConfig();
+            vm.warp(executableAt);
+            vm.prank(manager);
+            try forwarder.executeFeeConfigChange() {}
+            catch {
+                ghostUnexpectedReverts++;
+            }
+        } catch {
+            if (valid) ghostUnexpectedReverts++;
+        }
     }
 
     function pause(bool asAdmin, uint256 managerSeed) external {
@@ -292,11 +310,18 @@ contract ForwarderHandler is Test {
         usdc.approve(address(forwarder), 0);
     }
 
+    /// @dev Treasury replacement through the whole delayed lifecycle: propose, wait `TREASURY_CHANGE_DELAY`, execute.
     function setTreasury(uint256 treasurySeed) external {
         calls["setTreasury"]++;
         vm.prank(admin);
-        try forwarder.setTreasury(treasuries[treasurySeed % treasuries.length]) {}
-        catch {
+        try forwarder.proposeTreasury(treasuries[treasurySeed % treasuries.length]) {
+            vm.warp(forwarder.pendingTreasuryExecutableAt());
+            vm.prank(admin);
+            try forwarder.executeTreasuryChange() {}
+            catch {
+                ghostUnexpectedReverts++;
+            }
+        } catch {
             ghostUnexpectedReverts++;
         }
     }
@@ -354,9 +379,9 @@ contract ForwarderHandler is Test {
         address actor =
             asFeeManager ? feeManagers[actorSeed % feeManagers.length] : strangers[actorSeed % strangers.length];
         bytes memory data;
-        uint8 s = selectorSeed % (asFeeManager ? 8 : 15);
+        uint8 s = selectorSeed % (asFeeManager ? 10 : 16);
         if (s == 0) {
-            data = abi.encodeCall(Forwarder.setTreasury, (actor));
+            data = abi.encodeCall(Forwarder.proposeTreasury, (actor));
         } else if (s == 1) {
             data = abi.encodeCall(Forwarder.proposeVault, (IERC4626(address(vaults[1]))));
         } else if (s == 2) {
@@ -372,21 +397,23 @@ contract ForwarderHandler is Test {
         } else if (s == 7) {
             data = abi.encodeCall(IAccessControl.grantRole, (forwarder.DEFAULT_ADMIN_ROLE(), actor));
         } else if (s == 8) {
-            data = abi.encodeCall(Forwarder.pause, ());
+            data = abi.encodeCall(Forwarder.executeTreasuryChange, ());
         } else if (s == 9) {
-            data = abi.encodeCall(
-                Forwarder.setFeeConfig, (Forwarder.FeeModel.FIXED, Forwarder.FeeModel.FIXED, value, 1, 1)
-            );
+            data = abi.encodeCall(Forwarder.cancelTreasuryChange, ());
         } else if (s == 10) {
-            data = abi.encodeCall(Forwarder.setVariableFee, (value % 10_000));
+            data = abi.encodeCall(Forwarder.pause, ());
         } else if (s == 11) {
-            data = abi.encodeCall(Forwarder.setFixedFee, (value % 10e6));
+            data = abi.encodeCall(
+                Forwarder.proposeFeeConfig, (Forwarder.FeeModel.FIXED, Forwarder.FeeModel.FIXED, value, 1, 1)
+            );
         } else if (s == 12) {
-            data = abi.encodeCall(Forwarder.setThreshold, (value));
+            data = abi.encodeCall(Forwarder.executeFeeConfigChange, ());
         } else if (s == 13) {
-            data = abi.encodeCall(Forwarder.setLowerFeeModel, (Forwarder.FeeModel(value % 4)));
+            data = abi.encodeCall(Forwarder.cancelFeeConfigChange, ());
+        } else if (s == 14) {
+            data = abi.encodeCall(Forwarder.setUserFeeOverride, (actor, 0, 0, block.timestamp + 1));
         } else {
-            data = abi.encodeCall(Forwarder.setUpperFeeModel, (Forwarder.FeeModel(value % 4)));
+            data = abi.encodeCall(Forwarder.cancelVaultChange, ());
         }
         vm.prank(actor);
         (bool success,) = address(forwarder).call(data);

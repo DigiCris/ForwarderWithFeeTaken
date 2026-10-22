@@ -10,6 +10,7 @@ import {SafeERC20} from "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol
 import {Address} from "@openzeppelin/contracts/utils/Address.sol";
 import {Pausable} from "@openzeppelin/contracts/utils/Pausable.sol";
 import {ReentrancyGuardTransient} from "@openzeppelin/contracts/utils/ReentrancyGuardTransient.sol";
+import {Math} from "@openzeppelin/contracts/utils/math/Math.sol";
 
 /**
  * @title Forwarder
@@ -27,6 +28,12 @@ import {ReentrancyGuardTransient} from "@openzeppelin/contracts/utils/Reentrancy
  *   unlimited USDC allowance from this contract.
  * - After deployment the vault can only be replaced through `proposeVault` and, once `VAULT_CHANGE_DELAY` has
  *   elapsed, `executeVaultChange`. The default admin and `VAULT_GUARDIAN_ROLE` can cancel a pending change.
+ * - Likewise the fee configuration only changes through `proposeFeeConfig` and, after `FEE_CHANGE_DELAY`,
+ *   `executeFeeConfigChange`; the treasury only through `proposeTreasury` and, after `TREASURY_CHANGE_DELAY`,
+ *   `executeTreasuryChange`. The default admin and `VAULT_GUARDIAN_ROLE` can cancel both; fee managers can also
+ *   cancel a fee configuration change. Pausing fees stays immediate.
+ * - A fee manager can give a recipient a temporary fee override that can only lower its fixed and variable fee. The
+ *   global models and threshold always apply (see `calculateFeeFor`).
  * - The contract is not upgradeable.
  */
 contract Forwarder is AccessControlDefaultAdminRules, Pausable, ReentrancyGuardTransient {
@@ -48,10 +55,29 @@ contract Forwarder is AccessControlDefaultAdminRules, Pausable, ReentrancyGuardT
         VAULT_VAULT
     }
 
-    /// @notice Role allowed to change the fee configuration and to pause fees.
+    /// @notice Fee configuration proposed by `proposeFeeConfig`.
+    struct PendingFeeConfig {
+        FeeModel lowerFeeModel;
+        FeeModel upperFeeModel;
+        uint256 threshold;
+        uint256 fixedFee;
+        uint256 variableFee;
+        uint256 executableAt;
+    }
+
+    /// @notice Fee override of one recipient, active while `block.timestamp < validUntil`.
+    struct UserFeeOverride {
+        uint256 fixedFee;
+        uint256 variableFee;
+        uint256 validUntil;
+    }
+
+    /// @notice Role allowed to propose, execute and cancel fee configuration changes, to set fee overrides and to
+    /// pause fees.
     bytes32 public constant FEE_MANAGER_ROLE = keccak256("FEE_MANAGER_ROLE");
 
-    /// @notice Role allowed to cancel a pending vault change. Its admin is DEFAULT_ADMIN_ROLE.
+    /// @notice Role allowed to cancel pending vault, fee configuration and treasury changes, and nothing else. The name
+    /// is kept from V2. Its admin is DEFAULT_ADMIN_ROLE.
     bytes32 public constant VAULT_GUARDIAN_ROLE = keccak256("VAULT_GUARDIAN_ROLE");
 
     /// @notice Denominator of `variableFee`: 1 = 0.001%, 1_000 = 1%, 10_000 = 10%.
@@ -70,6 +96,12 @@ contract Forwarder is AccessControlDefaultAdminRules, Pausable, ReentrancyGuardT
 
     /// @notice Minimum time between `proposeVault` and `executeVaultChange`. Not configurable.
     uint256 public constant VAULT_CHANGE_DELAY = 72 hours;
+
+    /// @notice Minimum time between `proposeFeeConfig` and `executeFeeConfigChange`. Not configurable.
+    uint256 public constant FEE_CHANGE_DELAY = 72 hours;
+
+    /// @notice Minimum time between `proposeTreasury` and `executeTreasuryChange`. Not configurable.
+    uint256 public constant TREASURY_CHANGE_DELAY = 72 hours;
 
     /// @notice The only token accepted by `forward`.
     IERC20 public immutable USDC;
@@ -105,6 +137,21 @@ contract Forwarder is AccessControlDefaultAdminRules, Pausable, ReentrancyGuardT
     /// @notice Timestamp from which `executeVaultChange` can activate `pendingVault`. Zero when no change is pending.
     uint256 public pendingVaultExecutableAt;
 
+    /// @notice Fee configuration proposed by `proposeFeeConfig`. Not used by `forward` until `executeFeeConfigChange`
+    /// applies it. `executableAt` is zero when no change is pending.
+    PendingFeeConfig public pendingFeeConfig;
+
+    /// @notice Treasury proposed by `proposeTreasury`. Not used until `executeTreasuryChange` activates it. Zero when
+    /// no change is pending.
+    address public pendingTreasury;
+
+    /// @notice Timestamp from which `executeTreasuryChange` can activate `pendingTreasury`. Zero when no change is
+    /// pending.
+    uint256 public pendingTreasuryExecutableAt;
+
+    /// @notice Fee overrides by recipient (see `setUserFeeOverride`). Expired entries are kept and ignored.
+    mapping(address recipient => UserFeeOverride) public userFeeOverrides;
+
     /// @notice Emitted once the user leg of `forward` is complete.
     /// @param userVaultDeposit True if the user received vault shares, false if the user received USDC.
     /// @param userShares Shares minted to the user (zero when `userVaultDeposit` is false).
@@ -135,6 +182,13 @@ contract Forwarder is AccessControlDefaultAdminRules, Pausable, ReentrancyGuardT
 
     event TreasuryUpdated(address indexed previousTreasury, address indexed newTreasury);
 
+    /// @notice `pendingTreasury` can replace `currentTreasury` from `executableAt` unless the change is cancelled before.
+    event TreasuryChangeProposed(
+        address indexed currentTreasury, address indexed pendingTreasury, uint256 executableAt, address proposer
+    );
+
+    event TreasuryChangeCancelled(address indexed pendingTreasury, address indexed cancelledBy);
+
     /// @param healthCheckShares Shares minted by the health-check deposit of `VAULT_TEST_AMOUNT`.
     /// @param healthCheckAssets USDC returned by redeeming those shares.
     event VaultUpdated(
@@ -153,6 +207,26 @@ contract Forwarder is AccessControlDefaultAdminRules, Pausable, ReentrancyGuardT
     /// @notice Full fee configuration after any change.
     event FeeConfigUpdated(
         FeeModel lowerFeeModel, FeeModel upperFeeModel, uint256 threshold, uint256 fixedFee, uint256 variableFee
+    );
+
+    /// @notice This fee configuration can replace the active one from `executableAt` unless the change is cancelled
+    /// before.
+    event FeeConfigChangeProposed(
+        FeeModel lowerFeeModel,
+        FeeModel upperFeeModel,
+        uint256 threshold,
+        uint256 fixedFee,
+        uint256 variableFee,
+        uint256 executableAt,
+        address proposer
+    );
+
+    event FeeConfigChangeCancelled(address indexed cancelledBy);
+
+    /// @notice Until `validUntil` (exclusive) `recipient` pays at most `fixedFee` and `variableFee` as fixed and
+    /// variable fee.
+    event UserFeeOverrideSet(
+        address indexed recipient, uint256 fixedFee, uint256 variableFee, uint256 validUntil, address setBy
     );
 
     event TokenRescued(address indexed token, address indexed treasury, uint256 amount);
@@ -174,6 +248,15 @@ contract Forwarder is AccessControlDefaultAdminRules, Pausable, ReentrancyGuardT
     error VaultChangeAlreadyPending(address pendingVault);
     error NoPendingVaultChange();
     error VaultChangeDelayNotElapsed(uint256 executableAt);
+    error FeeConfigChangeAlreadyPending(uint256 executableAt);
+    error NoPendingFeeConfigChange();
+    error FeeConfigChangeDelayNotElapsed(uint256 executableAt);
+    error TreasuryChangeAlreadyPending(address pendingTreasury);
+    error NoPendingTreasuryChange();
+    error TreasuryChangeDelayNotElapsed(uint256 executableAt);
+    error FeeOverrideExpiryNotInFuture(uint256 validUntil);
+    error FeeOverrideAboveGlobalFee(uint256 fixedFee, uint256 variableFee);
+    error ActiveFeeOverrideWorsened(address recipient);
 
     /**
      * @param usdc USDC token. Immutable.
@@ -233,7 +316,7 @@ contract Forwarder is AccessControlDefaultAdminRules, Pausable, ReentrancyGuardT
         if (token != address(USDC)) revert UnsupportedToken(token);
         if (recipient == address(0) || recipient == address(this)) revert InvalidRecipient(recipient);
 
-        uint256 fee = calculateFee(amount);
+        uint256 fee = calculateFeeFor(recipient, amount);
         uint256 userAmount = amount - fee;
 
         USDC.safeTransferFrom(msg.sender, address(this), amount);
@@ -261,7 +344,8 @@ contract Forwarder is AccessControlDefaultAdminRules, Pausable, ReentrancyGuardT
     }
 
     /**
-     * @notice Fee charged by `forward` for `amount`. Zero while fees are paused.
+     * @notice Global fee for `amount`: the fee charged by `forward` to a recipient without an active override. Zero
+     * while fees are paused.
      * @dev `lowerFeeModel` applies when `amount <= threshold`, `upperFeeModel` otherwise. The selected model is
      * applied to the full `amount`. The percentage part rounds down.
      */
@@ -277,58 +361,141 @@ contract Forwarder is AccessControlDefaultAdminRules, Pausable, ReentrancyGuardT
         return fixedFee + percentFee;
     }
 
+    /**
+     * @notice Fee charged by `forward` for `amount` delivered to `recipient`. Zero while fees are paused.
+     * @dev Without an active override (`block.timestamp >= validUntil`) it is `calculateFee(amount)`. With an active
+     * override the global models and threshold apply with `min(override, global)` as fixed and as variable fee, so
+     * the result never exceeds `calculateFee(amount)`.
+     */
+    function calculateFeeFor(address recipient, uint256 amount) public view returns (uint256) {
+        UserFeeOverride storage feeOverride = userFeeOverrides[recipient];
+        if (block.timestamp >= feeOverride.validUntil) return calculateFee(amount);
+        if (paused()) return 0;
+
+        FeeModel model = amount <= threshold ? lowerFeeModel : upperFeeModel;
+        if (model == FeeModel.NONE) return 0;
+        uint256 effectiveFixedFee = Math.min(feeOverride.fixedFee, fixedFee);
+        if (model == FeeModel.FIXED) return effectiveFixedFee;
+
+        uint256 percentFee = amount * Math.min(feeOverride.variableFee, variableFee) / FEE_DENOMINATOR;
+        if (model == FeeModel.PERCENT) return percentFee;
+        return effectiveFixedFee + percentFee;
+    }
+
     // ---------------------------------------------------------------------------------------------------------------
     // Fee configuration (FEE_MANAGER_ROLE)
     // ---------------------------------------------------------------------------------------------------------------
 
-    /// @notice Sets the whole fee configuration atomically.
-    function setFeeConfig(
+    /// @dev Sets the whole fee configuration atomically. Only called by `executeFeeConfigChange`.
+    function _setFeeConfig(
+        FeeModel newLowerFeeModel,
+        FeeModel newUpperFeeModel,
+        uint256 newThreshold,
+        uint256 newFixedFee,
+        uint256 newVariableFee
+    ) private {
+        _checkFixedFee(newFixedFee);
+        _checkVariableFee(newVariableFee);
+        lowerFeeModel = newLowerFeeModel;
+        upperFeeModel = newUpperFeeModel;
+        threshold = newThreshold;
+        fixedFee = newFixedFee;
+        variableFee = newVariableFee;
+        _emitFeeConfig();
+    }
+
+    /**
+     * @notice Proposes a whole fee configuration that `executeFeeConfigChange` can apply from
+     * `block.timestamp + FEE_CHANGE_DELAY`. Every change of the fee configuration goes through this delay. Only one
+     * change can be pending: the pending one must be cancelled before proposing another.
+     * @dev Checks the caps. Does not modify the active fee configuration.
+     */
+    function proposeFeeConfig(
         FeeModel newLowerFeeModel,
         FeeModel newUpperFeeModel,
         uint256 newThreshold,
         uint256 newFixedFee,
         uint256 newVariableFee
     ) external onlyRole(FEE_MANAGER_ROLE) {
+        uint256 pendingExecutableAt = pendingFeeConfig.executableAt;
+        if (pendingExecutableAt != 0) revert FeeConfigChangeAlreadyPending(pendingExecutableAt);
         _checkFixedFee(newFixedFee);
         _checkVariableFee(newVariableFee);
-        lowerFeeModel = newLowerFeeModel;
-        upperFeeModel = newUpperFeeModel;
-        threshold = newThreshold;
-        fixedFee = newFixedFee;
-        variableFee = newVariableFee;
-        _emitFeeConfig();
+
+        uint256 executableAt = block.timestamp + FEE_CHANGE_DELAY;
+        pendingFeeConfig = PendingFeeConfig({
+            lowerFeeModel: newLowerFeeModel,
+            upperFeeModel: newUpperFeeModel,
+            threshold: newThreshold,
+            fixedFee: newFixedFee,
+            variableFee: newVariableFee,
+            executableAt: executableAt
+        });
+        emit FeeConfigChangeProposed(
+            newLowerFeeModel, newUpperFeeModel, newThreshold, newFixedFee, newVariableFee, executableAt, msg.sender
+        );
     }
 
-    /// @notice Sets `variableFee` (over `FEE_DENOMINATOR`, at most `MAX_VARIABLE_FEE`).
-    function setVariableFee(uint256 newVariableFee) external onlyRole(FEE_MANAGER_ROLE) {
-        _checkVariableFee(newVariableFee);
-        variableFee = newVariableFee;
-        _emitFeeConfig();
+    /**
+     * @notice Applies the pending fee configuration once `pendingFeeConfig.executableAt` is reached.
+     * @dev While fees are paused the new configuration is stored but the fee stays zero.
+     */
+    function executeFeeConfigChange() external onlyRole(FEE_MANAGER_ROLE) {
+        PendingFeeConfig memory config = pendingFeeConfig;
+        if (config.executableAt == 0) revert NoPendingFeeConfigChange();
+        if (block.timestamp < config.executableAt) revert FeeConfigChangeDelayNotElapsed(config.executableAt);
+
+        delete pendingFeeConfig;
+        _setFeeConfig(config.lowerFeeModel, config.upperFeeModel, config.threshold, config.fixedFee, config.variableFee);
     }
 
-    /// @notice Sets `fixedFee` (USDC units, at most `MAX_FIXED_FEE`).
-    function setFixedFee(uint256 newFixedFee) external onlyRole(FEE_MANAGER_ROLE) {
-        _checkFixedFee(newFixedFee);
-        fixedFee = newFixedFee;
-        _emitFeeConfig();
+    /// @notice Cancels the pending fee configuration change at any time before it is executed. Callable by
+    /// `FEE_MANAGER_ROLE`, `VAULT_GUARDIAN_ROLE` or `DEFAULT_ADMIN_ROLE`.
+    function cancelFeeConfigChange() external {
+        if (
+            !hasRole(FEE_MANAGER_ROLE, msg.sender) && !hasRole(VAULT_GUARDIAN_ROLE, msg.sender)
+                && !hasRole(DEFAULT_ADMIN_ROLE, msg.sender)
+        ) {
+            revert AccessControlUnauthorizedAccount(msg.sender, VAULT_GUARDIAN_ROLE);
+        }
+        if (pendingFeeConfig.executableAt == 0) revert NoPendingFeeConfigChange();
+
+        delete pendingFeeConfig;
+        emit FeeConfigChangeCancelled(msg.sender);
     }
 
-    /// @notice Sets `threshold` (USDC units).
-    function setThreshold(uint256 newThreshold) external onlyRole(FEE_MANAGER_ROLE) {
-        threshold = newThreshold;
-        _emitFeeConfig();
-    }
+    /**
+     * @notice Sets the fee override of `recipient` until `validUntil` (exclusive). While it is active `forward` charges
+     * `recipient` with the global models and threshold and with `min(override, global)` as fixed and as variable fee.
+     * Both override values must not exceed the active global values.
+     * @dev An active override cannot be worsened: its fees can only be lowered and its `validUntil` only extended, and
+     * there is no way to remove it. Once expired it can be replaced freely.
+     */
+    function setUserFeeOverride(
+        address recipient,
+        uint256 overrideFixedFee,
+        uint256 overrideVariableFee,
+        uint256 validUntil
+    ) external onlyRole(FEE_MANAGER_ROLE) {
+        if (recipient == address(0)) revert ZeroAddress();
+        if (validUntil <= block.timestamp) revert FeeOverrideExpiryNotInFuture(validUntil);
+        if (overrideFixedFee > fixedFee || overrideVariableFee > variableFee) {
+            revert FeeOverrideAboveGlobalFee(overrideFixedFee, overrideVariableFee);
+        }
+        UserFeeOverride storage feeOverride = userFeeOverrides[recipient];
+        if (
+            block.timestamp < feeOverride.validUntil
+                && (overrideFixedFee > feeOverride.fixedFee
+                    || overrideVariableFee > feeOverride.variableFee
+                    || validUntil < feeOverride.validUntil)
+        ) {
+            revert ActiveFeeOverrideWorsened(recipient);
+        }
 
-    /// @notice Sets the fee model used when `amount <= threshold`.
-    function setLowerFeeModel(FeeModel newLowerFeeModel) external onlyRole(FEE_MANAGER_ROLE) {
-        lowerFeeModel = newLowerFeeModel;
-        _emitFeeConfig();
-    }
-
-    /// @notice Sets the fee model used when `amount > threshold`.
-    function setUpperFeeModel(FeeModel newUpperFeeModel) external onlyRole(FEE_MANAGER_ROLE) {
-        upperFeeModel = newUpperFeeModel;
-        _emitFeeConfig();
+        feeOverride.fixedFee = overrideFixedFee;
+        feeOverride.variableFee = overrideVariableFee;
+        feeOverride.validUntil = validUntil;
+        emit UserFeeOverrideSet(recipient, overrideFixedFee, overrideVariableFee, validUntil, msg.sender);
     }
 
     /// @notice Pauses fees (fee = 0). Callable by `FEE_MANAGER_ROLE` or `DEFAULT_ADMIN_ROLE`. Does not stop `forward`.
@@ -348,9 +515,48 @@ contract Forwarder is AccessControlDefaultAdminRules, Pausable, ReentrancyGuardT
     // Administration (DEFAULT_ADMIN_ROLE)
     // ---------------------------------------------------------------------------------------------------------------
 
-    /// @notice Sets the treasury. USDC pending in this contract is delivered to the new treasury by the next `forward`.
-    function setTreasury(address newTreasury) external onlyRole(DEFAULT_ADMIN_ROLE) {
+    /**
+     * @notice Proposes `newTreasury` as the next treasury. The change can be executed from
+     * `block.timestamp + TREASURY_CHANGE_DELAY`. Only one change can be pending: the pending one must be cancelled
+     * before proposing another.
+     * @dev Does not modify the active treasury: until the change is executed `forward` and the rescue functions keep
+     * delivering to it.
+     */
+    function proposeTreasury(address newTreasury) external onlyRole(DEFAULT_ADMIN_ROLE) {
+        if (pendingTreasury != address(0)) revert TreasuryChangeAlreadyPending(pendingTreasury);
+        if (newTreasury == address(0) || newTreasury == address(this)) revert InvalidTreasury(newTreasury);
+
+        uint256 executableAt = block.timestamp + TREASURY_CHANGE_DELAY;
+        pendingTreasury = newTreasury;
+        pendingTreasuryExecutableAt = executableAt;
+        emit TreasuryChangeProposed(treasury, newTreasury, executableAt, msg.sender);
+    }
+
+    /// @notice Activates the pending treasury once `pendingTreasuryExecutableAt` is reached. USDC pending in this
+    /// contract is delivered to the new treasury by the next `forward`.
+    function executeTreasuryChange() external onlyRole(DEFAULT_ADMIN_ROLE) {
+        address newTreasury = pendingTreasury;
+        if (newTreasury == address(0)) revert NoPendingTreasuryChange();
+        uint256 executableAt = pendingTreasuryExecutableAt;
+        if (block.timestamp < executableAt) revert TreasuryChangeDelayNotElapsed(executableAt);
+
+        delete pendingTreasury;
+        delete pendingTreasuryExecutableAt;
         _setTreasury(newTreasury);
+    }
+
+    /// @notice Cancels the pending treasury change at any time before it is executed. Callable by
+    /// `VAULT_GUARDIAN_ROLE` or `DEFAULT_ADMIN_ROLE`.
+    function cancelTreasuryChange() external {
+        if (!hasRole(VAULT_GUARDIAN_ROLE, msg.sender) && !hasRole(DEFAULT_ADMIN_ROLE, msg.sender)) {
+            revert AccessControlUnauthorizedAccount(msg.sender, VAULT_GUARDIAN_ROLE);
+        }
+        address cancelledTreasury = pendingTreasury;
+        if (cancelledTreasury == address(0)) revert NoPendingTreasuryChange();
+
+        delete pendingTreasury;
+        delete pendingTreasuryExecutableAt;
+        emit TreasuryChangeCancelled(cancelledTreasury, msg.sender);
     }
 
     /**

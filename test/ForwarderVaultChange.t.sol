@@ -59,7 +59,10 @@ abstract contract VaultChangeFixture is ForwarderTestBase {
                 forwarder.threshold(),
                 forwarder.fixedFee(),
                 forwarder.variableFee(),
-                forwarder.paused()
+                forwarder.paused(),
+                forwarder.pendingTreasury(),
+                forwarder.pendingTreasuryExecutableAt(),
+                _pendingFeeExecutableAt()
             )
         );
     }
@@ -68,8 +71,7 @@ abstract contract VaultChangeFixture is ForwarderTestBase {
         _setFees(FIXED, FIXED_PLUS_PERCENT, 100e6, 1e6, 500);
         vm.prank(feeManager);
         forwarder.pause();
-        vm.prank(admin);
-        forwarder.setTreasury(makeAddr("otherTreasury"));
+        _setTreasury(makeAddr("otherTreasury"));
     }
 
     function _countEvents(Vm.Log[] memory logs, bytes32 topic) internal view returns (uint256 count) {
@@ -409,17 +411,19 @@ contract ForwarderGuardianLifecycleTest is VaultChangeFixture {
         usdc.mint(guardian, TEST_AMOUNT);
         vm.prank(guardian);
         usdc.approve(address(forwarder), TEST_AMOUNT);
-        bytes[13] memory calls = [
+        bytes[15] memory calls = [
             abi.encodeCall(Forwarder.proposeVault, (IERC4626(address(new MockVault(IERC20(address(usdc))))))),
             abi.encodeCall(Forwarder.executeVaultChange, ()),
             abi.encodeCall(Forwarder.setRoutingMode, (VAULT_VAULT)),
-            abi.encodeCall(Forwarder.setTreasury, (guardian)),
+            abi.encodeCall(Forwarder.proposeTreasury, (guardian)),
+            abi.encodeCall(Forwarder.executeTreasuryChange, ()),
             abi.encodeCall(Forwarder.rescueToken, (IERC20(address(usdc)))),
             abi.encodeCall(Forwarder.rescueNative, ()),
             abi.encodeCall(Forwarder.unpause, ()),
             abi.encodeCall(Forwarder.pause, ()),
-            abi.encodeCall(Forwarder.setFeeConfig, (FIXED, FIXED, 0, 1, 1)),
-            abi.encodeCall(Forwarder.setVariableFee, (1)),
+            abi.encodeCall(Forwarder.proposeFeeConfig, (FIXED, FIXED, 0, 1, 1)),
+            abi.encodeCall(Forwarder.executeFeeConfigChange, ()),
+            abi.encodeCall(Forwarder.setUserFeeOverride, (guardian, 0, 0, block.timestamp + 1)),
             abi.encodeCall(IAccessControl.grantRole, (VAULT_GUARDIAN_ROLE, stranger)),
             abi.encodeCall(IAccessControl.revokeRole, (VAULT_GUARDIAN_ROLE, guardian2)),
             abi.encodeCall(IAccessControl.grantRole, (FEE_MANAGER_ROLE, guardian))

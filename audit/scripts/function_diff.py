@@ -5,7 +5,10 @@ For every function, modifier and the constructor it compares the code (signature
 NatSpec comment right above it. Also compares the declarations outside functions (state, constants, events,
 errors). Output is a Markdown table.
 
-Usage: python3 audit/scripts/function_diff.py <v1.sol> <v2.sol>
+Usage: python3 audit/scripts/function_diff.py <old.sol> <new.sol> [--labels OLD NEW] [--rename old=new ...]
+
+`--rename old=new` pairs a function of the old version with a renamed one of the new version and reports whether
+the body (everything from the opening brace) is identical; the signature lines are shown separately.
 """
 
 import re
@@ -58,15 +61,41 @@ def blocks(source):
     return result, "".join(rest)
 
 
+def body(code):
+    return code[code.index("{"):] if "{" in code else code
+
+
 def main():
-    v1_src = open(sys.argv[1]).read()
-    v2_src = open(sys.argv[2]).read()
+    args = sys.argv[1:]
+    labels = ("V1", "V2")
+    renames = {}
+    if "--labels" in args:
+        i = args.index("--labels")
+        labels = (args[i + 1], args[i + 2])
+        del args[i:i + 3]
+    while "--rename" in args:
+        i = args.index("--rename")
+        old, new = args[i + 1].split("=")
+        renames[old] = new
+        del args[i:i + 2]
+    v1_src = open(args[0]).read()
+    v2_src = open(args[1]).read()
     v1, v1_rest = blocks(v1_src)
     v2, v2_rest = blocks(v2_src)
     names = list(v1) + [n for n in v2 if n not in v1]
-    print("| Function | V1 lines | V2 lines | Code | NatSpec |")
+    print(f"| Function | {labels[0]} lines | {labels[1]} lines | Code | NatSpec |")
     print("|---|---|---|---|---|")
     for name in names:
+        if name in renames and name in v1 and renames[name] in v2:
+            a, b = v1[name], v2[renames[name]]
+            same = "IDENTICAL BODY" if body(a[1]) == body(b[1]) else "BODY CHANGED"
+            print(
+                f"| `{name}` -> `{renames[name]}` | {a[1].count(chr(10)) + 1} | {b[1].count(chr(10)) + 1} | "
+                f"RENAMED, {same} | changed |"
+            )
+            continue
+        if name in renames.values() and name not in v1:
+            continue
         a = v1.get(name)
         b = v2.get(name)
         if a and not b:
@@ -82,11 +111,23 @@ def main():
     added = [l for l in v2_decl if l not in v1_decl]
     removed = [l for l in v1_decl if l not in v2_decl]
     print()
+    for old, new in renames.items():
+        if old in v1 and new in v2:
+            print()
+            print(f"`{old}` ({labels[0]}) signature:")
+            print("```solidity")
+            print(v1[old][1][: v1[old][1].index("{")].rstrip())
+            print("```")
+            print(f"`{new}` ({labels[1]}) signature:")
+            print("```solidity")
+            print(v2[new][1][: v2[new][1].index("{")].rstrip())
+            print("```")
+    print()
     print("Declarations outside functions (state, constants, events, errors, comments):")
-    print(f"- lines only in V1: {len(removed)}")
+    print(f"- lines only in {labels[0]}: {len(removed)}")
     for l in removed:
         print(f"  - `{l}`")
-    print(f"- lines only in V2: {len(added)}")
+    print(f"- lines only in {labels[1]}: {len(added)}")
     for l in added:
         print(f"  + `{l}`")
 

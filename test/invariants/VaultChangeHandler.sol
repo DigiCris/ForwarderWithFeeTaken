@@ -418,7 +418,7 @@ contract VaultChangeHandler is Test {
         calls["forward"]++;
         amount = bound(amount, 0, 1e12);
         // `bound` logs through the console; nothing below is pranked before the explicit startPrank.
-        uint256 fee = forwarder.calculateFee(amount);
+        uint256 fee = forwarder.calculateFeeFor(user, amount);
         if (fee > amount) return;
         Snapshot memory before = _snapshot();
         uint256 vaultUsdcBefore = usdc.balanceOf(ghostVault);
@@ -444,16 +444,25 @@ contract VaultChangeHandler is Test {
         }
     }
 
+    /// @dev Fee configuration through its delayed lifecycle, interleaved with the vault lifecycle: proposes when
+    /// nothing is pending, executes a matured proposal, cancels an immature one (time only advances via `warp`).
     function setFees(uint8 lower, uint8 upper, uint256 threshold, uint256 fixedFee, uint256 variableFee) external {
         calls["setFees"]++;
         Snapshot memory before = _snapshot();
         threshold = bound(threshold, 0, 1e12);
         fixedFee = bound(fixedFee, 0, 10e6);
         variableFee = bound(variableFee, 0, 10_000);
+        (,,,,, uint256 executableAt) = forwarder.pendingFeeConfig();
         vm.prank(feeManager);
-        forwarder.setFeeConfig(
-            Forwarder.FeeModel(lower % 4), Forwarder.FeeModel(upper % 4), threshold, fixedFee, variableFee
-        );
+        if (executableAt == 0) {
+            forwarder.proposeFeeConfig(
+                Forwarder.FeeModel(lower % 4), Forwarder.FeeModel(upper % 4), threshold, fixedFee, variableFee
+            );
+        } else if (block.timestamp >= executableAt) {
+            forwarder.executeFeeConfigChange();
+        } else {
+            forwarder.cancelFeeConfigChange();
+        }
         ghostConfig = configHash();
         _checkUntouched(before);
     }
@@ -469,11 +478,16 @@ contract VaultChangeHandler is Test {
         _checkUntouched(before);
     }
 
+    /// @dev Treasury through its delayed lifecycle, same pattern as `setFees`.
     function setTreasury(uint256 seed) external {
         calls["setTreasury"]++;
         Snapshot memory before = _snapshot();
+        address pending = forwarder.pendingTreasury();
+        uint256 executableAt = forwarder.pendingTreasuryExecutableAt();
         vm.prank(admin);
-        forwarder.setTreasury(treasuries[seed % 2]);
+        if (pending == address(0)) forwarder.proposeTreasury(treasuries[seed % 2]);
+        else if (block.timestamp >= executableAt) forwarder.executeTreasuryChange();
+        else forwarder.cancelTreasuryChange();
         ghostConfig = configHash();
         _checkUntouched(before);
     }

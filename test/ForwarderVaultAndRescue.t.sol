@@ -345,8 +345,7 @@ contract ForwarderRescueTest is ForwarderTestBase {
 
     function test_RescueGoesToCurrentTreasury() public {
         address newTreasury = makeAddr("newTreasury");
-        vm.prank(admin);
-        forwarder.setTreasury(newTreasury);
+        _setTreasury(newTreasury);
         usdc.mint(address(forwarder), 1e6);
         _rescue(address(usdc));
         assertEq(usdc.balanceOf(newTreasury), 1e6);
@@ -388,8 +387,7 @@ contract ForwarderRescueTest is ForwarderTestBase {
 
     function test_RevertWhen_TreasuryRejectsNative() public {
         RejectNative rejecter = new RejectNative();
-        vm.prank(admin);
-        forwarder.setTreasury(address(rejecter));
+        _setTreasury(address(rejecter));
         vm.deal(address(forwarder), 1 ether);
         vm.expectRevert(bytes("no native"));
         vm.prank(admin);
@@ -504,11 +502,15 @@ contract ForwarderReentrancyTest is ForwarderTestBase {
     }
 
     /// @dev Pure storage setters are not guarded (no external call). Even if a privileged account reentered one of
-    /// them, `forward` works on the configuration snapshot taken before any external call.
+    /// them (here the execution of a matured treasury change), `forward` works on the configuration snapshot taken
+    /// before any external call.
     function test_ForwardUsesConfigurationSnapshot() public {
         _setFees(FIXED, FIXED, 0, 1e6, 0);
         address newTreasury = makeAddr("newTreasury");
-        evilVault.arm(address(forwarder), abi.encodeCall(Forwarder.setTreasury, (newTreasury)), admin);
+        vm.prank(admin);
+        forwarder.proposeTreasury(newTreasury);
+        vm.warp(forwarder.pendingTreasuryExecutableAt());
+        evilVault.arm(address(forwarder), abi.encodeCall(Forwarder.executeTreasuryChange, ()), admin);
         _forwardOnce(10e6, user);
         assertTrue(evilVault.reentrySucceeded());
         assertEq(forwarder.treasury(), newTreasury);

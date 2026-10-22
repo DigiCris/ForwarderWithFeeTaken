@@ -85,7 +85,36 @@ abstract contract ForkTestBase is Test {
         uint256 variableFee
     ) internal {
         vm.prank(feeManager);
-        forwarder.setFeeConfig(lower, upper, threshold, fixedFee, variableFee);
+        forwarder.proposeFeeConfig(lower, upper, threshold, fixedFee, variableFee);
+        vm.warp(_pendingFeeExecutableAt());
+        vm.prank(feeManager);
+        forwarder.executeFeeConfigChange();
+        _accrueLucaVaultYield();
+    }
+
+    /// @dev The Luca vault accrues its performance fee lazily: the first deposit after time passes mints fee shares
+    /// to its fee recipient, which is the same treasury Safe (`YieldAccrued` event). Tests that advance time trigger
+    /// that accrual with a deposit of their own, so that treasury balance deltas only reflect the Forwarder.
+    function _accrueLucaVaultYield() internal {
+        address poker = makeAddr("fork-luca-vault-poker");
+        deal(address(USDC), poker, 1e6);
+        vm.startPrank(poker);
+        USDC.approve(address(LUCA_VAULT), 1e6);
+        LUCA_VAULT.deposit(1e6, poker);
+        vm.stopPrank();
+    }
+
+    function _pendingFeeExecutableAt() internal view returns (uint256 executableAt) {
+        (,,,,, executableAt) = forwarder.pendingFeeConfig();
+    }
+
+    /// @dev Full post-deployment treasury replacement: propose, wait the 72 hours, execute.
+    function _replaceTreasuryAsAdmin(address newTreasury) internal {
+        vm.prank(ADMIN);
+        forwarder.proposeTreasury(newTreasury);
+        vm.warp(forwarder.pendingTreasuryExecutableAt());
+        vm.prank(ADMIN);
+        forwarder.executeTreasuryChange();
     }
 
     function _fundSra(uint256 amount) internal {
@@ -174,7 +203,21 @@ abstract contract ForkTestBase is Test {
         }
         if (address(forwarder.vault()) != Config.VAULT) _replaceVaultAsAdmin(LUCA_VAULT);
         _routing(Forwarder.RoutingMode.DIRECT_DIRECT);
-        _fees(Forwarder.FeeModel.NONE, Forwarder.FeeModel.NONE, 0, 0, 0);
+        if (_pendingFeeExecutableAt() != 0) {
+            vm.prank(ADMIN);
+            forwarder.cancelFeeConfigChange();
+        }
+        if (
+            forwarder.lowerFeeModel() != Forwarder.FeeModel.NONE || forwarder.upperFeeModel() != Forwarder.FeeModel.NONE
+                || forwarder.threshold() != 0 || forwarder.fixedFee() != 0 || forwarder.variableFee() != 0
+        ) {
+            _fees(Forwarder.FeeModel.NONE, Forwarder.FeeModel.NONE, 0, 0, 0);
+        }
+        if (forwarder.pendingTreasury() != address(0)) {
+            vm.prank(ADMIN);
+            forwarder.cancelTreasuryChange();
+        }
+        if (forwarder.treasury() != TREASURY) _replaceTreasuryAsAdmin(TREASURY);
         if (USDC.balanceOf(address(forwarder)) != 0) {
             vm.prank(ADMIN);
             forwarder.rescueToken(USDC);
@@ -213,6 +256,8 @@ abstract contract ForkTestBase is Test {
         }
         assertFalse(forwarder.hasRole(guardianRole, ADMIN));
         assertEq(forwarder.VAULT_CHANGE_DELAY(), 72 hours);
+        assertEq(forwarder.FEE_CHANGE_DELAY(), 72 hours);
+        assertEq(forwarder.TREASURY_CHANGE_DELAY(), 72 hours);
     }
 
     function test_Fork_EveryFeeManagerCanConfigureAndPauseButNotAdminister() public {
@@ -222,14 +267,20 @@ abstract contract ForkTestBase is Test {
         for (uint256 i = 0; i < managers.length; ++i) {
             address manager = managers[i];
             vm.startPrank(manager);
-            forwarder.setFeeConfig(Forwarder.FeeModel.FIXED, Forwarder.FeeModel.PERCENT, i, i, i);
-            forwarder.setVariableFee(i + 1);
+            forwarder.proposeFeeConfig(Forwarder.FeeModel.FIXED, Forwarder.FeeModel.PERCENT, i, i, i);
+            vm.warp(_pendingFeeExecutableAt());
+            forwarder.executeFeeConfigChange();
+            forwarder.proposeFeeConfig(Forwarder.FeeModel.FIXED, Forwarder.FeeModel.PERCENT, i, i, i + 1);
+            forwarder.cancelFeeConfigChange();
+            forwarder.setUserFeeOverride(manager, i, i, block.timestamp + 1 days);
             forwarder.pause();
             assertTrue(forwarder.paused());
             _expectUnauthorized(manager, adminRole);
             forwarder.unpause();
             _expectUnauthorized(manager, adminRole);
-            forwarder.setTreasury(manager);
+            forwarder.proposeTreasury(manager);
+            _expectUnauthorized(manager, adminRole);
+            forwarder.executeTreasuryChange();
             _expectUnauthorized(manager, adminRole);
             forwarder.proposeVault(STEAKHOUSE_USDC);
             _expectUnauthorized(manager, adminRole);
@@ -250,20 +301,34 @@ abstract contract ForkTestBase is Test {
 
             vm.prank(ADMIN);
             forwarder.unpause();
+            assertEq(forwarder.variableFee(), i);
+            assertEq(_pendingFeeExecutableAt(), 0);
         }
         assertEq(forwarder.treasury(), TREASURY);
+        assertEq(forwarder.pendingTreasury(), address(0));
     }
 
     function test_Fork_StrangerCannotDoAnything() public {
         bytes32 feeRole = forwarder.FEE_MANAGER_ROLE();
         bytes32 adminRole = forwarder.DEFAULT_ADMIN_ROLE();
+        bytes32 guardianRole = forwarder.VAULT_GUARDIAN_ROLE();
         vm.startPrank(stranger);
         _expectUnauthorized(stranger, feeRole);
-        forwarder.setFeeConfig(Forwarder.FeeModel.FIXED, Forwarder.FeeModel.FIXED, 0, 1, 1);
+        forwarder.proposeFeeConfig(Forwarder.FeeModel.FIXED, Forwarder.FeeModel.FIXED, 0, 1, 1);
+        _expectUnauthorized(stranger, feeRole);
+        forwarder.executeFeeConfigChange();
+        _expectUnauthorized(stranger, guardianRole);
+        forwarder.cancelFeeConfigChange();
+        _expectUnauthorized(stranger, feeRole);
+        forwarder.setUserFeeOverride(stranger, 0, 0, block.timestamp + 1);
         _expectUnauthorized(stranger, feeRole);
         forwarder.pause();
         _expectUnauthorized(stranger, adminRole);
-        forwarder.setTreasury(stranger);
+        forwarder.proposeTreasury(stranger);
+        _expectUnauthorized(stranger, adminRole);
+        forwarder.executeTreasuryChange();
+        _expectUnauthorized(stranger, guardianRole);
+        forwarder.cancelTreasuryChange();
         _expectUnauthorized(stranger, adminRole);
         forwarder.setRoutingMode(Forwarder.RoutingMode.VAULT_VAULT);
         _expectUnauthorized(stranger, adminRole);
@@ -280,8 +345,15 @@ abstract contract ForkTestBase is Test {
     function test_Fork_AdminSafeCanAdminister() public {
         address newTreasury = makeAddr("newTreasury");
         vm.startPrank(ADMIN);
-        forwarder.setTreasury(newTreasury);
-        forwarder.setTreasury(TREASURY);
+        forwarder.proposeTreasury(newTreasury);
+        forwarder.cancelTreasuryChange();
+        forwarder.proposeTreasury(newTreasury);
+        vm.warp(forwarder.pendingTreasuryExecutableAt());
+        forwarder.executeTreasuryChange();
+        assertEq(forwarder.treasury(), newTreasury);
+        forwarder.proposeTreasury(TREASURY);
+        vm.warp(forwarder.pendingTreasuryExecutableAt());
+        forwarder.executeTreasuryChange();
         forwarder.pause();
         forwarder.unpause();
         forwarder.grantRole(forwarder.FEE_MANAGER_ROLE(), stranger);
@@ -293,6 +365,221 @@ abstract contract ForkTestBase is Test {
 
     function _expectUnauthorized(address account, bytes32 role) internal {
         vm.expectRevert(abi.encodeWithSelector(IAccessControl.AccessControlUnauthorizedAccount.selector, account, role));
+    }
+
+    // -----------------------------------------------------------------------------------------------------------
+    // Delayed fee configuration and treasury changes, fee overrides
+    // -----------------------------------------------------------------------------------------------------------
+
+    function test_Fork_FeeConfigChangeLifecycle() public {
+        _resetToBaseline();
+        vm.prank(feeManager);
+        forwarder.proposeFeeConfig(
+            Forwarder.FeeModel.FIXED_PLUS_PERCENT, Forwarder.FeeModel.FIXED_PLUS_PERCENT, 0, 1e6, 1000
+        );
+        uint256 executableAt = _pendingFeeExecutableAt();
+        assertEq(executableAt, block.timestamp + 72 hours);
+
+        // Until the execution `forward` keeps charging the active configuration (no fee).
+        uint256 treasuryBefore = USDC.balanceOf(TREASURY);
+        _forward(1000e6, user);
+        assertEq(USDC.balanceOf(user), 1000e6);
+        assertEq(USDC.balanceOf(TREASURY), treasuryBefore);
+
+        vm.warp(executableAt - 1);
+        vm.expectRevert(abi.encodeWithSelector(Forwarder.FeeConfigChangeDelayNotElapsed.selector, executableAt));
+        vm.prank(feeManager);
+        forwarder.executeFeeConfigChange();
+
+        vm.warp(executableAt);
+        vm.prank(Config.FEE_MANAGER_MM); // any fee manager can execute
+        forwarder.executeFeeConfigChange();
+        assertEq(_pendingFeeExecutableAt(), 0);
+        assertEq(uint8(forwarder.lowerFeeModel()), uint8(Forwarder.FeeModel.FIXED_PLUS_PERCENT));
+        assertEq(forwarder.fixedFee(), 1e6);
+        assertEq(forwarder.variableFee(), 1000);
+
+        _forward(1000e6, user);
+        assertEq(USDC.balanceOf(user), 1000e6 + 989e6);
+        assertEq(USDC.balanceOf(TREASURY) - treasuryBefore, 11e6);
+    }
+
+    function test_Fork_TreasuryChangeLifecycle() public {
+        _resetToBaseline();
+        _fees(Forwarder.FeeModel.FIXED, Forwarder.FeeModel.FIXED, 0, 1e6, 0);
+        address newTreasury = makeAddr("fork-newTreasury");
+        vm.prank(ADMIN);
+        forwarder.proposeTreasury(newTreasury);
+        uint256 executableAt = forwarder.pendingTreasuryExecutableAt();
+        assertEq(executableAt, block.timestamp + 72 hours);
+        assertEq(forwarder.treasury(), TREASURY);
+
+        // While pending, fees and rescues go to the active treasury Safe, never to the pending treasury.
+        uint256 treasuryBefore = USDC.balanceOf(TREASURY);
+        _forward(100e6, user);
+        assertEq(USDC.balanceOf(TREASURY) - treasuryBefore, 1e6);
+        deal(address(USDC), address(forwarder), 3e6);
+        vm.prank(ADMIN);
+        forwarder.rescueToken(USDC);
+        assertEq(USDC.balanceOf(TREASURY) - treasuryBefore, 4e6);
+        assertEq(USDC.balanceOf(newTreasury), 0);
+
+        vm.warp(executableAt - 1);
+        vm.expectRevert(abi.encodeWithSelector(Forwarder.TreasuryChangeDelayNotElapsed.selector, executableAt));
+        vm.prank(ADMIN);
+        forwarder.executeTreasuryChange();
+
+        vm.warp(executableAt);
+        vm.prank(ADMIN);
+        forwarder.executeTreasuryChange();
+        assertEq(forwarder.treasury(), newTreasury);
+        assertEq(forwarder.pendingTreasury(), address(0));
+        assertEq(forwarder.pendingTreasuryExecutableAt(), 0);
+        _forward(100e6, user);
+        assertEq(USDC.balanceOf(newTreasury), 1e6);
+        assertEq(USDC.balanceOf(TREASURY) - treasuryBefore, 4e6);
+
+        _replaceTreasuryAsAdmin(TREASURY);
+        assertEq(forwarder.treasury(), TREASURY);
+    }
+
+    function test_Fork_GuardianCancelsFeeAndTreasuryChanges() public {
+        _resetToBaseline();
+        address guardianOnly = makeAddr("fork-guardian-only");
+        bytes32 guardianRole = forwarder.VAULT_GUARDIAN_ROLE();
+        vm.prank(ADMIN);
+        forwarder.grantRole(guardianRole, guardianOnly);
+
+        vm.prank(feeManager);
+        forwarder.proposeFeeConfig(Forwarder.FeeModel.FIXED, Forwarder.FeeModel.FIXED, 0, 10e6, 0);
+        vm.prank(ADMIN);
+        forwarder.proposeTreasury(stranger);
+        vm.warp(forwarder.pendingTreasuryExecutableAt()); // still cancellable once executable
+
+        vm.startPrank(guardianOnly);
+        forwarder.cancelFeeConfigChange();
+        forwarder.cancelTreasuryChange();
+        vm.stopPrank();
+        assertEq(_pendingFeeExecutableAt(), 0);
+        assertEq(forwarder.pendingTreasury(), address(0));
+        assertEq(forwarder.fixedFee(), 0);
+        assertEq(forwarder.treasury(), TREASURY);
+
+        vm.expectRevert(Forwarder.NoPendingFeeConfigChange.selector);
+        vm.prank(feeManager);
+        forwarder.executeFeeConfigChange();
+        vm.expectRevert(Forwarder.NoPendingTreasuryChange.selector);
+        vm.prank(ADMIN);
+        forwarder.executeTreasuryChange();
+
+        // The production guardians (management wallets) cancel as well; the guardian-only account cannot execute.
+        vm.prank(ADMIN);
+        forwarder.proposeTreasury(stranger);
+        vm.prank(_guardian());
+        forwarder.cancelTreasuryChange();
+        vm.prank(feeManager);
+        forwarder.proposeFeeConfig(Forwarder.FeeModel.FIXED, Forwarder.FeeModel.FIXED, 0, 10e6, 0);
+        vm.warp(_pendingFeeExecutableAt());
+        _expectUnauthorized(guardianOnly, forwarder.FEE_MANAGER_ROLE());
+        vm.prank(guardianOnly);
+        forwarder.executeFeeConfigChange();
+        vm.prank(_guardian());
+        forwarder.cancelFeeConfigChange();
+    }
+
+    function test_Fork_UserFeeOverrideWithRealUsdcAndVault() public {
+        _resetToBaseline();
+        _fees(Forwarder.FeeModel.FIXED_PLUS_PERCENT, Forwarder.FeeModel.FIXED_PLUS_PERCENT, 0, 1e6, 1000);
+        address vip = makeAddr("fork-vip");
+        uint256 validUntil = block.timestamp + 30 days;
+        vm.prank(feeManager);
+        forwarder.setUserFeeOverride(vip, 0.2e6, 300, validUntil); // 0.2 USDC + 0.3% instead of 1 USDC + 1%
+        uint256 amount = 1000e6;
+        uint256 discountedFee = 0.2e6 + 3e6;
+        uint256 globalFee = 11e6;
+        assertEq(forwarder.calculateFeeFor(vip, amount), discountedFee);
+        assertEq(forwarder.calculateFeeFor(user, amount), globalFee);
+        assertEq(forwarder.calculateFee(amount), globalFee);
+
+        // DIRECT_DIRECT: USDC to the recipients, fees to the treasury Safe.
+        uint256 treasuryBefore = USDC.balanceOf(TREASURY);
+        _forward(amount, vip);
+        assertEq(USDC.balanceOf(vip), amount - discountedFee);
+        assertEq(USDC.balanceOf(TREASURY) - treasuryBefore, discountedFee);
+        _forward(amount, user);
+        assertEq(USDC.balanceOf(user), amount - globalFee);
+        assertEq(USDC.balanceOf(TREASURY) - treasuryBefore, discountedFee + globalFee);
+
+        // VAULT_VAULT: Luca vault shares for the discounted user amount and for the discounted fee.
+        _routing(Forwarder.RoutingMode.VAULT_VAULT);
+        uint256 treasurySharesBefore = LUCA_VAULT.balanceOf(TREASURY);
+        _forward(amount, vip);
+        assertApproxEqAbs(_value(LUCA_VAULT, vip), amount - discountedFee, 2);
+        assertLe(_value(LUCA_VAULT, vip), amount - discountedFee);
+        assertApproxEqAbs(
+            LUCA_VAULT.previewRedeem(LUCA_VAULT.balanceOf(TREASURY) - treasurySharesBefore), discountedFee, 2
+        );
+        assertEq(USDC.balanceOf(address(forwarder)), 0);
+
+        // Paused fees: zero for everybody, override included.
+        vm.prank(feeManager);
+        forwarder.pause();
+        assertEq(forwarder.calculateFeeFor(vip, amount), 0);
+        assertEq(forwarder.calculateFeeFor(user, amount), 0);
+        vm.prank(ADMIN);
+        forwarder.unpause();
+
+        // Expiry: from `validUntil` the recipient pays the global fee again, without any transaction.
+        _routing(Forwarder.RoutingMode.DIRECT_DIRECT);
+        vm.warp(validUntil - 1);
+        assertEq(forwarder.calculateFeeFor(vip, amount), discountedFee);
+        vm.warp(validUntil);
+        assertEq(forwarder.calculateFeeFor(vip, amount), globalFee);
+        uint256 vipBefore = USDC.balanceOf(vip);
+        _forward(amount, vip);
+        assertEq(USDC.balanceOf(vip) - vipBefore, amount - globalFee);
+    }
+
+    /// @dev The vault, fee configuration and treasury delays run independently and none can be executed early.
+    function test_Fork_VaultFeeAndTreasuryChangesPendingTogether() public {
+        _resetToBaseline();
+        _proposeAsAdmin(STEAKHOUSE_USDC);
+        vm.prank(feeManager);
+        forwarder.proposeFeeConfig(Forwarder.FeeModel.FIXED, Forwarder.FeeModel.FIXED, 0, 1e6, 0);
+        vm.prank(ADMIN);
+        forwarder.proposeTreasury(stranger);
+        uint256 executableAt = forwarder.pendingVaultExecutableAt();
+        assertEq(_pendingFeeExecutableAt(), executableAt);
+        assertEq(forwarder.pendingTreasuryExecutableAt(), executableAt);
+
+        vm.warp(executableAt - 1);
+        _fundAdminHealthCheck();
+        vm.expectRevert(abi.encodeWithSelector(Forwarder.VaultChangeDelayNotElapsed.selector, executableAt));
+        vm.prank(ADMIN);
+        forwarder.executeVaultChange();
+        vm.expectRevert(abi.encodeWithSelector(Forwarder.FeeConfigChangeDelayNotElapsed.selector, executableAt));
+        vm.prank(feeManager);
+        forwarder.executeFeeConfigChange();
+        vm.expectRevert(abi.encodeWithSelector(Forwarder.TreasuryChangeDelayNotElapsed.selector, executableAt));
+        vm.prank(ADMIN);
+        forwarder.executeTreasuryChange();
+
+        vm.warp(executableAt);
+        vm.prank(_guardian());
+        forwarder.cancelTreasuryChange();
+        _executeAsAdmin();
+        vm.prank(feeManager);
+        forwarder.executeFeeConfigChange();
+        assertEq(address(forwarder.vault()), address(STEAKHOUSE_USDC));
+        assertEq(forwarder.fixedFee(), 1e6);
+        assertEq(forwarder.treasury(), TREASURY);
+        assertEq(forwarder.pendingTreasury(), address(0));
+
+        _routing(Forwarder.RoutingMode.VAULT_USER_DIRECT_TREASURY);
+        uint256 treasuryBefore = USDC.balanceOf(TREASURY);
+        _forward(100e6, user);
+        assertApproxEqAbs(_value(STEAKHOUSE_USDC, user), 99e6, 2);
+        assertEq(USDC.balanceOf(TREASURY) - treasuryBefore, 1e6);
     }
 
     // -----------------------------------------------------------------------------------------------------------

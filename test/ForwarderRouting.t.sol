@@ -377,8 +377,7 @@ contract ForwarderTreasuryDeliveryTest is RoutingFixture {
         usdc.setBlacklisted(treasury, true);
         _forward(AMOUNT, user);
         address newTreasury = makeAddr("newTreasury");
-        vm.prank(admin);
-        forwarder.setTreasury(newTreasury);
+        _setTreasury(newTreasury);
         _forward(AMOUNT, user);
         assertEq(usdc.balanceOf(newTreasury), 2 * FEE);
         assertEq(usdc.balanceOf(treasury), 0);

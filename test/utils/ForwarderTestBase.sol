@@ -14,6 +14,8 @@ abstract contract ForwarderTestBase is Test {
     uint48 internal constant ADMIN_DELAY = 3 days;
     uint256 internal constant TEST_AMOUNT = 1000;
     uint256 internal constant VAULT_CHANGE_DELAY = 72 hours;
+    uint256 internal constant FEE_CHANGE_DELAY = 72 hours;
+    uint256 internal constant TREASURY_CHANGE_DELAY = 72 hours;
     uint256 internal constant MAX = type(uint256).max;
 
     Forwarder.FeeModel internal constant NONE = Forwarder.FeeModel.NONE;
@@ -109,6 +111,8 @@ abstract contract ForwarderTestBase is Test {
         forwarder.setRoutingMode(mode);
     }
 
+    /// @dev Applies a fee configuration through the whole lifecycle: propose, wait until the proposal's
+    /// `executableAt`, execute (time advances by `FEE_CHANGE_DELAY`).
     function _setFees(
         Forwarder.FeeModel lower,
         Forwarder.FeeModel upper,
@@ -116,8 +120,40 @@ abstract contract ForwarderTestBase is Test {
         uint256 fixedFee,
         uint256 variableFee
     ) internal {
+        _proposeFees(lower, upper, threshold, fixedFee, variableFee);
+        vm.warp(_pendingFeeExecutableAt());
         vm.prank(feeManager);
-        forwarder.setFeeConfig(lower, upper, threshold, fixedFee, variableFee);
+        forwarder.executeFeeConfigChange();
+    }
+
+    function _proposeFees(
+        Forwarder.FeeModel lower,
+        Forwarder.FeeModel upper,
+        uint256 threshold,
+        uint256 fixedFee,
+        uint256 variableFee
+    ) internal {
+        vm.prank(feeManager);
+        forwarder.proposeFeeConfig(lower, upper, threshold, fixedFee, variableFee);
+    }
+
+    function _pendingFeeExecutableAt() internal view returns (uint256 executableAt) {
+        (,,,,, executableAt) = forwarder.pendingFeeConfig();
+    }
+
+    /// @dev Replaces the treasury through the whole lifecycle: propose, wait until `pendingTreasuryExecutableAt`,
+    /// execute (time advances by `TREASURY_CHANGE_DELAY`).
+    function _setTreasury(address newTreasury) internal {
+        vm.prank(admin);
+        forwarder.proposeTreasury(newTreasury);
+        vm.warp(forwarder.pendingTreasuryExecutableAt());
+        vm.prank(admin);
+        forwarder.executeTreasuryChange();
+    }
+
+    function _setOverride(address recipient, uint256 fixedFee, uint256 variableFee, uint256 validUntil) internal {
+        vm.prank(feeManager);
+        forwarder.setUserFeeOverride(recipient, fixedFee, variableFee, validUntil);
     }
 
     /// @dev Mints `amount` to the SRA, approves the Forwarder and calls `forward` as the SRA.
