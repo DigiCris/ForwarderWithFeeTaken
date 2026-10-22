@@ -1,0 +1,55 @@
+== On-chain checks of 0x66c101cb2617256EC61833B607e3F0d98e0C1968 (block 52959005)
+code size (bytes): 14330
+codehash: 0x56aace6292b336e20f43338b458c504b72d0496f701ab66cb2ad63a1c7339379
+USDC()(address): 0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913 
+defaultAdmin()(address): 0x420675DFAf02750a7DdFad702D13e32eb2C67602 
+defaultAdminDelay()(uint48): 259200 [2.592e5] 
+treasury()(address): 0x7a5F8A4aF0FEDaBb1625b6f04bA38fC75e7E843e 
+vault()(address): 0xc462cA16286a9a877a499f9474827bA801f2090D 
+routingMode()(uint8): 0 
+lowerFeeModel()(uint8): 0 
+upperFeeModel()(uint8): 0 
+threshold()(uint256): 0 
+fixedFee()(uint256): 0 
+variableFee()(uint256): 0 
+paused()(bool): false 
+pendingVault()(address): 0x0000000000000000000000000000000000000000 
+pendingVaultExecutableAt()(uint256): 0 
+pendingFeeConfig()(uint8,uint8,uint256,uint256,uint256,uint256): 0 0 0 0 0 0 
+pendingTreasury()(address): 0x0000000000000000000000000000000000000000 
+pendingTreasuryExecutableAt()(uint256): 0 
+VAULT_CHANGE_DELAY()(uint256): 259200 [2.592e5] 
+FEE_CHANGE_DELAY()(uint256): 259200 [2.592e5] 
+TREASURY_CHANGE_DELAY()(uint256): 259200 [2.592e5] 
+VAULT_TEST_AMOUNT()(uint256): 1000 
+MAX_FIXED_FEE()(uint256): 10000000 [1e7] 
+MAX_VARIABLE_FEE()(uint256): 10000 [1e4] 
+FEE_DENOMINATOR()(uint256): 100000 [1e5] 
+VAULT_GUARDIAN_ROLE()(bytes32): 0xc3144799d744af118b620bad1dd856d1c8733359e68aa889f4743e8d2498e4ac 
+FEE_MANAGER_ROLE()(bytes32): 0x6c0757dc3e6b28b2580c03fd9e96c274acf4f99d91fbec9b418fa1d70604ff1c 
+pendingDefaultAdmin()(address,uint48): 0x0000000000000000000000000000000000000000 0 
+calculateFee(1e12): 0
+calculateFeeFor(0x...dEaD, 1e12): 0
+getRoleAdmin(VAULT_GUARDIAN_ROLE): 0x0000000000000000000000000000000000000000000000000000000000000000
+getRoleAdmin(FEE_MANAGER_ROLE): 0x0000000000000000000000000000000000000000000000000000000000000000
+0xa737cB590c0F4d00D2140a429728681e1e74C5db guardian=true feeManager=true admin=false override=0 0 0 
+0x31B5aBcF044049daa96cDC387a44747a48a0ac62 guardian=true feeManager=true admin=false override=0 0 0 
+0x61D4d1Ab7eA7B3A54C7B2D646Eb8189faD7B1050 guardian=true feeManager=true admin=false override=0 0 0 
+0xa82a5201E630b40914bf4fed0B0b40180BCB93F7 guardian=true feeManager=true admin=false override=0 0 0 
+0xe3685F1C0652430e501B314b3035CB7Dd5b21c5f guardian=true feeManager=true admin=false override=0 0 0 
+0x5aDF0B683B49217704eff3f85eda468651C50A48 guardian=true feeManager=true admin=false override=0 0 0 
+0x18e129122a338f2e6871764fe0e4426dE848Ef99 guardian=true feeManager=true admin=false override=0 0 0 
+admin Safe: guardian=false feeManager=false admin=true
+USDC.allowance(forwarder, LucaVault): 0
+USDC.balanceOf(forwarder): 0
+LucaVault.balanceOf(forwarder): 0
+USDC.allowance(deployer, forwarder): 0
+eth_call forward(USDC, 0, 0x...dEaD) from 0x...bEEF (EIP-1153 guard on the real node): 0x
+removed setTreasury(address) (0xf0f44260) called by admin Safe: Error: server returned an error response: error code 3: execution reverted
+removed setFeeConfig(uint8,uint8,uint256,uint256,uint256) (0xe8964a0e) called by admin Safe: Error: server returned an error response: error code 3: execution reverted
+removed setVariableFee(uint256) (0xd696a7da) called by admin Safe: Error: server returned an error response: error code 3: execution reverted
+removed setFixedFee(uint256) (0x37de8106) called by admin Safe: Error: server returned an error response: error code 3: execution reverted
+removed setThreshold(uint256) (0x960bfe04) called by admin Safe: Error: server returned an error response: error code 3: execution reverted
+removed setLowerFeeModel(uint8) (0x3f37297c) called by admin Safe: Error: server returned an error response: error code 3: execution reverted
+removed setUpperFeeModel(uint8) (0xbdb6412c) called by admin Safe: Error: server returned an error response: error code 3: execution reverted
+removed setVault(address) (0x6817031b) called by admin Safe: Error: server returned an error response: error code 3: execution reverted

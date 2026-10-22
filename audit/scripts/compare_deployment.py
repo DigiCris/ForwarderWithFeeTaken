@@ -2,7 +2,7 @@
 """Compares the Forwarder deployment recorded by forge (broadcast file) with the local build.
 
 Checks that the creation transaction input is exactly `local creation bytecode || abi-encoded constructor args`, that
-the arguments are the production configuration (V2 constructor: fee managers and vault guardians), and prints the
+the arguments are the production configuration (V2/V3 constructor: fee managers and vault guardians), and prints the
 data needed for the audit report. The runtime code
 equality (immutables included) is checked separately by test/ForwarderPostDeployFork.t.sol.
 

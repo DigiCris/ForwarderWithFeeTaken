@@ -1,0 +1,14 @@
+Basescan getsourcecode for 0x66c101cb2617256EC61833B607e3F0d98e0C1968
+ContractName: Forwarder
+CompilerVersion: v0.8.30+commit.73712a01
+OptimizationUsed: 1
+Runs: 200
+EVMVersion: cancun
+LicenseType: 
+Proxy: 0
+sources in the verified standard-json input: 26
+verified src/Forwarder.sol identical to the audited local file: True
+sha256 of the verified src/Forwarder.sol: 22aeb8e536cabe68d5ba3005decb1f43179d38ffc261b032a14085432ffd3d6b
+settings.optimizer: {'enabled': True, 'runs': 200} | evmVersion: cancun | viaIR: False
+OpenZeppelin sources in the verified input: 25
+constructor arguments recorded: 000000000000000000000000833589fcd6edb6e08f4c7c32d4f71b54bda02913…
