@@ -254,25 +254,35 @@ contract ForwarderHandler is Test {
         }
     }
 
-    function setVault(uint256 vaultSeed) external {
-        calls["setVault"]++;
+    /// @dev Vault replacement through the whole post-deployment lifecycle in one step: propose, wait
+    /// `VAULT_CHANGE_DELAY`, execute. The targeted lifecycle campaign is `ForwarderVaultChangeInvariantTest`.
+    function replaceVault(uint256 vaultSeed) external {
+        calls["replaceVault"]++;
         MockVault candidate = vaults[vaultSeed % vaults.length];
-        bool healthy = candidate != vaults[vaults.length - 1] && !candidate.depositReverts() && !candidate.paused();
         address previous = address(forwarder.vault());
+        bool healthy = candidate != vaults[vaults.length - 1] && !candidate.depositReverts() && !candidate.paused()
+            && address(candidate) != previous;
 
-        usdc.mint(admin, TEST_AMOUNT);
+        usdc.mint(admin, 2 * TEST_AMOUNT);
         vm.prank(admin);
-        usdc.approve(address(forwarder), TEST_AMOUNT);
+        usdc.approve(address(forwarder), 2 * TEST_AMOUNT);
         uint256 adminBefore = usdc.balanceOf(admin);
         uint256 forwarderBefore = usdc.balanceOf(address(forwarder));
 
         vm.prank(admin);
-        try forwarder.setVault(IERC4626(address(candidate))) {
+        try forwarder.proposeVault(IERC4626(address(candidate))) {
             if (!healthy) ghostUnexpectedSuccesses++;
-            ghostAllowance[previous] = 0;
-            ghostAllowance[address(candidate)] = _usesVault(forwarder.routingMode()) ? MAX : 0;
-            // 1:1 vault: the caller gets back exactly what it provided; the Forwarder balance is untouched.
-            if (usdc.balanceOf(admin) != adminBefore) ghostTreasuryMismatches++;
+            if (usdc.allowance(address(forwarder), address(candidate)) != 0) ghostUnexpectedSuccesses++;
+            vm.warp(forwarder.pendingVaultExecutableAt());
+            vm.prank(admin);
+            try forwarder.executeVaultChange() {
+                ghostAllowance[previous] = 0;
+                ghostAllowance[address(candidate)] = _usesVault(forwarder.routingMode()) ? MAX : 0;
+                // 1:1 vault: the caller gets back exactly what it provided; the Forwarder balance is untouched.
+                if (usdc.balanceOf(admin) != adminBefore) ghostTreasuryMismatches++;
+            } catch {
+                ghostUnexpectedReverts++;
+            }
         } catch {
             if (healthy) ghostUnexpectedReverts++;
         }
@@ -348,7 +358,7 @@ contract ForwarderHandler is Test {
         if (s == 0) {
             data = abi.encodeCall(Forwarder.setTreasury, (actor));
         } else if (s == 1) {
-            data = abi.encodeCall(Forwarder.setVault, (IERC4626(address(vaults[0]))));
+            data = abi.encodeCall(Forwarder.proposeVault, (IERC4626(address(vaults[1]))));
         } else if (s == 2) {
             data = abi.encodeCall(Forwarder.setRoutingMode, (Forwarder.RoutingMode(value % 4)));
         } else if (s == 3) {

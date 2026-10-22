@@ -55,4 +55,18 @@ library ForwarderDeployConfig {
         }
         if (!deployerIncluded) managers[7] = deployer;
     }
+
+    /// @notice VAULT_GUARDIAN_ROLE holders granted at deployment (they can only cancel a pending vault change): the
+    /// seven management wallets, the same accounts as the fee managers above. `DeployForwarder.run` refuses to
+    /// broadcast with an empty list.
+    function vaultGuardians() internal pure returns (address[] memory guardians) {
+        guardians = new address[](7);
+        guardians[0] = FEE_MANAGER_MANAGEMENT_1;
+        guardians[1] = FEE_MANAGER_MM;
+        guardians[2] = FEE_MANAGER_OC;
+        guardians[3] = FEE_MANAGER_CM;
+        guardians[4] = FEE_MANAGER_BB;
+        guardians[5] = FEE_MANAGER_HM;
+        guardians[6] = FEE_MANAGER_CM2;
+    }
 }

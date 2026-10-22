@@ -33,8 +33,8 @@ abstract contract ForkTestBase is Test {
     IERC4626 internal constant LUCA_VAULT = IERC4626(Config.VAULT);
     address internal constant ADMIN = Config.ADMIN;
     address internal constant TREASURY = Config.TREASURY;
-    address internal constant VAULT_GUARDIAN = Config.FEE_MANAGER_CM2; // CONTROLLER_ROLE on the Luca vault
-    address internal constant VAULT_MULTISIG = Config.FEE_MANAGER_HM; // MULTISIG_ROLE on the Luca vault
+    address internal constant LUCA_VAULT_CONTROLLER = Config.FEE_MANAGER_CM2; // CONTROLLER_ROLE on the Luca vault
+    address internal constant LUCA_VAULT_MULTISIG = Config.FEE_MANAGER_HM; // MULTISIG_ROLE on the Luca vault
     IERC4626 internal constant STEAKHOUSE_USDC = IERC4626(0xbeeF010f9cb27031ad51e3333f9aF9C6B1228183);
     IERC4626 internal constant MOONWELL_FLAGSHIP_ETH = IERC4626(0xa0E430870c4604CcfC7B38Ca7845B1FF653D0ff1);
     address internal constant USDBC = 0xd9aAEc86B65D86f6A7B5B1b0c42FFA531710b6CA;
@@ -107,12 +107,12 @@ abstract contract ForkTestBase is Test {
     }
 
     function _pauseLucaVault() internal {
-        vm.prank(VAULT_GUARDIAN);
+        vm.prank(LUCA_VAULT_CONTROLLER);
         ILucaVault(address(LUCA_VAULT)).pauseDeposits();
     }
 
     function _unpauseLucaVault() internal {
-        vm.prank(VAULT_MULTISIG);
+        vm.prank(LUCA_VAULT_MULTISIG);
         ILucaVault(address(LUCA_VAULT)).unpauseDeposits();
     }
 
@@ -123,12 +123,44 @@ abstract contract ForkTestBase is Test {
         else token.unBlacklist(account);
     }
 
-    function _setVaultAsAdmin(IERC4626 newVault) internal {
-        deal(address(USDC), ADMIN, USDC.balanceOf(ADMIN) + forwarder.VAULT_TEST_AMOUNT());
-        vm.startPrank(ADMIN);
-        USDC.approve(address(forwarder), forwarder.VAULT_TEST_AMOUNT());
-        forwarder.setVault(newVault);
-        vm.stopPrank();
+    /// @dev Funds the admin Safe with the health check amount and approves the Forwarder, as a Safe batch would.
+    function _fundAdminHealthCheck() internal {
+        uint256 amount = forwarder.VAULT_TEST_AMOUNT();
+        deal(address(USDC), ADMIN, USDC.balanceOf(ADMIN) + amount);
+        vm.prank(ADMIN);
+        USDC.approve(address(forwarder), amount);
+    }
+
+    function _proposeAsAdmin(IERC4626 candidate) internal {
+        _fundAdminHealthCheck();
+        vm.prank(ADMIN);
+        forwarder.proposeVault(candidate);
+    }
+
+    function _executeAsAdmin() internal {
+        _fundAdminHealthCheck();
+        vm.prank(ADMIN);
+        forwarder.executeVaultChange();
+    }
+
+    /// @dev Full post-deployment replacement: propose, wait the 72 hours, execute.
+    function _replaceVaultAsAdmin(IERC4626 newVault) internal {
+        _proposeAsAdmin(newVault);
+        vm.warp(forwarder.pendingVaultExecutableAt());
+        _executeAsAdmin();
+    }
+
+    /// @dev A VAULT_GUARDIAN_ROLE holder: the first configured guardian, or an account granted by the admin Safe when
+    /// the production configuration has none.
+    function _guardian() internal returns (address account) {
+        address[] memory guardians = Config.vaultGuardians();
+        if (guardians.length > 0) return guardians[0];
+        account = makeAddr("fork-guardian");
+        if (!forwarder.hasRole(forwarder.VAULT_GUARDIAN_ROLE(), account)) {
+            bytes32 role = forwarder.VAULT_GUARDIAN_ROLE();
+            vm.prank(ADMIN);
+            forwarder.grantRole(role, account);
+        }
     }
 
     function _resetToBaseline() internal {
@@ -136,7 +168,11 @@ abstract contract ForkTestBase is Test {
             vm.prank(ADMIN);
             forwarder.unpause();
         }
-        if (address(forwarder.vault()) != Config.VAULT) _setVaultAsAdmin(LUCA_VAULT);
+        if (address(forwarder.pendingVault()) != address(0)) {
+            vm.prank(ADMIN);
+            forwarder.cancelVaultChange();
+        }
+        if (address(forwarder.vault()) != Config.VAULT) _replaceVaultAsAdmin(LUCA_VAULT);
         _routing(Forwarder.RoutingMode.DIRECT_DIRECT);
         _fees(Forwarder.FeeModel.NONE, Forwarder.FeeModel.NONE, 0, 0, 0);
         if (USDC.balanceOf(address(forwarder)) != 0) {
@@ -164,6 +200,19 @@ abstract contract ForkTestBase is Test {
             assertFalse(forwarder.hasRole(forwarder.DEFAULT_ADMIN_ROLE(), managers[i]));
         }
         assertFalse(forwarder.hasRole(forwarder.FEE_MANAGER_ROLE(), ADMIN));
+
+        bytes32 guardianRole = forwarder.VAULT_GUARDIAN_ROLE();
+        assertEq(guardianRole, keccak256("VAULT_GUARDIAN_ROLE"));
+        assertEq(forwarder.getRoleAdmin(guardianRole), forwarder.DEFAULT_ADMIN_ROLE());
+        address[] memory guardians = Config.vaultGuardians();
+        assertEq(guardians.length, 7, "the seven management wallets");
+        for (uint256 i = 0; i < guardians.length; ++i) {
+            assertEq(guardians[i], managers[i], "guardian is the management wallet");
+            assertTrue(forwarder.hasRole(guardianRole, guardians[i]));
+            assertFalse(forwarder.hasRole(forwarder.DEFAULT_ADMIN_ROLE(), guardians[i]));
+        }
+        assertFalse(forwarder.hasRole(guardianRole, ADMIN));
+        assertEq(forwarder.VAULT_CHANGE_DELAY(), 72 hours);
     }
 
     function test_Fork_EveryFeeManagerCanConfigureAndPauseButNotAdminister() public {
@@ -182,7 +231,13 @@ abstract contract ForkTestBase is Test {
             _expectUnauthorized(manager, adminRole);
             forwarder.setTreasury(manager);
             _expectUnauthorized(manager, adminRole);
-            forwarder.setVault(STEAKHOUSE_USDC);
+            forwarder.proposeVault(STEAKHOUSE_USDC);
+            _expectUnauthorized(manager, adminRole);
+            forwarder.executeVaultChange();
+            if (!forwarder.hasRole(forwarder.VAULT_GUARDIAN_ROLE(), manager)) {
+                _expectUnauthorized(manager, forwarder.VAULT_GUARDIAN_ROLE());
+                forwarder.cancelVaultChange();
+            }
             _expectUnauthorized(manager, adminRole);
             forwarder.setRoutingMode(Forwarder.RoutingMode.VAULT_VAULT);
             _expectUnauthorized(manager, adminRole);
@@ -213,6 +268,12 @@ abstract contract ForkTestBase is Test {
         forwarder.setRoutingMode(Forwarder.RoutingMode.VAULT_VAULT);
         _expectUnauthorized(stranger, adminRole);
         forwarder.rescueToken(USDC);
+        _expectUnauthorized(stranger, adminRole);
+        forwarder.proposeVault(STEAKHOUSE_USDC);
+        _expectUnauthorized(stranger, adminRole);
+        forwarder.executeVaultChange();
+        _expectUnauthorized(stranger, forwarder.VAULT_GUARDIAN_ROLE());
+        forwarder.cancelVaultChange();
         vm.stopPrank();
     }
 
@@ -370,8 +431,9 @@ abstract contract ForkTestBase is Test {
         _forward(100e6, user);
         assertTrue(_emitted(vm.getRecordedLogs(), Forwarder.UserVaultDepositFailed.selector));
         assertEq(USDC.balanceOf(user), 100e6);
-        // Re-setting the vault restores the unlimited allowance.
-        _setVaultAsAdmin(LUCA_VAULT);
+        // Leaving the vault modes and entering them again restores the unlimited allowance.
+        _routing(Forwarder.RoutingMode.DIRECT_DIRECT);
+        _routing(Forwarder.RoutingMode.VAULT_USER_DIRECT_TREASURY);
         assertEq(USDC.allowance(address(forwarder), address(LUCA_VAULT)), MAX);
     }
 
@@ -468,11 +530,26 @@ abstract contract ForkTestBase is Test {
     // Vault replacement and allowances
     // -----------------------------------------------------------------------------------------------------------
 
+    /// @dev Both health checks (proposal and execution) on the real Luca vault, which rounds the round trip down.
     function test_Fork_HealthCheckOnLucaVaultAcceptsRounding() public {
         _resetToBaseline();
-        uint256 adminBefore = USDC.balanceOf(ADMIN);
+        _replaceVaultAsAdmin(STEAKHOUSE_USDC);
+        _fundAdminHealthCheck();
+        uint256 adminBefore = USDC.balanceOf(ADMIN) - forwarder.VAULT_TEST_AMOUNT();
+        vm.prank(ADMIN);
+        forwarder.proposeVault(LUCA_VAULT);
+        uint256 proposalRefund = USDC.balanceOf(ADMIN) - adminBefore;
+        console.log("Luca vault proposal health check: assets returned", proposalRefund);
+        assertGt(proposalRefund, 0);
+        assertLe(proposalRefund, 1000);
+        assertEq(USDC.allowance(address(forwarder), address(LUCA_VAULT)), 0);
+
+        vm.warp(forwarder.pendingVaultExecutableAt());
+        _fundAdminHealthCheck();
+        adminBefore = USDC.balanceOf(ADMIN) - forwarder.VAULT_TEST_AMOUNT();
         vm.recordLogs();
-        _setVaultAsAdmin(LUCA_VAULT);
+        vm.prank(ADMIN);
+        forwarder.executeVaultChange();
         Vm.Log[] memory logs = vm.getRecordedLogs();
         for (uint256 i = 0; i < logs.length; ++i) {
             if (logs[i].emitter == address(forwarder) && logs[i].topics[0] == Forwarder.VaultUpdated.selector) {
@@ -490,14 +567,14 @@ abstract contract ForkTestBase is Test {
     function test_Fork_ReplaceVaultWithThirdPartyVault() public {
         _resetToBaseline();
         _routing(Forwarder.RoutingMode.VAULT_VAULT);
-        _setVaultAsAdmin(STEAKHOUSE_USDC);
+        _replaceVaultAsAdmin(STEAKHOUSE_USDC);
         assertEq(address(forwarder.vault()), address(STEAKHOUSE_USDC));
         assertEq(USDC.allowance(address(forwarder), address(LUCA_VAULT)), 0);
         assertEq(USDC.allowance(address(forwarder), address(STEAKHOUSE_USDC)), MAX);
         _forward(250e6, user);
         assertApproxEqAbs(_value(STEAKHOUSE_USDC, user), 250e6, 2);
         assertEq(LUCA_VAULT.balanceOf(user), 0);
-        _setVaultAsAdmin(LUCA_VAULT);
+        _replaceVaultAsAdmin(LUCA_VAULT);
         assertEq(USDC.allowance(address(forwarder), address(STEAKHOUSE_USDC)), 0);
         assertEq(USDC.allowance(address(forwarder), address(LUCA_VAULT)), MAX);
     }
@@ -510,13 +587,16 @@ abstract contract ForkTestBase is Test {
         vm.expectRevert(
             abi.encodeWithSelector(Forwarder.VaultAssetMismatch.selector, address(MOONWELL_FLAGSHIP_ETH), WETH)
         );
-        forwarder.setVault(MOONWELL_FLAGSHIP_ETH);
+        forwarder.proposeVault(MOONWELL_FLAGSHIP_ETH);
         vm.expectRevert(abi.encodeWithSelector(Forwarder.VaultNotContract.selector, stranger));
-        forwarder.setVault(IERC4626(stranger));
+        forwarder.proposeVault(IERC4626(stranger));
         vm.expectRevert();
-        forwarder.setVault(IERC4626(address(USDC))); // USDC is not an ERC-4626
+        forwarder.proposeVault(IERC4626(address(USDC))); // USDC is not an ERC-4626
+        vm.expectRevert(abi.encodeWithSelector(Forwarder.VaultAlreadyActive.selector, address(LUCA_VAULT)));
+        forwarder.proposeVault(LUCA_VAULT);
         vm.stopPrank();
         assertEq(address(forwarder.vault()), Config.VAULT);
+        assertEq(address(forwarder.pendingVault()), address(0));
     }
 
     function test_Fork_AllowanceTransitionsWithRealUsdc() public {
@@ -536,10 +616,224 @@ abstract contract ForkTestBase is Test {
             }
         }
         // Real USDC decrements even an unlimited allowance.
+        _routing(Forwarder.RoutingMode.DIRECT_DIRECT);
         _routing(Forwarder.RoutingMode.VAULT_VAULT);
-        _setVaultAsAdmin(LUCA_VAULT);
         _forward(100e6, user);
         assertEq(USDC.allowance(address(forwarder), address(LUCA_VAULT)), MAX - 100e6);
+    }
+
+    // -----------------------------------------------------------------------------------------------------------
+    // Vault change lifecycle (immutable 72-hour delay)
+    // -----------------------------------------------------------------------------------------------------------
+
+    function test_Fork_VaultChangeLifecycleWithRealVaults() public {
+        _resetToBaseline();
+        assertEq(address(forwarder.vault()), address(LUCA_VAULT));
+        assertEq(uint8(forwarder.routingMode()), uint8(Forwarder.RoutingMode.DIRECT_DIRECT));
+        assertEq(USDC.allowance(address(forwarder), address(LUCA_VAULT)), 0);
+        assertEq(address(forwarder.pendingVault()), address(0));
+        assertEq(forwarder.pendingVaultExecutableAt(), 0);
+        _forward(100e6, user); // before the proposal
+
+        _proposeAsAdmin(STEAKHOUSE_USDC);
+        uint256 executableAt = forwarder.pendingVaultExecutableAt();
+        assertEq(executableAt, block.timestamp + 72 hours);
+        assertEq(address(forwarder.pendingVault()), address(STEAKHOUSE_USDC));
+        assertEq(address(forwarder.vault()), address(LUCA_VAULT));
+        assertEq(USDC.allowance(address(forwarder), address(STEAKHOUSE_USDC)), 0, "candidate allowance");
+        assertEq(USDC.allowance(address(forwarder), address(LUCA_VAULT)), 0);
+        assertEq(STEAKHOUSE_USDC.balanceOf(address(forwarder)), 0);
+        assertEq(USDC.balanceOf(address(forwarder)), 0);
+
+        _forward(100e6, user); // while the change is pending
+        assertEq(USDC.balanceOf(user), 200e6);
+        assertEq(STEAKHOUSE_USDC.balanceOf(user), 0);
+
+        _fundAdminHealthCheck();
+        vm.expectRevert(abi.encodeWithSelector(Forwarder.VaultChangeDelayNotElapsed.selector, executableAt));
+        vm.prank(ADMIN);
+        forwarder.executeVaultChange();
+        vm.warp(executableAt - 1);
+        vm.expectRevert(abi.encodeWithSelector(Forwarder.VaultChangeDelayNotElapsed.selector, executableAt));
+        vm.prank(ADMIN);
+        forwarder.executeVaultChange();
+
+        vm.warp(executableAt);
+        vm.prank(ADMIN);
+        forwarder.executeVaultChange();
+        assertEq(address(forwarder.vault()), address(STEAKHOUSE_USDC));
+        assertEq(address(forwarder.pendingVault()), address(0));
+        assertEq(forwarder.pendingVaultExecutableAt(), 0);
+        assertEq(USDC.allowance(address(forwarder), address(LUCA_VAULT)), 0);
+        assertEq(USDC.allowance(address(forwarder), address(STEAKHOUSE_USDC)), 0, "DIRECT_DIRECT at execution");
+        assertEq(USDC.balanceOf(address(forwarder)), 0);
+
+        _forward(100e6, user); // after the change, still DIRECT_DIRECT
+        assertEq(USDC.balanceOf(user), 300e6);
+        _routing(Forwarder.RoutingMode.VAULT_VAULT);
+        assertEq(USDC.allowance(address(forwarder), address(STEAKHOUSE_USDC)), MAX);
+        _forward(250e6, user);
+        assertApproxEqAbs(_value(STEAKHOUSE_USDC, user), 250e6, 2);
+        assertEq(LUCA_VAULT.balanceOf(user), 0);
+    }
+
+    function test_Fork_GuardianCancelsPendingVaultChange() public {
+        _resetToBaseline();
+        address guardianAccount = _guardian();
+        _proposeAsAdmin(STEAKHOUSE_USDC);
+        vm.warp(forwarder.pendingVaultExecutableAt()); // still cancellable once executable
+        vm.expectEmit(true, true, true, true, address(forwarder));
+        emit Forwarder.VaultChangeCancelled(address(STEAKHOUSE_USDC), guardianAccount);
+        vm.prank(guardianAccount);
+        forwarder.cancelVaultChange();
+        assertEq(address(forwarder.pendingVault()), address(0));
+        assertEq(forwarder.pendingVaultExecutableAt(), 0);
+        assertEq(address(forwarder.vault()), address(LUCA_VAULT));
+        _fundAdminHealthCheck();
+        vm.expectRevert(Forwarder.NoPendingVaultChange.selector);
+        vm.prank(ADMIN);
+        forwarder.executeVaultChange();
+
+        address[] memory guardians = Config.vaultGuardians();
+        for (uint256 i = 0; i < guardians.length; ++i) {
+            _proposeAsAdmin(STEAKHOUSE_USDC);
+            vm.prank(guardians[i]);
+            forwarder.cancelVaultChange();
+            assertEq(address(forwarder.pendingVault()), address(0));
+        }
+        _proposeAsAdmin(STEAKHOUSE_USDC);
+        vm.prank(ADMIN);
+        forwarder.cancelVaultChange();
+        assertEq(address(forwarder.pendingVault()), address(0));
+        assertEq(address(forwarder.vault()), address(LUCA_VAULT));
+    }
+
+    function test_Fork_GuardianCannotProposeOrExecute() public {
+        _resetToBaseline();
+        address guardianAccount = _guardian();
+        bytes32 adminRole = forwarder.DEFAULT_ADMIN_ROLE();
+        deal(address(USDC), guardianAccount, 1e6);
+        vm.prank(guardianAccount);
+        USDC.approve(address(forwarder), 1e6);
+        _expectUnauthorized(guardianAccount, adminRole);
+        vm.prank(guardianAccount);
+        forwarder.proposeVault(STEAKHOUSE_USDC);
+
+        _proposeAsAdmin(STEAKHOUSE_USDC);
+        vm.warp(forwarder.pendingVaultExecutableAt());
+        _expectUnauthorized(guardianAccount, adminRole);
+        vm.prank(guardianAccount);
+        forwarder.executeVaultChange();
+        assertEq(address(forwarder.vault()), address(LUCA_VAULT));
+        assertEq(address(forwarder.pendingVault()), address(STEAKHOUSE_USDC));
+    }
+
+    function test_Fork_RevokingGuardiansDoesNotShortenTheDelay() public {
+        _resetToBaseline();
+        address guardianAccount = _guardian();
+        _proposeAsAdmin(STEAKHOUSE_USDC);
+        uint256 executableAt = forwarder.pendingVaultExecutableAt();
+        bytes32 role = forwarder.VAULT_GUARDIAN_ROLE();
+        address[] memory guardians = Config.vaultGuardians();
+        vm.startPrank(ADMIN);
+        forwarder.revokeRole(role, guardianAccount);
+        for (uint256 i = 0; i < guardians.length; ++i) {
+            forwarder.revokeRole(role, guardians[i]);
+        }
+        vm.stopPrank();
+        assertEq(forwarder.pendingVaultExecutableAt(), executableAt);
+
+        _expectUnauthorized(guardianAccount, role);
+        vm.prank(guardianAccount);
+        forwarder.cancelVaultChange();
+
+        vm.warp(executableAt - 1);
+        _fundAdminHealthCheck();
+        vm.expectRevert(abi.encodeWithSelector(Forwarder.VaultChangeDelayNotElapsed.selector, executableAt));
+        vm.prank(ADMIN);
+        forwarder.executeVaultChange();
+        vm.warp(executableAt);
+        vm.prank(ADMIN);
+        forwarder.executeVaultChange();
+        assertEq(address(forwarder.vault()), address(STEAKHOUSE_USDC));
+    }
+
+    /// @dev Case A: proposal in VAULT_VAULT; DIRECT_DIRECT is selected while pending; the new vault gets no allowance.
+    function test_Fork_RoutingToDirectWhilePending() public {
+        _resetToBaseline();
+        _routing(Forwarder.RoutingMode.VAULT_VAULT);
+        _proposeAsAdmin(STEAKHOUSE_USDC);
+        assertEq(USDC.allowance(address(forwarder), address(LUCA_VAULT)), MAX, "active allowance kept");
+        _forward(100e6, user);
+        assertApproxEqAbs(_value(LUCA_VAULT, user), 100e6, 2);
+        _routing(Forwarder.RoutingMode.DIRECT_DIRECT);
+        assertEq(USDC.allowance(address(forwarder), address(LUCA_VAULT)), 0);
+        vm.warp(forwarder.pendingVaultExecutableAt());
+        _executeAsAdmin();
+        assertEq(USDC.allowance(address(forwarder), address(LUCA_VAULT)), 0);
+        assertEq(USDC.allowance(address(forwarder), address(STEAKHOUSE_USDC)), 0);
+    }
+
+    /// @dev Case B: proposal in DIRECT_DIRECT; VAULT_VAULT is selected while pending (active vault); the new vault gets
+    /// the unlimited allowance at execution.
+    function test_Fork_RoutingToVaultWhilePending() public {
+        _resetToBaseline();
+        _proposeAsAdmin(STEAKHOUSE_USDC);
+        _routing(Forwarder.RoutingMode.VAULT_VAULT);
+        assertEq(USDC.allowance(address(forwarder), address(LUCA_VAULT)), MAX);
+        assertEq(USDC.allowance(address(forwarder), address(STEAKHOUSE_USDC)), 0);
+        _forward(100e6, user);
+        assertApproxEqAbs(_value(LUCA_VAULT, user), 100e6, 2);
+        assertEq(STEAKHOUSE_USDC.balanceOf(user), 0);
+        vm.warp(forwarder.pendingVaultExecutableAt());
+        _executeAsAdmin();
+        assertEq(USDC.allowance(address(forwarder), address(LUCA_VAULT)), 0);
+        assertEq(USDC.allowance(address(forwarder), address(STEAKHOUSE_USDC)), MAX);
+        _forward(100e6, user);
+        assertApproxEqAbs(_value(STEAKHOUSE_USDC, user), 100e6, 2);
+    }
+
+    /// @dev The candidate stops working after the proposal (real Luca vault deposit pause): execution reverts and
+    /// keeps everything; once the candidate recovers, the same proposal executes without a new one.
+    function test_Fork_FailedExecutionKeepsPendingChange() public {
+        _resetToBaseline();
+        _routing(Forwarder.RoutingMode.VAULT_VAULT);
+        _replaceVaultAsAdmin(STEAKHOUSE_USDC);
+        _proposeAsAdmin(LUCA_VAULT);
+        uint256 executableAt = forwarder.pendingVaultExecutableAt();
+        _pauseLucaVault();
+        vm.warp(executableAt);
+        _fundAdminHealthCheck();
+        vm.expectRevert(abi.encodeWithSelector(Pausable.EnforcedPause.selector));
+        vm.prank(ADMIN);
+        forwarder.executeVaultChange();
+        assertEq(address(forwarder.vault()), address(STEAKHOUSE_USDC));
+        assertEq(USDC.allowance(address(forwarder), address(STEAKHOUSE_USDC)), MAX);
+        assertEq(USDC.allowance(address(forwarder), address(LUCA_VAULT)), 0);
+        assertEq(address(forwarder.pendingVault()), address(LUCA_VAULT));
+        assertEq(forwarder.pendingVaultExecutableAt(), executableAt);
+
+        _unpauseLucaVault();
+        vm.prank(ADMIN);
+        forwarder.executeVaultChange();
+        assertEq(address(forwarder.vault()), address(LUCA_VAULT));
+        assertEq(USDC.allowance(address(forwarder), address(STEAKHOUSE_USDC)), 0);
+        assertEq(USDC.allowance(address(forwarder), address(LUCA_VAULT)), MAX);
+        assertEq(address(forwarder.pendingVault()), address(0));
+    }
+
+    function test_Fork_SecondProposalRequiresCancellation() public {
+        _resetToBaseline();
+        _proposeAsAdmin(STEAKHOUSE_USDC);
+        _fundAdminHealthCheck();
+        vm.expectRevert(abi.encodeWithSelector(Forwarder.VaultChangeAlreadyPending.selector, address(STEAKHOUSE_USDC)));
+        vm.prank(ADMIN);
+        forwarder.proposeVault(STEAKHOUSE_USDC);
+        vm.prank(ADMIN);
+        forwarder.cancelVaultChange();
+        vm.prank(ADMIN);
+        forwarder.proposeVault(STEAKHOUSE_USDC); // funded above
+        assertEq(forwarder.pendingVaultExecutableAt(), block.timestamp + 72 hours);
     }
 
     // -----------------------------------------------------------------------------------------------------------

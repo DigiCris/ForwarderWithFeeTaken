@@ -27,6 +27,9 @@ contract ForwarderConstructorTest is ForwarderTestBase {
         assertEq(forwarder.MAX_VARIABLE_FEE(), 10_000);
         assertEq(forwarder.MAX_FIXED_FEE(), 10_000_000);
         assertEq(forwarder.VAULT_TEST_AMOUNT(), 1000);
+        assertEq(forwarder.VAULT_GUARDIAN_ROLE(), keccak256("VAULT_GUARDIAN_ROLE"));
+        assertEq(forwarder.VAULT_CHANGE_DELAY(), 72 hours);
+        assertEq(forwarder.VAULT_CHANGE_DELAY(), 259_200);
     }
 
     function test_InitialState() public view {
@@ -51,6 +54,16 @@ contract ForwarderConstructorTest is ForwarderTestBase {
         assertFalse(forwarder.hasRole(DEFAULT_ADMIN_ROLE, address(this)));
         assertFalse(forwarder.hasRole(FEE_MANAGER_ROLE, address(this)));
         assertEq(forwarder.getRoleAdmin(FEE_MANAGER_ROLE), DEFAULT_ADMIN_ROLE);
+
+        assertTrue(forwarder.hasRole(VAULT_GUARDIAN_ROLE, guardian));
+        assertTrue(forwarder.hasRole(VAULT_GUARDIAN_ROLE, guardian2));
+        assertFalse(forwarder.hasRole(VAULT_GUARDIAN_ROLE, admin));
+        assertFalse(forwarder.hasRole(VAULT_GUARDIAN_ROLE, feeManager));
+        assertFalse(forwarder.hasRole(FEE_MANAGER_ROLE, guardian));
+        assertFalse(forwarder.hasRole(DEFAULT_ADMIN_ROLE, guardian));
+        assertEq(forwarder.getRoleAdmin(VAULT_GUARDIAN_ROLE), DEFAULT_ADMIN_ROLE);
+        assertEq(address(forwarder.pendingVault()), address(0));
+        assertEq(forwarder.pendingVaultExecutableAt(), 0);
 
         assertEq(usdc.allowance(address(forwarder), address(vault)), 0);
         assertEq(forwarder.calculateFee(1_000_000e6), 0);
@@ -93,8 +106,19 @@ contract ForwarderConstructorTest is ForwarderTestBase {
         emit IAccessControl.RoleGranted(FEE_MANAGER_ROLE, feeManager, address(this));
         vm.expectEmit(true, true, true, true, predicted);
         emit IAccessControl.RoleGranted(FEE_MANAGER_ROLE, feeManager2, address(this));
+        vm.expectEmit(true, true, true, true, predicted);
+        emit IAccessControl.RoleGranted(VAULT_GUARDIAN_ROLE, guardian, address(this));
+        vm.expectEmit(true, true, true, true, predicted);
+        emit IAccessControl.RoleGranted(VAULT_GUARDIAN_ROLE, guardian2, address(this));
         new Forwarder(
-            IERC20(address(usdc)), admin, ADMIN_DELAY, treasury, IERC4626(address(vault)), VAULT_VAULT, _feeManagers()
+            IERC20(address(usdc)),
+            admin,
+            ADMIN_DELAY,
+            treasury,
+            IERC4626(address(vault)),
+            VAULT_VAULT,
+            _feeManagers(),
+            _guardians()
         );
     }
 
@@ -104,7 +128,14 @@ contract ForwarderConstructorTest is ForwarderTestBase {
         managers[1] = feeManager;
         managers[2] = admin;
         Forwarder f = new Forwarder(
-            IERC20(address(usdc)), admin, ADMIN_DELAY, treasury, IERC4626(address(0)), DIRECT_DIRECT, managers
+            IERC20(address(usdc)),
+            admin,
+            ADMIN_DELAY,
+            treasury,
+            IERC4626(address(0)),
+            DIRECT_DIRECT,
+            managers,
+            _guardians()
         );
         assertTrue(f.hasRole(FEE_MANAGER_ROLE, feeManager));
         assertTrue(f.hasRole(FEE_MANAGER_ROLE, admin));
@@ -115,7 +146,14 @@ contract ForwarderConstructorTest is ForwarderTestBase {
         for (uint256 i = 0; i < modes.length; ++i) {
             vm.expectRevert(Forwarder.VaultNotSet.selector);
             new Forwarder(
-                IERC20(address(usdc)), admin, ADMIN_DELAY, treasury, IERC4626(address(0)), modes[i], _feeManagers()
+                IERC20(address(usdc)),
+                admin,
+                ADMIN_DELAY,
+                treasury,
+                IERC4626(address(0)),
+                modes[i],
+                _feeManagers(),
+                _guardians()
             );
         }
     }
@@ -123,7 +161,14 @@ contract ForwarderConstructorTest is ForwarderTestBase {
     function test_RevertWhen_DeployZeroUsdc() public {
         vm.expectRevert(Forwarder.ZeroAddress.selector);
         new Forwarder(
-            IERC20(address(0)), admin, ADMIN_DELAY, treasury, IERC4626(address(0)), DIRECT_DIRECT, _feeManagers()
+            IERC20(address(0)),
+            admin,
+            ADMIN_DELAY,
+            treasury,
+            IERC4626(address(0)),
+            DIRECT_DIRECT,
+            _feeManagers(),
+            _guardians()
         );
     }
 
@@ -140,14 +185,22 @@ contract ForwarderConstructorTest is ForwarderTestBase {
             treasury,
             IERC4626(address(0)),
             DIRECT_DIRECT,
-            _feeManagers()
+            _feeManagers(),
+            _guardians()
         );
     }
 
     function test_RevertWhen_DeployZeroTreasury() public {
         vm.expectRevert(abi.encodeWithSelector(Forwarder.InvalidTreasury.selector, address(0)));
         new Forwarder(
-            IERC20(address(usdc)), admin, ADMIN_DELAY, address(0), IERC4626(address(0)), DIRECT_DIRECT, _feeManagers()
+            IERC20(address(usdc)),
+            admin,
+            ADMIN_DELAY,
+            address(0),
+            IERC4626(address(0)),
+            DIRECT_DIRECT,
+            _feeManagers(),
+            _guardians()
         );
     }
 
@@ -156,8 +209,55 @@ contract ForwarderConstructorTest is ForwarderTestBase {
         managers[0] = feeManager;
         vm.expectRevert(Forwarder.ZeroAddress.selector);
         new Forwarder(
-            IERC20(address(usdc)), admin, ADMIN_DELAY, treasury, IERC4626(address(0)), DIRECT_DIRECT, managers
+            IERC20(address(usdc)),
+            admin,
+            ADMIN_DELAY,
+            treasury,
+            IERC4626(address(0)),
+            DIRECT_DIRECT,
+            managers,
+            _guardians()
         );
+    }
+
+    function test_RevertWhen_DeployZeroGuardian() public {
+        address[] memory guardians = new address[](2);
+        guardians[0] = guardian;
+        vm.expectRevert(Forwarder.ZeroAddress.selector);
+        new Forwarder(
+            IERC20(address(usdc)),
+            admin,
+            ADMIN_DELAY,
+            treasury,
+            IERC4626(address(0)),
+            DIRECT_DIRECT,
+            _feeManagers(),
+            guardians
+        );
+    }
+
+    function test_DeployWithoutGuardians() public {
+        Forwarder f = new Forwarder(
+            IERC20(address(usdc)),
+            admin,
+            ADMIN_DELAY,
+            treasury,
+            IERC4626(address(0)),
+            DIRECT_DIRECT,
+            _feeManagers(),
+            new address[](0)
+        );
+        assertFalse(f.hasRole(VAULT_GUARDIAN_ROLE, guardian));
+        assertEq(f.getRoleAdmin(VAULT_GUARDIAN_ROLE), DEFAULT_ADMIN_ROLE);
+    }
+
+    /// @dev The initial vault is activated by the constructor without any delay and without a pending proposal.
+    function test_DeployActivatesInitialVaultWithoutDelay() public {
+        Forwarder f = _deploy(IERC4626(address(vault)), VAULT_VAULT);
+        assertEq(address(f.vault()), address(vault));
+        assertEq(address(f.pendingVault()), address(0));
+        assertEq(f.pendingVaultExecutableAt(), 0);
+        assertEq(usdc.allowance(address(f), address(vault)), MAX);
     }
 
     function test_RevertWhen_DeployHealthCheckNotFunded() public {
@@ -166,7 +266,14 @@ contract ForwarderConstructorTest is ForwarderTestBase {
             abi.encodeWithSelector(IERC20Errors.ERC20InsufficientAllowance.selector, predicted, 0, TEST_AMOUNT)
         );
         new Forwarder(
-            IERC20(address(usdc)), admin, ADMIN_DELAY, treasury, IERC4626(address(vault)), DIRECT_DIRECT, _feeManagers()
+            IERC20(address(usdc)),
+            admin,
+            ADMIN_DELAY,
+            treasury,
+            IERC4626(address(vault)),
+            DIRECT_DIRECT,
+            _feeManagers(),
+            _guardians()
         );
     }
 
@@ -184,7 +291,8 @@ contract ForwarderConstructorTest is ForwarderTestBase {
             treasury,
             IERC4626(address(wrongVault)),
             DIRECT_DIRECT,
-            _feeManagers()
+            _feeManagers(),
+            _guardians()
         );
     }
 
@@ -193,7 +301,14 @@ contract ForwarderConstructorTest is ForwarderTestBase {
         _fundDeployment();
         vm.expectRevert(MockVault.RedeemDisabled.selector);
         new Forwarder(
-            IERC20(address(usdc)), admin, ADMIN_DELAY, treasury, IERC4626(address(vault)), VAULT_VAULT, _feeManagers()
+            IERC20(address(usdc)),
+            admin,
+            ADMIN_DELAY,
+            treasury,
+            IERC4626(address(vault)),
+            VAULT_VAULT,
+            _feeManagers(),
+            _guardians()
         );
     }
 
@@ -473,9 +588,9 @@ contract ForwarderAccessControlTest is ForwarderTestBase {
     }
 
     function _adminOnlyCalls() internal view returns (bytes[] memory calls) {
-        calls = new bytes[](12);
+        calls = new bytes[](15);
         calls[0] = abi.encodeCall(Forwarder.setTreasury, (stranger));
-        calls[1] = abi.encodeCall(Forwarder.setVault, (IERC4626(address(vault))));
+        calls[1] = abi.encodeCall(Forwarder.proposeVault, (IERC4626(address(vault))));
         calls[2] = abi.encodeCall(Forwarder.setRoutingMode, (VAULT_VAULT));
         calls[3] = abi.encodeCall(Forwarder.rescueToken, (IERC20(address(usdc))));
         calls[4] = abi.encodeCall(Forwarder.rescueNative, ());
@@ -486,6 +601,9 @@ contract ForwarderAccessControlTest is ForwarderTestBase {
         calls[9] = abi.encodeCall(IAccessControlDefaultAdminRules.cancelDefaultAdminTransfer, ());
         calls[10] = abi.encodeCall(IAccessControlDefaultAdminRules.changeDefaultAdminDelay, (1 days));
         calls[11] = abi.encodeCall(IAccessControlDefaultAdminRules.rollbackDefaultAdminDelay, ());
+        calls[12] = abi.encodeCall(Forwarder.executeVaultChange, ());
+        calls[13] = abi.encodeCall(IAccessControl.grantRole, (VAULT_GUARDIAN_ROLE, stranger));
+        calls[14] = abi.encodeCall(IAccessControl.revokeRole, (VAULT_GUARDIAN_ROLE, guardian));
     }
 
     function _feeManagerOnlyCalls() internal pure returns (bytes[] memory calls) {
@@ -606,7 +724,11 @@ contract ForwarderAccessControlTest is ForwarderTestBase {
         _expectUnauthorized(feeManager, DEFAULT_ADMIN_ROLE);
         forwarder.setTreasury(feeManager);
         _expectUnauthorized(feeManager, DEFAULT_ADMIN_ROLE);
-        forwarder.setVault(IERC4626(address(vault)));
+        forwarder.proposeVault(IERC4626(address(vault)));
+        _expectUnauthorized(feeManager, DEFAULT_ADMIN_ROLE);
+        forwarder.executeVaultChange();
+        _expectUnauthorized(feeManager, VAULT_GUARDIAN_ROLE);
+        forwarder.cancelVaultChange();
         _expectUnauthorized(feeManager, DEFAULT_ADMIN_ROLE);
         forwarder.setRoutingMode(VAULT_VAULT);
         _expectUnauthorized(feeManager, DEFAULT_ADMIN_ROLE);

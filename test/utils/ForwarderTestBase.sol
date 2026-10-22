@@ -13,6 +13,7 @@ import {MockVault} from "../mocks/MockVault.sol";
 abstract contract ForwarderTestBase is Test {
     uint48 internal constant ADMIN_DELAY = 3 days;
     uint256 internal constant TEST_AMOUNT = 1000;
+    uint256 internal constant VAULT_CHANGE_DELAY = 72 hours;
     uint256 internal constant MAX = type(uint256).max;
 
     Forwarder.FeeModel internal constant NONE = Forwarder.FeeModel.NONE;
@@ -36,6 +37,8 @@ abstract contract ForwarderTestBase is Test {
     address internal admin = makeAddr("admin");
     address internal feeManager = makeAddr("feeManager");
     address internal feeManager2 = makeAddr("feeManager2");
+    address internal guardian = makeAddr("guardian");
+    address internal guardian2 = makeAddr("guardian2");
     address internal stranger = makeAddr("stranger");
     address internal treasury = makeAddr("treasury");
     address internal sra = makeAddr("sra");
@@ -43,6 +46,7 @@ abstract contract ForwarderTestBase is Test {
 
     bytes32 internal FEE_MANAGER_ROLE;
     bytes32 internal DEFAULT_ADMIN_ROLE;
+    bytes32 internal VAULT_GUARDIAN_ROLE;
 
     function setUp() public virtual {
         usdc = new MockUSDC();
@@ -50,6 +54,7 @@ abstract contract ForwarderTestBase is Test {
         forwarder = _deploy(IERC4626(address(vault)), DIRECT_DIRECT);
         FEE_MANAGER_ROLE = forwarder.FEE_MANAGER_ROLE();
         DEFAULT_ADMIN_ROLE = forwarder.DEFAULT_ADMIN_ROLE();
+        VAULT_GUARDIAN_ROLE = forwarder.VAULT_GUARDIAN_ROLE();
         vm.label(address(forwarder), "Forwarder");
         vm.label(address(usdc), "USDC");
         vm.label(address(vault), "Vault");
@@ -65,10 +70,19 @@ abstract contract ForwarderTestBase is Test {
         managers[1] = feeManager2;
     }
 
+    function _guardians() internal view returns (address[] memory guardians) {
+        guardians = new address[](2);
+        guardians[0] = guardian;
+        guardians[1] = guardian2;
+    }
+
     /// @dev Deploys a Forwarder from this test contract, funding and approving the constructor health check.
     function _deploy(IERC4626 vault_, Forwarder.RoutingMode mode) internal returns (Forwarder) {
         if (address(vault_) != address(0)) _fundDeployment();
-        return new Forwarder(IERC20(address(usdc)), admin, ADMIN_DELAY, treasury, vault_, mode, _feeManagers());
+        return
+            new Forwarder(
+                IERC20(address(usdc)), admin, ADMIN_DELAY, treasury, vault_, mode, _feeManagers(), _guardians()
+            );
     }
 
     /// @dev Funds this contract and approves the address of its next deployment for the constructor health check.
@@ -122,13 +136,26 @@ abstract contract ForwarderTestBase is Test {
         usdc.approve(address(forwarder), amount);
     }
 
-    /// @dev Calls `setVault` as the admin, funding and approving the health check amount.
-    function _setVault(address newVault) internal {
-        usdc.mint(admin, TEST_AMOUNT);
-        vm.startPrank(admin);
-        usdc.approve(address(forwarder), TEST_AMOUNT);
-        forwarder.setVault(IERC4626(newVault));
-        vm.stopPrank();
+    /// @dev Calls `proposeVault` as the admin, funding and approving the health check amount.
+    function _proposeVault(address candidate) internal {
+        _fundAdminForHealthCheck();
+        vm.prank(admin);
+        forwarder.proposeVault(IERC4626(candidate));
+    }
+
+    /// @dev Calls `executeVaultChange` as the admin, funding and approving the health check amount.
+    function _executeVaultChange() internal {
+        _fundAdminForHealthCheck();
+        vm.prank(admin);
+        forwarder.executeVaultChange();
+    }
+
+    /// @dev Replaces the active vault through the whole lifecycle: propose, wait until `pendingVaultExecutableAt`,
+    /// execute.
+    function _replaceVault(address newVault) internal {
+        _proposeVault(newVault);
+        vm.warp(forwarder.pendingVaultExecutableAt());
+        _executeVaultChange();
     }
 
     function _fundAdminForHealthCheck() internal {

@@ -251,7 +251,7 @@ contract ForwarderUserFallbackTest is RoutingFixture {
     /// ABI decoding errors. Funds stay with the caller (no loss); this is part of the trusted-vault assumption.
     function test_UserLegRevertsWhenVaultReturnsMalformedData() public {
         NoReturnDataVault badVault = new NoReturnDataVault(IERC20(address(usdc)));
-        _setVault(address(badVault));
+        _replaceVault(address(badVault));
         _setRouting(VAULT_USER_DIRECT_TREASURY);
         badVault.setReturnsNoData(true);
         _fundSra(AMOUNT);
@@ -312,7 +312,7 @@ contract ForwarderTreasuryDeliveryTest is RoutingFixture {
     /// user delivery; nothing is double counted because the next call measures the balance again.
     function test_TreasuryLegNeverRevertsOnMalformedVaultReturn() public {
         NoReturnDataVault badVault = new NoReturnDataVault(IERC20(address(usdc)));
-        _setVault(address(badVault));
+        _replaceVault(address(badVault));
         _setRouting(DIRECT_USER_VAULT_TREASURY);
         badVault.setReturnsNoData(true);
         _fundSra(AMOUNT);
@@ -550,22 +550,23 @@ contract ForwarderAllowanceTest is RoutingFixture {
         }
     }
 
-    /// @dev USDC decrements even an unlimited allowance. A vault->vault mode change keeps it; re-setting the vault
-    /// restores the maximum.
+    /// @dev USDC decrements even an unlimited allowance. A vault->vault mode change keeps it; leaving the vault modes
+    /// and entering them again restores the maximum (the active vault cannot be proposed again).
     function test_UsdcStyleAllowanceDecrementAndRefresh() public {
         _setRouting(VAULT_VAULT);
         _forward(AMOUNT, user);
         assertEq(usdc.allowance(address(forwarder), address(vault)), MAX - AMOUNT);
         _setRouting(VAULT_USER_DIRECT_TREASURY);
         assertEq(usdc.allowance(address(forwarder), address(vault)), MAX - AMOUNT);
-        _setVault(address(vault));
+        _setRouting(DIRECT_DIRECT);
+        _setRouting(VAULT_USER_DIRECT_TREASURY);
         assertEq(usdc.allowance(address(forwarder), address(vault)), MAX);
     }
 
     function test_VaultReplacementInVaultMode() public {
         _setRouting(VAULT_VAULT);
         MockVault newVault = new MockVault(IERC20(address(usdc)));
-        _setVault(address(newVault));
+        _replaceVault(address(newVault));
         assertEq(usdc.allowance(address(forwarder), address(vault)), 0);
         assertEq(usdc.allowance(address(forwarder), address(newVault)), MAX);
         _forward(AMOUNT, user);
@@ -575,7 +576,7 @@ contract ForwarderAllowanceTest is RoutingFixture {
 
     function test_VaultReplacementInDirectMode() public {
         MockVault newVault = new MockVault(IERC20(address(usdc)));
-        _setVault(address(newVault));
+        _replaceVault(address(newVault));
         assertEq(usdc.allowance(address(forwarder), address(vault)), 0);
         assertEq(usdc.allowance(address(forwarder), address(newVault)), 0);
         _setRouting(DIRECT_USER_VAULT_TREASURY);
@@ -590,7 +591,7 @@ contract ForwarderAllowanceTest is RoutingFixture {
         _fundAdminForHealthCheck();
         vm.expectRevert(MockVault.RedeemDisabled.selector);
         vm.prank(admin);
-        forwarder.setVault(IERC4626(address(badVault)));
+        forwarder.proposeVault(IERC4626(address(badVault)));
         assertEq(address(forwarder.vault()), address(vault));
         assertEq(usdc.allowance(address(forwarder), address(vault)), MAX);
         assertEq(usdc.allowance(address(forwarder), address(badVault)), 0);

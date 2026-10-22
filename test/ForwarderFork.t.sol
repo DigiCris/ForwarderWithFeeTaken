@@ -11,7 +11,7 @@ import {ForkTestBase} from "./fork/ForkTestBase.sol";
  * fork. Pinned block by default; `FORK_BLOCK=0` runs it against the latest block.
  */
 contract ForwarderForkTest is ForkTestBase {
-    uint256 internal constant PINNED_BLOCK = 52_921_000;
+    uint256 internal constant PINNED_BLOCK = 52_951_000; // after the V1 deployment (block 52,925,346)
 
     uint256 internal deployerUsdcBefore;
 
@@ -33,6 +33,8 @@ contract ForwarderForkTest is ForkTestBase {
         assertEq(forwarder.variableFee(), 0);
         assertFalse(forwarder.paused());
         assertFalse(forwarder.hasRole(forwarder.DEFAULT_ADMIN_ROLE(), Config.FEE_MANAGER_CM2));
+        assertEq(address(forwarder.pendingVault()), address(0));
+        assertEq(forwarder.pendingVaultExecutableAt(), 0);
         assertEq(USDC.allowance(address(forwarder), Config.VAULT), 0);
         assertEq(USDC.allowance(Config.FEE_MANAGER_CM2, address(forwarder)), 0);
         assertEq(USDC.balanceOf(address(forwarder)), 0);

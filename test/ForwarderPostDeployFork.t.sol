@@ -43,7 +43,8 @@ contract ForwarderPostDeployForkTest is ForkTestBase {
             Config.TREASURY,
             IERC4626(Config.VAULT),
             Config.ROUTING_MODE,
-            managers
+            managers,
+            Config.vaultGuardians()
         );
         assertEq(address(local).code, address(forwarder).code);
         assertEq(address(local).codehash, address(forwarder).codehash);
@@ -60,6 +61,9 @@ contract ForwarderPostDeployForkTest is ForkTestBase {
         (address pendingAdmin, uint48 schedule) = forwarder.pendingDefaultAdmin();
         assertEq(pendingAdmin, address(0));
         assertEq(schedule, 0);
+        assertEq(address(forwarder.pendingVault()), address(0));
+        assertEq(forwarder.pendingVaultExecutableAt(), 0);
+        assertEq(forwarder.VAULT_CHANGE_DELAY(), 72 hours);
         assertEq(
             USDC.allowance(address(forwarder), Config.VAULT),
             Config.ROUTING_MODE == Forwarder.RoutingMode.DIRECT_DIRECT ? 0 : type(uint256).max

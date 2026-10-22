@@ -21,8 +21,8 @@ import {
 import {ReentrantToken, ReentrantVault} from "./mocks/ReentrancyMocks.sol";
 import {ForwarderTestBase} from "./utils/ForwarderTestBase.sol";
 
-/// @dev `setVault` health check (spec section 10).
-contract ForwarderSetVaultTest is ForwarderTestBase {
+/// @dev Vault health check, run by `proposeVault` and again by `executeVaultChange` (spec section 10).
+contract ForwarderVaultHealthCheckTest is ForwarderTestBase {
     MockVault internal newVault;
 
     function setUp() public override {
@@ -30,45 +30,66 @@ contract ForwarderSetVaultTest is ForwarderTestBase {
         newVault = new MockVault(IERC20(address(usdc)));
     }
 
-    function _expectSetVaultRevert(address candidate, bytes memory revertData) internal {
+    function _expectProposeRevert(address candidate, bytes memory revertData) internal {
         _fundAdminForHealthCheck();
         vm.expectRevert(revertData);
         vm.prank(admin);
-        forwarder.setVault(IERC4626(candidate));
+        forwarder.proposeVault(IERC4626(candidate));
         assertEq(address(forwarder.vault()), address(vault), "vault changed");
+        assertEq(address(forwarder.pendingVault()), address(0), "proposal stored");
+        assertEq(forwarder.pendingVaultExecutableAt(), 0, "timestamp stored");
     }
 
-    function test_SetVault() public {
+    function test_ProposeVault() public {
+        _fundAdminForHealthCheck();
+        vm.expectEmit(true, true, true, true, address(forwarder));
+        emit Forwarder.VaultChangeProposed(address(vault), address(newVault), block.timestamp + 72 hours, admin);
+        vm.prank(admin);
+        forwarder.proposeVault(IERC4626(address(newVault)));
+
+        assertEq(address(forwarder.vault()), address(vault), "active vault changed");
+        assertEq(address(forwarder.pendingVault()), address(newVault));
+        assertEq(usdc.balanceOf(admin), TEST_AMOUNT, "admin refunded");
+        assertEq(usdc.balanceOf(address(forwarder)), 0);
+        assertEq(newVault.balanceOf(address(forwarder)), 0);
+        assertEq(newVault.totalSupply(), 0, "health check shares not redeemed");
+        assertEq(usdc.allowance(admin, address(forwarder)), 0);
+        assertEq(usdc.allowance(address(forwarder), address(newVault)), 0, "candidate allowance");
+    }
+
+    function test_ExecuteVaultChange() public {
+        _proposeVault(address(newVault));
+        vm.warp(block.timestamp + VAULT_CHANGE_DELAY);
         _fundAdminForHealthCheck();
         vm.expectEmit(true, true, true, true, address(forwarder));
         emit Forwarder.VaultUpdated(address(vault), address(newVault), TEST_AMOUNT * 1e12, TEST_AMOUNT);
         vm.prank(admin);
-        forwarder.setVault(IERC4626(address(newVault)));
+        forwarder.executeVaultChange();
 
         assertEq(address(forwarder.vault()), address(newVault));
-        assertEq(usdc.balanceOf(admin), TEST_AMOUNT, "admin refunded");
+        assertEq(usdc.balanceOf(admin), 2 * TEST_AMOUNT, "admin refunded twice");
         assertEq(usdc.balanceOf(address(forwarder)), 0);
-        assertEq(newVault.balanceOf(address(forwarder)), 0);
+        assertEq(newVault.totalSupply(), 0);
         assertEq(usdc.allowance(admin, address(forwarder)), 0);
     }
 
     function test_RevertWhen_VaultIsZero() public {
-        _expectSetVaultRevert(address(0), abi.encodeWithSelector(Forwarder.ZeroAddress.selector));
+        _expectProposeRevert(address(0), abi.encodeWithSelector(Forwarder.ZeroAddress.selector));
     }
 
     function test_RevertWhen_VaultIsEoa() public {
         address eoa = makeAddr("eoa");
-        _expectSetVaultRevert(eoa, abi.encodeWithSelector(Forwarder.VaultNotContract.selector, eoa));
+        _expectProposeRevert(eoa, abi.encodeWithSelector(Forwarder.VaultNotContract.selector, eoa));
     }
 
     function test_RevertWhen_VaultIsNotErc4626() public {
-        _expectSetVaultRevert(address(new NotAVault()), "");
+        _expectProposeRevert(address(new NotAVault()), "");
     }
 
     function test_RevertWhen_VaultAssetIsNotUsdc() public {
         MockERC20 other = new MockERC20("Other", "OTH", 6);
         MockVault wrongVault = new MockVault(IERC20(address(other)));
-        _expectSetVaultRevert(
+        _expectProposeRevert(
             address(wrongVault),
             abi.encodeWithSelector(Forwarder.VaultAssetMismatch.selector, address(wrongVault), address(other))
         );
@@ -76,12 +97,12 @@ contract ForwarderSetVaultTest is ForwarderTestBase {
 
     function test_RevertWhen_VaultDepositFails() public {
         newVault.setDepositReverts(true);
-        _expectSetVaultRevert(address(newVault), abi.encodeWithSelector(MockVault.DepositDisabled.selector));
+        _expectProposeRevert(address(newVault), abi.encodeWithSelector(MockVault.DepositDisabled.selector));
     }
 
     function test_RevertWhen_VaultIsPaused() public {
         newVault.setPaused(true);
-        _expectSetVaultRevert(
+        _expectProposeRevert(
             address(newVault),
             abi.encodeWithSelector(ERC4626.ERC4626ExceededMaxDeposit.selector, address(forwarder), TEST_AMOUNT, 0)
         );
@@ -89,19 +110,19 @@ contract ForwarderSetVaultTest is ForwarderTestBase {
 
     function test_RevertWhen_VaultMintsNoShares() public {
         newVault.setMintsNoShares(true);
-        _expectSetVaultRevert(
+        _expectProposeRevert(
             address(newVault), abi.encodeWithSelector(Forwarder.VaultNoSharesMinted.selector, address(newVault))
         );
     }
 
     function test_RevertWhen_VaultRedeemFails() public {
         newVault.setRedeemReverts(true);
-        _expectSetVaultRevert(address(newVault), abi.encodeWithSelector(MockVault.RedeemDisabled.selector));
+        _expectProposeRevert(address(newVault), abi.encodeWithSelector(MockVault.RedeemDisabled.selector));
     }
 
     function test_RevertWhen_VaultRedeemReturnsNothing() public {
         newVault.setRedeemPaysNothing(true);
-        _expectSetVaultRevert(
+        _expectProposeRevert(
             address(newVault), abi.encodeWithSelector(Forwarder.VaultNoAssetsReturned.selector, address(newVault))
         );
     }
@@ -111,10 +132,27 @@ contract ForwarderSetVaultTest is ForwarderTestBase {
             abi.encodeWithSelector(IERC20Errors.ERC20InsufficientAllowance.selector, address(forwarder), 0, TEST_AMOUNT)
         );
         vm.prank(admin);
-        forwarder.setVault(IERC4626(address(newVault)));
+        forwarder.proposeVault(IERC4626(address(newVault)));
+        assertEq(address(forwarder.pendingVault()), address(0));
     }
 
-    /// @dev A non 1:1 exchange rate makes the round trip lose one unit to rounding; that must be accepted.
+    function test_RevertWhen_ProposingTheActiveVault() public {
+        _expectProposeRevert(
+            address(vault), abi.encodeWithSelector(Forwarder.VaultAlreadyActive.selector, address(vault))
+        );
+    }
+
+    /// @dev Re-proposing the active vault would otherwise overwrite its allowance in a vault mode.
+    function test_RevertWhen_ProposingTheActiveVaultInVaultMode() public {
+        _setRouting(VAULT_VAULT);
+        _expectProposeRevert(
+            address(vault), abi.encodeWithSelector(Forwarder.VaultAlreadyActive.selector, address(vault))
+        );
+        assertEq(usdc.allowance(address(forwarder), address(vault)), MAX);
+    }
+
+    /// @dev A non 1:1 exchange rate makes the round trip lose one unit to rounding; that must be accepted by both
+    /// health checks.
     function test_VaultWithRoundingLossIsAccepted() public {
         usdc.mint(stranger, 1_000_000);
         vm.startPrank(stranger);
@@ -123,45 +161,76 @@ contract ForwarderSetVaultTest is ForwarderTestBase {
         vm.stopPrank();
         usdc.mint(address(newVault), 9700); // ~0.97% yield, like the production vault
 
+        _proposeVault(address(newVault));
+        uint256 proposalRefund = usdc.balanceOf(admin);
+        assertGt(proposalRefund, 0);
+        assertLt(proposalRefund, TEST_AMOUNT, "rounding loss expected");
+        assertEq(address(forwarder.pendingVault()), address(newVault));
+
+        vm.warp(forwarder.pendingVaultExecutableAt());
         uint256 expectedShares = newVault.previewDeposit(TEST_AMOUNT);
         _fundAdminForHealthCheck();
         vm.recordLogs();
         vm.prank(admin);
-        forwarder.setVault(IERC4626(address(newVault)));
+        forwarder.executeVaultChange();
         (uint256 shares, uint256 assets) = _vaultUpdatedData(vm.getRecordedLogs());
 
         assertEq(shares, expectedShares);
         assertGt(assets, 0);
         assertLt(assets, TEST_AMOUNT, "rounding loss expected");
-        assertEq(usdc.balanceOf(admin), assets, "admin gets exactly what came back");
+        assertEq(usdc.balanceOf(admin), proposalRefund + assets, "admin gets exactly what came back");
         assertEq(address(forwarder.vault()), address(newVault));
     }
 
     function test_VaultReturningLessThanDepositedIsAccepted() public {
         newVault.setRedeemLossBps(5000);
-        _fundAdminForHealthCheck();
-        vm.expectEmit(true, true, true, true, address(forwarder));
-        emit Forwarder.VaultUpdated(address(vault), address(newVault), TEST_AMOUNT * 1e12, TEST_AMOUNT / 2);
-        vm.prank(admin);
-        forwarder.setVault(IERC4626(address(newVault)));
+        _proposeVault(address(newVault));
         assertEq(usdc.balanceOf(admin), TEST_AMOUNT / 2);
         assertEq(usdc.balanceOf(address(forwarder)), 0);
+
+        // The lost half stays in the vault, so the second round trip runs at another exchange rate.
+        vm.warp(forwarder.pendingVaultExecutableAt());
+        _fundAdminForHealthCheck();
+        vm.recordLogs();
+        vm.prank(admin);
+        forwarder.executeVaultChange();
+        (uint256 shares, uint256 assets) = _vaultUpdatedData(vm.getRecordedLogs());
+        assertGt(shares, 0);
+        assertGt(assets, 0);
+        assertLt(assets, TEST_AMOUNT);
+        assertEq(usdc.balanceOf(admin), TEST_AMOUNT / 2 + assets);
+        assertEq(usdc.balanceOf(address(forwarder)), 0);
+        assertEq(address(forwarder.vault()), address(newVault));
     }
 
     function test_HealthCheckNeverUsesForwarderFunds() public {
         usdc.mint(address(forwarder), 5e6);
         newVault.setRedeemLossBps(5000);
-        _setVault(address(newVault));
+        _proposeVault(address(newVault));
         assertEq(usdc.balanceOf(address(forwarder)), 5e6);
         assertEq(usdc.balanceOf(admin), TEST_AMOUNT / 2);
+        vm.warp(forwarder.pendingVaultExecutableAt());
+        _fundAdminForHealthCheck();
+        vm.recordLogs();
+        vm.prank(admin);
+        forwarder.executeVaultChange();
+        (, uint256 assets) = _vaultUpdatedData(vm.getRecordedLogs());
+        assertEq(usdc.balanceOf(address(forwarder)), 5e6);
+        assertEq(usdc.balanceOf(admin), TEST_AMOUNT / 2 + assets);
     }
 
     function test_HealthCheckRefundsAssetsTheVaultDidNotPull() public {
         newVault.setPartialPullBps(5000);
-        _setVault(address(newVault));
+        _proposeVault(address(newVault));
         assertEq(usdc.balanceOf(address(forwarder)), 0);
         // 500 never left the Forwarder and ~500 came back from the redeem; all of it goes back to the caller.
         assertApproxEqAbs(usdc.balanceOf(admin), TEST_AMOUNT, 1);
+        // The unused part of the health check allowance is cleared: a pending candidate keeps no allowance.
+        assertEq(usdc.allowance(address(forwarder), address(newVault)), 0);
+
+        vm.warp(forwarder.pendingVaultExecutableAt());
+        _executeVaultChange();
+        assertEq(usdc.balanceOf(address(forwarder)), 0);
         assertEq(usdc.allowance(address(forwarder), address(newVault)), 0);
     }
 
@@ -173,15 +242,9 @@ contract ForwarderSetVaultTest is ForwarderTestBase {
         vm.stopPrank();
         uint256 sharesBefore = newVault.balanceOf(address(forwarder));
 
-        _setVault(address(newVault));
+        _replaceVault(address(newVault));
         assertEq(newVault.balanceOf(address(forwarder)), sharesBefore);
-        assertEq(usdc.balanceOf(admin), TEST_AMOUNT);
-    }
-
-    function test_SetSameVaultAgain() public {
-        _setVault(address(vault));
-        assertEq(address(forwarder.vault()), address(vault));
-        assertEq(usdc.allowance(address(forwarder), address(vault)), 0);
+        assertEq(usdc.balanceOf(admin), 2 * TEST_AMOUNT);
     }
 
     function test_FailedHealthCheckLeavesNoPartialState() public {
@@ -191,9 +254,11 @@ contract ForwarderSetVaultTest is ForwarderTestBase {
         _fundAdminForHealthCheck();
         vm.expectRevert(abi.encodeWithSelector(Forwarder.VaultNoAssetsReturned.selector, address(newVault)));
         vm.prank(admin);
-        forwarder.setVault(IERC4626(address(newVault)));
+        forwarder.proposeVault(IERC4626(address(newVault)));
 
         assertEq(address(forwarder.vault()), address(vault));
+        assertEq(address(forwarder.pendingVault()), address(0));
+        assertEq(forwarder.pendingVaultExecutableAt(), 0);
         assertEq(usdc.allowance(address(forwarder), address(vault)), MAX);
         assertEq(usdc.allowance(address(forwarder), address(newVault)), 0);
         assertEq(usdc.balanceOf(admin), TEST_AMOUNT);
@@ -341,7 +406,7 @@ contract ForwarderReentrancyTest is ForwarderTestBase {
     function setUp() public override {
         super.setUp();
         evilVault = new ReentrantVault(IERC20(address(usdc)));
-        _setVault(address(evilVault));
+        _replaceVault(address(evilVault));
         vm.prank(admin);
         forwarder.setRoutingMode(VAULT_VAULT);
         guardError = abi.encodeWithSelector(ReentrancyGuardTransient.ReentrancyGuardReentrantCall.selector);
@@ -354,10 +419,10 @@ contract ForwarderReentrancyTest is ForwarderTestBase {
         forwarder.forward(address(usdc), amount, recipient);
     }
 
-    function _setVaultOnce(address candidate) internal {
+    function _proposeOnce(address candidate) internal {
         _fundAdminForHealthCheck();
         vm.prank(admin);
-        forwarder.setVault(IERC4626(candidate));
+        forwarder.proposeVault(IERC4626(candidate));
     }
 
     function _assertBlocked(ReentrantVault target) internal view {
@@ -380,11 +445,12 @@ contract ForwarderReentrancyTest is ForwarderTestBase {
         assertEq(uint8(forwarder.routingMode()), uint8(VAULT_VAULT));
     }
 
-    function test_SetVaultCannotBeReenteredFromForward() public {
-        evilVault.arm(address(forwarder), abi.encodeCall(Forwarder.setVault, (IERC4626(address(vault)))), admin);
+    function test_ProposeVaultCannotBeReenteredFromForward() public {
+        evilVault.arm(address(forwarder), abi.encodeCall(Forwarder.proposeVault, (IERC4626(address(vault)))), admin);
         _forwardOnce(10e6, user);
         _assertBlocked(evilVault);
         assertEq(address(forwarder.vault()), address(evilVault));
+        assertEq(address(forwarder.pendingVault()), address(0));
     }
 
     function test_RescueTokenCannotBeReenteredFromForward() public {
@@ -405,17 +471,18 @@ contract ForwarderReentrancyTest is ForwarderTestBase {
     function test_CandidateVaultCannotReenterForwardDuringHealthCheck() public {
         ReentrantVault candidate = new ReentrantVault(IERC20(address(usdc)));
         candidate.arm(address(forwarder), abi.encodeCall(Forwarder.forward, (address(usdc), 0, stranger)), address(0));
-        _setVaultOnce(address(candidate));
+        _proposeOnce(address(candidate));
         _assertBlocked(candidate);
-        assertEq(address(forwarder.vault()), address(candidate));
+        assertEq(address(forwarder.pendingVault()), address(candidate));
     }
 
-    function test_CandidateVaultCannotReenterSetVaultDuringHealthCheck() public {
+    function test_CandidateVaultCannotReenterProposeDuringHealthCheck() public {
         ReentrantVault candidate = new ReentrantVault(IERC20(address(usdc)));
-        candidate.arm(address(forwarder), abi.encodeCall(Forwarder.setVault, (IERC4626(address(vault)))), admin);
-        _setVaultOnce(address(candidate));
+        candidate.arm(address(forwarder), abi.encodeCall(Forwarder.proposeVault, (IERC4626(address(vault)))), admin);
+        _proposeOnce(address(candidate));
         _assertBlocked(candidate);
-        assertEq(address(forwarder.vault()), address(candidate));
+        assertEq(address(forwarder.pendingVault()), address(candidate));
+        assertEq(address(forwarder.vault()), address(evilVault));
     }
 
     function test_RescuedTokenCannotReenter() public {

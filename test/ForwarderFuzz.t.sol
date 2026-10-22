@@ -181,6 +181,7 @@ contract ForwarderFuzzTest is ForwarderTestBase {
         }
     }
 
+    /// @dev Both health checks (proposal and execution) accept any positive amount returned by the round trip.
     function testFuzz_HealthCheckAcceptsAnyPositiveReturn(uint256 lossBps) public {
         lossBps = bound(lossBps, 0, 10_000);
         MockVault candidate = new MockVault(IERC20(address(usdc)));
@@ -190,12 +191,21 @@ contract ForwarderFuzzTest is ForwarderTestBase {
         vm.prank(admin);
         if (expectedAssets == 0) {
             vm.expectRevert(abi.encodeWithSelector(Forwarder.VaultNoAssetsReturned.selector, address(candidate)));
-            forwarder.setVault(IERC4626(address(candidate)));
+            forwarder.proposeVault(IERC4626(address(candidate)));
             assertEq(address(forwarder.vault()), address(vault));
+            assertEq(address(forwarder.pendingVault()), address(0));
         } else {
-            forwarder.setVault(IERC4626(address(candidate)));
-            assertEq(address(forwarder.vault()), address(candidate));
+            forwarder.proposeVault(IERC4626(address(candidate)));
+            assertEq(address(forwarder.pendingVault()), address(candidate));
             assertEq(usdc.balanceOf(admin), expectedAssets);
+            // The first round trip left the lost assets in the vault, so the second one runs at another exchange
+            // rate: it only has to return something.
+            vm.warp(forwarder.pendingVaultExecutableAt());
+            _executeVaultChange();
+            assertEq(address(forwarder.vault()), address(candidate));
+            assertGt(usdc.balanceOf(admin), expectedAssets);
+            assertLe(usdc.balanceOf(admin), expectedAssets + TEST_AMOUNT);
+            assertEq(usdc.balanceOf(address(forwarder)), 0);
         }
     }
 
@@ -218,9 +228,15 @@ contract ForwarderFuzzTest is ForwarderTestBase {
     /// @dev Accounts without roles cannot call any privileged function.
     function testFuzz_UnprivilegedCallerCannotConfigure(address caller, uint8 selectorSeed, uint256 value) public {
         vm.assume(caller != admin && caller != feeManager && caller != feeManager2);
-        bytes[13] memory calls = [
+        vm.assume(caller != guardian && caller != guardian2);
+        // A matured proposal, so that cancel/execute can only fail because of the caller.
+        _proposeVault(address(new MockVault(IERC20(address(usdc)))));
+        vm.warp(forwarder.pendingVaultExecutableAt());
+        bytes[15] memory calls = [
             abi.encodeCall(Forwarder.setTreasury, (address(uint160(value | 1)))),
-            abi.encodeCall(Forwarder.setVault, (IERC4626(address(vault)))),
+            abi.encodeCall(Forwarder.proposeVault, (IERC4626(address(uint160(value))))),
+            abi.encodeCall(Forwarder.executeVaultChange, ()),
+            abi.encodeCall(Forwarder.cancelVaultChange, ()),
             abi.encodeCall(Forwarder.setRoutingMode, (Forwarder.RoutingMode(value % 4))),
             abi.encodeCall(Forwarder.rescueToken, (IERC20(address(usdc)))),
             abi.encodeCall(Forwarder.rescueNative, ()),
@@ -238,5 +254,8 @@ contract ForwarderFuzzTest is ForwarderTestBase {
         assertFalse(success);
         assertFalse(forwarder.hasRole(FEE_MANAGER_ROLE, caller));
         assertFalse(forwarder.hasRole(DEFAULT_ADMIN_ROLE, caller));
+        assertFalse(forwarder.hasRole(VAULT_GUARDIAN_ROLE, caller));
+        assertEq(address(forwarder.vault()), address(vault));
+        assertTrue(address(forwarder.pendingVault()) != address(0));
     }
 }

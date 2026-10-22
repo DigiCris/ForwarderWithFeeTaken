@@ -39,7 +39,7 @@ contract ForwarderInvariantTest is ForwarderTestBase {
         selectors[5] = ForwarderHandler.pause.selector;
         selectors[6] = ForwarderHandler.unpause.selector;
         selectors[7] = ForwarderHandler.setRoutingMode.selector;
-        selectors[8] = ForwarderHandler.setVault.selector;
+        selectors[8] = ForwarderHandler.replaceVault.selector;
         selectors[9] = ForwarderHandler.setTreasury.selector;
         selectors[10] = ForwarderHandler.toggleFailure.selector;
         selectors[11] = ForwarderHandler.rescueUsdc.selector;
