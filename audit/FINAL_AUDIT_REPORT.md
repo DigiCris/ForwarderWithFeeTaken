@@ -579,8 +579,10 @@ Ninguna desviación cambia el comportamiento pedido. Diferencias de forma, agreg
 - Dry-run (`forge script … --sender CM2`, sin broadcast; `audit/raw/v2/deploy/dry-run.txt`): preflight OK (chain 8453,
   USDC, Safes con código, `asset() == USDC`, sin duplicados ni ceros y el admin no es guardian), dirección predicha
   `0xCD09…AD53`, costo del health check 1 unidad, gas estimado 4.843.728.
-- Source desplegado: commit `fe7a4af`, `src/Forwarder.sol` sha256
-  `2ddd2b60cbf172b9218b34505de6fead9dd8e56c15f80133198e16b2144f3c3c`.
+- Source desplegado: `src/Forwarder.sol` sha256 `2ddd2b60cbf172b9218b34505de6fead9dd8e56c15f80133198e16b2144f3c3c`,
+  introducido en el commit `fe7a4af`. El broadcast se ejecutó con HEAD `d0c74ee` (campo `commit` del broadcast), que
+  tiene el mismo archivo. El commit `fe7a4af` incluye además los renombres, sin cambios de contenido, de
+  `FINAL_AUDIT_REPORT.md` → `FINAL_AUDIT_REPORT_V1.md` y `TEST_MATRIX.md` → `TEST_MATRIX_V1.md`.
 
 ### O.2 Deployment
 
