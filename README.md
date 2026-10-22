@@ -26,7 +26,8 @@ wallets hold `VAULT_GUARDIAN_ROLE` and `FEE_MANAGER_ROLE`).
 matrix: [audit/TEST_MATRIX_V1.md](audit/TEST_MATRIX_V1.md).
 
 The V2 audit (scope: the vault change lifecycle; V1 logic unchanged) is in
-[audit/FINAL_AUDIT_REPORT.md](audit/FINAL_AUDIT_REPORT.md).
+[audit/FINAL_AUDIT_REPORT_V2.md](audit/FINAL_AUDIT_REPORT_V2.md), test matrix
+[audit/TEST_MATRIX_V2.md](audit/TEST_MATRIX_V2.md).
 
 ## Layout
 
