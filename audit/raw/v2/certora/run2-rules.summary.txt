@@ -1,0 +1,37 @@
+job: https://prover.certora.com/output/3658204/abc90974a3064a65ac81eaa3568bfc23
+config: certora/conf/ForwarderV2.conf
+onlyAdminProposes: SUCCESS
+onlyAdminExecutes: SUCCESS
+onlyAdminOrGuardianCancels: SUCCESS
+guardianOrAdminCanAlwaysCancel: SUCCESS
+guardianCannotProposeOrExecute: SUCCESS
+feeManagerCannotAdministerVault: SUCCESS
+unprivilegedCannotTouchVaultLifecycle: SUCCESS
+guardianRoleOnlyChangedByAdminOrSelf: SUCCESS
+vaultChangeDelayIs72Hours: SUCCESS
+proposeStoresCandidateWithExactDelay: SUCCESS
+proposeRevertsWhileAChangeIsPending: SUCCESS
+executeRevertsBeforeExecutableAt: SUCCESS
+executeRevertsWithoutPendingChange: SUCCESS
+vaultOnlyChangesThroughExecuteAfterDelay: SUCCESS
+pendingChangeCannotBeShortened: SUCCESS
+guardianRoleChangesKeepPendingChange: SUCCESS
+cancelClearsPendingOnly: SUCCESS
+executeActivatesPendingVaultAndClearsIt: SUCCESS
+failedExecutionKeepsState: SUCCESS
+pendingOnlyClearedByCancelOrExecute: SUCCESS
+vaultLifecycleKeepsConfiguration: SUCCESS
+proposeLeavesNoCandidateAllowance: SUCCESS
+executeAllowancesFollowCurrentRouting: SUCCESS
+executeUsesRoutingInForceAtExecution: SUCCESS
+forwardKeepsPendingChange: SUCCESS
+proposeHealthCheckUsesOnlyCallerFunds: SUCCESS
+executeHealthCheckUsesOnlyCallerFunds: SUCCESS
+onlyAdminChangesVault: SUCCESS
+feeManagerCannotAdminister: SUCCESS
+unprivilegedChangesNoConfiguration: SUCCESS
+routingModeAllowance: SUCCESS
+forwardNeverApproves: SUCCESS
+other result lines: 1 -> Result for envfreeFuncsStaticCheck: envfreeFuncsStaticCheck: DummyUSDC.balanceOf(address):
+final verdict: No errors found by Prover!
+rules without a 'Result for' line: feeManagerRoleOnlyChangedByAdminOrSelf

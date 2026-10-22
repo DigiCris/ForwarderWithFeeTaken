@@ -1,0 +1,13 @@
+job: https://prover.certora.com/output/3658204/a8f16e813a184f288ce45c5393b859cc
+config: certora/conf/ForwarderV2Invariants.conf
+enumsAreValid: SUCCESS
+vaultModeHasVault: SUCCESS
+feeManagerAdminIsDefaultAdmin: SUCCESS
+directDirectMeansNoVaultAllowance: SUCCESS
+guardianAdminIsDefaultAdmin: SUCCESS
+pendingVaultConsistency: SUCCESS
+pendingVaultIsNotActive: SUCCESS
+pendingVaultHasNoAllowance: SUCCESS
+other result lines: 1 -> Result for envfreeFuncsStaticCheck: envfreeFuncsStaticCheck: DummyUSDC.balanceOf(address):
+final verdict: No errors found by Prover!
+rules without a 'Result for' line: none

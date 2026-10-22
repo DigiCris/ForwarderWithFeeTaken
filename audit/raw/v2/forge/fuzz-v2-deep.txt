@@ -1,0 +1,29 @@
+Compiling 2 files with Solc 0.8.30
+Solc 0.8.30 finished in 1.88s
+Compiler run successful with warnings:
+Warning (2519): This declaration shadows an existing declaration.
+   --> test/ForwarderVaultChangeFuzz.t.sol:160:9:
+    |
+160 |         address[4] memory pool = [guardian, guardian2, makeAddr("g3"), feeManager];
+    |         ^^^^^^^^^^^^^^^^^^^^^^
+Note: The shadowed declaration is here:
+   --> test/ForwarderVaultChangeFuzz.t.sol:269:5:
+    |
+269 |     MockVault[3] internal pool;
+    |     ^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+
+Ran 10 tests for test/ForwarderVaultChangeFuzz.t.sol:ForwarderVaultChangeFuzzTest
+[PASS] testFuzz_CancelAuthorization(address,bool,bool,uint256) (runs: 50000, μ: 327462, ~: 328976)
+[PASS] testFuzz_DelayBoundary(uint256,uint256) (runs: 50000, μ: 391468, ~: 323394)
+[PASS] testFuzz_DelayBoundaryNeighbourhood(uint256,uint256) (runs: 50000, μ: 385254, ~: 323410)
+[PASS] testFuzz_ExecutableAtCannotOverflow(uint256) (runs: 50000, μ: 104415, ~: 104465)
+[PASS] testFuzz_ExecutableAtIsProposalTimePlusDelay(uint256) (runs: 50000, μ: 290979, ~: 290982)
+[PASS] testFuzz_FailedSecondHealthCheckKeepsPending(uint8,uint256,uint8) (runs: 50000, μ: 601077, ~: 586348)
+[PASS] testFuzz_GuardianChangesKeepTheDelay(uint8[10],uint256) (runs: 50000, μ: 571559, ~: 570787)
+[PASS] testFuzz_LifecycleStateMachine(uint256[32]) (runs: 50000, μ: 4331490, ~: 4305123)
+[PASS] testFuzz_OnlyAdminProposesOrExecutes(address,bool,bool) (runs: 50000, μ: 372790, ~: 372739)
+[PASS] testFuzz_RoutingWhilePending(uint8,uint8[6]) (runs: 50000, μ: 570767, ~: 574034)
+Suite result: ok. 10 passed; 0 failed; 0 skipped; finished in 310.00s (764.89s CPU time)
+
+Ran 1 test suite in 310.00s (310.00s CPU time): 10 tests passed, 0 failed, 0 skipped (10 total tests)

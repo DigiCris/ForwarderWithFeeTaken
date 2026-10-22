@@ -1,0 +1,509 @@
+Compiling 2 files with Solc 0.8.30
+Solc 0.8.30 finished in 2.81s
+Compiler run successful with warnings:
+Warning (5159): "selfdestruct" has been deprecated. Note that, starting from the Cancun hard fork, the underlying opcode no longer deletes the code and data associated with an account and only transfers its Ether to the beneficiary, unless executed in the same transaction in which the contract was created (see EIP-6780). Any use in newly deployed contracts is strongly discouraged even if the new behavior is taken into account. Future changes to the EVM might further reduce the functionality of the opcode.
+  --> test/mocks/MockTokens.sol:79:9:
+   |
+79 |         selfdestruct(target);
+   |         ^^^^^^^^^^^^
+
+Warning: Failure from "/home/cmarchese/undr/yummy/ForwarderWithFeeTaken/cache/invariant/failures/ForwarderVaultChangeInvariantTest/invariant_FailedExecutionKeepsState" file was ignored because test contract bytecode has changed.
+Warning: Failure from "/home/cmarchese/undr/yummy/ForwarderWithFeeTaken/cache/invariant/failures/ForwarderVaultChangeInvariantTest/invariant_NoExecutionBeforeTheDelay" file was ignored because test contract bytecode has changed.
+Warning: Failure from "/home/cmarchese/undr/yummy/ForwarderWithFeeTaken/cache/invariant/failures/ForwarderVaultChangeInvariantTest/invariant_LifecycleAuthorization" file was ignored because test contract bytecode has changed.
+Warning: Failure from "/home/cmarchese/undr/yummy/ForwarderWithFeeTaken/cache/invariant/failures/ForwarderVaultChangeInvariantTest/invariant_ExecutableAtIsProposalTimePlusDelay" file was ignored because test contract bytecode has changed.
+Warning: Failure from "/home/cmarchese/undr/yummy/ForwarderWithFeeTaken/cache/invariant/failures/ForwarderVaultChangeInvariantTest/invariant_ActiveVaultOnlyChangesThroughExecute" file was ignored because test contract bytecode has changed.
+Warning: Failure from "/home/cmarchese/undr/yummy/ForwarderWithFeeTaken/cache/invariant/failures/ForwarderVaultChangeInvariantTest/invariant_Allowances" file was ignored because test contract bytecode has changed.
+Warning: Failure from "/home/cmarchese/undr/yummy/ForwarderWithFeeTaken/cache/invariant/failures/ForwarderVaultChangeInvariantTest/invariant_LifecycleKeepsFeesTreasuryAndPause" file was ignored because test contract bytecode has changed.
+Warning: Failure from "/home/cmarchese/undr/yummy/ForwarderWithFeeTaken/cache/invariant/failures/ForwarderVaultChangeInvariantTest/invariant_OutcomesMatchModel" file was ignored because test contract bytecode has changed.
+Warning: Failure from "/home/cmarchese/undr/yummy/ForwarderWithFeeTaken/cache/invariant/failures/ForwarderVaultChangeInvariantTest/invariant_PendingVaultIsNeverTheActiveVault" file was ignored because test contract bytecode has changed.
+Warning: Failure from "/home/cmarchese/undr/yummy/ForwarderWithFeeTaken/cache/invariant/failures/ForwarderVaultChangeInvariantTest/invariant_DelayIsImmutable" file was ignored because test contract bytecode has changed.
+Warning: Failure from "/home/cmarchese/undr/yummy/ForwarderWithFeeTaken/cache/invariant/failures/ForwarderVaultChangeInvariantTest/invariant_RolesMatchModel" file was ignored because test contract bytecode has changed.
+Warning: Failure from "/home/cmarchese/undr/yummy/ForwarderWithFeeTaken/cache/invariant/failures/ForwarderVaultChangeInvariantTest/invariant_PendingChangeIsNeverTampered" file was ignored because test contract bytecode has changed.
+Warning: Failure from "/home/cmarchese/undr/yummy/ForwarderWithFeeTaken/cache/invariant/failures/ForwarderVaultChangeInvariantTest/invariant_PendingVaultHasNoAllowance" file was ignored because test contract bytecode has changed.
+Warning: Failure from "/home/cmarchese/undr/yummy/ForwarderWithFeeTaken/cache/invariant/failures/ForwarderVaultChangeInvariantTest/invariant_PendingVaultAndTimestampAreConsistent" file was ignored because test contract bytecode has changed.
+Warning: Failure from "/home/cmarchese/undr/yummy/ForwarderWithFeeTaken/cache/invariant/failures/ForwarderVaultChangeInvariantTest/invariant_VaultModeHasVault" file was ignored because test contract bytecode has changed.
+
+Ran 15 tests for test/ForwarderVaultChangeInvariant.t.sol:ForwarderVaultChangeInvariantTest
+[PASS] invariant_ActiveVaultOnlyChangesThroughExecute() (runs: 2000, calls: 500000, reverts: 0)
+
+╭--------------------+------------------+-------+---------+----------╮
+| Contract           | Selector         | Calls | Reverts | Discards |
++====================================================================+
+| VaultChangeHandler | cancel           | 29130 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | execute          | 59112 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | forward          | 29258 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | propose          | 59137 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | renounceGuardian | 29409 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | setFees          | 29674 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | setGuardian      | 29371 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | setRoutingMode   | 29519 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | setTreasury      | 29024 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | toggleFailure    | 58713 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | togglePause      | 29515 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | unauthorizedCall | 29401 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | warp             | 58737 | 0       | 0        |
+╰--------------------+------------------+-------+---------+----------╯
+
+[PASS] invariant_Allowances() (runs: 2000, calls: 500000, reverts: 0)
+
+╭--------------------+------------------+-------+---------+----------╮
+| Contract           | Selector         | Calls | Reverts | Discards |
++====================================================================+
+| VaultChangeHandler | cancel           | 29130 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | execute          | 59112 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | forward          | 29258 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | propose          | 59137 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | renounceGuardian | 29409 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | setFees          | 29674 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | setGuardian      | 29371 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | setRoutingMode   | 29519 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | setTreasury      | 29024 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | toggleFailure    | 58713 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | togglePause      | 29515 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | unauthorizedCall | 29401 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | warp             | 58737 | 0       | 0        |
+╰--------------------+------------------+-------+---------+----------╯
+
+[PASS] invariant_DelayIsImmutable() (runs: 2000, calls: 500000, reverts: 0)
+
+╭--------------------+------------------+-------+---------+----------╮
+| Contract           | Selector         | Calls | Reverts | Discards |
++====================================================================+
+| VaultChangeHandler | cancel           | 29130 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | execute          | 59112 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | forward          | 29258 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | propose          | 59137 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | renounceGuardian | 29409 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | setFees          | 29674 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | setGuardian      | 29371 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | setRoutingMode   | 29519 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | setTreasury      | 29024 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | toggleFailure    | 58713 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | togglePause      | 29515 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | unauthorizedCall | 29401 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | warp             | 58737 | 0       | 0        |
+╰--------------------+------------------+-------+---------+----------╯
+
+[PASS] invariant_ExecutableAtIsProposalTimePlusDelay() (runs: 2000, calls: 500000, reverts: 0)
+
+╭--------------------+------------------+-------+---------+----------╮
+| Contract           | Selector         | Calls | Reverts | Discards |
++====================================================================+
+| VaultChangeHandler | cancel           | 29130 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | execute          | 59112 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | forward          | 29258 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | propose          | 59137 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | renounceGuardian | 29409 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | setFees          | 29674 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | setGuardian      | 29371 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | setRoutingMode   | 29519 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | setTreasury      | 29024 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | toggleFailure    | 58713 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | togglePause      | 29515 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | unauthorizedCall | 29401 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | warp             | 58737 | 0       | 0        |
+╰--------------------+------------------+-------+---------+----------╯
+
+[PASS] invariant_FailedExecutionKeepsState() (runs: 2000, calls: 500000, reverts: 0)
+
+╭--------------------+------------------+-------+---------+----------╮
+| Contract           | Selector         | Calls | Reverts | Discards |
++====================================================================+
+| VaultChangeHandler | cancel           | 29130 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | execute          | 59112 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | forward          | 29258 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | propose          | 59137 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | renounceGuardian | 29409 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | setFees          | 29674 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | setGuardian      | 29371 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | setRoutingMode   | 29519 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | setTreasury      | 29024 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | toggleFailure    | 58713 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | togglePause      | 29515 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | unauthorizedCall | 29401 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | warp             | 58737 | 0       | 0        |
+╰--------------------+------------------+-------+---------+----------╯
+
+[PASS] invariant_LifecycleAuthorization() (runs: 2000, calls: 500000, reverts: 0)
+
+╭--------------------+------------------+-------+---------+----------╮
+| Contract           | Selector         | Calls | Reverts | Discards |
++====================================================================+
+| VaultChangeHandler | cancel           | 29130 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | execute          | 59112 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | forward          | 29258 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | propose          | 59137 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | renounceGuardian | 29409 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | setFees          | 29674 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | setGuardian      | 29371 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | setRoutingMode   | 29519 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | setTreasury      | 29024 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | toggleFailure    | 58713 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | togglePause      | 29515 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | unauthorizedCall | 29401 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | warp             | 58737 | 0       | 0        |
+╰--------------------+------------------+-------+---------+----------╯
+
+[PASS] invariant_LifecycleKeepsFeesTreasuryAndPause() (runs: 2000, calls: 500000, reverts: 0)
+
+╭--------------------+------------------+-------+---------+----------╮
+| Contract           | Selector         | Calls | Reverts | Discards |
++====================================================================+
+| VaultChangeHandler | cancel           | 29130 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | execute          | 59112 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | forward          | 29258 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | propose          | 59137 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | renounceGuardian | 29409 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | setFees          | 29674 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | setGuardian      | 29371 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | setRoutingMode   | 29519 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | setTreasury      | 29024 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | toggleFailure    | 58713 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | togglePause      | 29515 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | unauthorizedCall | 29401 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | warp             | 58737 | 0       | 0        |
+╰--------------------+------------------+-------+---------+----------╯
+
+[PASS] invariant_NoExecutionBeforeTheDelay() (runs: 2000, calls: 500000, reverts: 0)
+
+╭--------------------+------------------+-------+---------+----------╮
+| Contract           | Selector         | Calls | Reverts | Discards |
++====================================================================+
+| VaultChangeHandler | cancel           | 29130 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | execute          | 59112 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | forward          | 29258 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | propose          | 59137 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | renounceGuardian | 29409 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | setFees          | 29674 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | setGuardian      | 29371 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | setRoutingMode   | 29519 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | setTreasury      | 29024 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | toggleFailure    | 58713 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | togglePause      | 29515 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | unauthorizedCall | 29401 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | warp             | 58737 | 0       | 0        |
+╰--------------------+------------------+-------+---------+----------╯
+
+[PASS] invariant_OutcomesMatchModel() (runs: 2000, calls: 500000, reverts: 0)
+
+╭--------------------+------------------+-------+---------+----------╮
+| Contract           | Selector         | Calls | Reverts | Discards |
++====================================================================+
+| VaultChangeHandler | cancel           | 29130 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | execute          | 59112 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | forward          | 29258 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | propose          | 59137 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | renounceGuardian | 29409 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | setFees          | 29674 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | setGuardian      | 29371 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | setRoutingMode   | 29519 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | setTreasury      | 29024 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | toggleFailure    | 58713 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | togglePause      | 29515 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | unauthorizedCall | 29401 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | warp             | 58737 | 0       | 0        |
+╰--------------------+------------------+-------+---------+----------╯
+
+[PASS] invariant_PendingChangeIsNeverTampered() (runs: 2000, calls: 500000, reverts: 0)
+
+╭--------------------+------------------+-------+---------+----------╮
+| Contract           | Selector         | Calls | Reverts | Discards |
++====================================================================+
+| VaultChangeHandler | cancel           | 29130 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | execute          | 59112 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | forward          | 29258 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | propose          | 59137 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | renounceGuardian | 29409 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | setFees          | 29674 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | setGuardian      | 29371 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | setRoutingMode   | 29519 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | setTreasury      | 29024 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | toggleFailure    | 58713 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | togglePause      | 29515 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | unauthorizedCall | 29401 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | warp             | 58737 | 0       | 0        |
+╰--------------------+------------------+-------+---------+----------╯
+
+[PASS] invariant_PendingVaultAndTimestampAreConsistent() (runs: 2000, calls: 500000, reverts: 0)
+
+╭--------------------+------------------+-------+---------+----------╮
+| Contract           | Selector         | Calls | Reverts | Discards |
++====================================================================+
+| VaultChangeHandler | cancel           | 29130 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | execute          | 59112 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | forward          | 29258 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | propose          | 59137 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | renounceGuardian | 29409 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | setFees          | 29674 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | setGuardian      | 29371 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | setRoutingMode   | 29519 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | setTreasury      | 29024 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | toggleFailure    | 58713 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | togglePause      | 29515 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | unauthorizedCall | 29401 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | warp             | 58737 | 0       | 0        |
+╰--------------------+------------------+-------+---------+----------╯
+
+[PASS] invariant_PendingVaultHasNoAllowance() (runs: 2000, calls: 500000, reverts: 0)
+
+╭--------------------+------------------+-------+---------+----------╮
+| Contract           | Selector         | Calls | Reverts | Discards |
++====================================================================+
+| VaultChangeHandler | cancel           | 29130 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | execute          | 59112 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | forward          | 29258 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | propose          | 59137 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | renounceGuardian | 29409 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | setFees          | 29674 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | setGuardian      | 29371 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | setRoutingMode   | 29519 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | setTreasury      | 29024 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | toggleFailure    | 58713 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | togglePause      | 29515 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | unauthorizedCall | 29401 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | warp             | 58737 | 0       | 0        |
+╰--------------------+------------------+-------+---------+----------╯
+
+[PASS] invariant_PendingVaultIsNeverTheActiveVault() (runs: 2000, calls: 500000, reverts: 0)
+
+╭--------------------+------------------+-------+---------+----------╮
+| Contract           | Selector         | Calls | Reverts | Discards |
++====================================================================+
+| VaultChangeHandler | cancel           | 29130 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | execute          | 59112 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | forward          | 29258 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | propose          | 59137 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | renounceGuardian | 29409 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | setFees          | 29674 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | setGuardian      | 29371 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | setRoutingMode   | 29519 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | setTreasury      | 29024 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | toggleFailure    | 58713 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | togglePause      | 29515 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | unauthorizedCall | 29401 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | warp             | 58737 | 0       | 0        |
+╰--------------------+------------------+-------+---------+----------╯
+
+[PASS] invariant_RolesMatchModel() (runs: 2000, calls: 500000, reverts: 0)
+
+╭--------------------+------------------+-------+---------+----------╮
+| Contract           | Selector         | Calls | Reverts | Discards |
++====================================================================+
+| VaultChangeHandler | cancel           | 29130 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | execute          | 59112 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | forward          | 29258 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | propose          | 59137 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | renounceGuardian | 29409 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | setFees          | 29674 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | setGuardian      | 29371 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | setRoutingMode   | 29519 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | setTreasury      | 29024 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | toggleFailure    | 58713 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | togglePause      | 29515 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | unauthorizedCall | 29401 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | warp             | 58737 | 0       | 0        |
+╰--------------------+------------------+-------+---------+----------╯
+
+[PASS] invariant_VaultModeHasVault() (runs: 2000, calls: 500000, reverts: 0)
+
+╭--------------------+------------------+-------+---------+----------╮
+| Contract           | Selector         | Calls | Reverts | Discards |
++====================================================================+
+| VaultChangeHandler | cancel           | 29130 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | execute          | 59112 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | forward          | 29258 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | propose          | 59137 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | renounceGuardian | 29409 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | setFees          | 29674 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | setGuardian      | 29371 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | setRoutingMode   | 29519 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | setTreasury      | 29024 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | toggleFailure    | 58713 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | togglePause      | 29515 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | unauthorizedCall | 29401 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| VaultChangeHandler | warp             | 58737 | 0       | 0        |
+╰--------------------+------------------+-------+---------+----------╯
+
+Suite result: ok. 15 passed; 0 failed; 0 skipped; finished in 1380.17s (12210.10s CPU time)
+
+Ran 1 test suite in 1380.19s (1380.17s CPU time): 15 tests passed, 0 failed, 0 skipped (15 total tests)

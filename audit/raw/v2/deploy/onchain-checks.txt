@@ -1,0 +1,39 @@
+== On-chain checks of 0xCD09f43D738b10584CaBfb2f73C3adA29fc5AD53 (block 52955182)
+code size (bytes): 11965
+codehash: 0xc4f71db9ebfed1fe5a07d798aadc98c2647be95c40f02eba89849bfff32a0b21
+USDC()(address): 0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913 
+defaultAdmin()(address): 0x420675DFAf02750a7DdFad702D13e32eb2C67602 
+defaultAdminDelay()(uint48): 259200 [2.592e5] 
+treasury()(address): 0x7a5F8A4aF0FEDaBb1625b6f04bA38fC75e7E843e 
+vault()(address): 0xc462cA16286a9a877a499f9474827bA801f2090D 
+routingMode()(uint8): 0 
+lowerFeeModel()(uint8): 0 
+upperFeeModel()(uint8): 0 
+threshold()(uint256): 0 
+fixedFee()(uint256): 0 
+variableFee()(uint256): 0 
+paused()(bool): false 
+pendingVault()(address): 0x0000000000000000000000000000000000000000 
+pendingVaultExecutableAt()(uint256): 0 
+VAULT_CHANGE_DELAY()(uint256): 259200 [2.592e5] 
+VAULT_TEST_AMOUNT()(uint256): 1000 
+VAULT_GUARDIAN_ROLE()(bytes32): 0xc3144799d744af118b620bad1dd856d1c8733359e68aa889f4743e8d2498e4ac 
+FEE_MANAGER_ROLE()(bytes32): 0x6c0757dc3e6b28b2580c03fd9e96c274acf4f99d91fbec9b418fa1d70604ff1c 
+pendingDefaultAdmin()(address,uint48): 0x0000000000000000000000000000000000000000 0 
+calculateFee(uint256)(uint256): 0 
+getRoleAdmin(VAULT_GUARDIAN_ROLE): 0x0000000000000000000000000000000000000000000000000000000000000000
+getRoleAdmin(FEE_MANAGER_ROLE): 0x0000000000000000000000000000000000000000000000000000000000000000
+0xa737cB590c0F4d00D2140a429728681e1e74C5db guardian=true feeManager=true admin=false
+0x31B5aBcF044049daa96cDC387a44747a48a0ac62 guardian=true feeManager=true admin=false
+0x61D4d1Ab7eA7B3A54C7B2D646Eb8189faD7B1050 guardian=true feeManager=true admin=false
+0xa82a5201E630b40914bf4fed0B0b40180BCB93F7 guardian=true feeManager=true admin=false
+0xe3685F1C0652430e501B314b3035CB7Dd5b21c5f guardian=true feeManager=true admin=false
+0x5aDF0B683B49217704eff3f85eda468651C50A48 guardian=true feeManager=true admin=false
+0x18e129122a338f2e6871764fe0e4426dE848Ef99 guardian=true feeManager=true admin=false
+admin Safe: guardian=false admin=true
+USDC.allowance(forwarder, LucaVault): 0
+USDC.balanceOf(forwarder): 0
+LucaVault.balanceOf(forwarder): 0
+USDC.allowance(deployer, forwarder): 0
+eth_call forward(USDC, 0, 0x...dEaD) from 0x...bEEF (EIP-1153 guard on the real node): 0x
+success

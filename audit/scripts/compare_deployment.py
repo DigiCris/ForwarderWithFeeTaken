@@ -2,7 +2,8 @@
 """Compares the Forwarder deployment recorded by forge (broadcast file) with the local build.
 
 Checks that the creation transaction input is exactly `local creation bytecode || abi-encoded constructor args`, that
-the arguments are the production configuration, and prints the data needed for the audit report. The runtime code
+the arguments are the production configuration (V2 constructor: fee managers and vault guardians), and prints the
+data needed for the audit report. The runtime code
 equality (immutables included) is checked separately by test/ForwarderPostDeployFork.t.sol.
 
 Usage: python3 audit/scripts/compare_deployment.py broadcast/DeployForwarder.s.sol/8453/run-latest.json
@@ -28,6 +29,8 @@ EXPECTED = {
         "0x18e129122a338f2e6871764fe0e4426de848ef99",
     ],
 }
+# The vault guardians are the same seven management wallets (ForwarderDeployConfig.vaultGuardians).
+EXPECTED["guardians"] = list(EXPECTED["managers"])
 
 
 def main(path):
@@ -43,10 +46,12 @@ def main(path):
     assert data.startswith(local), "creation code differs from the local build"
     args = "0x" + data[len(local):]
     decoded = subprocess.check_output(
-        ["cast", "abi-decode", "--input", "f(address,address,uint48,address,address,uint8,address[])", args], text=True
+        ["cast", "abi-decode", "--input", "f(address,address,uint48,address,address,uint8,address[],address[])", args],
+        text=True,
     ).split("\n")
-    usdc, admin, delay, treasury, vault, routing, managers = [d.strip() for d in decoded[:7]]
+    usdc, admin, delay, treasury, vault, routing, managers, guardians = [d.strip() for d in decoded[:8]]
     managers = [m.strip().lower() for m in managers.strip("[]").split(",")]
+    guardians = [g.strip().lower() for g in guardians.strip("[]").split(",")]
     checks = {
         "usdc": usdc.lower() == EXPECTED["usdc"],
         "admin": admin.lower() == EXPECTED["admin"],
@@ -55,6 +60,7 @@ def main(path):
         "vault": vault.lower() == EXPECTED["vault"],
         "routing": int(routing.split()[0]) == EXPECTED["routing"],
         "managers": managers == EXPECTED["managers"],
+        "guardians": guardians == EXPECTED["guardians"],
     }
     print("contract address :", tx["contractAddress"])
     print("deployment tx    :", tx["hash"])

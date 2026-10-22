@@ -1,0 +1,81 @@
+V1 selectors: 48  V2 selectors: 54
+Removed in V2: setVault(address) (6817031b)
+Added in V2:   VAULT_CHANGE_DELAY() (00762c6c), VAULT_GUARDIAN_ROLE() (b3aab401), cancelVaultChange() (a9772f03), executeVaultChange() (a775945d), pendingVault() (52113ba7), pendingVaultExecutableAt() (0cf4ed5c), proposeVault(address) (483b83c8)
+Unchanged: 47
+
+Full V2 selector list:
+  a217fddf  DEFAULT_ADMIN_ROLE()
+  d73792a9  FEE_DENOMINATOR()
+  05db2f41  FEE_MANAGER_ROLE()
+  ee893cf3  MAX_FIXED_FEE()
+  c0cd7c4e  MAX_VARIABLE_FEE()
+  89a30271  USDC()
+  00762c6c  VAULT_CHANGE_DELAY()   [NEW]
+  b3aab401  VAULT_GUARDIAN_ROLE()   [NEW]
+  90281ae5  VAULT_TEST_AMOUNT()
+  cefc1429  acceptDefaultAdminTransfer()
+  634e93da  beginDefaultAdminTransfer(address)
+  99a5d747  calculateFee(uint256)
+  d602b9fd  cancelDefaultAdminTransfer()
+  a9772f03  cancelVaultChange()   [NEW]
+  649a5ec7  changeDefaultAdminDelay(uint48)
+  84ef8ffc  defaultAdmin()
+  cc8463c8  defaultAdminDelay()
+  022d63fb  defaultAdminDelayIncreaseWait()
+  a775945d  executeVaultChange()   [NEW]
+  91792d5b  fixedFee()
+  e6e55ae9  forward(address,uint256,address)
+  248a9ca3  getRoleAdmin(bytes32)
+  2f2ff15d  grantRole(bytes32,address)
+  91d14854  hasRole(bytes32,address)
+  412f9a9d  lowerFeeModel()
+  8da5cb5b  owner()
+  8456cb59  pause()
+  5c975abb  paused()
+  cf6eefb7  pendingDefaultAdmin()
+  a1eda53c  pendingDefaultAdminDelay()
+  52113ba7  pendingVault()   [NEW]
+  0cf4ed5c  pendingVaultExecutableAt()   [NEW]
+  483b83c8  proposeVault(address)   [NEW]
+  36568abe  renounceRole(bytes32,address)
+  fc82f084  rescueNative()
+  4460d3cf  rescueToken(address)
+  d547741f  revokeRole(bytes32,address)
+  0aa6220b  rollbackDefaultAdminDelay()
+  21f7a6c6  routingMode()
+  e8964a0e  setFeeConfig(uint8,uint8,uint256,uint256,uint256)
+  37de8106  setFixedFee(uint256)
+  3f37297c  setLowerFeeModel(uint8)
+  07c876d6  setRoutingMode(uint8)
+  960bfe04  setThreshold(uint256)
+  f0f44260  setTreasury(address)
+  bdb6412c  setUpperFeeModel(uint8)
+  d696a7da  setVariableFee(uint256)
+  01ffc9a7  supportsInterface(bytes4)
+  42cde4e8  threshold()
+  61d027b3  treasury()
+  3f4ba83a  unpause()
+  e4df00cc  upperFeeModel()
+  f11ee845  variableFee()
+  fbfa77cf  vault()
+
+Storage layout V1 -> V2 (label, slot, offset, type):
+  ('_roles', '0', 0, 'mapping(bytes32 => struct AccessControl.RoleData)')
+  ('_pendingDefaultAdmin', '1', 0, 'address')
+  ('_pendingDefaultAdminSchedule', '1', 20, 'uint48')
+  ('_currentDelay', '1', 26, 'uint48')
+  ('_currentDefaultAdmin', '2', 0, 'address')
+  ('_pendingDelay', '2', 20, 'uint48')
+  ('_pendingDelaySchedule', '2', 26, 'uint48')
+  ('_paused', '3', 0, 'bool')
+  ('treasury', '3', 1, 'address')
+  ('vault', '4', 0, 'contract IERC4626')
+  ('routingMode', '4', 20, 'enum Forwarder.RoutingMode')
+  ('lowerFeeModel', '4', 21, 'enum Forwarder.FeeModel')
+  ('upperFeeModel', '4', 22, 'enum Forwarder.FeeModel')
+  ('threshold', '5', 0, 'uint256')
+  ('fixedFee', '6', 0, 'uint256')
+  ('variableFee', '7', 0, 'uint256')
+  ('pendingVault', '8', 0, 'contract IERC4626')   [NEW]
+  ('pendingVaultExecutableAt', '9', 0, 'uint256')   [NEW]
+V1 entries preserved at the same slot/offset: True

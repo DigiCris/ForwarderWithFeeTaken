@@ -1,0 +1,1051 @@
+Compiling 3 files with Solc 0.8.30
+Solc 0.8.30 finished in 2.83s
+Compiler run successful!
+Traces:
+  [3711221] DeployForwarder::run()
+    ├─ [0] console::log("=== Preflight ===") [staticcall]
+    │   └─ ← [Stop]
+    ├─ [0] console::log("Chain id             :", 8453) [staticcall]
+    │   └─ ← [Stop]
+    ├─ [0] console::log("Deployer             :", 0x18e129122a338f2e6871764fe0e4426dE848Ef99) [staticcall]
+    │   └─ ← [Stop]
+    ├─ [0] console::log("USDC                 :", FiatTokenProxy: [0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913]) [staticcall]
+    │   └─ ← [Stop]
+    ├─ [0] console::log("Admin                :", 0x420675DFAf02750a7DdFad702D13e32eb2C67602) [staticcall]
+    │   └─ ← [Stop]
+    ├─ [0] console::log("Admin delay (s)      :", 259200 [2.592e5]) [staticcall]
+    │   └─ ← [Stop]
+    ├─ [0] console::log("Treasury             :", 0x7a5F8A4aF0FEDaBb1625b6f04bA38fC75e7E843e) [staticcall]
+    │   └─ ← [Stop]
+    ├─ [0] console::log("Vault                :", LucaMoneyVault: [0xc462cA16286a9a877a499f9474827bA801f2090D]) [staticcall]
+    │   └─ ← [Stop]
+    ├─ [0] console::log("Routing mode         :", 0) [staticcall]
+    │   └─ ← [Stop]
+    ├─ [0] console::log("Initial fees         : NONE/NONE, threshold 0, fixed 0, variable 0, not paused") [staticcall]
+    │   └─ ← [Stop]
+    ├─ [0] console::log("Fee manager          :", 0xa737cB590c0F4d00D2140a429728681e1e74C5db) [staticcall]
+    │   └─ ← [Stop]
+    ├─ [0] console::log("Fee manager          :", 0x31B5aBcF044049daa96cDC387a44747a48a0ac62) [staticcall]
+    │   └─ ← [Stop]
+    ├─ [0] console::log("Fee manager          :", 0x61D4d1Ab7eA7B3A54C7B2D646Eb8189faD7B1050) [staticcall]
+    │   └─ ← [Stop]
+    ├─ [0] console::log("Fee manager          :", 0xa82a5201E630b40914bf4fed0B0b40180BCB93F7) [staticcall]
+    │   └─ ← [Stop]
+    ├─ [0] console::log("Fee manager          :", 0xe3685F1C0652430e501B314b3035CB7Dd5b21c5f) [staticcall]
+    │   └─ ← [Stop]
+    ├─ [0] console::log("Fee manager          :", 0x5aDF0B683B49217704eff3f85eda468651C50A48) [staticcall]
+    │   └─ ← [Stop]
+    ├─ [0] console::log("Fee manager          :", 0x18e129122a338f2e6871764fe0e4426dE848Ef99) [staticcall]
+    │   └─ ← [Stop]
+    ├─ [0] console::log("Vault guardian       :", 0xa737cB590c0F4d00D2140a429728681e1e74C5db) [staticcall]
+    │   └─ ← [Stop]
+    ├─ [0] console::log("Vault guardian       :", 0x31B5aBcF044049daa96cDC387a44747a48a0ac62) [staticcall]
+    │   └─ ← [Stop]
+    ├─ [0] console::log("Vault guardian       :", 0x61D4d1Ab7eA7B3A54C7B2D646Eb8189faD7B1050) [staticcall]
+    │   └─ ← [Stop]
+    ├─ [0] console::log("Vault guardian       :", 0xa82a5201E630b40914bf4fed0B0b40180BCB93F7) [staticcall]
+    │   └─ ← [Stop]
+    ├─ [0] console::log("Vault guardian       :", 0xe3685F1C0652430e501B314b3035CB7Dd5b21c5f) [staticcall]
+    │   └─ ← [Stop]
+    ├─ [0] console::log("Vault guardian       :", 0x5aDF0B683B49217704eff3f85eda468651C50A48) [staticcall]
+    │   └─ ← [Stop]
+    ├─ [0] console::log("Vault guardian       :", 0x18e129122a338f2e6871764fe0e4426dE848Ef99) [staticcall]
+    │   └─ ← [Stop]
+    ├─ [9543] FiatTokenProxy::fallback() [staticcall]
+    │   ├─ [2381] FiatTokenV2_2::decimals() [delegatecall]
+    │   │   └─ ← [Return] 6
+    │   └─ ← [Return] 6
+    ├─ [3781] FiatTokenProxy::fallback() [staticcall]
+    │   ├─ [3081] FiatTokenV2_2::symbol() [delegatecall]
+    │   │   └─ ← [Return] "USDC"
+    │   └─ ← [Return] "USDC"
+    ├─ [650] LucaMoneyVault::asset() [staticcall]
+    │   └─ ← [Return] FiatTokenProxy: [0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913]
+    ├─ [3250] FiatTokenProxy::fallback(0x18e129122a338f2e6871764fe0e4426dE848Ef99) [staticcall]
+    │   ├─ [2553] FiatTokenV2_2::balanceOf(0x18e129122a338f2e6871764fe0e4426dE848Ef99) [delegatecall]
+    │   │   └─ ← [Return] 84759158 [8.475e7]
+    │   └─ ← [Return] 84759158 [8.475e7]
+    ├─ [0] console::log("Deployer USDC        :", 84759158 [8.475e7]) [staticcall]
+    │   └─ ← [Stop]
+    ├─ [0] console::log("Deployer ETH (wei)   :", 1788099321684737 [1.788e15]) [staticcall]
+    │   └─ ← [Stop]
+    ├─ [1250] FiatTokenProxy::fallback(0x18e129122a338f2e6871764fe0e4426dE848Ef99) [staticcall]
+    │   ├─ [553] FiatTokenV2_2::balanceOf(0x18e129122a338f2e6871764fe0e4426dE848Ef99) [delegatecall]
+    │   │   └─ ← [Return] 84759158 [8.475e7]
+    │   └─ ← [Return] 84759158 [8.475e7]
+    ├─ [0] VM::getNonce(0x18e129122a338f2e6871764fe0e4426dE848Ef99) [staticcall]
+    │   └─ ← [Return] 258
+    ├─ [0] VM::computeCreateAddress(0x18e129122a338f2e6871764fe0e4426dE848Ef99, 259) [staticcall]
+    │   └─ ← [Return] Forwarder: [0xCD09f43D738b10584CaBfb2f73C3adA29fc5AD53]
+    ├─ [0] console::log("Predicted Forwarder  :", Forwarder: [0xCD09f43D738b10584CaBfb2f73C3adA29fc5AD53]) [staticcall]
+    │   └─ ← [Stop]
+    ├─ [0] VM::startBroadcast(0x18e129122a338f2e6871764fe0e4426dE848Ef99)
+    │   └─ ← [Return]
+    ├─ [27341] FiatTokenProxy::fallback(Forwarder: [0xCD09f43D738b10584CaBfb2f73C3adA29fc5AD53], 1000)
+    │   ├─ [26673] FiatTokenV2_2::approve(Forwarder: [0xCD09f43D738b10584CaBfb2f73C3adA29fc5AD53], 1000) [delegatecall]
+    │   │   ├─ emit Approval(owner: 0x18e129122a338f2e6871764fe0e4426dE848Ef99, spender: Forwarder: [0xCD09f43D738b10584CaBfb2f73C3adA29fc5AD53], value: 1000)
+    │   │   └─ ← [Return] true
+    │   └─ ← [Return] true
+    ├─ [3503797] → new Forwarder@0xCD09f43D738b10584CaBfb2f73C3adA29fc5AD53
+    │   ├─ emit RoleGranted(role: 0x0000000000000000000000000000000000000000000000000000000000000000, account: 0x420675DFAf02750a7DdFad702D13e32eb2C67602, sender: 0x18e129122a338f2e6871764fe0e4426dE848Ef99)
+    │   ├─ emit TreasuryUpdated(previousTreasury: 0x0000000000000000000000000000000000000000, newTreasury: 0x7a5F8A4aF0FEDaBb1625b6f04bA38fC75e7E843e)
+    │   ├─ [650] LucaMoneyVault::asset() [staticcall]
+    │   │   └─ ← [Return] FiatTokenProxy: [0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913]
+    │   ├─ [3250] FiatTokenProxy::fallback(Forwarder: [0xCD09f43D738b10584CaBfb2f73C3adA29fc5AD53]) [staticcall]
+    │   │   ├─ [2553] FiatTokenV2_2::balanceOf(Forwarder: [0xCD09f43D738b10584CaBfb2f73C3adA29fc5AD53]) [delegatecall]
+    │   │   │   └─ ← [Return] 0
+    │   │   └─ ← [Return] 0
+    │   ├─ [29128] FiatTokenProxy::fallback(0x18e129122a338f2e6871764fe0e4426dE848Ef99, Forwarder: [0xCD09f43D738b10584CaBfb2f73C3adA29fc5AD53], 1000)
+    │   │   ├─ [28454] FiatTokenV2_2::transferFrom(0x18e129122a338f2e6871764fe0e4426dE848Ef99, Forwarder: [0xCD09f43D738b10584CaBfb2f73C3adA29fc5AD53], 1000) [delegatecall]
+    │   │   │   ├─ emit Transfer(from: 0x18e129122a338f2e6871764fe0e4426dE848Ef99, to: Forwarder: [0xCD09f43D738b10584CaBfb2f73C3adA29fc5AD53], value: 1000)
+    │   │   │   └─ ← [Return] true
+    │   │   └─ ← [Return] true
+    │   ├─ [25341] FiatTokenProxy::fallback(LucaMoneyVault: [0xc462cA16286a9a877a499f9474827bA801f2090D], 1000)
+    │   │   ├─ [24673] FiatTokenV2_2::approve(LucaMoneyVault: [0xc462cA16286a9a877a499f9474827bA801f2090D], 1000) [delegatecall]
+    │   │   │   ├─ emit Approval(owner: Forwarder: [0xCD09f43D738b10584CaBfb2f73C3adA29fc5AD53], spender: LucaMoneyVault: [0xc462cA16286a9a877a499f9474827bA801f2090D], value: 1000)
+    │   │   │   └─ ← [Return] true
+    │   │   └─ ← [Return] true
+    │   ├─ [3281] LucaMoneyVault::balanceOf(Forwarder: [0xCD09f43D738b10584CaBfb2f73C3adA29fc5AD53]) [staticcall]
+    │   │   └─ ← [Return] 0
+    │   ├─ [354648] LucaMoneyVault::deposit(1000, Forwarder: [0xCD09f43D738b10584CaBfb2f73C3adA29fc5AD53])
+    │   │   ├─ [23388] InitializableImmutableAdminUpgradeabilityProxy::fallback(LucaMoneyVault: [0xc462cA16286a9a877a499f9474827bA801f2090D]) [staticcall]
+    │   │   │   ├─ [18283] ATokenInstance::balanceOf(LucaMoneyVault: [0xc462cA16286a9a877a499f9474827bA801f2090D]) [delegatecall]
+    │   │   │   │   ├─ [10476] InitializableImmutableAdminUpgradeabilityProxy::fallback(FiatTokenProxy: [0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913]) [staticcall]
+    │   │   │   │   │   ├─ [5371] L2PoolInstance::getReserveNormalizedIncome(FiatTokenProxy: [0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913]) [delegatecall]
+    │   │   │   │   │   │   └─ ← [Return] 1150404503376875196163402289 [1.15e27]
+    │   │   │   │   │   └─ ← [Return] 1150404503376875196163402289 [1.15e27]
+    │   │   │   │   └─ ← [Return] 5621350 [5.621e6]
+    │   │   │   └─ ← [Return] 5621350 [5.621e6]
+    │   │   ├─ [469] AdapterAave::previewRedeem(5621350 [5.621e6]) [staticcall]
+    │   │   │   └─ ← [Return] 5621350 [5.621e6]
+    │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: 0x7a5F8A4aF0FEDaBb1625b6f04bA38fC75e7E843e, value: 38621437095136 [3.862e13])
+    │   │   ├─ emit YieldAccrued(profitAssets: 396, feeAssets: 39, feeSharesMinted: 38621437095136 [3.862e13], observedTotalAssets: 5621350 [5.621e6])
+    │   │   ├─ [64706] AdapterAave::maxDeposit(LucaMoneyVault: [0xc462cA16286a9a877a499f9474827bA801f2090D]) [staticcall]
+    │   │   │   ├─ [9876] AaveProtocolDataProvider::getPaused(FiatTokenProxy: [0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913]) [staticcall]
+    │   │   │   │   ├─ [2469] PoolAddressesProvider::getPool() [staticcall]
+    │   │   │   │   │   └─ ← [Return] InitializableImmutableAdminUpgradeabilityProxy: [0xA238Dd80C259a72e81d7e4664a9801593F98d1c5]
+    │   │   │   │   ├─ [3372] InitializableImmutableAdminUpgradeabilityProxy::fallback(FiatTokenProxy: [0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913]) [staticcall]
+    │   │   │   │   │   ├─ [2767] L2PoolInstance::getConfiguration(FiatTokenProxy: [0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913]) [delegatecall]
+    │   │   │   │   │   │   └─ ← [Return] ReserveConfigurationMap({ data: 7237005577332262213973186568752004119305653224248996801175139707821393190220 [7.237e75] })
+    │   │   │   │   │   └─ ← [Return] ReserveConfigurationMap({ data: 7237005577332262213973186568752004119305653224248996801175139707821393190220 [7.237e75] })
+    │   │   │   │   └─ ← [Return] false
+    │   │   │   ├─ [3702] AaveProtocolDataProvider::getReserveConfigurationData(FiatTokenProxy: [0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913]) [staticcall]
+    │   │   │   │   ├─ [469] PoolAddressesProvider::getPool() [staticcall]
+    │   │   │   │   │   └─ ← [Return] InitializableImmutableAdminUpgradeabilityProxy: [0xA238Dd80C259a72e81d7e4664a9801593F98d1c5]
+    │   │   │   │   ├─ [1372] InitializableImmutableAdminUpgradeabilityProxy::fallback(FiatTokenProxy: [0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913]) [staticcall]
+    │   │   │   │   │   ├─ [767] L2PoolInstance::getConfiguration(FiatTokenProxy: [0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913]) [delegatecall]
+    │   │   │   │   │   │   └─ ← [Return] ReserveConfigurationMap({ data: 7237005577332262213973186568752004119305653224248996801175139707821393190220 [7.237e75] })
+    │   │   │   │   │   └─ ← [Return] ReserveConfigurationMap({ data: 7237005577332262213973186568752004119305653224248996801175139707821393190220 [7.237e75] })
+    │   │   │   │   └─ ← [Return] 6, 7500, 7800, 10500 [1.05e4], 1000, true, true, false, true, false
+    │   │   │   ├─ [3288] AaveProtocolDataProvider::getReserveCaps(FiatTokenProxy: [0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913]) [staticcall]
+    │   │   │   │   ├─ [469] PoolAddressesProvider::getPool() [staticcall]
+    │   │   │   │   │   └─ ← [Return] InitializableImmutableAdminUpgradeabilityProxy: [0xA238Dd80C259a72e81d7e4664a9801593F98d1c5]
+    │   │   │   │   ├─ [1372] InitializableImmutableAdminUpgradeabilityProxy::fallback(FiatTokenProxy: [0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913]) [staticcall]
+    │   │   │   │   │   ├─ [767] L2PoolInstance::getConfiguration(FiatTokenProxy: [0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913]) [delegatecall]
+    │   │   │   │   │   │   └─ ← [Return] ReserveConfigurationMap({ data: 7237005577332262213973186568752004119305653224248996801175139707821393190220 [7.237e75] })
+    │   │   │   │   │   └─ ← [Return] ReserveConfigurationMap({ data: 7237005577332262213973186568752004119305653224248996801175139707821393190220 [7.237e75] })
+    │   │   │   │   └─ ← [Return] 207000000 [2.07e8], 230000000 [2.3e8]
+    │   │   │   ├─ [39753] AaveProtocolDataProvider::getReserveData(FiatTokenProxy: [0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913]) [staticcall]
+    │   │   │   │   ├─ [469] PoolAddressesProvider::getPool() [staticcall]
+    │   │   │   │   │   └─ ← [Return] InitializableImmutableAdminUpgradeabilityProxy: [0xA238Dd80C259a72e81d7e4664a9801593F98d1c5]
+    │   │   │   │   ├─ [14619] InitializableImmutableAdminUpgradeabilityProxy::fallback(FiatTokenProxy: [0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913]) [staticcall]
+    │   │   │   │   │   ├─ [13936] L2PoolInstance::getReserveData(FiatTokenProxy: [0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913]) [delegatecall]
+    │   │   │   │   │   │   ├─ [2546] PoolAddressesProvider::getAddress(0x4d4f434b5f535441424c455f4445425400000000000000000000000000000000) [staticcall]
+    │   │   │   │   │   │   │   └─ ← [Return] 0xaED3b56FeA82E809665f02AcBcDEc0816c75f4d9
+    │   │   │   │   │   │   └─ ← [Return] ReserveDataLegacy({ configuration: ReserveConfigurationMap({ data: 7237005577332262213973186568752004119305653224248996801175139707821393190220 [7.237e75] }), liquidityIndex: 1150404497824010920679356724 [1.15e27], currentLiquidityRate: 38055120638630796523096170 [3.805e25], variableBorrowIndex: 1208823562769096776096248725 [1.208e27], currentVariableBorrowRate: 47240107948282369833370431 [4.724e25], currentStableBorrowRate: 0, lastUpdateTimestamp: 1792699417 [1.792e9], id: 4, aTokenAddress: 0x4e65fE4DbA92790696d040ac24Aa414708F5c0AB, stableDebtTokenAddress: 0xaED3b56FeA82E809665f02AcBcDEc0816c75f4d9, variableDebtTokenAddress: 0x59dca05b6c26dbd64b5381374aAaC5CD05644C28, interestRateStrategyAddress: 0x86AB1C62A8bf868E1b3E1ab87d587Aba6fbCbDC5, accruedToTreasury: 1136290297 [1.136e9], unbacked: 0, isolationModeTotalDebt: 0 })
+    │   │   │   │   │   └─ ← [Return] ReserveDataLegacy({ configuration: ReserveConfigurationMap({ data: 7237005577332262213973186568752004119305653224248996801175139707821393190220 [7.237e75] }), liquidityIndex: 1150404497824010920679356724 [1.15e27], currentLiquidityRate: 38055120638630796523096170 [3.805e25], variableBorrowIndex: 1208823562769096776096248725 [1.208e27], currentVariableBorrowRate: 47240107948282369833370431 [4.724e25], currentStableBorrowRate: 0, lastUpdateTimestamp: 1792699417 [1.792e9], id: 4, aTokenAddress: 0x4e65fE4DbA92790696d040ac24Aa414708F5c0AB, stableDebtTokenAddress: 0xaED3b56FeA82E809665f02AcBcDEc0816c75f4d9, variableDebtTokenAddress: 0x59dca05b6c26dbd64b5381374aAaC5CD05644C28, interestRateStrategyAddress: 0x86AB1C62A8bf868E1b3E1ab87d587Aba6fbCbDC5, accruedToTreasury: 1136290297 [1.136e9], unbacked: 0, isolationModeTotalDebt: 0 })
+    │   │   │   │   ├─ [5559] InitializableImmutableAdminUpgradeabilityProxy::fallback() [staticcall]
+    │   │   │   │   │   ├─ [4957] ATokenInstance::totalSupply() [delegatecall]
+    │   │   │   │   │   │   ├─ [1976] InitializableImmutableAdminUpgradeabilityProxy::fallback(FiatTokenProxy: [0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913]) [staticcall]
+    │   │   │   │   │   │   │   ├─ [1371] L2PoolInstance::getReserveNormalizedIncome(FiatTokenProxy: [0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913]) [delegatecall]
+    │   │   │   │   │   │   │   │   └─ ← [Return] 1150404503376875196163402289 [1.15e27]
+    │   │   │   │   │   │   │   └─ ← [Return] 1150404503376875196163402289 [1.15e27]
+    │   │   │   │   │   │   └─ ← [Return] 194576972641425 [1.945e14]
+    │   │   │   │   │   └─ ← [Return] 194576972641425 [1.945e14]
+    │   │   │   │   ├─ [12204] InitializableImmutableAdminUpgradeabilityProxy::fallback() [staticcall]
+    │   │   │   │   │   ├─ [7102] VariableDebtTokenInstance::totalSupply() [delegatecall]
+    │   │   │   │   │   │   ├─ [2095] InitializableImmutableAdminUpgradeabilityProxy::fallback(FiatTokenProxy: [0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913]) [staticcall]
+    │   │   │   │   │   │   │   ├─ [1490] L2PoolInstance::getReserveNormalizedVariableDebt(FiatTokenProxy: [0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913]) [delegatecall]
+    │   │   │   │   │   │   │   │   └─ ← [Return] 1208823570012241850515692945 [1.208e27]
+    │   │   │   │   │   │   │   └─ ← [Return] 1208823570012241850515692945 [1.208e27]
+    │   │   │   │   │   │   └─ ← [Return] 174162188214127 [1.741e14]
+    │   │   │   │   │   └─ ← [Return] 174162188214127 [1.741e14]
+    │   │   │   │   └─ ← [Return] 0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000043ba69f90000000000000000000000000000000000000000000000000000b0f77b55f491000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000009e664b5c9f6f0000000000000000000000000000000000000000001f7a7c393944529aa2486a00000000000000000000000000000000000000000027137b621fe002c47b033f00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000003b797a0c9f4fc1595c6b934000000000000000000000000000000000000000003e7ea58a53220454f057395000000000000000000000000000000000000000000000000000000006ada6c19
+    │   │   │   └─ ← [Return] 35421720165106 [3.542e13]
+    │   │   ├─ [3888] InitializableImmutableAdminUpgradeabilityProxy::fallback(LucaMoneyVault: [0xc462cA16286a9a877a499f9474827bA801f2090D]) [staticcall]
+    │   │   │   ├─ [3283] ATokenInstance::balanceOf(LucaMoneyVault: [0xc462cA16286a9a877a499f9474827bA801f2090D]) [delegatecall]
+    │   │   │   │   ├─ [1976] InitializableImmutableAdminUpgradeabilityProxy::fallback(FiatTokenProxy: [0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913]) [staticcall]
+    │   │   │   │   │   ├─ [1371] L2PoolInstance::getReserveNormalizedIncome(FiatTokenProxy: [0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913]) [delegatecall]
+    │   │   │   │   │   │   └─ ← [Return] 1150404503376875196163402289 [1.15e27]
+    │   │   │   │   │   └─ ← [Return] 1150404503376875196163402289 [1.15e27]
+    │   │   │   │   └─ ← [Return] 5621350 [5.621e6]
+    │   │   │   └─ ← [Return] 5621350 [5.621e6]
+    │   │   ├─ [469] AdapterAave::previewRedeem(5621350 [5.621e6]) [staticcall]
+    │   │   │   └─ ← [Return] 5621350 [5.621e6]
+    │   │   ├─ [28328] FiatTokenProxy::fallback(Forwarder: [0xCD09f43D738b10584CaBfb2f73C3adA29fc5AD53], LucaMoneyVault: [0xc462cA16286a9a877a499f9474827bA801f2090D], 1000)
+    │   │   │   ├─ [27654] FiatTokenV2_2::transferFrom(Forwarder: [0xCD09f43D738b10584CaBfb2f73C3adA29fc5AD53], LucaMoneyVault: [0xc462cA16286a9a877a499f9474827bA801f2090D], 1000) [delegatecall]
+    │   │   │   │   ├─ emit Transfer(from: Forwarder: [0xCD09f43D738b10584CaBfb2f73C3adA29fc5AD53], to: LucaMoneyVault: [0xc462cA16286a9a877a499f9474827bA801f2090D], value: 1000)
+    │   │   │   │   └─ ← [Return] true
+    │   │   │   └─ ← [Return] true
+    │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: Forwarder: [0xCD09f43D738b10584CaBfb2f73C3adA29fc5AD53], value: 990293258849646 [9.902e14])
+    │   │   ├─ emit Deposit(sender: Forwarder: [0xCD09f43D738b10584CaBfb2f73C3adA29fc5AD53], owner: Forwarder: [0xCD09f43D738b10584CaBfb2f73C3adA29fc5AD53], assets: 1000, shares: 990293258849646 [9.902e14])
+    │   │   ├─ [25341] FiatTokenProxy::fallback(AdapterAave: [0x2885AbC68bcDE804D65B9435AFdAE188C415910e], 1000)
+    │   │   │   ├─ [24673] FiatTokenV2_2::approve(AdapterAave: [0x2885AbC68bcDE804D65B9435AFdAE188C415910e], 1000) [delegatecall]
+    │   │   │   │   ├─ emit Approval(owner: LucaMoneyVault: [0xc462cA16286a9a877a499f9474827bA801f2090D], spender: AdapterAave: [0x2885AbC68bcDE804D65B9435AFdAE188C415910e], value: 1000)
+    │   │   │   │   └─ ← [Return] true
+    │   │   │   └─ ← [Return] true
+    │   │   ├─ [133169] AdapterAave::deposit(1000, LucaMoneyVault: [0xc462cA16286a9a877a499f9474827bA801f2090D])
+    │   │   │   ├─ [28328] FiatTokenProxy::fallback(LucaMoneyVault: [0xc462cA16286a9a877a499f9474827bA801f2090D], AdapterAave: [0x2885AbC68bcDE804D65B9435AFdAE188C415910e], 1000)
+    │   │   │   │   ├─ [27654] FiatTokenV2_2::transferFrom(LucaMoneyVault: [0xc462cA16286a9a877a499f9474827bA801f2090D], AdapterAave: [0x2885AbC68bcDE804D65B9435AFdAE188C415910e], 1000) [delegatecall]
+    │   │   │   │   │   ├─ emit Transfer(from: LucaMoneyVault: [0xc462cA16286a9a877a499f9474827bA801f2090D], to: AdapterAave: [0x2885AbC68bcDE804D65B9435AFdAE188C415910e], value: 1000)
+    │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   └─ ← [Return] true
+    │   │   │   ├─ [3359] FiatTokenProxy::fallback(AdapterAave: [0x2885AbC68bcDE804D65B9435AFdAE188C415910e], InitializableImmutableAdminUpgradeabilityProxy: [0xA238Dd80C259a72e81d7e4664a9801593F98d1c5]) [staticcall]
+    │   │   │   │   ├─ [2659] FiatTokenV2_2::allowance(AdapterAave: [0x2885AbC68bcDE804D65B9435AFdAE188C415910e], InitializableImmutableAdminUpgradeabilityProxy: [0xA238Dd80C259a72e81d7e4664a9801593F98d1c5]) [delegatecall]
+    │   │   │   │   │   └─ ← [Return] 115792089237316195423570985008687907853269984665640564039457584007912597478191 [1.157e77]
+    │   │   │   │   └─ ← [Return] 115792089237316195423570985008687907853269984665640564039457584007912597478191 [1.157e77]
+    │   │   │   ├─ [97582] InitializableImmutableAdminUpgradeabilityProxy::fallback(FiatTokenProxy: [0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913], 1000, LucaMoneyVault: [0xc462cA16286a9a877a499f9474827bA801f2090D], 0)
+    │   │   │   │   ├─ [96965] L2PoolInstance::supply(FiatTokenProxy: [0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913], 1000, LucaMoneyVault: [0xc462cA16286a9a877a499f9474827bA801f2090D], 0) [delegatecall]
+    │   │   │   │   │   ├─ [90501] SupplyLogic::66656e4e(00000000000000000000000000000000000000000000000000000000000000340000000000000000000000000000000000000000000000000000000000000037e66fd038c6d447522bed7947ebfa841ad5dac7df94e480d37b4a4ae43c462e1f0000000000000000000000002885abc68bcde804d65b9435afdae188c415910e000000000000000000000000833589fcd6edb6e08f4c7c32d4f71b54bda0291300000000000000000000000086ab1c62a8bf868e1b3e1ab87d587aba6fbcbdc500000000000000000000000000000000000000000000000000000000000003e8000000000000000000000000c462ca16286a9a877a499f9474827ba801f2090d00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000) [delegatecall]
+    │   │   │   │   │   │   ├─ [975] InitializableImmutableAdminUpgradeabilityProxy::fallback() [staticcall]
+    │   │   │   │   │   │   │   ├─ [373] VariableDebtTokenInstance::scaledTotalSupply() [delegatecall]
+    │   │   │   │   │   │   │   │   └─ ← [Return] 144075771299167 [1.44e14]
+    │   │   │   │   │   │   │   └─ ← [Return] 144075771299167 [1.44e14]
+    │   │   │   │   │   │   ├─ [1019] InitializableImmutableAdminUpgradeabilityProxy::fallback() [staticcall]
+    │   │   │   │   │   │   │   ├─ [417] ATokenInstance::scaledTotalSupply() [delegatecall]
+    │   │   │   │   │   │   │   │   └─ ← [Return] 169137874608686 [1.691e14]
+    │   │   │   │   │   │   │   └─ ← [Return] 169137874608686 [1.691e14]
+    │   │   │   │   │   │   ├─ [5705] DefaultReserveInterestRateStrategyV2::calculateInterestRates(CalculateInterestRatesParams({ unbacked: 30875030 [3.087e7], liquidityAdded: 1000, liquidityTaken: 0, totalDebt: 174162188214127 [1.741e14], reserveFactor: 1000, reserve: 0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913, usingVirtualBalance: true, virtualUnderlyingBalance: 20415971326510 [2.041e13] })) [staticcall]
+    │   │   │   │   │   │   │   └─ ← [Return] 38055120686089838987220692 [3.805e25], 47240107977739230295826956 [4.724e25]
+    │   │   │   │   │   │   ├─ emit ReserveDataUpdated(reserve: FiatTokenProxy: [0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913], liquidityRate: 38055120686089838987220692 [3.805e25], stableBorrowRate: 0, variableBorrowRate: 47240107977739230295826956 [4.724e25], liquidityIndex: 1150404503376875196163402289 [1.15e27], variableBorrowIndex: 1208823570012241850515692945 [1.208e27])
+    │   │   │   │   │   │   ├─ [16028] FiatTokenProxy::fallback(AdapterAave: [0x2885AbC68bcDE804D65B9435AFdAE188C415910e], InitializableImmutableAdminUpgradeabilityProxy: [0x4e65fE4DbA92790696d040ac24Aa414708F5c0AB], 1000)
+    │   │   │   │   │   │   │   ├─ [15354] FiatTokenV2_2::transferFrom(AdapterAave: [0x2885AbC68bcDE804D65B9435AFdAE188C415910e], InitializableImmutableAdminUpgradeabilityProxy: [0x4e65fE4DbA92790696d040ac24Aa414708F5c0AB], 1000) [delegatecall]
+    │   │   │   │   │   │   │   │   ├─ emit Transfer(from: AdapterAave: [0x2885AbC68bcDE804D65B9435AFdAE188C415910e], to: InitializableImmutableAdminUpgradeabilityProxy: [0x4e65fE4DbA92790696d040ac24Aa414708F5c0AB], value: 1000)
+    │   │   │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   │   ├─ [35385] InitializableImmutableAdminUpgradeabilityProxy::fallback(AdapterAave: [0x2885AbC68bcDE804D65B9435AFdAE188C415910e], LucaMoneyVault: [0xc462cA16286a9a877a499f9474827bA801f2090D], 869, 1150404503376875196163402289 [1.15e27])
+    │   │   │   │   │   │   │   ├─ [34765] ATokenInstance::mint(AdapterAave: [0x2885AbC68bcDE804D65B9435AFdAE188C415910e], LucaMoneyVault: [0xc462cA16286a9a877a499f9474827bA801f2090D], 869, 1150404503376875196163402289 [1.15e27]) [delegatecall]
+    │   │   │   │   │   │   │   │   ├─ [18430] InitializableImmutableAdminUpgradeabilityProxy::fallback(LucaMoneyVault: [0xc462cA16286a9a877a499f9474827bA801f2090D], 169137874608686 [1.691e14], 4886412 [4.886e6])
+    │   │   │   │   │   │   │   │   │   ├─ [13319] RewardsController::handleAction(LucaMoneyVault: [0xc462cA16286a9a877a499f9474827bA801f2090D], 169137874608686 [1.691e14], 4886412 [4.886e6]) [delegatecall]
+    │   │   │   │   │   │   │   │   │   │   └─ ← [Stop]
+    │   │   │   │   │   │   │   │   │   └─ ← [Return]
+    │   │   │   │   │   │   │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: LucaMoneyVault: [0xc462cA16286a9a877a499f9474827bA801f2090D], value: 1397)
+    │   │   │   │   │   │   │   │   ├─ emit Mint(caller: AdapterAave: [0x2885AbC68bcDE804D65B9435AFdAE188C415910e], onBehalfOf: LucaMoneyVault: [0xc462cA16286a9a877a499f9474827bA801f2090D], value: 1397, balanceIncrease: 397, index: 1150404503376875196163402289 [1.15e27])
+    │   │   │   │   │   │   │   │   └─ ← [Return] false
+    │   │   │   │   │   │   │   └─ ← [Return] false
+    │   │   │   │   │   │   ├─ emit Supply(reserve: FiatTokenProxy: [0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913], user: AdapterAave: [0x2885AbC68bcDE804D65B9435AFdAE188C415910e], onBehalfOf: LucaMoneyVault: [0xc462cA16286a9a877a499f9474827bA801f2090D], amount: 1000, referralCode: 0)
+    │   │   │   │   │   │   └─ ← [Stop]
+    │   │   │   │   │   └─ ← [Stop]
+    │   │   │   │   └─ ← [Return]
+    │   │   │   ├─ emit Deposit(sender: LucaMoneyVault: [0xc462cA16286a9a877a499f9474827bA801f2090D], owner: LucaMoneyVault: [0xc462cA16286a9a877a499f9474827bA801f2090D], assets: 1000, shares: 1000)
+    │   │   │   └─ ← [Return] 1000
+    │   │   ├─ [3341] FiatTokenProxy::fallback(AdapterAave: [0x2885AbC68bcDE804D65B9435AFdAE188C415910e], 0)
+    │   │   │   ├─ [2673] FiatTokenV2_2::approve(AdapterAave: [0x2885AbC68bcDE804D65B9435AFdAE188C415910e], 0) [delegatecall]
+    │   │   │   │   ├─ emit Approval(owner: LucaMoneyVault: [0xc462cA16286a9a877a499f9474827bA801f2090D], spender: AdapterAave: [0x2885AbC68bcDE804D65B9435AFdAE188C415910e], value: 0)
+    │   │   │   │   └─ ← [Return] true
+    │   │   │   └─ ← [Return] true
+    │   │   └─ ← [Return] 990293258849646 [9.902e14]
+    │   ├─ [1281] LucaMoneyVault::balanceOf(Forwarder: [0xCD09f43D738b10584CaBfb2f73C3adA29fc5AD53]) [staticcall]
+    │   │   └─ ← [Return] 990293258849646 [9.902e14]
+    │   ├─ [1250] FiatTokenProxy::fallback(Forwarder: [0xCD09f43D738b10584CaBfb2f73C3adA29fc5AD53]) [staticcall]
+    │   │   ├─ [553] FiatTokenV2_2::balanceOf(Forwarder: [0xCD09f43D738b10584CaBfb2f73C3adA29fc5AD53]) [delegatecall]
+    │   │   │   └─ ← [Return] 0
+    │   │   └─ ← [Return] 0
+    │   ├─ [200546] LucaMoneyVault::redeem(990293258849646 [9.902e14], Forwarder: [0xCD09f43D738b10584CaBfb2f73C3adA29fc5AD53], Forwarder: [0xCD09f43D738b10584CaBfb2f73C3adA29fc5AD53])
+    │   │   ├─ [3428] InitializableImmutableAdminUpgradeabilityProxy::fallback(LucaMoneyVault: [0xc462cA16286a9a877a499f9474827bA801f2090D]) [staticcall]
+    │   │   │   ├─ [2823] ATokenInstance::balanceOf(LucaMoneyVault: [0xc462cA16286a9a877a499f9474827bA801f2090D]) [delegatecall]
+    │   │   │   │   ├─ [1516] InitializableImmutableAdminUpgradeabilityProxy::fallback(FiatTokenProxy: [0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913]) [staticcall]
+    │   │   │   │   │   ├─ [911] L2PoolInstance::getReserveNormalizedIncome(FiatTokenProxy: [0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913]) [delegatecall]
+    │   │   │   │   │   │   └─ ← [Return] 1150404503376875196163402289 [1.15e27]
+    │   │   │   │   │   └─ ← [Return] 1150404503376875196163402289 [1.15e27]
+    │   │   │   │   └─ ← [Return] 5622350 [5.622e6]
+    │   │   │   └─ ← [Return] 5622350 [5.622e6]
+    │   │   ├─ [469] AdapterAave::previewRedeem(5622350 [5.622e6]) [staticcall]
+    │   │   │   └─ ← [Return] 5622350 [5.622e6]
+    │   │   ├─ emit ZeroYieldAccrued(observedTotalAssets: 5622350 [5.622e6])
+    │   │   ├─ [3428] InitializableImmutableAdminUpgradeabilityProxy::fallback(LucaMoneyVault: [0xc462cA16286a9a877a499f9474827bA801f2090D]) [staticcall]
+    │   │   │   ├─ [2823] ATokenInstance::balanceOf(LucaMoneyVault: [0xc462cA16286a9a877a499f9474827bA801f2090D]) [delegatecall]
+    │   │   │   │   ├─ [1516] InitializableImmutableAdminUpgradeabilityProxy::fallback(FiatTokenProxy: [0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913]) [staticcall]
+    │   │   │   │   │   ├─ [911] L2PoolInstance::getReserveNormalizedIncome(FiatTokenProxy: [0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913]) [delegatecall]
+    │   │   │   │   │   │   └─ ← [Return] 1150404503376875196163402289 [1.15e27]
+    │   │   │   │   │   └─ ← [Return] 1150404503376875196163402289 [1.15e27]
+    │   │   │   │   └─ ← [Return] 5622350 [5.622e6]
+    │   │   │   └─ ← [Return] 5622350 [5.622e6]
+    │   │   ├─ [469] AdapterAave::previewRedeem(5622350 [5.622e6]) [staticcall]
+    │   │   │   └─ ← [Return] 5622350 [5.622e6]
+    │   │   ├─ [29942] AdapterAave::maxWithdraw(LucaMoneyVault: [0xc462cA16286a9a877a499f9474827bA801f2090D]) [staticcall]
+    │   │   │   ├─ [3428] InitializableImmutableAdminUpgradeabilityProxy::fallback(LucaMoneyVault: [0xc462cA16286a9a877a499f9474827bA801f2090D]) [staticcall]
+    │   │   │   │   ├─ [2823] ATokenInstance::balanceOf(LucaMoneyVault: [0xc462cA16286a9a877a499f9474827bA801f2090D]) [delegatecall]
+    │   │   │   │   │   ├─ [1516] InitializableImmutableAdminUpgradeabilityProxy::fallback(FiatTokenProxy: [0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913]) [staticcall]
+    │   │   │   │   │   │   ├─ [911] L2PoolInstance::getReserveNormalizedIncome(FiatTokenProxy: [0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913]) [delegatecall]
+    │   │   │   │   │   │   │   └─ ← [Return] 1150404503376875196163402289 [1.15e27]
+    │   │   │   │   │   │   └─ ← [Return] 1150404503376875196163402289 [1.15e27]
+    │   │   │   │   │   └─ ← [Return] 5622350 [5.622e6]
+    │   │   │   │   └─ ← [Return] 5622350 [5.622e6]
+    │   │   │   ├─ [3376] AaveProtocolDataProvider::getPaused(FiatTokenProxy: [0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913]) [staticcall]
+    │   │   │   │   ├─ [469] PoolAddressesProvider::getPool() [staticcall]
+    │   │   │   │   │   └─ ← [Return] InitializableImmutableAdminUpgradeabilityProxy: [0xA238Dd80C259a72e81d7e4664a9801593F98d1c5]
+    │   │   │   │   ├─ [1372] InitializableImmutableAdminUpgradeabilityProxy::fallback(FiatTokenProxy: [0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913]) [staticcall]
+    │   │   │   │   │   ├─ [767] L2PoolInstance::getConfiguration(FiatTokenProxy: [0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913]) [delegatecall]
+    │   │   │   │   │   │   └─ ← [Return] ReserveConfigurationMap({ data: 7237005577332262213973186568752004119305653224248996801175139707821393190220 [7.237e75] })
+    │   │   │   │   │   └─ ← [Return] ReserveConfigurationMap({ data: 7237005577332262213973186568752004119305653224248996801175139707821393190220 [7.237e75] })
+    │   │   │   │   └─ ← [Return] false
+    │   │   │   ├─ [3702] AaveProtocolDataProvider::getReserveConfigurationData(FiatTokenProxy: [0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913]) [staticcall]
+    │   │   │   │   ├─ [469] PoolAddressesProvider::getPool() [staticcall]
+    │   │   │   │   │   └─ ← [Return] InitializableImmutableAdminUpgradeabilityProxy: [0xA238Dd80C259a72e81d7e4664a9801593F98d1c5]
+    │   │   │   │   ├─ [1372] InitializableImmutableAdminUpgradeabilityProxy::fallback(FiatTokenProxy: [0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913]) [staticcall]
+    │   │   │   │   │   ├─ [767] L2PoolInstance::getConfiguration(FiatTokenProxy: [0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913]) [delegatecall]
+    │   │   │   │   │   │   └─ ← [Return] ReserveConfigurationMap({ data: 7237005577332262213973186568752004119305653224248996801175139707821393190220 [7.237e75] })
+    │   │   │   │   │   └─ ← [Return] ReserveConfigurationMap({ data: 7237005577332262213973186568752004119305653224248996801175139707821393190220 [7.237e75] })
+    │   │   │   │   └─ ← [Return] 6, 7500, 7800, 10500 [1.05e4], 1000, true, true, false, true, false
+    │   │   │   ├─ [15670] AaveProtocolDataProvider::getReserveData(FiatTokenProxy: [0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913]) [staticcall]
+    │   │   │   │   ├─ [469] PoolAddressesProvider::getPool() [staticcall]
+    │   │   │   │   │   └─ ← [Return] InitializableImmutableAdminUpgradeabilityProxy: [0xA238Dd80C259a72e81d7e4664a9801593F98d1c5]
+    │   │   │   │   ├─ [4619] InitializableImmutableAdminUpgradeabilityProxy::fallback(FiatTokenProxy: [0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913]) [staticcall]
+    │   │   │   │   │   ├─ [3936] L2PoolInstance::getReserveData(FiatTokenProxy: [0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913]) [delegatecall]
+    │   │   │   │   │   │   ├─ [546] PoolAddressesProvider::getAddress(0x4d4f434b5f535441424c455f4445425400000000000000000000000000000000) [staticcall]
+    │   │   │   │   │   │   │   └─ ← [Return] 0xaED3b56FeA82E809665f02AcBcDEc0816c75f4d9
+    │   │   │   │   │   │   └─ ← [Return] ReserveDataLegacy({ configuration: ReserveConfigurationMap({ data: 7237005577332262213973186568752004119305653224248996801175139707821393190220 [7.237e75] }), liquidityIndex: 1150404503376875196163402289 [1.15e27], currentLiquidityRate: 38055120686089838987220692 [3.805e25], variableBorrowIndex: 1208823570012241850515692945 [1.208e27], currentVariableBorrowRate: 47240107977739230295826956 [4.724e25], currentStableBorrowRate: 0, lastUpdateTimestamp: 1792699421 [1.792e9], id: 4, aTokenAddress: 0x4e65fE4DbA92790696d040ac24Aa414708F5c0AB, stableDebtTokenAddress: 0xaED3b56FeA82E809665f02AcBcDEc0816c75f4d9, variableDebtTokenAddress: 0x59dca05b6c26dbd64b5381374aAaC5CD05644C28, interestRateStrategyAddress: 0x86AB1C62A8bf868E1b3E1ab87d587Aba6fbCbDC5, accruedToTreasury: 1136381009 [1.136e9], unbacked: 0, isolationModeTotalDebt: 0 })
+    │   │   │   │   │   └─ ← [Return] ReserveDataLegacy({ configuration: ReserveConfigurationMap({ data: 7237005577332262213973186568752004119305653224248996801175139707821393190220 [7.237e75] }), liquidityIndex: 1150404503376875196163402289 [1.15e27], currentLiquidityRate: 38055120686089838987220692 [3.805e25], variableBorrowIndex: 1208823570012241850515692945 [1.208e27], currentVariableBorrowRate: 47240107977739230295826956 [4.724e25], currentStableBorrowRate: 0, lastUpdateTimestamp: 1792699421 [1.792e9], id: 4, aTokenAddress: 0x4e65fE4DbA92790696d040ac24Aa414708F5c0AB, stableDebtTokenAddress: 0xaED3b56FeA82E809665f02AcBcDEc0816c75f4d9, variableDebtTokenAddress: 0x59dca05b6c26dbd64b5381374aAaC5CD05644C28, interestRateStrategyAddress: 0x86AB1C62A8bf868E1b3E1ab87d587Aba6fbCbDC5, accruedToTreasury: 1136381009 [1.136e9], unbacked: 0, isolationModeTotalDebt: 0 })
+    │   │   │   │   ├─ [3099] InitializableImmutableAdminUpgradeabilityProxy::fallback() [staticcall]
+    │   │   │   │   │   ├─ [2497] ATokenInstance::totalSupply() [delegatecall]
+    │   │   │   │   │   │   ├─ [1516] InitializableImmutableAdminUpgradeabilityProxy::fallback(FiatTokenProxy: [0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913]) [staticcall]
+    │   │   │   │   │   │   │   ├─ [911] L2PoolInstance::getReserveNormalizedIncome(FiatTokenProxy: [0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913]) [delegatecall]
+    │   │   │   │   │   │   │   │   └─ ← [Return] 1150404503376875196163402289 [1.15e27]
+    │   │   │   │   │   │   │   └─ ← [Return] 1150404503376875196163402289 [1.15e27]
+    │   │   │   │   │   │   └─ ← [Return] 194576972642425 [1.945e14]
+    │   │   │   │   │   └─ ← [Return] 194576972642425 [1.945e14]
+    │   │   │   │   ├─ [3081] InitializableImmutableAdminUpgradeabilityProxy::fallback() [staticcall]
+    │   │   │   │   │   ├─ [2479] VariableDebtTokenInstance::totalSupply() [delegatecall]
+    │   │   │   │   │   │   ├─ [1472] InitializableImmutableAdminUpgradeabilityProxy::fallback(FiatTokenProxy: [0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913]) [staticcall]
+    │   │   │   │   │   │   │   ├─ [867] L2PoolInstance::getReserveNormalizedVariableDebt(FiatTokenProxy: [0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913]) [delegatecall]
+    │   │   │   │   │   │   │   │   └─ ← [Return] 1208823570012241850515692945 [1.208e27]
+    │   │   │   │   │   │   │   └─ ← [Return] 1208823570012241850515692945 [1.208e27]
+    │   │   │   │   │   │   └─ ← [Return] 174162188214127 [1.741e14]
+    │   │   │   │   │   └─ ← [Return] 174162188214127 [1.741e14]
+    │   │   │   │   └─ ← [Return] 0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000043bbcc510000000000000000000000000000000000000000000000000000b0f77b55f879000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000009e664b5c9f6f0000000000000000000000000000000000000000001f7a7c39e1e012021696d400000000000000000000000000000000000000000027137b628886de8c8b220c00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000003b797a11704b8b8f7f5aa31000000000000000000000000000000000000000003e7ea5909b6f25710699d91000000000000000000000000000000000000000000000000000000006ada6c1d
+    │   │   │   └─ ← [Return] 5622350 [5.622e6]
+    │   │   ├─ [3428] InitializableImmutableAdminUpgradeabilityProxy::fallback(LucaMoneyVault: [0xc462cA16286a9a877a499f9474827bA801f2090D]) [staticcall]
+    │   │   │   ├─ [2823] ATokenInstance::balanceOf(LucaMoneyVault: [0xc462cA16286a9a877a499f9474827bA801f2090D]) [delegatecall]
+    │   │   │   │   ├─ [1516] InitializableImmutableAdminUpgradeabilityProxy::fallback(FiatTokenProxy: [0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913]) [staticcall]
+    │   │   │   │   │   ├─ [911] L2PoolInstance::getReserveNormalizedIncome(FiatTokenProxy: [0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913]) [delegatecall]
+    │   │   │   │   │   │   └─ ← [Return] 1150404503376875196163402289 [1.15e27]
+    │   │   │   │   │   └─ ← [Return] 1150404503376875196163402289 [1.15e27]
+    │   │   │   │   └─ ← [Return] 5622350 [5.622e6]
+    │   │   │   └─ ← [Return] 5622350 [5.622e6]
+    │   │   ├─ [469] AdapterAave::previewRedeem(5622350 [5.622e6]) [staticcall]
+    │   │   │   └─ ← [Return] 5622350 [5.622e6]
+    │   │   ├─ emit Transfer(from: Forwarder: [0xCD09f43D738b10584CaBfb2f73C3adA29fc5AD53], to: 0x0000000000000000000000000000000000000000, value: 990293258849646 [9.902e14])
+    │   │   ├─ [1250] FiatTokenProxy::fallback(Forwarder: [0xCD09f43D738b10584CaBfb2f73C3adA29fc5AD53]) [staticcall]
+    │   │   │   ├─ [553] FiatTokenV2_2::balanceOf(Forwarder: [0xCD09f43D738b10584CaBfb2f73C3adA29fc5AD53]) [delegatecall]
+    │   │   │   │   └─ ← [Return] 0
+    │   │   │   └─ ← [Return] 0
+    │   │   ├─ [249] AdapterAave::previewWithdraw(999) [staticcall]
+    │   │   │   └─ ← [Return] 999
+    │   │   ├─ [25265] InitializableImmutableAdminUpgradeabilityProxy::fallback(AdapterAave: [0x2885AbC68bcDE804D65B9435AFdAE188C415910e], 999)
+    │   │   │   ├─ [24657] ATokenInstance::approve(AdapterAave: [0x2885AbC68bcDE804D65B9435AFdAE188C415910e], 999) [delegatecall]
+    │   │   │   │   ├─ emit Approval(owner: LucaMoneyVault: [0xc462cA16286a9a877a499f9474827bA801f2090D], spender: AdapterAave: [0x2885AbC68bcDE804D65B9435AFdAE188C415910e], value: 999)
+    │   │   │   │   └─ ← [Return] true
+    │   │   │   └─ ← [Return] true
+    │   │   ├─ [108511] AdapterAave::withdraw(999, Forwarder: [0xCD09f43D738b10584CaBfb2f73C3adA29fc5AD53], LucaMoneyVault: [0xc462cA16286a9a877a499f9474827bA801f2090D])
+    │   │   │   ├─ [39961] InitializableImmutableAdminUpgradeabilityProxy::fallback(LucaMoneyVault: [0xc462cA16286a9a877a499f9474827bA801f2090D], AdapterAave: [0x2885AbC68bcDE804D65B9435AFdAE188C415910e], 999)
+    │   │   │   │   ├─ [39347] ATokenInstance::transferFrom(LucaMoneyVault: [0xc462cA16286a9a877a499f9474827bA801f2090D], AdapterAave: [0x2885AbC68bcDE804D65B9435AFdAE188C415910e], 999) [delegatecall]
+    │   │   │   │   │   ├─ [1516] InitializableImmutableAdminUpgradeabilityProxy::fallback(FiatTokenProxy: [0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913]) [staticcall]
+    │   │   │   │   │   │   ├─ [911] L2PoolInstance::getReserveNormalizedIncome(FiatTokenProxy: [0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913]) [delegatecall]
+    │   │   │   │   │   │   │   └─ ← [Return] 1150404503376875196163402289 [1.15e27]
+    │   │   │   │   │   │   └─ ← [Return] 1150404503376875196163402289 [1.15e27]
+    │   │   │   │   │   ├─ [1516] InitializableImmutableAdminUpgradeabilityProxy::fallback(FiatTokenProxy: [0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913]) [staticcall]
+    │   │   │   │   │   │   ├─ [911] L2PoolInstance::getReserveNormalizedIncome(FiatTokenProxy: [0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913]) [delegatecall]
+    │   │   │   │   │   │   │   └─ ← [Return] 1150404503376875196163402289 [1.15e27]
+    │   │   │   │   │   │   └─ ← [Return] 1150404503376875196163402289 [1.15e27]
+    │   │   │   │   │   ├─ [3116] InitializableImmutableAdminUpgradeabilityProxy::fallback(LucaMoneyVault: [0xc462cA16286a9a877a499f9474827bA801f2090D], 169137874609555 [1.691e14], 4887281 [4.887e6])
+    │   │   │   │   │   │   ├─ [2505] RewardsController::handleAction(LucaMoneyVault: [0xc462cA16286a9a877a499f9474827bA801f2090D], 169137874609555 [1.691e14], 4887281 [4.887e6]) [delegatecall]
+    │   │   │   │   │   │   │   └─ ← [Stop]
+    │   │   │   │   │   │   └─ ← [Return]
+    │   │   │   │   │   ├─ [5116] InitializableImmutableAdminUpgradeabilityProxy::fallback(AdapterAave: [0x2885AbC68bcDE804D65B9435AFdAE188C415910e], 169137874609555 [1.691e14], 0)
+    │   │   │   │   │   │   ├─ [4505] RewardsController::handleAction(AdapterAave: [0x2885AbC68bcDE804D65B9435AFdAE188C415910e], 169137874609555 [1.691e14], 0) [delegatecall]
+    │   │   │   │   │   │   │   └─ ← [Stop]
+    │   │   │   │   │   │   └─ ← [Return]
+    │   │   │   │   │   ├─ emit Transfer(from: LucaMoneyVault: [0xc462cA16286a9a877a499f9474827bA801f2090D], to: AdapterAave: [0x2885AbC68bcDE804D65B9435AFdAE188C415910e], value: 999)
+    │   │   │   │   │   ├─ emit BalanceTransfer(from: LucaMoneyVault: [0xc462cA16286a9a877a499f9474827bA801f2090D], to: AdapterAave: [0x2885AbC68bcDE804D65B9435AFdAE188C415910e], value: 869, index: 1150404503376875196163402289 [1.15e27])
+    │   │   │   │   │   ├─ [9780] InitializableImmutableAdminUpgradeabilityProxy::fallback(FiatTokenProxy: [0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913], LucaMoneyVault: [0xc462cA16286a9a877a499f9474827bA801f2090D], AdapterAave: [0x2885AbC68bcDE804D65B9435AFdAE188C415910e], 869, 4887281 [4.887e6])
+    │   │   │   │   │   │   ├─ [9157] L2PoolInstance::finalizeTransfer(FiatTokenProxy: [0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913], LucaMoneyVault: [0xc462cA16286a9a877a499f9474827bA801f2090D], AdapterAave: [0x2885AbC68bcDE804D65B9435AFdAE188C415910e], 869, 4887281 [4.887e6]) [delegatecall]
+    │   │   │   │   │   │   │   ├─ [2577] PoolAddressesProvider::getPriceOracle() [staticcall]
+    │   │   │   │   │   │   │   │   └─ ← [Return] 0x2Cc0Fc26eD4563A5ce5e8bdcfe1A2878676Ae156
+    │   │   │   │   │   │   │   ├─ [4176] SupplyLogic::8a5dadd1(0000000000000000000000000000000000000000000000000000000000000034000000000000000000000000000000000000000000000000000000000000003600000000000000000000000000000000000000000000000000000000000000370000000000000000000000000000000000000000000000000000000000000035000000000000000000000000833589fcd6edb6e08f4c7c32d4f71b54bda02913000000000000000000000000c462ca16286a9a877a499f9474827ba801f2090d0000000000000000000000002885abc68bcde804d65b9435afdae188c415910e000000000000000000000000000000000000000000000000000000000000036500000000000000000000000000000000000000000000000000000000004a92f10000000000000000000000002cc0fc26ed4563a5ce5e8bdcfe1a2878676ae1560000000000000000000000000000000000000000000000000000000000000000) [delegatecall]
+    │   │   │   │   │   │   │   │   └─ ← [Stop]
+    │   │   │   │   │   │   │   └─ ← [Stop]
+    │   │   │   │   │   │   └─ ← [Return]
+    │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   └─ ← [Return] true
+    │   │   │   ├─ [64314] InitializableImmutableAdminUpgradeabilityProxy::fallback(FiatTokenProxy: [0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913], 999, Forwarder: [0xCD09f43D738b10584CaBfb2f73C3adA29fc5AD53])
+    │   │   │   │   ├─ [63700] L2PoolInstance::withdraw(FiatTokenProxy: [0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913], 999, Forwarder: [0xCD09f43D738b10584CaBfb2f73C3adA29fc5AD53]) [delegatecall]
+    │   │   │   │   │   ├─ [577] PoolAddressesProvider::getPriceOracle() [staticcall]
+    │   │   │   │   │   │   └─ ← [Return] 0x2Cc0Fc26eD4563A5ce5e8bdcfe1A2878676Ae156
+    │   │   │   │   │   ├─ [58808] SupplyLogic::186dea44(0000000000000000000000000000000000000000000000000000000000000034000000000000000000000000000000000000000000000000000000000000003600000000000000000000000000000000000000000000000000000000000000379a0236086075e24367870667e489c8f5bfbca94083e92c5b6c4b6c585fddbdb70000000000000000000000002885abc68bcde804d65b9435afdae188c415910e000000000000000000000000833589fcd6edb6e08f4c7c32d4f71b54bda0291300000000000000000000000086ab1c62a8bf868e1b3e1ab87d587aba6fbcbdc500000000000000000000000000000000000000000000000000000000000003e7000000000000000000000000cd09f43d738b10584cabfb2f73c3ada29fc5ad530000000000000000000000002cc0fc26ed4563a5ce5e8bdcfe1a2878676ae1560000000000000000000000000000000000000000000000000000000000000000) [delegatecall]
+    │   │   │   │   │   │   ├─ [975] InitializableImmutableAdminUpgradeabilityProxy::fallback() [staticcall]
+    │   │   │   │   │   │   │   ├─ [373] VariableDebtTokenInstance::scaledTotalSupply() [delegatecall]
+    │   │   │   │   │   │   │   │   └─ ← [Return] 144075771299167 [1.44e14]
+    │   │   │   │   │   │   │   └─ ← [Return] 144075771299167 [1.44e14]
+    │   │   │   │   │   │   ├─ [1270] InitializableImmutableAdminUpgradeabilityProxy::fallback(AdapterAave: [0x2885AbC68bcDE804D65B9435AFdAE188C415910e]) [staticcall]
+    │   │   │   │   │   │   │   ├─ [665] ATokenInstance::scaledBalanceOf(AdapterAave: [0x2885AbC68bcDE804D65B9435AFdAE188C415910e]) [delegatecall]
+    │   │   │   │   │   │   │   │   └─ ← [Return] 869
+    │   │   │   │   │   │   │   └─ ← [Return] 869
+    │   │   │   │   │   │   ├─ [3705] DefaultReserveInterestRateStrategyV2::calculateInterestRates(CalculateInterestRatesParams({ unbacked: 30875030 [3.087e7], liquidityAdded: 0, liquidityTaken: 999, totalDebt: 174162188214127 [1.741e14], reserveFactor: 1000, reserve: 0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913, usingVirtualBalance: true, virtualUnderlyingBalance: 20415971327510 [2.041e13] })) [staticcall]
+    │   │   │   │   │   │   │   └─ ← [Return] 38055120686480602910972881 [3.805e25], 47240107977981769684529032 [4.724e25]
+    │   │   │   │   │   │   ├─ emit ReserveDataUpdated(reserve: FiatTokenProxy: [0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913], liquidityRate: 38055120686480602910972881 [3.805e25], stableBorrowRate: 0, variableBorrowRate: 47240107977981769684529032 [4.724e25], liquidityIndex: 1150404503376875196163402289 [1.15e27], variableBorrowIndex: 1208823570012241850515692945 [1.208e27])
+    │   │   │   │   │   │   ├─ [37854] InitializableImmutableAdminUpgradeabilityProxy::fallback(AdapterAave: [0x2885AbC68bcDE804D65B9435AFdAE188C415910e], Forwarder: [0xCD09f43D738b10584CaBfb2f73C3adA29fc5AD53], 999, 869, 1150404503376875196163402289 [1.15e27])
+    │   │   │   │   │   │   │   ├─ [37228] ATokenInstance::burn(AdapterAave: [0x2885AbC68bcDE804D65B9435AFdAE188C415910e], Forwarder: [0xCD09f43D738b10584CaBfb2f73C3adA29fc5AD53], 999, 869, 1150404503376875196163402289 [1.15e27]) [delegatecall]
+    │   │   │   │   │   │   │   │   ├─ [3116] InitializableImmutableAdminUpgradeabilityProxy::fallback(AdapterAave: [0x2885AbC68bcDE804D65B9435AFdAE188C415910e], 169137874609555 [1.691e14], 869)
+    │   │   │   │   │   │   │   │   │   ├─ [2505] RewardsController::handleAction(AdapterAave: [0x2885AbC68bcDE804D65B9435AFdAE188C415910e], 169137874609555 [1.691e14], 869) [delegatecall]
+    │   │   │   │   │   │   │   │   │   │   └─ ← [Stop]
+    │   │   │   │   │   │   │   │   │   └─ ← [Return]
+    │   │   │   │   │   │   │   │   ├─ emit Transfer(from: AdapterAave: [0x2885AbC68bcDE804D65B9435AFdAE188C415910e], to: 0x0000000000000000000000000000000000000000, value: 999)
+    │   │   │   │   │   │   │   │   ├─ emit Burn(from: AdapterAave: [0x2885AbC68bcDE804D65B9435AFdAE188C415910e], target: Forwarder: [0xCD09f43D738b10584CaBfb2f73C3adA29fc5AD53], value: 999, balanceIncrease: 0, index: 1150404503376875196163402289 [1.15e27])
+    │   │   │   │   │   │   │   │   ├─ [25263] FiatTokenProxy::fallback(Forwarder: [0xCD09f43D738b10584CaBfb2f73C3adA29fc5AD53], 999)
+    │   │   │   │   │   │   │   │   │   ├─ [24563] FiatTokenV2_2::transfer(Forwarder: [0xCD09f43D738b10584CaBfb2f73C3adA29fc5AD53], 999) [delegatecall]
+    │   │   │   │   │   │   │   │   │   │   ├─ emit Transfer(from: InitializableImmutableAdminUpgradeabilityProxy: [0x4e65fE4DbA92790696d040ac24Aa414708F5c0AB], to: Forwarder: [0xCD09f43D738b10584CaBfb2f73C3adA29fc5AD53], value: 999)
+    │   │   │   │   │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   │   ├─ emit Withdraw(reserve: FiatTokenProxy: [0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913], user: AdapterAave: [0x2885AbC68bcDE804D65B9435AFdAE188C415910e], to: Forwarder: [0xCD09f43D738b10584CaBfb2f73C3adA29fc5AD53], amount: 999)
+    │   │   │   │   │   │   └─ ← [Return] 0x00000000000000000000000000000000000000000000000000000000000003e7
+    │   │   │   │   │   └─ ← [Return] 999
+    │   │   │   │   └─ ← [Return] 999
+    │   │   │   ├─ emit Withdraw(sender: LucaMoneyVault: [0xc462cA16286a9a877a499f9474827bA801f2090D], receiver: Forwarder: [0xCD09f43D738b10584CaBfb2f73C3adA29fc5AD53], owner: LucaMoneyVault: [0xc462cA16286a9a877a499f9474827bA801f2090D], assets: 999, shares: 999)
+    │   │   │   └─ ← [Return] 999
+    │   │   ├─ [3265] InitializableImmutableAdminUpgradeabilityProxy::fallback(AdapterAave: [0x2885AbC68bcDE804D65B9435AFdAE188C415910e], 0)
+    │   │   │   ├─ [2657] ATokenInstance::approve(AdapterAave: [0x2885AbC68bcDE804D65B9435AFdAE188C415910e], 0) [delegatecall]
+    │   │   │   │   ├─ emit Approval(owner: LucaMoneyVault: [0xc462cA16286a9a877a499f9474827bA801f2090D], spender: AdapterAave: [0x2885AbC68bcDE804D65B9435AFdAE188C415910e], value: 0)
+    │   │   │   │   └─ ← [Return] true
+    │   │   │   └─ ← [Return] true
+    │   │   ├─ [1250] FiatTokenProxy::fallback(Forwarder: [0xCD09f43D738b10584CaBfb2f73C3adA29fc5AD53]) [staticcall]
+    │   │   │   ├─ [553] FiatTokenV2_2::balanceOf(Forwarder: [0xCD09f43D738b10584CaBfb2f73C3adA29fc5AD53]) [delegatecall]
+    │   │   │   │   └─ ← [Return] 999
+    │   │   │   └─ ← [Return] 999
+    │   │   ├─ emit Withdraw(sender: Forwarder: [0xCD09f43D738b10584CaBfb2f73C3adA29fc5AD53], receiver: Forwarder: [0xCD09f43D738b10584CaBfb2f73C3adA29fc5AD53], owner: Forwarder: [0xCD09f43D738b10584CaBfb2f73C3adA29fc5AD53], assets: 999, shares: 990293258849646 [9.902e14])
+    │   │   └─ ← [Return] 999
+    │   ├─ [1250] FiatTokenProxy::fallback(Forwarder: [0xCD09f43D738b10584CaBfb2f73C3adA29fc5AD53]) [staticcall]
+    │   │   ├─ [553] FiatTokenV2_2::balanceOf(Forwarder: [0xCD09f43D738b10584CaBfb2f73C3adA29fc5AD53]) [delegatecall]
+    │   │   │   └─ ← [Return] 999
+    │   │   └─ ← [Return] 999
+    │   ├─ [1250] FiatTokenProxy::fallback(Forwarder: [0xCD09f43D738b10584CaBfb2f73C3adA29fc5AD53]) [staticcall]
+    │   │   ├─ [553] FiatTokenV2_2::balanceOf(Forwarder: [0xCD09f43D738b10584CaBfb2f73C3adA29fc5AD53]) [delegatecall]
+    │   │   │   └─ ← [Return] 999
+    │   │   └─ ← [Return] 999
+    │   ├─ [5363] FiatTokenProxy::fallback(0x18e129122a338f2e6871764fe0e4426dE848Ef99, 999)
+    │   │   ├─ [4663] FiatTokenV2_2::transfer(0x18e129122a338f2e6871764fe0e4426dE848Ef99, 999) [delegatecall]
+    │   │   │   ├─ emit Transfer(from: Forwarder: [0xCD09f43D738b10584CaBfb2f73C3adA29fc5AD53], to: 0x18e129122a338f2e6871764fe0e4426dE848Ef99, value: 999)
+    │   │   │   └─ ← [Return] true
+    │   │   └─ ← [Return] true
+    │   ├─ [3341] FiatTokenProxy::fallback(LucaMoneyVault: [0xc462cA16286a9a877a499f9474827bA801f2090D], 0)
+    │   │   ├─ [2673] FiatTokenV2_2::approve(LucaMoneyVault: [0xc462cA16286a9a877a499f9474827bA801f2090D], 0) [delegatecall]
+    │   │   │   ├─ emit Approval(owner: Forwarder: [0xCD09f43D738b10584CaBfb2f73C3adA29fc5AD53], spender: LucaMoneyVault: [0xc462cA16286a9a877a499f9474827bA801f2090D], value: 0)
+    │   │   │   └─ ← [Return] true
+    │   │   └─ ← [Return] true
+    │   ├─ emit VaultUpdated(previousVault: 0x0000000000000000000000000000000000000000, newVault: LucaMoneyVault: [0xc462cA16286a9a877a499f9474827bA801f2090D], healthCheckShares: 990293258849646 [9.902e14], healthCheckAssets: 999)
+    │   ├─ emit RoutingModeUpdated(previousMode: 0, newMode: 0)
+    │   ├─ emit RoleGranted(role: 0x6c0757dc3e6b28b2580c03fd9e96c274acf4f99d91fbec9b418fa1d70604ff1c, account: 0xa737cB590c0F4d00D2140a429728681e1e74C5db, sender: 0x18e129122a338f2e6871764fe0e4426dE848Ef99)
+    │   ├─ emit RoleGranted(role: 0x6c0757dc3e6b28b2580c03fd9e96c274acf4f99d91fbec9b418fa1d70604ff1c, account: 0x31B5aBcF044049daa96cDC387a44747a48a0ac62, sender: 0x18e129122a338f2e6871764fe0e4426dE848Ef99)
+    │   ├─ emit RoleGranted(role: 0x6c0757dc3e6b28b2580c03fd9e96c274acf4f99d91fbec9b418fa1d70604ff1c, account: 0x61D4d1Ab7eA7B3A54C7B2D646Eb8189faD7B1050, sender: 0x18e129122a338f2e6871764fe0e4426dE848Ef99)
+    │   ├─ emit RoleGranted(role: 0x6c0757dc3e6b28b2580c03fd9e96c274acf4f99d91fbec9b418fa1d70604ff1c, account: 0xa82a5201E630b40914bf4fed0B0b40180BCB93F7, sender: 0x18e129122a338f2e6871764fe0e4426dE848Ef99)
+    │   ├─ emit RoleGranted(role: 0x6c0757dc3e6b28b2580c03fd9e96c274acf4f99d91fbec9b418fa1d70604ff1c, account: 0xe3685F1C0652430e501B314b3035CB7Dd5b21c5f, sender: 0x18e129122a338f2e6871764fe0e4426dE848Ef99)
+    │   ├─ emit RoleGranted(role: 0x6c0757dc3e6b28b2580c03fd9e96c274acf4f99d91fbec9b418fa1d70604ff1c, account: 0x5aDF0B683B49217704eff3f85eda468651C50A48, sender: 0x18e129122a338f2e6871764fe0e4426dE848Ef99)
+    │   ├─ emit RoleGranted(role: 0x6c0757dc3e6b28b2580c03fd9e96c274acf4f99d91fbec9b418fa1d70604ff1c, account: 0x18e129122a338f2e6871764fe0e4426dE848Ef99, sender: 0x18e129122a338f2e6871764fe0e4426dE848Ef99)
+    │   ├─ emit RoleGranted(role: 0xc3144799d744af118b620bad1dd856d1c8733359e68aa889f4743e8d2498e4ac, account: 0xa737cB590c0F4d00D2140a429728681e1e74C5db, sender: 0x18e129122a338f2e6871764fe0e4426dE848Ef99)
+    │   ├─ emit RoleGranted(role: 0xc3144799d744af118b620bad1dd856d1c8733359e68aa889f4743e8d2498e4ac, account: 0x31B5aBcF044049daa96cDC387a44747a48a0ac62, sender: 0x18e129122a338f2e6871764fe0e4426dE848Ef99)
+    │   ├─ emit RoleGranted(role: 0xc3144799d744af118b620bad1dd856d1c8733359e68aa889f4743e8d2498e4ac, account: 0x61D4d1Ab7eA7B3A54C7B2D646Eb8189faD7B1050, sender: 0x18e129122a338f2e6871764fe0e4426dE848Ef99)
+    │   ├─ emit RoleGranted(role: 0xc3144799d744af118b620bad1dd856d1c8733359e68aa889f4743e8d2498e4ac, account: 0xa82a5201E630b40914bf4fed0B0b40180BCB93F7, sender: 0x18e129122a338f2e6871764fe0e4426dE848Ef99)
+    │   ├─ emit RoleGranted(role: 0xc3144799d744af118b620bad1dd856d1c8733359e68aa889f4743e8d2498e4ac, account: 0xe3685F1C0652430e501B314b3035CB7Dd5b21c5f, sender: 0x18e129122a338f2e6871764fe0e4426dE848Ef99)
+    │   ├─ emit RoleGranted(role: 0xc3144799d744af118b620bad1dd856d1c8733359e68aa889f4743e8d2498e4ac, account: 0x5aDF0B683B49217704eff3f85eda468651C50A48, sender: 0x18e129122a338f2e6871764fe0e4426dE848Ef99)
+    │   ├─ emit RoleGranted(role: 0xc3144799d744af118b620bad1dd856d1c8733359e68aa889f4743e8d2498e4ac, account: 0x18e129122a338f2e6871764fe0e4426dE848Ef99, sender: 0x18e129122a338f2e6871764fe0e4426dE848Ef99)
+    │   └─ ← [Return] 11965 bytes of code
+    ├─ [0] VM::stopBroadcast()
+    │   └─ ← [Return]
+    ├─ [229] Forwarder::VAULT_TEST_AMOUNT() [staticcall]
+    │   └─ ← [Return] 1000
+    ├─ [326] Forwarder::USDC() [staticcall]
+    │   └─ ← [Return] FiatTokenProxy: [0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913]
+    ├─ [419] Forwarder::defaultAdmin() [staticcall]
+    │   └─ ← [Return] 0x420675DFAf02750a7DdFad702D13e32eb2C67602
+    ├─ [663] Forwarder::defaultAdminDelay() [staticcall]
+    │   └─ ← [Return] 259200 [2.592e5]
+    ├─ [415] Forwarder::treasury() [staticcall]
+    │   └─ ← [Return] 0x7a5F8A4aF0FEDaBb1625b6f04bA38fC75e7E843e
+    ├─ [446] Forwarder::vault() [staticcall]
+    │   └─ ← [Return] LucaMoneyVault: [0xc462cA16286a9a877a499f9474827bA801f2090D]
+    ├─ [487] Forwarder::routingMode() [staticcall]
+    │   └─ ← [Return] 0
+    ├─ [487] Forwarder::lowerFeeModel() [staticcall]
+    │   └─ ← [Return] 0
+    ├─ [529] Forwarder::upperFeeModel() [staticcall]
+    │   └─ ← [Return] 0
+    ├─ [2396] Forwarder::threshold() [staticcall]
+    │   └─ ← [Return] 0
+    ├─ [2351] Forwarder::fixedFee() [staticcall]
+    │   └─ ← [Return] 0
+    ├─ [2371] Forwarder::variableFee() [staticcall]
+    │   └─ ← [Return] 0
+    ├─ [437] Forwarder::paused() [staticcall]
+    │   └─ ← [Return] false
+    ├─ [873] Forwarder::calculateFee(1000000000000 [1e12]) [staticcall]
+    │   └─ ← [Return] 0
+    ├─ [325] Forwarder::FEE_MANAGER_ROLE() [staticcall]
+    │   └─ ← [Return] 0x6c0757dc3e6b28b2580c03fd9e96c274acf4f99d91fbec9b418fa1d70604ff1c
+    ├─ [747] Forwarder::hasRole(0x6c0757dc3e6b28b2580c03fd9e96c274acf4f99d91fbec9b418fa1d70604ff1c, 0xa737cB590c0F4d00D2140a429728681e1e74C5db) [staticcall]
+    │   └─ ← [Return] true
+    ├─ [747] Forwarder::hasRole(0x6c0757dc3e6b28b2580c03fd9e96c274acf4f99d91fbec9b418fa1d70604ff1c, 0x31B5aBcF044049daa96cDC387a44747a48a0ac62) [staticcall]
+    │   └─ ← [Return] true
+    ├─ [747] Forwarder::hasRole(0x6c0757dc3e6b28b2580c03fd9e96c274acf4f99d91fbec9b418fa1d70604ff1c, 0x61D4d1Ab7eA7B3A54C7B2D646Eb8189faD7B1050) [staticcall]
+    │   └─ ← [Return] true
+    ├─ [747] Forwarder::hasRole(0x6c0757dc3e6b28b2580c03fd9e96c274acf4f99d91fbec9b418fa1d70604ff1c, 0xa82a5201E630b40914bf4fed0B0b40180BCB93F7) [staticcall]
+    │   └─ ← [Return] true
+    ├─ [747] Forwarder::hasRole(0x6c0757dc3e6b28b2580c03fd9e96c274acf4f99d91fbec9b418fa1d70604ff1c, 0xe3685F1C0652430e501B314b3035CB7Dd5b21c5f) [staticcall]
+    │   └─ ← [Return] true
+    ├─ [747] Forwarder::hasRole(0x6c0757dc3e6b28b2580c03fd9e96c274acf4f99d91fbec9b418fa1d70604ff1c, 0x5aDF0B683B49217704eff3f85eda468651C50A48) [staticcall]
+    │   └─ ← [Return] true
+    ├─ [747] Forwarder::hasRole(0x6c0757dc3e6b28b2580c03fd9e96c274acf4f99d91fbec9b418fa1d70604ff1c, 0x18e129122a338f2e6871764fe0e4426dE848Ef99) [staticcall]
+    │   └─ ← [Return] true
+    ├─ [250] Forwarder::VAULT_GUARDIAN_ROLE() [staticcall]
+    │   └─ ← [Return] 0xc3144799d744af118b620bad1dd856d1c8733359e68aa889f4743e8d2498e4ac
+    ├─ [747] Forwarder::hasRole(0xc3144799d744af118b620bad1dd856d1c8733359e68aa889f4743e8d2498e4ac, 0xa737cB590c0F4d00D2140a429728681e1e74C5db) [staticcall]
+    │   └─ ← [Return] true
+    ├─ [747] Forwarder::hasRole(0xc3144799d744af118b620bad1dd856d1c8733359e68aa889f4743e8d2498e4ac, 0x31B5aBcF044049daa96cDC387a44747a48a0ac62) [staticcall]
+    │   └─ ← [Return] true
+    ├─ [747] Forwarder::hasRole(0xc3144799d744af118b620bad1dd856d1c8733359e68aa889f4743e8d2498e4ac, 0x61D4d1Ab7eA7B3A54C7B2D646Eb8189faD7B1050) [staticcall]
+    │   └─ ← [Return] true
+    ├─ [747] Forwarder::hasRole(0xc3144799d744af118b620bad1dd856d1c8733359e68aa889f4743e8d2498e4ac, 0xa82a5201E630b40914bf4fed0B0b40180BCB93F7) [staticcall]
+    │   └─ ← [Return] true
+    ├─ [747] Forwarder::hasRole(0xc3144799d744af118b620bad1dd856d1c8733359e68aa889f4743e8d2498e4ac, 0xe3685F1C0652430e501B314b3035CB7Dd5b21c5f) [staticcall]
+    │   └─ ← [Return] true
+    ├─ [747] Forwarder::hasRole(0xc3144799d744af118b620bad1dd856d1c8733359e68aa889f4743e8d2498e4ac, 0x5aDF0B683B49217704eff3f85eda468651C50A48) [staticcall]
+    │   └─ ← [Return] true
+    ├─ [747] Forwarder::hasRole(0xc3144799d744af118b620bad1dd856d1c8733359e68aa889f4743e8d2498e4ac, 0x18e129122a338f2e6871764fe0e4426dE848Ef99) [staticcall]
+    │   └─ ← [Return] true
+    ├─ [250] Forwarder::DEFAULT_ADMIN_ROLE() [staticcall]
+    │   └─ ← [Return] 0x0000000000000000000000000000000000000000000000000000000000000000
+    ├─ [2546] Forwarder::getRoleAdmin(0xc3144799d744af118b620bad1dd856d1c8733359e68aa889f4743e8d2498e4ac) [staticcall]
+    │   └─ ← [Return] 0x0000000000000000000000000000000000000000000000000000000000000000
+    ├─ [2448] Forwarder::pendingVault() [staticcall]
+    │   └─ ← [Return] 0x0000000000000000000000000000000000000000
+    ├─ [2352] Forwarder::pendingVaultExecutableAt() [staticcall]
+    │   └─ ← [Return] 0
+    ├─ [230] Forwarder::VAULT_CHANGE_DELAY() [staticcall]
+    │   └─ ← [Return] 259200 [2.592e5]
+    ├─ [250] Forwarder::DEFAULT_ADMIN_ROLE() [staticcall]
+    │   └─ ← [Return] 0x0000000000000000000000000000000000000000000000000000000000000000
+    ├─ [2747] Forwarder::hasRole(0x0000000000000000000000000000000000000000000000000000000000000000, 0x18e129122a338f2e6871764fe0e4426dE848Ef99) [staticcall]
+    │   └─ ← [Return] false
+    ├─ [1359] FiatTokenProxy::fallback(Forwarder: [0xCD09f43D738b10584CaBfb2f73C3adA29fc5AD53], LucaMoneyVault: [0xc462cA16286a9a877a499f9474827bA801f2090D]) [staticcall]
+    │   ├─ [659] FiatTokenV2_2::allowance(Forwarder: [0xCD09f43D738b10584CaBfb2f73C3adA29fc5AD53], LucaMoneyVault: [0xc462cA16286a9a877a499f9474827bA801f2090D]) [delegatecall]
+    │   │   └─ ← [Return] 0
+    │   └─ ← [Return] 0
+    ├─ [1250] FiatTokenProxy::fallback(Forwarder: [0xCD09f43D738b10584CaBfb2f73C3adA29fc5AD53]) [staticcall]
+    │   ├─ [553] FiatTokenV2_2::balanceOf(Forwarder: [0xCD09f43D738b10584CaBfb2f73C3adA29fc5AD53]) [delegatecall]
+    │   │   └─ ← [Return] 0
+    │   └─ ← [Return] 0
+    ├─ [1281] LucaMoneyVault::balanceOf(Forwarder: [0xCD09f43D738b10584CaBfb2f73C3adA29fc5AD53]) [staticcall]
+    │   └─ ← [Return] 0
+    ├─ [1359] FiatTokenProxy::fallback(0x18e129122a338f2e6871764fe0e4426dE848Ef99, Forwarder: [0xCD09f43D738b10584CaBfb2f73C3adA29fc5AD53]) [staticcall]
+    │   ├─ [659] FiatTokenV2_2::allowance(0x18e129122a338f2e6871764fe0e4426dE848Ef99, Forwarder: [0xCD09f43D738b10584CaBfb2f73C3adA29fc5AD53]) [delegatecall]
+    │   │   └─ ← [Return] 0
+    │   └─ ← [Return] 0
+    ├─ [1250] FiatTokenProxy::fallback(0x18e129122a338f2e6871764fe0e4426dE848Ef99) [staticcall]
+    │   ├─ [553] FiatTokenV2_2::balanceOf(0x18e129122a338f2e6871764fe0e4426dE848Ef99) [delegatecall]
+    │   │   └─ ← [Return] 84759157 [8.475e7]
+    │   └─ ← [Return] 84759157 [8.475e7]
+    ├─ [0] console::log("Health check cost    :", 1, "USDC units") [staticcall]
+    │   └─ ← [Stop]
+    ├─ [0] console::log("Forwarder deployed   :", Forwarder: [0xCD09f43D738b10584CaBfb2f73C3adA29fc5AD53]) [staticcall]
+    │   └─ ← [Stop]
+    ├─ [0] console::log("Constructor args     :") [staticcall]
+    │   └─ ← [Stop]
+    ├─ [0] console::log(0x000000000000000000000000833589fcd6edb6e08f4c7c32d4f71b54bda02913000000000000000000000000420675dfaf02750a7ddfad702d13e32eb2c67602000000000000000000000000000000000000000000000000000000000003f4800000000000000000000000007a5f8a4af0fedabb1625b6f04ba38fc75e7e843e000000000000000000000000c462ca16286a9a877a499f9474827ba801f2090d0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000010000000000000000000000000000000000000000000000000000000000000002000000000000000000000000000000000000000000000000000000000000000007000000000000000000000000a737cb590c0f4d00d2140a429728681e1e74c5db00000000000000000000000031b5abcf044049daa96cdc387a44747a48a0ac6200000000000000000000000061d4d1ab7ea7b3a54c7b2d646eb8189fad7b1050000000000000000000000000a82a5201e630b40914bf4fed0b0b40180bcb93f7000000000000000000000000e3685f1c0652430e501b314b3035cb7dd5b21c5f0000000000000000000000005adf0b683b49217704eff3f85eda468651c50a4800000000000000000000000018e129122a338f2e6871764fe0e4426de848ef990000000000000000000000000000000000000000000000000000000000000007000000000000000000000000a737cb590c0f4d00d2140a429728681e1e74c5db00000000000000000000000031b5abcf044049daa96cdc387a44747a48a0ac6200000000000000000000000061d4d1ab7ea7b3a54c7b2d646eb8189fad7b1050000000000000000000000000a82a5201e630b40914bf4fed0b0b40180bcb93f7000000000000000000000000e3685f1c0652430e501b314b3035cb7dd5b21c5f0000000000000000000000005adf0b683b49217704eff3f85eda468651c50a4800000000000000000000000018e129122a338f2e6871764fe0e4426de848ef99) [staticcall]
+    │   └─ ← [Stop]
+    └─ ← [Return] Forwarder: [0xCD09f43D738b10584CaBfb2f73C3adA29fc5AD53]
+
+
+Script ran successfully.
+
+== Return ==
+0: contract Forwarder 0xCD09f43D738b10584CaBfb2f73C3adA29fc5AD53
+
+== Logs ==
+  === Preflight ===
+  Chain id             : 8453
+  Deployer             : 0x18e129122a338f2e6871764fe0e4426dE848Ef99
+  USDC                 : 0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913
+  Admin                : 0x420675DFAf02750a7DdFad702D13e32eb2C67602
+  Admin delay (s)      : 259200
+  Treasury             : 0x7a5F8A4aF0FEDaBb1625b6f04bA38fC75e7E843e
+  Vault                : 0xc462cA16286a9a877a499f9474827bA801f2090D
+  Routing mode         : 0
+  Initial fees         : NONE/NONE, threshold 0, fixed 0, variable 0, not paused
+  Fee manager          : 0xa737cB590c0F4d00D2140a429728681e1e74C5db
+  Fee manager          : 0x31B5aBcF044049daa96cDC387a44747a48a0ac62
+  Fee manager          : 0x61D4d1Ab7eA7B3A54C7B2D646Eb8189faD7B1050
+  Fee manager          : 0xa82a5201E630b40914bf4fed0B0b40180BCB93F7
+  Fee manager          : 0xe3685F1C0652430e501B314b3035CB7Dd5b21c5f
+  Fee manager          : 0x5aDF0B683B49217704eff3f85eda468651C50A48
+  Fee manager          : 0x18e129122a338f2e6871764fe0e4426dE848Ef99
+  Vault guardian       : 0xa737cB590c0F4d00D2140a429728681e1e74C5db
+  Vault guardian       : 0x31B5aBcF044049daa96cDC387a44747a48a0ac62
+  Vault guardian       : 0x61D4d1Ab7eA7B3A54C7B2D646Eb8189faD7B1050
+  Vault guardian       : 0xa82a5201E630b40914bf4fed0B0b40180BCB93F7
+  Vault guardian       : 0xe3685F1C0652430e501B314b3035CB7Dd5b21c5f
+  Vault guardian       : 0x5aDF0B683B49217704eff3f85eda468651C50A48
+  Vault guardian       : 0x18e129122a338f2e6871764fe0e4426dE848Ef99
+  Deployer USDC        : 84759158
+  Deployer ETH (wei)   : 1788099321684737
+  Predicted Forwarder  : 0xCD09f43D738b10584CaBfb2f73C3adA29fc5AD53
+  Health check cost    : 1 USDC units
+  Forwarder deployed   : 0xCD09f43D738b10584CaBfb2f73C3adA29fc5AD53
+  Constructor args     :
+  0x000000000000000000000000833589fcd6edb6e08f4c7c32d4f71b54bda02913000000000000000000000000420675dfaf02750a7ddfad702d13e32eb2c67602000000000000000000000000000000000000000000000000000000000003f4800000000000000000000000007a5f8a4af0fedabb1625b6f04ba38fc75e7e843e000000000000000000000000c462ca16286a9a877a499f9474827ba801f2090d0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000010000000000000000000000000000000000000000000000000000000000000002000000000000000000000000000000000000000000000000000000000000000007000000000000000000000000a737cb590c0f4d00d2140a429728681e1e74c5db00000000000000000000000031b5abcf044049daa96cdc387a44747a48a0ac6200000000000000000000000061d4d1ab7ea7b3a54c7b2d646eb8189fad7b1050000000000000000000000000a82a5201e630b40914bf4fed0b0b40180bcb93f7000000000000000000000000e3685f1c0652430e501b314b3035cb7dd5b21c5f0000000000000000000000005adf0b683b49217704eff3f85eda468651c50a4800000000000000000000000018e129122a338f2e6871764fe0e4426de848ef990000000000000000000000000000000000000000000000000000000000000007000000000000000000000000a737cb590c0f4d00d2140a429728681e1e74c5db00000000000000000000000031b5abcf044049daa96cdc387a44747a48a0ac6200000000000000000000000061d4d1ab7ea7b3a54c7b2d646eb8189fad7b1050000000000000000000000000a82a5201e630b40914bf4fed0b0b40180bcb93f7000000000000000000000000e3685f1c0652430e501b314b3035cb7dd5b21c5f0000000000000000000000005adf0b683b49217704eff3f85eda468651c50a4800000000000000000000000018e129122a338f2e6871764fe0e4426de848ef99
+
+## Setting up 1 EVM.
+==========================
+Simulated On-chain Traces:
+
+  [33841] FiatTokenProxy::fallback(Forwarder: [0xCD09f43D738b10584CaBfb2f73C3adA29fc5AD53], 1000)
+    ├─ [26673] FiatTokenV2_2::approve(Forwarder: [0xCD09f43D738b10584CaBfb2f73C3adA29fc5AD53], 1000) [delegatecall]
+    │   ├─ emit Approval(owner: 0x18e129122a338f2e6871764fe0e4426dE848Ef99, spender: Forwarder: [0xCD09f43D738b10584CaBfb2f73C3adA29fc5AD53], value: 1000)
+    │   └─ ← [Return] true
+    └─ ← [Return] true
+
+  [3524097] → new Forwarder@0xCD09f43D738b10584CaBfb2f73C3adA29fc5AD53
+    ├─ emit RoleGranted(role: 0x0000000000000000000000000000000000000000000000000000000000000000, account: 0x420675DFAf02750a7DdFad702D13e32eb2C67602, sender: 0x18e129122a338f2e6871764fe0e4426dE848Ef99)
+    ├─ emit TreasuryUpdated(previousTreasury: 0x0000000000000000000000000000000000000000, newTreasury: 0x7a5F8A4aF0FEDaBb1625b6f04bA38fC75e7E843e)
+    ├─ [650] LucaMoneyVault::asset() [staticcall]
+    │   └─ ← [Return] FiatTokenProxy: [0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913]
+    ├─ [9750] FiatTokenProxy::fallback(Forwarder: [0xCD09f43D738b10584CaBfb2f73C3adA29fc5AD53]) [staticcall]
+    │   ├─ [2553] FiatTokenV2_2::balanceOf(Forwarder: [0xCD09f43D738b10584CaBfb2f73C3adA29fc5AD53]) [delegatecall]
+    │   │   └─ ← [Return] 0
+    │   └─ ← [Return] 0
+    ├─ [37928] FiatTokenProxy::fallback(0x18e129122a338f2e6871764fe0e4426dE848Ef99, Forwarder: [0xCD09f43D738b10584CaBfb2f73C3adA29fc5AD53], 1000)
+    │   ├─ [37254] FiatTokenV2_2::transferFrom(0x18e129122a338f2e6871764fe0e4426dE848Ef99, Forwarder: [0xCD09f43D738b10584CaBfb2f73C3adA29fc5AD53], 1000) [delegatecall]
+    │   │   ├─ emit Transfer(from: 0x18e129122a338f2e6871764fe0e4426dE848Ef99, to: Forwarder: [0xCD09f43D738b10584CaBfb2f73C3adA29fc5AD53], value: 1000)
+    │   │   └─ ← [Return] true
+    │   └─ ← [Return] true
+    ├─ [25341] FiatTokenProxy::fallback(LucaMoneyVault: [0xc462cA16286a9a877a499f9474827bA801f2090D], 1000)
+    │   ├─ [24673] FiatTokenV2_2::approve(LucaMoneyVault: [0xc462cA16286a9a877a499f9474827bA801f2090D], 1000) [delegatecall]
+    │   │   ├─ emit Approval(owner: Forwarder: [0xCD09f43D738b10584CaBfb2f73C3adA29fc5AD53], spender: LucaMoneyVault: [0xc462cA16286a9a877a499f9474827bA801f2090D], value: 1000)
+    │   │   └─ ← [Return] true
+    │   └─ ← [Return] true
+    ├─ [3281] LucaMoneyVault::balanceOf(Forwarder: [0xCD09f43D738b10584CaBfb2f73C3adA29fc5AD53]) [staticcall]
+    │   └─ ← [Return] 0
+    ├─ [354648] LucaMoneyVault::deposit(1000, Forwarder: [0xCD09f43D738b10584CaBfb2f73C3adA29fc5AD53])
+    │   ├─ [23388] InitializableImmutableAdminUpgradeabilityProxy::fallback(LucaMoneyVault: [0xc462cA16286a9a877a499f9474827bA801f2090D]) [staticcall]
+    │   │   ├─ [18283] ATokenInstance::balanceOf(LucaMoneyVault: [0xc462cA16286a9a877a499f9474827bA801f2090D]) [delegatecall]
+    │   │   │   ├─ [10476] InitializableImmutableAdminUpgradeabilityProxy::fallback(FiatTokenProxy: [0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913]) [staticcall]
+    │   │   │   │   ├─ [5371] L2PoolInstance::getReserveNormalizedIncome(FiatTokenProxy: [0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913]) [delegatecall]
+    │   │   │   │   │   └─ ← [Return] 1150404597775567879392176899 [1.15e27]
+    │   │   │   │   └─ ← [Return] 1150404597775567879392176899 [1.15e27]
+    │   │   │   └─ ← [Return] 5621350 [5.621e6]
+    │   │   └─ ← [Return] 5621350 [5.621e6]
+    │   ├─ [469] AdapterAave::previewRedeem(5621350 [5.621e6]) [staticcall]
+    │   │   └─ ← [Return] 5621350 [5.621e6]
+    │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: 0x7a5F8A4aF0FEDaBb1625b6f04bA38fC75e7E843e, value: 38621437095136 [3.862e13])
+    │   ├─ emit YieldAccrued(profitAssets: 396, feeAssets: 39, feeSharesMinted: 38621437095136 [3.862e13], observedTotalAssets: 5621350 [5.621e6])
+    │   ├─ [64706] AdapterAave::maxDeposit(LucaMoneyVault: [0xc462cA16286a9a877a499f9474827bA801f2090D]) [staticcall]
+    │   │   ├─ [9876] AaveProtocolDataProvider::getPaused(FiatTokenProxy: [0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913]) [staticcall]
+    │   │   │   ├─ [2469] PoolAddressesProvider::getPool() [staticcall]
+    │   │   │   │   └─ ← [Return] InitializableImmutableAdminUpgradeabilityProxy: [0xA238Dd80C259a72e81d7e4664a9801593F98d1c5]
+    │   │   │   ├─ [3372] InitializableImmutableAdminUpgradeabilityProxy::fallback(FiatTokenProxy: [0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913]) [staticcall]
+    │   │   │   │   ├─ [2767] L2PoolInstance::getConfiguration(FiatTokenProxy: [0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913]) [delegatecall]
+    │   │   │   │   │   └─ ← [Return] ReserveConfigurationMap({ data: 7237005577332262213973186568752004119305653224248996801175139707821393190220 [7.237e75] })
+    │   │   │   │   └─ ← [Return] ReserveConfigurationMap({ data: 7237005577332262213973186568752004119305653224248996801175139707821393190220 [7.237e75] })
+    │   │   │   └─ ← [Return] false
+    │   │   ├─ [3702] AaveProtocolDataProvider::getReserveConfigurationData(FiatTokenProxy: [0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913]) [staticcall]
+    │   │   │   ├─ [469] PoolAddressesProvider::getPool() [staticcall]
+    │   │   │   │   └─ ← [Return] InitializableImmutableAdminUpgradeabilityProxy: [0xA238Dd80C259a72e81d7e4664a9801593F98d1c5]
+    │   │   │   ├─ [1372] InitializableImmutableAdminUpgradeabilityProxy::fallback(FiatTokenProxy: [0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913]) [staticcall]
+    │   │   │   │   ├─ [767] L2PoolInstance::getConfiguration(FiatTokenProxy: [0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913]) [delegatecall]
+    │   │   │   │   │   └─ ← [Return] ReserveConfigurationMap({ data: 7237005577332262213973186568752004119305653224248996801175139707821393190220 [7.237e75] })
+    │   │   │   │   └─ ← [Return] ReserveConfigurationMap({ data: 7237005577332262213973186568752004119305653224248996801175139707821393190220 [7.237e75] })
+    │   │   │   └─ ← [Return] 6, 7500, 7800, 10500 [1.05e4], 1000, true, true, false, true, false
+    │   │   ├─ [3288] AaveProtocolDataProvider::getReserveCaps(FiatTokenProxy: [0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913]) [staticcall]
+    │   │   │   ├─ [469] PoolAddressesProvider::getPool() [staticcall]
+    │   │   │   │   └─ ← [Return] InitializableImmutableAdminUpgradeabilityProxy: [0xA238Dd80C259a72e81d7e4664a9801593F98d1c5]
+    │   │   │   ├─ [1372] InitializableImmutableAdminUpgradeabilityProxy::fallback(FiatTokenProxy: [0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913]) [staticcall]
+    │   │   │   │   ├─ [767] L2PoolInstance::getConfiguration(FiatTokenProxy: [0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913]) [delegatecall]
+    │   │   │   │   │   └─ ← [Return] ReserveConfigurationMap({ data: 7237005577332262213973186568752004119305653224248996801175139707821393190220 [7.237e75] })
+    │   │   │   │   └─ ← [Return] ReserveConfigurationMap({ data: 7237005577332262213973186568752004119305653224248996801175139707821393190220 [7.237e75] })
+    │   │   │   └─ ← [Return] 207000000 [2.07e8], 230000000 [2.3e8]
+    │   │   ├─ [39753] AaveProtocolDataProvider::getReserveData(FiatTokenProxy: [0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913]) [staticcall]
+    │   │   │   ├─ [469] PoolAddressesProvider::getPool() [staticcall]
+    │   │   │   │   └─ ← [Return] InitializableImmutableAdminUpgradeabilityProxy: [0xA238Dd80C259a72e81d7e4664a9801593F98d1c5]
+    │   │   │   ├─ [14619] InitializableImmutableAdminUpgradeabilityProxy::fallback(FiatTokenProxy: [0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913]) [staticcall]
+    │   │   │   │   ├─ [13936] L2PoolInstance::getReserveData(FiatTokenProxy: [0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913]) [delegatecall]
+    │   │   │   │   │   ├─ [2546] PoolAddressesProvider::getAddress(0x4d4f434b5f535441424c455f4445425400000000000000000000000000000000) [staticcall]
+    │   │   │   │   │   │   └─ ← [Return] 0xaED3b56FeA82E809665f02AcBcDEc0816c75f4d9
+    │   │   │   │   │   └─ ← [Return] ReserveDataLegacy({ configuration: ReserveConfigurationMap({ data: 7237005577332262213973186568752004119305653224248996801175139707821393190220 [7.237e75] }), liquidityIndex: 1150404497824010920679356724 [1.15e27], currentLiquidityRate: 38055120638630796523096170 [3.805e25], variableBorrowIndex: 1208823562769096776096248725 [1.208e27], currentVariableBorrowRate: 47240107948282369833370431 [4.724e25], currentStableBorrowRate: 0, lastUpdateTimestamp: 1792699417 [1.792e9], id: 4, aTokenAddress: 0x4e65fE4DbA92790696d040ac24Aa414708F5c0AB, stableDebtTokenAddress: 0xaED3b56FeA82E809665f02AcBcDEc0816c75f4d9, variableDebtTokenAddress: 0x59dca05b6c26dbd64b5381374aAaC5CD05644C28, interestRateStrategyAddress: 0x86AB1C62A8bf868E1b3E1ab87d587Aba6fbCbDC5, accruedToTreasury: 1136290297 [1.136e9], unbacked: 0, isolationModeTotalDebt: 0 })
+    │   │   │   │   └─ ← [Return] ReserveDataLegacy({ configuration: ReserveConfigurationMap({ data: 7237005577332262213973186568752004119305653224248996801175139707821393190220 [7.237e75] }), liquidityIndex: 1150404497824010920679356724 [1.15e27], currentLiquidityRate: 38055120638630796523096170 [3.805e25], variableBorrowIndex: 1208823562769096776096248725 [1.208e27], currentVariableBorrowRate: 47240107948282369833370431 [4.724e25], currentStableBorrowRate: 0, lastUpdateTimestamp: 1792699417 [1.792e9], id: 4, aTokenAddress: 0x4e65fE4DbA92790696d040ac24Aa414708F5c0AB, stableDebtTokenAddress: 0xaED3b56FeA82E809665f02AcBcDEc0816c75f4d9, variableDebtTokenAddress: 0x59dca05b6c26dbd64b5381374aAaC5CD05644C28, interestRateStrategyAddress: 0x86AB1C62A8bf868E1b3E1ab87d587Aba6fbCbDC5, accruedToTreasury: 1136290297 [1.136e9], unbacked: 0, isolationModeTotalDebt: 0 })
+    │   │   │   ├─ [5559] InitializableImmutableAdminUpgradeabilityProxy::fallback() [staticcall]
+    │   │   │   │   ├─ [4957] ATokenInstance::totalSupply() [delegatecall]
+    │   │   │   │   │   ├─ [1976] InitializableImmutableAdminUpgradeabilityProxy::fallback(FiatTokenProxy: [0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913]) [staticcall]
+    │   │   │   │   │   │   ├─ [1371] L2PoolInstance::getReserveNormalizedIncome(FiatTokenProxy: [0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913]) [delegatecall]
+    │   │   │   │   │   │   │   └─ ← [Return] 1150404597775567879392176899 [1.15e27]
+    │   │   │   │   │   │   └─ ← [Return] 1150404597775567879392176899 [1.15e27]
+    │   │   │   │   │   └─ ← [Return] 194576988607819 [1.945e14]
+    │   │   │   │   └─ ← [Return] 194576988607819 [1.945e14]
+    │   │   │   ├─ [12204] InitializableImmutableAdminUpgradeabilityProxy::fallback() [staticcall]
+    │   │   │   │   ├─ [7102] VariableDebtTokenInstance::totalSupply() [delegatecall]
+    │   │   │   │   │   ├─ [2095] InitializableImmutableAdminUpgradeabilityProxy::fallback(FiatTokenProxy: [0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913]) [staticcall]
+    │   │   │   │   │   │   ├─ [1490] L2PoolInstance::getReserveNormalizedVariableDebt(FiatTokenProxy: [0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913]) [delegatecall]
+    │   │   │   │   │   │   │   └─ ← [Return] 1208823693145714755872776353 [1.208e27]
+    │   │   │   │   │   │   └─ ← [Return] 1208823693145714755872776353 [1.208e27]
+    │   │   │   │   │   └─ ← [Return] 174162205954677 [1.741e14]
+    │   │   │   │   └─ ← [Return] 174162205954677 [1.741e14]
+    │   │   │   └─ ← [Return] 0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000043ba69f90000000000000000000000000000000000000000000000000000b0f77c49954b000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000009e664c6b52750000000000000000000000000000000000000000001f7a7c393944529aa2486a00000000000000000000000000000000000000000027137b621fe002c47b033f00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000003b797a0c9f4fc1595c6b934000000000000000000000000000000000000000003e7ea58a53220454f057395000000000000000000000000000000000000000000000000000000006ada6c19
+    │   │   └─ ← [Return] 35421704198712 [3.542e13]
+    │   ├─ [3888] InitializableImmutableAdminUpgradeabilityProxy::fallback(LucaMoneyVault: [0xc462cA16286a9a877a499f9474827bA801f2090D]) [staticcall]
+    │   │   ├─ [3283] ATokenInstance::balanceOf(LucaMoneyVault: [0xc462cA16286a9a877a499f9474827bA801f2090D]) [delegatecall]
+    │   │   │   ├─ [1976] InitializableImmutableAdminUpgradeabilityProxy::fallback(FiatTokenProxy: [0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913]) [staticcall]
+    │   │   │   │   ├─ [1371] L2PoolInstance::getReserveNormalizedIncome(FiatTokenProxy: [0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913]) [delegatecall]
+    │   │   │   │   │   └─ ← [Return] 1150404597775567879392176899 [1.15e27]
+    │   │   │   │   └─ ← [Return] 1150404597775567879392176899 [1.15e27]
+    │   │   │   └─ ← [Return] 5621350 [5.621e6]
+    │   │   └─ ← [Return] 5621350 [5.621e6]
+    │   ├─ [469] AdapterAave::previewRedeem(5621350 [5.621e6]) [staticcall]
+    │   │   └─ ← [Return] 5621350 [5.621e6]
+    │   ├─ [28328] FiatTokenProxy::fallback(Forwarder: [0xCD09f43D738b10584CaBfb2f73C3adA29fc5AD53], LucaMoneyVault: [0xc462cA16286a9a877a499f9474827bA801f2090D], 1000)
+    │   │   ├─ [27654] FiatTokenV2_2::transferFrom(Forwarder: [0xCD09f43D738b10584CaBfb2f73C3adA29fc5AD53], LucaMoneyVault: [0xc462cA16286a9a877a499f9474827bA801f2090D], 1000) [delegatecall]
+    │   │   │   ├─ emit Transfer(from: Forwarder: [0xCD09f43D738b10584CaBfb2f73C3adA29fc5AD53], to: LucaMoneyVault: [0xc462cA16286a9a877a499f9474827bA801f2090D], value: 1000)
+    │   │   │   └─ ← [Return] true
+    │   │   └─ ← [Return] true
+    │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: Forwarder: [0xCD09f43D738b10584CaBfb2f73C3adA29fc5AD53], value: 990293258849646 [9.902e14])
+    │   ├─ emit Deposit(sender: Forwarder: [0xCD09f43D738b10584CaBfb2f73C3adA29fc5AD53], owner: Forwarder: [0xCD09f43D738b10584CaBfb2f73C3adA29fc5AD53], assets: 1000, shares: 990293258849646 [9.902e14])
+    │   ├─ [25341] FiatTokenProxy::fallback(AdapterAave: [0x2885AbC68bcDE804D65B9435AFdAE188C415910e], 1000)
+    │   │   ├─ [24673] FiatTokenV2_2::approve(AdapterAave: [0x2885AbC68bcDE804D65B9435AFdAE188C415910e], 1000) [delegatecall]
+    │   │   │   ├─ emit Approval(owner: LucaMoneyVault: [0xc462cA16286a9a877a499f9474827bA801f2090D], spender: AdapterAave: [0x2885AbC68bcDE804D65B9435AFdAE188C415910e], value: 1000)
+    │   │   │   └─ ← [Return] true
+    │   │   └─ ← [Return] true
+    │   ├─ [133169] AdapterAave::deposit(1000, LucaMoneyVault: [0xc462cA16286a9a877a499f9474827bA801f2090D])
+    │   │   ├─ [28328] FiatTokenProxy::fallback(LucaMoneyVault: [0xc462cA16286a9a877a499f9474827bA801f2090D], AdapterAave: [0x2885AbC68bcDE804D65B9435AFdAE188C415910e], 1000)
+    │   │   │   ├─ [27654] FiatTokenV2_2::transferFrom(LucaMoneyVault: [0xc462cA16286a9a877a499f9474827bA801f2090D], AdapterAave: [0x2885AbC68bcDE804D65B9435AFdAE188C415910e], 1000) [delegatecall]
+    │   │   │   │   ├─ emit Transfer(from: LucaMoneyVault: [0xc462cA16286a9a877a499f9474827bA801f2090D], to: AdapterAave: [0x2885AbC68bcDE804D65B9435AFdAE188C415910e], value: 1000)
+    │   │   │   │   └─ ← [Return] true
+    │   │   │   └─ ← [Return] true
+    │   │   ├─ [3359] FiatTokenProxy::fallback(AdapterAave: [0x2885AbC68bcDE804D65B9435AFdAE188C415910e], InitializableImmutableAdminUpgradeabilityProxy: [0xA238Dd80C259a72e81d7e4664a9801593F98d1c5]) [staticcall]
+    │   │   │   ├─ [2659] FiatTokenV2_2::allowance(AdapterAave: [0x2885AbC68bcDE804D65B9435AFdAE188C415910e], InitializableImmutableAdminUpgradeabilityProxy: [0xA238Dd80C259a72e81d7e4664a9801593F98d1c5]) [delegatecall]
+    │   │   │   │   └─ ← [Return] 115792089237316195423570985008687907853269984665640564039457584007912597478191 [1.157e77]
+    │   │   │   └─ ← [Return] 115792089237316195423570985008687907853269984665640564039457584007912597478191 [1.157e77]
+    │   │   ├─ [97582] InitializableImmutableAdminUpgradeabilityProxy::fallback(FiatTokenProxy: [0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913], 1000, LucaMoneyVault: [0xc462cA16286a9a877a499f9474827bA801f2090D], 0)
+    │   │   │   ├─ [96965] L2PoolInstance::supply(FiatTokenProxy: [0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913], 1000, LucaMoneyVault: [0xc462cA16286a9a877a499f9474827bA801f2090D], 0) [delegatecall]
+    │   │   │   │   ├─ [90501] SupplyLogic::66656e4e(00000000000000000000000000000000000000000000000000000000000000340000000000000000000000000000000000000000000000000000000000000037e66fd038c6d447522bed7947ebfa841ad5dac7df94e480d37b4a4ae43c462e1f0000000000000000000000002885abc68bcde804d65b9435afdae188c415910e000000000000000000000000833589fcd6edb6e08f4c7c32d4f71b54bda0291300000000000000000000000086ab1c62a8bf868e1b3e1ab87d587aba6fbcbdc500000000000000000000000000000000000000000000000000000000000003e8000000000000000000000000c462ca16286a9a877a499f9474827ba801f2090d00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000) [delegatecall]
+    │   │   │   │   │   ├─ [975] InitializableImmutableAdminUpgradeabilityProxy::fallback() [staticcall]
+    │   │   │   │   │   │   ├─ [373] VariableDebtTokenInstance::scaledTotalSupply() [delegatecall]
+    │   │   │   │   │   │   │   └─ ← [Return] 144075771299167 [1.44e14]
+    │   │   │   │   │   │   └─ ← [Return] 144075771299167 [1.44e14]
+    │   │   │   │   │   ├─ [1019] InitializableImmutableAdminUpgradeabilityProxy::fallback() [staticcall]
+    │   │   │   │   │   │   ├─ [417] ATokenInstance::scaledTotalSupply() [delegatecall]
+    │   │   │   │   │   │   │   └─ ← [Return] 169137874608686 [1.691e14]
+    │   │   │   │   │   │   └─ ← [Return] 169137874608686 [1.691e14]
+    │   │   │   │   │   ├─ [5705] DefaultReserveInterestRateStrategyV2::calculateInterestRates(CalculateInterestRatesParams({ unbacked: 30875030 [3.087e7], liquidityAdded: 1000, liquidityTaken: 0, totalDebt: 174162205954677 [1.741e14], reserveFactor: 1000, reserve: 0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913, usingVirtualBalance: true, virtualUnderlyingBalance: 20415971326510 [2.041e13] })) [staticcall]
+    │   │   │   │   │   │   └─ ← [Return] 38055121499542939907640577 [3.805e25], 47240108482632992501232947 [4.724e25]
+    │   │   │   │   │   ├─ emit ReserveDataUpdated(reserve: FiatTokenProxy: [0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913], liquidityRate: 38055121499542939907640577 [3.805e25], stableBorrowRate: 0, variableBorrowRate: 47240108482632992501232947 [4.724e25], liquidityIndex: 1150404597775567879392176899 [1.15e27], variableBorrowIndex: 1208823693145714755872776353 [1.208e27])
+    │   │   │   │   │   ├─ [16028] FiatTokenProxy::fallback(AdapterAave: [0x2885AbC68bcDE804D65B9435AFdAE188C415910e], InitializableImmutableAdminUpgradeabilityProxy: [0x4e65fE4DbA92790696d040ac24Aa414708F5c0AB], 1000)
+    │   │   │   │   │   │   ├─ [15354] FiatTokenV2_2::transferFrom(AdapterAave: [0x2885AbC68bcDE804D65B9435AFdAE188C415910e], InitializableImmutableAdminUpgradeabilityProxy: [0x4e65fE4DbA92790696d040ac24Aa414708F5c0AB], 1000) [delegatecall]
+    │   │   │   │   │   │   │   ├─ emit Transfer(from: AdapterAave: [0x2885AbC68bcDE804D65B9435AFdAE188C415910e], to: InitializableImmutableAdminUpgradeabilityProxy: [0x4e65fE4DbA92790696d040ac24Aa414708F5c0AB], value: 1000)
+    │   │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   ├─ [35385] InitializableImmutableAdminUpgradeabilityProxy::fallback(AdapterAave: [0x2885AbC68bcDE804D65B9435AFdAE188C415910e], LucaMoneyVault: [0xc462cA16286a9a877a499f9474827bA801f2090D], 869, 1150404597775567879392176899 [1.15e27])
+    │   │   │   │   │   │   ├─ [34765] ATokenInstance::mint(AdapterAave: [0x2885AbC68bcDE804D65B9435AFdAE188C415910e], LucaMoneyVault: [0xc462cA16286a9a877a499f9474827bA801f2090D], 869, 1150404597775567879392176899 [1.15e27]) [delegatecall]
+    │   │   │   │   │   │   │   ├─ [18430] InitializableImmutableAdminUpgradeabilityProxy::fallback(LucaMoneyVault: [0xc462cA16286a9a877a499f9474827bA801f2090D], 169137874608686 [1.691e14], 4886412 [4.886e6])
+    │   │   │   │   │   │   │   │   ├─ [13319] RewardsController::handleAction(LucaMoneyVault: [0xc462cA16286a9a877a499f9474827bA801f2090D], 169137874608686 [1.691e14], 4886412 [4.886e6]) [delegatecall]
+    │   │   │   │   │   │   │   │   │   └─ ← [Stop]
+    │   │   │   │   │   │   │   │   └─ ← [Return]
+    │   │   │   │   │   │   │   ├─ emit Transfer(from: 0x0000000000000000000000000000000000000000, to: LucaMoneyVault: [0xc462cA16286a9a877a499f9474827bA801f2090D], value: 1397)
+    │   │   │   │   │   │   │   ├─ emit Mint(caller: AdapterAave: [0x2885AbC68bcDE804D65B9435AFdAE188C415910e], onBehalfOf: LucaMoneyVault: [0xc462cA16286a9a877a499f9474827bA801f2090D], value: 1397, balanceIncrease: 397, index: 1150404597775567879392176899 [1.15e27])
+    │   │   │   │   │   │   │   └─ ← [Return] false
+    │   │   │   │   │   │   └─ ← [Return] false
+    │   │   │   │   │   ├─ emit Supply(reserve: FiatTokenProxy: [0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913], user: AdapterAave: [0x2885AbC68bcDE804D65B9435AFdAE188C415910e], onBehalfOf: LucaMoneyVault: [0xc462cA16286a9a877a499f9474827bA801f2090D], amount: 1000, referralCode: 0)
+    │   │   │   │   │   └─ ← [Stop]
+    │   │   │   │   └─ ← [Stop]
+    │   │   │   └─ ← [Return]
+    │   │   ├─ emit Deposit(sender: LucaMoneyVault: [0xc462cA16286a9a877a499f9474827bA801f2090D], owner: LucaMoneyVault: [0xc462cA16286a9a877a499f9474827bA801f2090D], assets: 1000, shares: 1000)
+    │   │   └─ ← [Return] 1000
+    │   ├─ [3341] FiatTokenProxy::fallback(AdapterAave: [0x2885AbC68bcDE804D65B9435AFdAE188C415910e], 0)
+    │   │   ├─ [2673] FiatTokenV2_2::approve(AdapterAave: [0x2885AbC68bcDE804D65B9435AFdAE188C415910e], 0) [delegatecall]
+    │   │   │   ├─ emit Approval(owner: LucaMoneyVault: [0xc462cA16286a9a877a499f9474827bA801f2090D], spender: AdapterAave: [0x2885AbC68bcDE804D65B9435AFdAE188C415910e], value: 0)
+    │   │   │   └─ ← [Return] true
+    │   │   └─ ← [Return] true
+    │   └─ ← [Return] 990293258849646 [9.902e14]
+    ├─ [1281] LucaMoneyVault::balanceOf(Forwarder: [0xCD09f43D738b10584CaBfb2f73C3adA29fc5AD53]) [staticcall]
+    │   └─ ← [Return] 990293258849646 [9.902e14]
+    ├─ [1250] FiatTokenProxy::fallback(Forwarder: [0xCD09f43D738b10584CaBfb2f73C3adA29fc5AD53]) [staticcall]
+    │   ├─ [553] FiatTokenV2_2::balanceOf(Forwarder: [0xCD09f43D738b10584CaBfb2f73C3adA29fc5AD53]) [delegatecall]
+    │   │   └─ ← [Return] 0
+    │   └─ ← [Return] 0
+    ├─ [200546] LucaMoneyVault::redeem(990293258849646 [9.902e14], Forwarder: [0xCD09f43D738b10584CaBfb2f73C3adA29fc5AD53], Forwarder: [0xCD09f43D738b10584CaBfb2f73C3adA29fc5AD53])
+    │   ├─ [3428] InitializableImmutableAdminUpgradeabilityProxy::fallback(LucaMoneyVault: [0xc462cA16286a9a877a499f9474827bA801f2090D]) [staticcall]
+    │   │   ├─ [2823] ATokenInstance::balanceOf(LucaMoneyVault: [0xc462cA16286a9a877a499f9474827bA801f2090D]) [delegatecall]
+    │   │   │   ├─ [1516] InitializableImmutableAdminUpgradeabilityProxy::fallback(FiatTokenProxy: [0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913]) [staticcall]
+    │   │   │   │   ├─ [911] L2PoolInstance::getReserveNormalizedIncome(FiatTokenProxy: [0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913]) [delegatecall]
+    │   │   │   │   │   └─ ← [Return] 1150404597775567879392176899 [1.15e27]
+    │   │   │   │   └─ ← [Return] 1150404597775567879392176899 [1.15e27]
+    │   │   │   └─ ← [Return] 5622350 [5.622e6]
+    │   │   └─ ← [Return] 5622350 [5.622e6]
+    │   ├─ [469] AdapterAave::previewRedeem(5622350 [5.622e6]) [staticcall]
+    │   │   └─ ← [Return] 5622350 [5.622e6]
+    │   ├─ emit ZeroYieldAccrued(observedTotalAssets: 5622350 [5.622e6])
+    │   ├─ [3428] InitializableImmutableAdminUpgradeabilityProxy::fallback(LucaMoneyVault: [0xc462cA16286a9a877a499f9474827bA801f2090D]) [staticcall]
+    │   │   ├─ [2823] ATokenInstance::balanceOf(LucaMoneyVault: [0xc462cA16286a9a877a499f9474827bA801f2090D]) [delegatecall]
+    │   │   │   ├─ [1516] InitializableImmutableAdminUpgradeabilityProxy::fallback(FiatTokenProxy: [0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913]) [staticcall]
+    │   │   │   │   ├─ [911] L2PoolInstance::getReserveNormalizedIncome(FiatTokenProxy: [0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913]) [delegatecall]
+    │   │   │   │   │   └─ ← [Return] 1150404597775567879392176899 [1.15e27]
+    │   │   │   │   └─ ← [Return] 1150404597775567879392176899 [1.15e27]
+    │   │   │   └─ ← [Return] 5622350 [5.622e6]
+    │   │   └─ ← [Return] 5622350 [5.622e6]
+    │   ├─ [469] AdapterAave::previewRedeem(5622350 [5.622e6]) [staticcall]
+    │   │   └─ ← [Return] 5622350 [5.622e6]
+    │   ├─ [29942] AdapterAave::maxWithdraw(LucaMoneyVault: [0xc462cA16286a9a877a499f9474827bA801f2090D]) [staticcall]
+    │   │   ├─ [3428] InitializableImmutableAdminUpgradeabilityProxy::fallback(LucaMoneyVault: [0xc462cA16286a9a877a499f9474827bA801f2090D]) [staticcall]
+    │   │   │   ├─ [2823] ATokenInstance::balanceOf(LucaMoneyVault: [0xc462cA16286a9a877a499f9474827bA801f2090D]) [delegatecall]
+    │   │   │   │   ├─ [1516] InitializableImmutableAdminUpgradeabilityProxy::fallback(FiatTokenProxy: [0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913]) [staticcall]
+    │   │   │   │   │   ├─ [911] L2PoolInstance::getReserveNormalizedIncome(FiatTokenProxy: [0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913]) [delegatecall]
+    │   │   │   │   │   │   └─ ← [Return] 1150404597775567879392176899 [1.15e27]
+    │   │   │   │   │   └─ ← [Return] 1150404597775567879392176899 [1.15e27]
+    │   │   │   │   └─ ← [Return] 5622350 [5.622e6]
+    │   │   │   └─ ← [Return] 5622350 [5.622e6]
+    │   │   ├─ [3376] AaveProtocolDataProvider::getPaused(FiatTokenProxy: [0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913]) [staticcall]
+    │   │   │   ├─ [469] PoolAddressesProvider::getPool() [staticcall]
+    │   │   │   │   └─ ← [Return] InitializableImmutableAdminUpgradeabilityProxy: [0xA238Dd80C259a72e81d7e4664a9801593F98d1c5]
+    │   │   │   ├─ [1372] InitializableImmutableAdminUpgradeabilityProxy::fallback(FiatTokenProxy: [0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913]) [staticcall]
+    │   │   │   │   ├─ [767] L2PoolInstance::getConfiguration(FiatTokenProxy: [0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913]) [delegatecall]
+    │   │   │   │   │   └─ ← [Return] ReserveConfigurationMap({ data: 7237005577332262213973186568752004119305653224248996801175139707821393190220 [7.237e75] })
+    │   │   │   │   └─ ← [Return] ReserveConfigurationMap({ data: 7237005577332262213973186568752004119305653224248996801175139707821393190220 [7.237e75] })
+    │   │   │   └─ ← [Return] false
+    │   │   ├─ [3702] AaveProtocolDataProvider::getReserveConfigurationData(FiatTokenProxy: [0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913]) [staticcall]
+    │   │   │   ├─ [469] PoolAddressesProvider::getPool() [staticcall]
+    │   │   │   │   └─ ← [Return] InitializableImmutableAdminUpgradeabilityProxy: [0xA238Dd80C259a72e81d7e4664a9801593F98d1c5]
+    │   │   │   ├─ [1372] InitializableImmutableAdminUpgradeabilityProxy::fallback(FiatTokenProxy: [0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913]) [staticcall]
+    │   │   │   │   ├─ [767] L2PoolInstance::getConfiguration(FiatTokenProxy: [0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913]) [delegatecall]
+    │   │   │   │   │   └─ ← [Return] ReserveConfigurationMap({ data: 7237005577332262213973186568752004119305653224248996801175139707821393190220 [7.237e75] })
+    │   │   │   │   └─ ← [Return] ReserveConfigurationMap({ data: 7237005577332262213973186568752004119305653224248996801175139707821393190220 [7.237e75] })
+    │   │   │   └─ ← [Return] 6, 7500, 7800, 10500 [1.05e4], 1000, true, true, false, true, false
+    │   │   ├─ [15670] AaveProtocolDataProvider::getReserveData(FiatTokenProxy: [0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913]) [staticcall]
+    │   │   │   ├─ [469] PoolAddressesProvider::getPool() [staticcall]
+    │   │   │   │   └─ ← [Return] InitializableImmutableAdminUpgradeabilityProxy: [0xA238Dd80C259a72e81d7e4664a9801593F98d1c5]
+    │   │   │   ├─ [4619] InitializableImmutableAdminUpgradeabilityProxy::fallback(FiatTokenProxy: [0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913]) [staticcall]
+    │   │   │   │   ├─ [3936] L2PoolInstance::getReserveData(FiatTokenProxy: [0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913]) [delegatecall]
+    │   │   │   │   │   ├─ [546] PoolAddressesProvider::getAddress(0x4d4f434b5f535441424c455f4445425400000000000000000000000000000000) [staticcall]
+    │   │   │   │   │   │   └─ ← [Return] 0xaED3b56FeA82E809665f02AcBcDEc0816c75f4d9
+    │   │   │   │   │   └─ ← [Return] ReserveDataLegacy({ configuration: ReserveConfigurationMap({ data: 7237005577332262213973186568752004119305653224248996801175139707821393190220 [7.237e75] }), liquidityIndex: 1150404597775567879392176899 [1.15e27], currentLiquidityRate: 38055121499542939907640577 [3.805e25], variableBorrowIndex: 1208823693145714755872776353 [1.208e27], currentVariableBorrowRate: 47240108482632992501232947 [4.724e25], currentStableBorrowRate: 0, lastUpdateTimestamp: 1792699489 [1.792e9], id: 4, aTokenAddress: 0x4e65fE4DbA92790696d040ac24Aa414708F5c0AB, stableDebtTokenAddress: 0xaED3b56FeA82E809665f02AcBcDEc0816c75f4d9, variableDebtTokenAddress: 0x59dca05b6c26dbd64b5381374aAaC5CD05644C28, interestRateStrategyAddress: 0x86AB1C62A8bf868E1b3E1ab87d587Aba6fbCbDC5, accruedToTreasury: 1137923123 [1.137e9], unbacked: 0, isolationModeTotalDebt: 0 })
+    │   │   │   │   └─ ← [Return] ReserveDataLegacy({ configuration: ReserveConfigurationMap({ data: 7237005577332262213973186568752004119305653224248996801175139707821393190220 [7.237e75] }), liquidityIndex: 1150404597775567879392176899 [1.15e27], currentLiquidityRate: 38055121499542939907640577 [3.805e25], variableBorrowIndex: 1208823693145714755872776353 [1.208e27], currentVariableBorrowRate: 47240108482632992501232947 [4.724e25], currentStableBorrowRate: 0, lastUpdateTimestamp: 1792699489 [1.792e9], id: 4, aTokenAddress: 0x4e65fE4DbA92790696d040ac24Aa414708F5c0AB, stableDebtTokenAddress: 0xaED3b56FeA82E809665f02AcBcDEc0816c75f4d9, variableDebtTokenAddress: 0x59dca05b6c26dbd64b5381374aAaC5CD05644C28, interestRateStrategyAddress: 0x86AB1C62A8bf868E1b3E1ab87d587Aba6fbCbDC5, accruedToTreasury: 1137923123 [1.137e9], unbacked: 0, isolationModeTotalDebt: 0 })
+    │   │   │   ├─ [3099] InitializableImmutableAdminUpgradeabilityProxy::fallback() [staticcall]
+    │   │   │   │   ├─ [2497] ATokenInstance::totalSupply() [delegatecall]
+    │   │   │   │   │   ├─ [1516] InitializableImmutableAdminUpgradeabilityProxy::fallback(FiatTokenProxy: [0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913]) [staticcall]
+    │   │   │   │   │   │   ├─ [911] L2PoolInstance::getReserveNormalizedIncome(FiatTokenProxy: [0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913]) [delegatecall]
+    │   │   │   │   │   │   │   └─ ← [Return] 1150404597775567879392176899 [1.15e27]
+    │   │   │   │   │   │   └─ ← [Return] 1150404597775567879392176899 [1.15e27]
+    │   │   │   │   │   └─ ← [Return] 194576988608819 [1.945e14]
+    │   │   │   │   └─ ← [Return] 194576988608819 [1.945e14]
+    │   │   │   ├─ [3081] InitializableImmutableAdminUpgradeabilityProxy::fallback() [staticcall]
+    │   │   │   │   ├─ [2479] VariableDebtTokenInstance::totalSupply() [delegatecall]
+    │   │   │   │   │   ├─ [1472] InitializableImmutableAdminUpgradeabilityProxy::fallback(FiatTokenProxy: [0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913]) [staticcall]
+    │   │   │   │   │   │   ├─ [867] L2PoolInstance::getReserveNormalizedVariableDebt(FiatTokenProxy: [0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913]) [delegatecall]
+    │   │   │   │   │   │   │   └─ ← [Return] 1208823693145714755872776353 [1.208e27]
+    │   │   │   │   │   │   └─ ← [Return] 1208823693145714755872776353 [1.208e27]
+    │   │   │   │   │   └─ ← [Return] 174162205954677 [1.741e14]
+    │   │   │   │   └─ ← [Return] 174162205954677 [1.741e14]
+    │   │   │   └─ ← [Return] 0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000043d354330000000000000000000000000000000000000000000000000000b0f77c499933000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000009e664c6b52750000000000000000000000000000000000000000001f7a7c452bd75b13e3cd0100000000000000000000000000000000000000000027137b698a45122e1b753300000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000003b797a635103f927d13ab03000000000000000000000000000000000000000003e7ea5fb688eb8ef46860a1000000000000000000000000000000000000000000000000000000006ada6c61
+    │   │   └─ ← [Return] 5622350 [5.622e6]
+    │   ├─ [3428] InitializableImmutableAdminUpgradeabilityProxy::fallback(LucaMoneyVault: [0xc462cA16286a9a877a499f9474827bA801f2090D]) [staticcall]
+    │   │   ├─ [2823] ATokenInstance::balanceOf(LucaMoneyVault: [0xc462cA16286a9a877a499f9474827bA801f2090D]) [delegatecall]
+    │   │   │   ├─ [1516] InitializableImmutableAdminUpgradeabilityProxy::fallback(FiatTokenProxy: [0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913]) [staticcall]
+    │   │   │   │   ├─ [911] L2PoolInstance::getReserveNormalizedIncome(FiatTokenProxy: [0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913]) [delegatecall]
+    │   │   │   │   │   └─ ← [Return] 1150404597775567879392176899 [1.15e27]
+    │   │   │   │   └─ ← [Return] 1150404597775567879392176899 [1.15e27]
+    │   │   │   └─ ← [Return] 5622350 [5.622e6]
+    │   │   └─ ← [Return] 5622350 [5.622e6]
+    │   ├─ [469] AdapterAave::previewRedeem(5622350 [5.622e6]) [staticcall]
+    │   │   └─ ← [Return] 5622350 [5.622e6]
+    │   ├─ emit Transfer(from: Forwarder: [0xCD09f43D738b10584CaBfb2f73C3adA29fc5AD53], to: 0x0000000000000000000000000000000000000000, value: 990293258849646 [9.902e14])
+    │   ├─ [1250] FiatTokenProxy::fallback(Forwarder: [0xCD09f43D738b10584CaBfb2f73C3adA29fc5AD53]) [staticcall]
+    │   │   ├─ [553] FiatTokenV2_2::balanceOf(Forwarder: [0xCD09f43D738b10584CaBfb2f73C3adA29fc5AD53]) [delegatecall]
+    │   │   │   └─ ← [Return] 0
+    │   │   └─ ← [Return] 0
+    │   ├─ [249] AdapterAave::previewWithdraw(999) [staticcall]
+    │   │   └─ ← [Return] 999
+    │   ├─ [25265] InitializableImmutableAdminUpgradeabilityProxy::fallback(AdapterAave: [0x2885AbC68bcDE804D65B9435AFdAE188C415910e], 999)
+    │   │   ├─ [24657] ATokenInstance::approve(AdapterAave: [0x2885AbC68bcDE804D65B9435AFdAE188C415910e], 999) [delegatecall]
+    │   │   │   ├─ emit Approval(owner: LucaMoneyVault: [0xc462cA16286a9a877a499f9474827bA801f2090D], spender: AdapterAave: [0x2885AbC68bcDE804D65B9435AFdAE188C415910e], value: 999)
+    │   │   │   └─ ← [Return] true
+    │   │   └─ ← [Return] true
+    │   ├─ [108511] AdapterAave::withdraw(999, Forwarder: [0xCD09f43D738b10584CaBfb2f73C3adA29fc5AD53], LucaMoneyVault: [0xc462cA16286a9a877a499f9474827bA801f2090D])
+    │   │   ├─ [39961] InitializableImmutableAdminUpgradeabilityProxy::fallback(LucaMoneyVault: [0xc462cA16286a9a877a499f9474827bA801f2090D], AdapterAave: [0x2885AbC68bcDE804D65B9435AFdAE188C415910e], 999)
+    │   │   │   ├─ [39347] ATokenInstance::transferFrom(LucaMoneyVault: [0xc462cA16286a9a877a499f9474827bA801f2090D], AdapterAave: [0x2885AbC68bcDE804D65B9435AFdAE188C415910e], 999) [delegatecall]
+    │   │   │   │   ├─ [1516] InitializableImmutableAdminUpgradeabilityProxy::fallback(FiatTokenProxy: [0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913]) [staticcall]
+    │   │   │   │   │   ├─ [911] L2PoolInstance::getReserveNormalizedIncome(FiatTokenProxy: [0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913]) [delegatecall]
+    │   │   │   │   │   │   └─ ← [Return] 1150404597775567879392176899 [1.15e27]
+    │   │   │   │   │   └─ ← [Return] 1150404597775567879392176899 [1.15e27]
+    │   │   │   │   ├─ [1516] InitializableImmutableAdminUpgradeabilityProxy::fallback(FiatTokenProxy: [0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913]) [staticcall]
+    │   │   │   │   │   ├─ [911] L2PoolInstance::getReserveNormalizedIncome(FiatTokenProxy: [0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913]) [delegatecall]
+    │   │   │   │   │   │   └─ ← [Return] 1150404597775567879392176899 [1.15e27]
+    │   │   │   │   │   └─ ← [Return] 1150404597775567879392176899 [1.15e27]
+    │   │   │   │   ├─ [3116] InitializableImmutableAdminUpgradeabilityProxy::fallback(LucaMoneyVault: [0xc462cA16286a9a877a499f9474827bA801f2090D], 169137874609555 [1.691e14], 4887281 [4.887e6])
+    │   │   │   │   │   ├─ [2505] RewardsController::handleAction(LucaMoneyVault: [0xc462cA16286a9a877a499f9474827bA801f2090D], 169137874609555 [1.691e14], 4887281 [4.887e6]) [delegatecall]
+    │   │   │   │   │   │   └─ ← [Stop]
+    │   │   │   │   │   └─ ← [Return]
+    │   │   │   │   ├─ [5116] InitializableImmutableAdminUpgradeabilityProxy::fallback(AdapterAave: [0x2885AbC68bcDE804D65B9435AFdAE188C415910e], 169137874609555 [1.691e14], 0)
+    │   │   │   │   │   ├─ [4505] RewardsController::handleAction(AdapterAave: [0x2885AbC68bcDE804D65B9435AFdAE188C415910e], 169137874609555 [1.691e14], 0) [delegatecall]
+    │   │   │   │   │   │   └─ ← [Stop]
+    │   │   │   │   │   └─ ← [Return]
+    │   │   │   │   ├─ emit Transfer(from: LucaMoneyVault: [0xc462cA16286a9a877a499f9474827bA801f2090D], to: AdapterAave: [0x2885AbC68bcDE804D65B9435AFdAE188C415910e], value: 999)
+    │   │   │   │   ├─ emit BalanceTransfer(from: LucaMoneyVault: [0xc462cA16286a9a877a499f9474827bA801f2090D], to: AdapterAave: [0x2885AbC68bcDE804D65B9435AFdAE188C415910e], value: 869, index: 1150404597775567879392176899 [1.15e27])
+    │   │   │   │   ├─ [9780] InitializableImmutableAdminUpgradeabilityProxy::fallback(FiatTokenProxy: [0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913], LucaMoneyVault: [0xc462cA16286a9a877a499f9474827bA801f2090D], AdapterAave: [0x2885AbC68bcDE804D65B9435AFdAE188C415910e], 869, 4887281 [4.887e6])
+    │   │   │   │   │   ├─ [9157] L2PoolInstance::finalizeTransfer(FiatTokenProxy: [0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913], LucaMoneyVault: [0xc462cA16286a9a877a499f9474827bA801f2090D], AdapterAave: [0x2885AbC68bcDE804D65B9435AFdAE188C415910e], 869, 4887281 [4.887e6]) [delegatecall]
+    │   │   │   │   │   │   ├─ [2577] PoolAddressesProvider::getPriceOracle() [staticcall]
+    │   │   │   │   │   │   │   └─ ← [Return] 0x2Cc0Fc26eD4563A5ce5e8bdcfe1A2878676Ae156
+    │   │   │   │   │   │   ├─ [4176] SupplyLogic::8a5dadd1(0000000000000000000000000000000000000000000000000000000000000034000000000000000000000000000000000000000000000000000000000000003600000000000000000000000000000000000000000000000000000000000000370000000000000000000000000000000000000000000000000000000000000035000000000000000000000000833589fcd6edb6e08f4c7c32d4f71b54bda02913000000000000000000000000c462ca16286a9a877a499f9474827ba801f2090d0000000000000000000000002885abc68bcde804d65b9435afdae188c415910e000000000000000000000000000000000000000000000000000000000000036500000000000000000000000000000000000000000000000000000000004a92f10000000000000000000000002cc0fc26ed4563a5ce5e8bdcfe1a2878676ae1560000000000000000000000000000000000000000000000000000000000000000) [delegatecall]
+    │   │   │   │   │   │   │   └─ ← [Stop]
+    │   │   │   │   │   │   └─ ← [Stop]
+    │   │   │   │   │   └─ ← [Return]
+    │   │   │   │   └─ ← [Return] true
+    │   │   │   └─ ← [Return] true
+    │   │   ├─ [64314] InitializableImmutableAdminUpgradeabilityProxy::fallback(FiatTokenProxy: [0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913], 999, Forwarder: [0xCD09f43D738b10584CaBfb2f73C3adA29fc5AD53])
+    │   │   │   ├─ [63700] L2PoolInstance::withdraw(FiatTokenProxy: [0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913], 999, Forwarder: [0xCD09f43D738b10584CaBfb2f73C3adA29fc5AD53]) [delegatecall]
+    │   │   │   │   ├─ [577] PoolAddressesProvider::getPriceOracle() [staticcall]
+    │   │   │   │   │   └─ ← [Return] 0x2Cc0Fc26eD4563A5ce5e8bdcfe1A2878676Ae156
+    │   │   │   │   ├─ [58808] SupplyLogic::186dea44(0000000000000000000000000000000000000000000000000000000000000034000000000000000000000000000000000000000000000000000000000000003600000000000000000000000000000000000000000000000000000000000000379a0236086075e24367870667e489c8f5bfbca94083e92c5b6c4b6c585fddbdb70000000000000000000000002885abc68bcde804d65b9435afdae188c415910e000000000000000000000000833589fcd6edb6e08f4c7c32d4f71b54bda0291300000000000000000000000086ab1c62a8bf868e1b3e1ab87d587aba6fbcbdc500000000000000000000000000000000000000000000000000000000000003e7000000000000000000000000cd09f43d738b10584cabfb2f73c3ada29fc5ad530000000000000000000000002cc0fc26ed4563a5ce5e8bdcfe1a2878676ae1560000000000000000000000000000000000000000000000000000000000000000) [delegatecall]
+    │   │   │   │   │   ├─ [975] InitializableImmutableAdminUpgradeabilityProxy::fallback() [staticcall]
+    │   │   │   │   │   │   ├─ [373] VariableDebtTokenInstance::scaledTotalSupply() [delegatecall]
+    │   │   │   │   │   │   │   └─ ← [Return] 144075771299167 [1.44e14]
+    │   │   │   │   │   │   └─ ← [Return] 144075771299167 [1.44e14]
+    │   │   │   │   │   ├─ [1270] InitializableImmutableAdminUpgradeabilityProxy::fallback(AdapterAave: [0x2885AbC68bcDE804D65B9435AFdAE188C415910e]) [staticcall]
+    │   │   │   │   │   │   ├─ [665] ATokenInstance::scaledBalanceOf(AdapterAave: [0x2885AbC68bcDE804D65B9435AFdAE188C415910e]) [delegatecall]
+    │   │   │   │   │   │   │   └─ ← [Return] 869
+    │   │   │   │   │   │   └─ ← [Return] 869
+    │   │   │   │   │   ├─ [3705] DefaultReserveInterestRateStrategyV2::calculateInterestRates(CalculateInterestRatesParams({ unbacked: 30875030 [3.087e7], liquidityAdded: 0, liquidityTaken: 999, totalDebt: 174162205954677 [1.741e14], reserveFactor: 1000, reserve: 0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913, usingVirtualBalance: true, virtualUnderlyingBalance: 20415971327510 [2.041e13] })) [staticcall]
+    │   │   │   │   │   │   └─ ← [Return] 38055121499933703804117934 [3.805e25], 47240108482875531870413856 [4.724e25]
+    │   │   │   │   │   ├─ emit ReserveDataUpdated(reserve: FiatTokenProxy: [0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913], liquidityRate: 38055121499933703804117934 [3.805e25], stableBorrowRate: 0, variableBorrowRate: 47240108482875531870413856 [4.724e25], liquidityIndex: 1150404597775567879392176899 [1.15e27], variableBorrowIndex: 1208823693145714755872776353 [1.208e27])
+    │   │   │   │   │   ├─ [37854] InitializableImmutableAdminUpgradeabilityProxy::fallback(AdapterAave: [0x2885AbC68bcDE804D65B9435AFdAE188C415910e], Forwarder: [0xCD09f43D738b10584CaBfb2f73C3adA29fc5AD53], 999, 869, 1150404597775567879392176899 [1.15e27])
+    │   │   │   │   │   │   ├─ [37228] ATokenInstance::burn(AdapterAave: [0x2885AbC68bcDE804D65B9435AFdAE188C415910e], Forwarder: [0xCD09f43D738b10584CaBfb2f73C3adA29fc5AD53], 999, 869, 1150404597775567879392176899 [1.15e27]) [delegatecall]
+    │   │   │   │   │   │   │   ├─ [3116] InitializableImmutableAdminUpgradeabilityProxy::fallback(AdapterAave: [0x2885AbC68bcDE804D65B9435AFdAE188C415910e], 169137874609555 [1.691e14], 869)
+    │   │   │   │   │   │   │   │   ├─ [2505] RewardsController::handleAction(AdapterAave: [0x2885AbC68bcDE804D65B9435AFdAE188C415910e], 169137874609555 [1.691e14], 869) [delegatecall]
+    │   │   │   │   │   │   │   │   │   └─ ← [Stop]
+    │   │   │   │   │   │   │   │   └─ ← [Return]
+    │   │   │   │   │   │   │   ├─ emit Transfer(from: AdapterAave: [0x2885AbC68bcDE804D65B9435AFdAE188C415910e], to: 0x0000000000000000000000000000000000000000, value: 999)
+    │   │   │   │   │   │   │   ├─ emit Burn(from: AdapterAave: [0x2885AbC68bcDE804D65B9435AFdAE188C415910e], target: Forwarder: [0xCD09f43D738b10584CaBfb2f73C3adA29fc5AD53], value: 999, balanceIncrease: 0, index: 1150404597775567879392176899 [1.15e27])
+    │   │   │   │   │   │   │   ├─ [25263] FiatTokenProxy::fallback(Forwarder: [0xCD09f43D738b10584CaBfb2f73C3adA29fc5AD53], 999)
+    │   │   │   │   │   │   │   │   ├─ [24563] FiatTokenV2_2::transfer(Forwarder: [0xCD09f43D738b10584CaBfb2f73C3adA29fc5AD53], 999) [delegatecall]
+    │   │   │   │   │   │   │   │   │   ├─ emit Transfer(from: InitializableImmutableAdminUpgradeabilityProxy: [0x4e65fE4DbA92790696d040ac24Aa414708F5c0AB], to: Forwarder: [0xCD09f43D738b10584CaBfb2f73C3adA29fc5AD53], value: 999)
+    │   │   │   │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   │   └─ ← [Return] true
+    │   │   │   │   │   ├─ emit Withdraw(reserve: FiatTokenProxy: [0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913], user: AdapterAave: [0x2885AbC68bcDE804D65B9435AFdAE188C415910e], to: Forwarder: [0xCD09f43D738b10584CaBfb2f73C3adA29fc5AD53], amount: 999)
+    │   │   │   │   │   └─ ← [Return] 0x00000000000000000000000000000000000000000000000000000000000003e7
+    │   │   │   │   └─ ← [Return] 999
+    │   │   │   └─ ← [Return] 999
+    │   │   ├─ emit Withdraw(sender: LucaMoneyVault: [0xc462cA16286a9a877a499f9474827bA801f2090D], receiver: Forwarder: [0xCD09f43D738b10584CaBfb2f73C3adA29fc5AD53], owner: LucaMoneyVault: [0xc462cA16286a9a877a499f9474827bA801f2090D], assets: 999, shares: 999)
+    │   │   └─ ← [Return] 999
+    │   ├─ [3265] InitializableImmutableAdminUpgradeabilityProxy::fallback(AdapterAave: [0x2885AbC68bcDE804D65B9435AFdAE188C415910e], 0)
+    │   │   ├─ [2657] ATokenInstance::approve(AdapterAave: [0x2885AbC68bcDE804D65B9435AFdAE188C415910e], 0) [delegatecall]
+    │   │   │   ├─ emit Approval(owner: LucaMoneyVault: [0xc462cA16286a9a877a499f9474827bA801f2090D], spender: AdapterAave: [0x2885AbC68bcDE804D65B9435AFdAE188C415910e], value: 0)
+    │   │   │   └─ ← [Return] true
+    │   │   └─ ← [Return] true
+    │   ├─ [1250] FiatTokenProxy::fallback(Forwarder: [0xCD09f43D738b10584CaBfb2f73C3adA29fc5AD53]) [staticcall]
+    │   │   ├─ [553] FiatTokenV2_2::balanceOf(Forwarder: [0xCD09f43D738b10584CaBfb2f73C3adA29fc5AD53]) [delegatecall]
+    │   │   │   └─ ← [Return] 999
+    │   │   └─ ← [Return] 999
+    │   ├─ emit Withdraw(sender: Forwarder: [0xCD09f43D738b10584CaBfb2f73C3adA29fc5AD53], receiver: Forwarder: [0xCD09f43D738b10584CaBfb2f73C3adA29fc5AD53], owner: Forwarder: [0xCD09f43D738b10584CaBfb2f73C3adA29fc5AD53], assets: 999, shares: 990293258849646 [9.902e14])
+    │   └─ ← [Return] 999
+    ├─ [1250] FiatTokenProxy::fallback(Forwarder: [0xCD09f43D738b10584CaBfb2f73C3adA29fc5AD53]) [staticcall]
+    │   ├─ [553] FiatTokenV2_2::balanceOf(Forwarder: [0xCD09f43D738b10584CaBfb2f73C3adA29fc5AD53]) [delegatecall]
+    │   │   └─ ← [Return] 999
+    │   └─ ← [Return] 999
+    ├─ [1250] FiatTokenProxy::fallback(Forwarder: [0xCD09f43D738b10584CaBfb2f73C3adA29fc5AD53]) [staticcall]
+    │   ├─ [553] FiatTokenV2_2::balanceOf(Forwarder: [0xCD09f43D738b10584CaBfb2f73C3adA29fc5AD53]) [delegatecall]
+    │   │   └─ ← [Return] 999
+    │   └─ ← [Return] 999
+    ├─ [5363] FiatTokenProxy::fallback(0x18e129122a338f2e6871764fe0e4426dE848Ef99, 999)
+    │   ├─ [4663] FiatTokenV2_2::transfer(0x18e129122a338f2e6871764fe0e4426dE848Ef99, 999) [delegatecall]
+    │   │   ├─ emit Transfer(from: Forwarder: [0xCD09f43D738b10584CaBfb2f73C3adA29fc5AD53], to: 0x18e129122a338f2e6871764fe0e4426dE848Ef99, value: 999)
+    │   │   └─ ← [Return] true
+    │   └─ ← [Return] true
+    ├─ [3341] FiatTokenProxy::fallback(LucaMoneyVault: [0xc462cA16286a9a877a499f9474827bA801f2090D], 0)
+    │   ├─ [2673] FiatTokenV2_2::approve(LucaMoneyVault: [0xc462cA16286a9a877a499f9474827bA801f2090D], 0) [delegatecall]
+    │   │   ├─ emit Approval(owner: Forwarder: [0xCD09f43D738b10584CaBfb2f73C3adA29fc5AD53], spender: LucaMoneyVault: [0xc462cA16286a9a877a499f9474827bA801f2090D], value: 0)
+    │   │   └─ ← [Return] true
+    │   └─ ← [Return] true
+    ├─ emit VaultUpdated(previousVault: 0x0000000000000000000000000000000000000000, newVault: LucaMoneyVault: [0xc462cA16286a9a877a499f9474827bA801f2090D], healthCheckShares: 990293258849646 [9.902e14], healthCheckAssets: 999)
+    ├─ emit RoutingModeUpdated(previousMode: 0, newMode: 0)
+    ├─ emit RoleGranted(role: 0x6c0757dc3e6b28b2580c03fd9e96c274acf4f99d91fbec9b418fa1d70604ff1c, account: 0xa737cB590c0F4d00D2140a429728681e1e74C5db, sender: 0x18e129122a338f2e6871764fe0e4426dE848Ef99)
+    ├─ emit RoleGranted(role: 0x6c0757dc3e6b28b2580c03fd9e96c274acf4f99d91fbec9b418fa1d70604ff1c, account: 0x31B5aBcF044049daa96cDC387a44747a48a0ac62, sender: 0x18e129122a338f2e6871764fe0e4426dE848Ef99)
+    ├─ emit RoleGranted(role: 0x6c0757dc3e6b28b2580c03fd9e96c274acf4f99d91fbec9b418fa1d70604ff1c, account: 0x61D4d1Ab7eA7B3A54C7B2D646Eb8189faD7B1050, sender: 0x18e129122a338f2e6871764fe0e4426dE848Ef99)
+    ├─ emit RoleGranted(role: 0x6c0757dc3e6b28b2580c03fd9e96c274acf4f99d91fbec9b418fa1d70604ff1c, account: 0xa82a5201E630b40914bf4fed0B0b40180BCB93F7, sender: 0x18e129122a338f2e6871764fe0e4426dE848Ef99)
+    ├─ emit RoleGranted(role: 0x6c0757dc3e6b28b2580c03fd9e96c274acf4f99d91fbec9b418fa1d70604ff1c, account: 0xe3685F1C0652430e501B314b3035CB7Dd5b21c5f, sender: 0x18e129122a338f2e6871764fe0e4426dE848Ef99)
+    ├─ emit RoleGranted(role: 0x6c0757dc3e6b28b2580c03fd9e96c274acf4f99d91fbec9b418fa1d70604ff1c, account: 0x5aDF0B683B49217704eff3f85eda468651C50A48, sender: 0x18e129122a338f2e6871764fe0e4426dE848Ef99)
+    ├─ emit RoleGranted(role: 0x6c0757dc3e6b28b2580c03fd9e96c274acf4f99d91fbec9b418fa1d70604ff1c, account: 0x18e129122a338f2e6871764fe0e4426dE848Ef99, sender: 0x18e129122a338f2e6871764fe0e4426dE848Ef99)
+    ├─ emit RoleGranted(role: 0xc3144799d744af118b620bad1dd856d1c8733359e68aa889f4743e8d2498e4ac, account: 0xa737cB590c0F4d00D2140a429728681e1e74C5db, sender: 0x18e129122a338f2e6871764fe0e4426dE848Ef99)
+    ├─ emit RoleGranted(role: 0xc3144799d744af118b620bad1dd856d1c8733359e68aa889f4743e8d2498e4ac, account: 0x31B5aBcF044049daa96cDC387a44747a48a0ac62, sender: 0x18e129122a338f2e6871764fe0e4426dE848Ef99)
+    ├─ emit RoleGranted(role: 0xc3144799d744af118b620bad1dd856d1c8733359e68aa889f4743e8d2498e4ac, account: 0x61D4d1Ab7eA7B3A54C7B2D646Eb8189faD7B1050, sender: 0x18e129122a338f2e6871764fe0e4426dE848Ef99)
+    ├─ emit RoleGranted(role: 0xc3144799d744af118b620bad1dd856d1c8733359e68aa889f4743e8d2498e4ac, account: 0xa82a5201E630b40914bf4fed0B0b40180BCB93F7, sender: 0x18e129122a338f2e6871764fe0e4426dE848Ef99)
+    ├─ emit RoleGranted(role: 0xc3144799d744af118b620bad1dd856d1c8733359e68aa889f4743e8d2498e4ac, account: 0xe3685F1C0652430e501B314b3035CB7Dd5b21c5f, sender: 0x18e129122a338f2e6871764fe0e4426dE848Ef99)
+    ├─ emit RoleGranted(role: 0xc3144799d744af118b620bad1dd856d1c8733359e68aa889f4743e8d2498e4ac, account: 0x5aDF0B683B49217704eff3f85eda468651C50A48, sender: 0x18e129122a338f2e6871764fe0e4426dE848Ef99)
+    ├─ emit RoleGranted(role: 0xc3144799d744af118b620bad1dd856d1c8733359e68aa889f4743e8d2498e4ac, account: 0x18e129122a338f2e6871764fe0e4426dE848Ef99, sender: 0x18e129122a338f2e6871764fe0e4426dE848Ef99)
+    └─ ← [Return] 11965 bytes of code
+
+
+==========================
+
+Chain 8453
+
+Estimated gas price: 0.010969067 gwei
+
+Estimated total gas used for script: 4843728
+
+Estimated amount required: 0.000053131176961776 ETH
+
+==========================
+
+=== Transactions that will be broadcast ===
+
+
+Chain 8453
+
+### Transaction 1 ###
+
+accessList           []
+chainId              8453
+gasLimit             81058
+gasPrice             
+input                0x095ea7b3000000000000000000000000cd09f43d738b10584cabfb2f73c3ada29fc5ad5300000000000000000000000000000000000000000000000000000000000003e8
+maxFeePerBlobGas     
+maxFeePerGas         
+maxPriorityFeePerGas 
+nonce                258
+to                   0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913
+type                 0
+value                0
+data (decoded): approve(address,uint256)(
+  0xCD09f43D738b10584CaBfb2f73C3adA29fc5AD53,
+  1000
+)
+
+### Transaction 2 ###
+
+accessList           []
+chainId              8453
+gasLimit             4762670
+gasPrice             
+input                0x60a060405234801561000f575f5ffd5b50604051613ef6380380613ef683398101604081905261002e91610e16565b85876001600160a01b03811661005e57604051636116401160e11b81525f60048201526024015b60405180910390fd5b600180546001600160d01b0316600160d01b65ffffffffffff8516021790556100875f82610234565b5050506001600160a01b0388166100b15760405163d92e233d60e01b815260040160405180910390fd5b6001600160a01b0388166080526100c7856102a3565b6001600160a01b038416156100df576100df84610350565b6100e88361044d565b5f5b8251811015610190575f6001600160a01b031683828151811061010f5761010f610eef565b60200260200101516001600160a01b03160361013e5760405163d92e233d60e01b815260040160405180910390fd5b6101877f6c0757dc3e6b28b2580c03fd9e96c274acf4f99d91fbec9b418fa1d70604ff1c84838151811061017457610174610eef565b602002602001015161023460201b60201c565b506001016100ea565b505f5b8151811015610226575f6001600160a01b03168282815181106101b8576101b8610eef565b60200260200101516001600160a01b0316036101e75760405163d92e233d60e01b815260040160405180910390fd5b61021d7fc3144799d744af118b620bad1dd856d1c8733359e68aa889f4743e8d2498e4ac83838151811061017457610174610eef565b50600101610193565b505050505050505050610faa565b5f82610290575f61024d6002546001600160a01b031690565b6001600160a01b03161461027457604051631fe1e13d60e11b815260040160405180910390fd5b600280546001600160a01b0319166001600160a01b0384161790555b61029a8383610561565b90505b92915050565b6001600160a01b03811615806102c157506001600160a01b03811630145b156102ea576040516312b31bfd60e11b81526001600160a01b0382166004820152602401610055565b6003546040516001600160a01b0380841692610100900416907f4ab5be82436d353e61ca18726e984e561f5c1cc7c6d38b29d2553c790434705a905f90a3600380546001600160a01b0390921661010002610100600160a81b0319909216919091179055565b61035981610608565b6004546001600160a01b0316801561038257608051610382906001600160a01b0316825f610712565b5f8061038d84610791565b600480546001600160a01b0319166001600160a01b03881617905590925090506103f1845f600454600160a01b900460ff1660038111156103d0576103d0610f03565b146103dc575f196103de565b5f5b6080516001600160a01b03169190610712565b836001600160a01b0316836001600160a01b03167f14201b91060755cd0a1539d43fd1451616255fe7197bcc21f3f0e258441288b0848460405161043f929190918252602082015260400190565b60405180910390a350505050565b600454600160a01b900460ff165f8082600381111561046e5761046e610f03565b141590505f8084600381111561048657610486610f03565b141590508080156104a057506004546001600160a01b0316155b156104be57604051630647140b60e51b815260040160405180910390fd5b6004805485919060ff60a01b1916600160a01b8360038111156104e3576104e3610f03565b02179055508115158115151461052257600454610522906001600160a01b03168261050e575f6103de565b6080516001600160a01b0316905f19610712565b7f768d4b222f37af94172600113ec0230880d694638e6dc7d846090ad36de3fbdc8385604051610553929190610f37565b60405180910390a150505050565b5f828152602081815260408083206001600160a01b038516845290915281205460ff16610601575f838152602081815260408083206001600160a01b03861684529091529020805460ff191660011790556105b93390565b6001600160a01b0316826001600160a01b0316847f2f8788117e7eff1d82e926ec794901d17c78024a50270940304540a733656f0d60405160405180910390a450600161029d565b505f61029d565b6001600160a01b03811661062f5760405163d92e233d60e01b815260040160405180910390fd5b806001600160a01b03163b5f0361066457604051636a2bda4760e01b81526001600160a01b0382166004820152602401610055565b5f816001600160a01b03166338d52e0f6040518163ffffffff1660e01b8152600401602060405180830381865afa1580156106a1573d5f5f3e3d5ffd5b505050506040513d601f19601f820116820180604052508101906106c59190610f59565b90506080516001600160a01b0316816001600160a01b03161461070e5760405163dd72360360e01b81526001600160a01b03808416600483015282166024820152604401610055565b5050565b61071e8383835f610bc8565b61078c5761072f83835f6001610bc8565b61075757604051635274afe760e01b81526001600160a01b0384166004820152602401610055565b6107648383836001610bc8565b61078c57604051635274afe760e01b81526001600160a01b0384166004820152602401610055565b505050565b6080516040516370a0823160e01b81523060048201525f91829182916001600160a01b0316906370a0823190602401602060405180830381865afa1580156107db573d5f5f3e3d5ffd5b505050506040513d601f19601f820116820180604052508101906107ff9190610f74565b60805190915061081c906001600160a01b031633306103e8610c2a565b608051610835906001600160a01b0316856103e8610712565b6040516370a0823160e01b81523060048201525f906001600160a01b038616906370a0823190602401602060405180830381865afa158015610879573d5f5f3e3d5ffd5b505050506040513d601f19601f8201168201806040525081019061089d9190610f74565b604051636e553f6560e01b81526103e860048201523060248201529091506001600160a01b03861690636e553f65906044016020604051808303815f875af11580156108eb573d5f5f3e3d5ffd5b505050506040513d601f19601f8201168201806040525081019061090f9190610f74565b506040516370a0823160e01b815230600482015281906001600160a01b038716906370a0823190602401602060405180830381865afa158015610954573d5f5f3e3d5ffd5b505050506040513d601f19601f820116820180604052508101906109789190610f74565b6109829190610f8b565b9350835f036109af57604051631f5f9f5f60e11b81526001600160a01b0386166004820152602401610055565b6080516040516370a0823160e01b81523060048201525f916001600160a01b0316906370a0823190602401602060405180830381865afa1580156109f5573d5f5f3e3d5ffd5b505050506040513d601f19601f82011682018060405250810190610a199190610f74565b604051635d043b2960e11b815260048101879052306024820181905260448201529091506001600160a01b0387169063ba087652906064016020604051808303815f875af1158015610a6d573d5f5f3e3d5ffd5b505050506040513d601f19601f82011682018060405250810190610a919190610f74565b506080516040516370a0823160e01b815230600482015282916001600160a01b0316906370a0823190602401602060405180830381865afa158015610ad8573d5f5f3e3d5ffd5b505050506040513d601f19601f82011682018060405250810190610afc9190610f74565b610b069190610f8b565b9350835f03610b3357604051631c651eb360e11b81526001600160a01b0387166004820152602401610055565b6080516040516370a0823160e01b8152306004820152610bc091339186916001600160a01b0316906370a0823190602401602060405180830381865afa158015610b7f573d5f5f3e3d5ffd5b505050506040513d601f19601f82011682018060405250810190610ba39190610f74565b610bad9190610f8b565b6080516001600160a01b03169190610c66565b505050915091565b60405163095ea7b360e01b5f8181526001600160a01b038616600452602485905291602083604481808b5af1925060015f51148316610c1e578383151615610c12573d5f823e3d81fd5b5f873b113d1516831692505b60405250949350505050565b610c38848484846001610c73565b610c6057604051635274afe760e01b81526001600160a01b0385166004820152602401610055565b50505050565b6107648383836001610ce0565b6040516323b872dd60e01b5f8181526001600160a01b038781166004528616602452604485905291602083606481808c5af1925060015f51148316610ccf578383151615610cc3573d5f823e3d81fd5b5f883b113d1516831692505b604052505f60605295945050505050565b60405163a9059cbb60e01b5f8181526001600160a01b038616600452602485905291602083604481808b5af1925060015f51148316610c1e578383151615610c12573d5f823e3d81fd5b6001600160a01b0381168114610d3e575f5ffd5b50565b8051610d4c81610d2a565b919050565b805160048110610d4c575f5ffd5b634e487b7160e01b5f52604160045260245ffd5b5f82601f830112610d82575f5ffd5b81516001600160401b03811115610d9b57610d9b610d5f565b604051600582901b90603f8201601f191681016001600160401b0381118282101715610dc957610dc9610d5f565b604052918252602081850181019290810186841115610de6575f5ffd5b6020860192505b83831015610e0c57610dfe83610d41565b815260209283019201610ded565b5095945050505050565b5f5f5f5f5f5f5f5f610100898b031215610e2e575f5ffd5b8851610e3981610d2a565b60208a0151909850610e4a81610d2a565b60408a015190975065ffffffffffff81168114610e65575f5ffd5b9550610e7360608a01610d41565b9450610e8160808a01610d41565b9350610e8f60a08a01610d51565b60c08a01519093506001600160401b03811115610eaa575f5ffd5b610eb68b828c01610d73565b60e08b015190935090506001600160401b03811115610ed3575f5ffd5b610edf8b828c01610d73565b9150509295985092959890939650565b634e487b7160e01b5f52603260045260245ffd5b634e487b7160e01b5f52602160045260245ffd5b60048110610f3357634e487b7160e01b5f52602160045260245ffd5b9052565b60408101610f458285610f17565b610f526020830184610f17565b9392505050565b5f60208284031215610f69575f5ffd5b8151610f5281610d2a565b5f60208284031215610f84575f5ffd5b5051919050565b8181038181111561029d57634e487b7160e01b5f52601160045260245ffd5b608051612ebd6110395f395f818161053801528181610af001528181611032015281816110fa015281816112860152818161159401528181611851015281816118d70152818161194f0152818161198601528181611b4001528181611c4101528181611d0e01528181611d8b01528181611f5201528181611fd50152818161219701526123d20152612ebd5ff3fe608060405234801561000f575f5ffd5b5060043610610332575f3560e01c806390281ae5116101af578063cefc1429116100fe578063e6e55ae91161009e578063f0f4426011610079578063f0f44260146106e8578063f11ee845146106fb578063fbfa77cf14610704578063fc82f08414610717575f5ffd5b8063e6e55ae9146106b8578063e8964a0e146106cb578063ee893cf3146106de575f5ffd5b8063d602b9fd116100d9578063d602b9fd1461067f578063d696a7da14610687578063d73792a91461069a578063e4df00cc146106a4575f5ffd5b8063cefc142914610636578063cf6eefb71461063e578063d547741f1461066c575f5ffd5b8063a217fddf11610169578063b3aab40111610144578063b3aab401146105eb578063bdb6412c14610612578063c0cd7c4e14610625578063cc8463c81461062e575f5ffd5b8063a217fddf146105d4578063a775945d146105db578063a9772f03146105e3575f5ffd5b806390281ae51461056257806391792d5b1461056b57806391d1485414610574578063960bfe041461058757806399a5d7471461059a578063a1eda53c146105ad575f5ffd5b80633f4ba83a1161028557806361d027b3116102255780638456cb59116102005780638456cb591461051a57806384ef8ffc1461052257806389a30271146105335780638da5cb5b1461055a575f5ffd5b806361d027b3146104dc578063634e93da146104f4578063649a5ec714610507575f5ffd5b80634460d3cf116102605780634460d3cf14610480578063483b83c81461049357806352113ba7146104a65780635c975abb146104d1575f5ffd5b80633f4ba83a1461045b578063412f9a9d1461046357806342cde4e814610477575f5ffd5b80630cf4ed5c116102f05780632f2ff15d116102cb5780632f2ff15d1461040f57806336568abe1461042257806337de8106146104355780633f37297c14610448575f5ffd5b80630cf4ed5c146103c357806321f7a6c6146103cc578063248a9ca3146103ed575f5ffd5b8062762c6c1461033657806301ffc9a714610353578063022d63fb1461037657806305db2f411461039257806307c876d6146103a65780630aa6220b146103bb575b5f5ffd5b6103406203f48081565b6040519081526020015b60405180910390f35b610366610361366004612b20565b61071f565b604051901515815260200161034a565b620697805b60405165ffffffffffff909116815260200161034a565b6103405f516020612e685f395f51905f5281565b6103b96103b4366004612b53565b610749565b005b6103b9610770565b61034060095481565b6004546103e090600160a01b900460ff1681565b60405161034a9190612b9e565b6103406103fb366004612bb1565b5f9081526020819052604090206001015490565b6103b961041d366004612bdc565b610785565b6103b9610430366004612bdc565b6107ad565b6103b9610443366004612bb1565b610858565b6103b9610456366004612b53565b610885565b6103b96108ce565b6004546103e090600160a81b900460ff1681565b61034060055481565b6103b961048e366004612c0a565b6108e0565b6103b96104a1366004612c0a565b6109d4565b6008546104b9906001600160a01b031681565b6040516001600160a01b03909116815260200161034a565b60035460ff16610366565b6003546104b99061010090046001600160a01b031681565b6103b9610502366004612c0a565b610b20565b6103b9610515366004612c25565b610b33565b6103b9610b46565b6002546001600160a01b03166104b9565b6104b97f000000000000000000000000000000000000000000000000000000000000000081565b6104b9610bae565b6103406103e881565b61034060065481565b610366610582366004612bdc565b610bc6565b6103b9610595366004612bb1565b610bee565b6103406105a8366004612bb1565b610c12565b6105b5610cf0565b6040805165ffffffffffff93841681529290911660208301520161034a565b6103405f81565b6103b9610d42565b6103b9610dcc565b6103407fc3144799d744af118b620bad1dd856d1c8733359e68aa889f4743e8d2498e4ac81565b6103b9610620366004612b53565b610ec7565b61034061271081565b61037b610f03565b6103b9610f61565b610646610fa0565b604080516001600160a01b03909316835265ffffffffffff90911660208301520161034a565b6103b961067a366004612bdc565b610fc1565b6103b9610fe9565b6103b9610695366004612bb1565b610ffb565b610340620186a081565b6004546103e090600160b01b900460ff1681565b6103b96106c6366004612c4a565b611028565b6103b96106d9366004612c89565b611329565b6103406298968081565b6103b96106f6366004612c0a565b6113c5565b61034060075481565b6004546104b9906001600160a01b031681565b6103b96113d8565b5f6001600160e01b031982166318a4c3c360e11b1480610743575061074382611453565b92915050565b5f61075381611487565b61075b611491565b610764826114c6565b61076c6115fa565b5050565b5f61077a81611487565b610782611624565b50565b816107a357604051631fe1e13d60e11b815260040160405180910390fd5b61076c828261162e565b811580156107c857506002546001600160a01b038281169116145b1561084e575f5f6107d7610fa0565b90925090506001600160a01b0382161515806107f9575065ffffffffffff8116155b8061080c57504265ffffffffffff821610155b15610839576040516319ca5ebb60e01b815265ffffffffffff821660048201526024015b60405180910390fd5b50506001805465ffffffffffff60a01b191690555b61076c8282611658565b5f516020612e685f395f51905f5261086f81611487565b6108788261168b565b600682905561076c6116b2565b5f516020612e685f395f51905f5261089c81611487565b6004805483919060ff60a81b1916600160a81b8360038111156108c1576108c1612b6e565b021790555061076c6116b2565b5f6108d881611487565b61078261170e565b5f6108ea81611487565b6108f2611491565b6003546040516370a0823160e01b81523060048201526101009091046001600160a01b03908116915f918516906370a0823190602401602060405180830381865afa158015610943573d5f5f3e3d5ffd5b505050506040513d601f19601f820116820180604052508101906109679190612cd6565b905061097d6001600160a01b038516838361175b565b816001600160a01b0316846001600160a01b03167f4143f7b5cb6ea007914c32b8a3e64cebc051d7f493fa0755454da1e47701e125836040516109c291815260200190565b60405180910390a3505061076c6115fa565b5f6109de81611487565b6109e6611491565b6008546001600160a01b031615610a1f57600854604051630227cb5d60e11b81526001600160a01b039091166004820152602401610830565b610a2882611790565b6004546001600160a01b0390811690831603610a625760405163c39822bf60e01b81526001600160a01b0383166004820152602401610830565b5f610a706203f48042612d01565b600880546001600160a01b0319166001600160a01b0386811691821790925560098390556004546040805185815233602082015294955091939216917f63df1b9fbb4093deab712b6b30c222e7c9f0d792e49617e685d9760685172067910160405180910390a3610ae0836118b4565b50610b1790506001600160a01b037f000000000000000000000000000000000000000000000000000000000000000016845f611dba565b5061076c6115fa565b5f610b2a81611487565b61076c82611e0c565b5f610b3d81611487565b61076c82611e7e565b610b5d5f516020612e685f395f51905f5233610bc6565b158015610b715750610b6f5f33610bc6565b155b15610ba45760405163e2517d3f60e01b81523360048201525f516020612e685f395f51905f526024820152604401610830565b610bac611eed565b565b5f610bc16002546001600160a01b031690565b905090565b5f918252602082815260408084206001600160a01b0393909316845291905290205460ff1690565b5f516020612e685f395f51905f52610c0581611487565b600582905561076c6116b2565b5f610c1f60035460ff1690565b15610c2b57505f919050565b5f600554831115610c4857600454600160b01b900460ff16610c56565b600454600160a81b900460ff165b90505f816003811115610c6b57610c6b612b6e565b03610c7857505f92915050565b6001816003811115610c8c57610c8c612b6e565b03610c9b575050600654919050565b5f620186a060075485610cae9190612d14565b610cb89190612d2b565b90506002826003811115610cce57610cce612b6e565b03610cda579392505050565b80600654610ce89190612d01565b949350505050565b6002545f90600160d01b900465ffffffffffff168015158015610d1b57504265ffffffffffff821610155b610d26575f5f610d3a565b600254600160a01b900465ffffffffffff16815b915091509091565b5f610d4c81611487565b610d54611491565b6008546001600160a01b031680610d7e5760405163652588ab60e01b815260040160405180910390fd5b60095442811115610da55760405163446f743f60e11b815260048101829052602401610830565b600880546001600160a01b03191690555f600955610dc282611f2a565b50506107826115fa565b610df67fc3144799d744af118b620bad1dd856d1c8733359e68aa889f4743e8d2498e4ac33610bc6565b158015610e0a5750610e085f33610bc6565b155b15610e505760405163e2517d3f60e01b81523360048201527fc3144799d744af118b620bad1dd856d1c8733359e68aa889f4743e8d2498e4ac6024820152604401610830565b6008546001600160a01b031680610e7a5760405163652588ab60e01b815260040160405180910390fd5b600880546001600160a01b03191690555f600981905560405133916001600160a01b038416917f50ccaeb9129ed14d988cbaf2c15832e548440dc13da59c0f9980727afc5c877b9190a350565b5f516020612e685f395f51905f52610ede81611487565b6004805483919060ff60b01b1916600160b01b8360038111156108c1576108c1612b6e565b6002545f90600160d01b900465ffffffffffff168015158015610f2d57504265ffffffffffff8216105b610f4857600154600160d01b900465ffffffffffff16610f5b565b600254600160a01b900465ffffffffffff165b91505090565b5f610f6a610fa0565b509050336001600160a01b03821614610f9857604051636116401160e11b8152336004820152602401610830565b610782612060565b6001546001600160a01b03811691600160a01b90910465ffffffffffff1690565b81610fdf57604051631fe1e13d60e11b815260040160405180910390fd5b61076c82826120f6565b5f610ff381611487565b61078261211a565b5f516020612e685f395f51905f5261101281611487565b61101b82612124565b600782905561076c6116b2565b611030611491565b7f00000000000000000000000000000000000000000000000000000000000000006001600160a01b0316836001600160a01b03161461108d57604051635f8b555b60e11b81526001600160a01b0384166004820152602401610830565b6001600160a01b03811615806110ab57506001600160a01b03811630145b156110d457604051630bc2c5df60e11b81526001600160a01b0382166004820152602401610830565b5f6110de83610c12565b90505f6110eb8285612d4a565b90506111226001600160a01b037f00000000000000000000000000000000000000000000000000000000000000001633308761214a565b60045460035460ff600160a01b830416916001600160a01b03908116916101009004165f80600185600381111561115b5761115b612b6e565b14806111785750600385600381111561117657611176612b6e565b145b1561127457604051636e553f6560e01b8152600481018790526001600160a01b038981166024830152851690636e553f65906044016020604051808303815f875af19250505080156111e7575060408051601f3d908101601f191682019092526111e491810190612cd6565b60015b61126d573d808015611214576040519150601f19603f3d011682016040523d82523d5f602084013e611219565b606091505b50846001600160a01b0316896001600160a01b03167f08c5e1b3fe5213b176d0169a9ee8fa8f92efa674cf24798ec49c8561063222bd898460405161125f929190612d5d565b60405180910390a350611274565b6001925090505b816112ad576112ad6001600160a01b037f000000000000000000000000000000000000000000000000000000000000000016898861175b565b604080518a8152602081018990529081018790528215156060820152608081018290526001600160a01b0389169033907f7cb93f96a786121157d2e2ab30161f4f615dd3fe7541c6c65c259a6dc30e51249060a00160405180910390a3611315858585612180565b505050505050506113246115fa565b505050565b5f516020612e685f395f51905f5261134081611487565b6113498361168b565b61135282612124565b6004805487919060ff60a81b1916600160a81b83600381111561137757611377612b6e565b02179055506004805486919060ff60b01b1916600160b01b8360038111156113a1576113a1612b6e565b02179055506005849055600683905560078290556113bd6116b2565b505050505050565b5f6113cf81611487565b61076c8261248f565b5f6113e281611487565b6113ea611491565b60035461010090046001600160a01b031647611406828261253c565b816001600160a01b03167fe3eb98b7fe2a0c1d490b92af73eeae611e9b00ab3c3f70b20bd7bb43f67a0f438260405161144191815260200190565b60405180910390a250506107826115fa565b5f6001600160e01b03198216637965db0b60e01b148061074357506301ffc9a760e01b6001600160e01b0319831614610743565b61078281336125af565b6114996125e8565b610bac60017f9b779b17422d0df92223018b32b4d1fa46e071723d6817e2486d003becc55f005b90612628565b600454600160a01b900460ff165f808260038111156114e7576114e7612b6e565b141590505f808460038111156114ff576114ff612b6e565b1415905080801561151957506004546001600160a01b0316155b1561153757604051630647140b60e51b815260040160405180910390fd5b6004805485919060ff60a01b1916600160a01b83600381111561155c5761155c612b6e565b0217905550811515811515146115bb576004546115bb906001600160a01b031682611587575f61158a565b5f195b6001600160a01b037f0000000000000000000000000000000000000000000000000000000000000000169190611dba565b7f768d4b222f37af94172600113ec0230880d694638e6dc7d846090ad36de3fbdc83856040516115ec929190612d99565b60405180910390a150505050565b610bac5f7f9b779b17422d0df92223018b32b4d1fa46e071723d6817e2486d003becc55f006114c0565b610bac5f5f61262f565b5f8281526020819052604090206001015461164881611487565b61165283836126ee565b50505050565b6001600160a01b03811633146116815760405163334bd91960e11b815260040160405180910390fd5b611324828261275b565b62989680811115610782576040516333a1a0ef60e11b815260048101829052602401610830565b6004546005546006546007546040517f126cd75f08097d843b02128c7a7fffdd16d473f1b7056da17b1fd5481616864c946117049460ff600160a81b8304811695600160b01b90930416939092612dbf565b60405180910390a1565b611716612797565b6003805460ff191690557f5db9ee0a495bf2e6ff9c91a7834c1ba4fdd244a5e8aa4e537bd38aeae4b073aa335b6040516001600160a01b039091168152602001611704565b61176883838360016127ba565b61132457604051635274afe760e01b81526001600160a01b0384166004820152602401610830565b6001600160a01b0381166117b75760405163d92e233d60e01b815260040160405180910390fd5b806001600160a01b03163b5f036117ec57604051636a2bda4760e01b81526001600160a01b0382166004820152602401610830565b5f816001600160a01b03166338d52e0f6040518163ffffffff1660e01b8152600401602060405180830381865afa158015611829573d5f5f3e3d5ffd5b505050506040513d601f19601f8201168201806040525081019061184d9190612dfa565b90507f00000000000000000000000000000000000000000000000000000000000000006001600160a01b0316816001600160a01b03161461076c5760405163dd72360360e01b81526001600160a01b03808416600483015282166024820152604401610830565b6040516370a0823160e01b81523060048201525f90819081906001600160a01b037f000000000000000000000000000000000000000000000000000000000000000016906370a0823190602401602060405180830381865afa15801561191c573d5f5f3e3d5ffd5b505050506040513d601f19601f820116820180604052508101906119409190612cd6565b90506119796001600160a01b037f00000000000000000000000000000000000000000000000000000000000000001633306103e861214a565b6119af6001600160a01b037f000000000000000000000000000000000000000000000000000000000000000016856103e8611dba565b6040516370a0823160e01b81523060048201525f906001600160a01b038616906370a0823190602401602060405180830381865afa1580156119f3573d5f5f3e3d5ffd5b505050506040513d601f19601f82011682018060405250810190611a179190612cd6565b604051636e553f6560e01b81526103e860048201523060248201529091506001600160a01b03861690636e553f65906044016020604051808303815f875af1158015611a65573d5f5f3e3d5ffd5b505050506040513d601f19601f82011682018060405250810190611a899190612cd6565b506040516370a0823160e01b815230600482015281906001600160a01b038716906370a0823190602401602060405180830381865afa158015611ace573d5f5f3e3d5ffd5b505050506040513d601f19601f82011682018060405250810190611af29190612cd6565b611afc9190612d4a565b9350835f03611b2957604051631f5f9f5f60e11b81526001600160a01b0386166004820152602401610830565b6040516370a0823160e01b81523060048201525f907f00000000000000000000000000000000000000000000000000000000000000006001600160a01b0316906370a0823190602401602060405180830381865afa158015611b8d573d5f5f3e3d5ffd5b505050506040513d601f19601f82011682018060405250810190611bb19190612cd6565b604051635d043b2960e11b815260048101879052306024820181905260448201529091506001600160a01b0387169063ba087652906064016020604051808303815f875af1158015611c05573d5f5f3e3d5ffd5b505050506040513d601f19601f82011682018060405250810190611c299190612cd6565b506040516370a0823160e01b815230600482015281907f00000000000000000000000000000000000000000000000000000000000000006001600160a01b0316906370a0823190602401602060405180830381865afa158015611c8e573d5f5f3e3d5ffd5b505050506040513d601f19601f82011682018060405250810190611cb29190612cd6565b611cbc9190612d4a565b9350835f03611ce957604051631c651eb360e11b81526001600160a01b0387166004820152602401610830565b6040516370a0823160e01b8152306004820152611db290339085906001600160a01b037f000000000000000000000000000000000000000000000000000000000000000016906370a0823190602401602060405180830381865afa158015611d53573d5f5f3e3d5ffd5b505050506040513d601f19601f82011682018060405250810190611d779190612cd6565b611d819190612d4a565b6001600160a01b037f000000000000000000000000000000000000000000000000000000000000000016919061175b565b505050915091565b611dc68383835f61281c565b61132457611dd783835f600161281c565b611dff57604051635274afe760e01b81526001600160a01b0384166004820152602401610830565b611768838383600161281c565b5f611e15610f03565b611e1e42612866565b611e289190612e15565b9050611e34828261289c565b60405165ffffffffffff821681526001600160a01b038316907f3377dc44241e779dd06afab5b788a35ca5f3b778836e2990bdb26a2a4b2e5ed69060200160405180910390a25050565b5f611e8882612919565b611e9142612866565b611e9b9190612e15565b9050611ea7828261262f565b6040805165ffffffffffff8085168252831660208201527ff1038c18cf84a56e432fdbfaf746924b7ea511dfe03a6506a0ceba4888788d9b910160405180910390a15050565b611ef561296a565b6003805460ff191660011790557f62e78cea01bee320cd4e420270b5ea74000d11b0c9f74754ebdbfc544b05a2586117433390565b611f3381611790565b6004546001600160a01b03168015611f7957611f796001600160a01b037f000000000000000000000000000000000000000000000000000000000000000016825f611dba565b5f5f611f84846118b4565b600480546001600160a01b0319166001600160a01b0388161790559092509050612004845f600454600160a01b900460ff166003811115611fc757611fc7612b6e565b14611fd3575f1961158a565b7f00000000000000000000000000000000000000000000000000000000000000006001600160a01b0316905f611dba565b836001600160a01b0316836001600160a01b03167f14201b91060755cd0a1539d43fd1451616255fe7197bcc21f3f0e258441288b08484604051612052929190918252602082015260400190565b60405180910390a350505050565b5f5f61206a610fa0565b9150915061207f8165ffffffffffff16151590565b158061209357504265ffffffffffff821610155b156120bb576040516319ca5ebb60e01b815265ffffffffffff82166004820152602401610830565b6120d65f6120d16002546001600160a01b031690565b61275b565b506120e15f836126ee565b5050600180546001600160d01b031916905550565b5f8281526020819052604090206001015461211081611487565b611652838361275b565b610bac5f5f61289c565b61271081111561078257604051634e4ed02f60e11b815260048101829052602401610830565b61215884848484600161298e565b61165257604051635274afe760e01b81526001600160a01b0385166004820152602401610830565b6040516370a0823160e01b81523060048201525f907f00000000000000000000000000000000000000000000000000000000000000006001600160a01b0316906370a0823190602401602060405180830381865afa1580156121e4573d5f5f3e3d5ffd5b505050506040513d601f19601f820116820180604052508101906122089190612cd6565b9050805f036122175750505050565b600284600381111561222b5761222b612b6e565b14806122485750600384600381111561224657612246612b6e565b145b156123c557604051602481018290526001600160a01b0383811660448301525f91829186169060640160408051601f198184030181529181526020820180516001600160e01b0316636e553f6560e01b179052516122a69190612e33565b5f604051808303815f865af19150503d805f81146122df576040519150601f19603f3d011682016040523d82523d5f602084013e6122e4565b606091505b50915091508180156122f857506020815110155b15612370575f818060200190518101906123129190612cd6565b9050856001600160a01b0316856001600160a01b03167f423b3cf57ec6996740361c1b196ec68a318903f677535ae3f1d05c496e9b88d38684604051612362929190918252602082015260400190565b60405180910390a3506123be565b846001600160a01b0316846001600160a01b03167fee9935c2998b5f150f63fd9ec51a8acc07b321d436579ac3816b2861549398ee85846040516123b5929190612d5d565b60405180910390a35b5050611652565b6123f96001600160a01b037f00000000000000000000000000000000000000000000000000000000000000001683836129fb565b1561244657816001600160a01b03167ff84323ccb2310f2098e2b734d23768efa04c342681f9c5a223b6239165463fe98260405161243991815260200190565b60405180910390a2611652565b816001600160a01b03167fa3c0499c1f77c6679b84d908b7dc6f0e2a8b42472b28de1a8cc1ab929abc55718260405161248191815260200190565b60405180910390a250505050565b6001600160a01b03811615806124ad57506001600160a01b03811630145b156124d6576040516312b31bfd60e11b81526001600160a01b0382166004820152602401610830565b6003546040516001600160a01b0380841692610100900416907f4ab5be82436d353e61ca18726e984e561f5c1cc7c6d38b29d2553c790434705a905f90a3600380546001600160a01b0390921661010002610100600160a81b0319909216919091179055565b804710156125665760405163cf47918160e01b815247600482015260248101829052604401610830565b61257f828260405180602001604052805f815250612a08565b15612588575050565b3d156125965761076c612a1d565b60405163d6bda27560e01b815260040160405180910390fd5b6125b98282610bc6565b61076c5760405163e2517d3f60e01b81526001600160a01b038216600482015260248101839052604401610830565b7f9b779b17422d0df92223018b32b4d1fa46e071723d6817e2486d003becc55f005c15610bac57604051633ee5aeb560e01b815260040160405180910390fd5b80825d5050565b600254600160d01b900465ffffffffffff1680156126b1574265ffffffffffff8216101561268857600254600180546001600160d01b0316600160a01b90920465ffffffffffff16600160d01b029190911790556126b1565b6040517f2b1fa2edafe6f7b9e97c1a9e0c3660e645beb2dcaa2d45bdbf9beaf5472e1ec5905f90a15b50600280546001600160a01b0316600160a01b65ffffffffffff948516026001600160d01b031617600160d01b9290931691909102919091179055565b5f8261274a575f6127076002546001600160a01b031690565b6001600160a01b03161461272e57604051631fe1e13d60e11b815260040160405180910390fd5b600280546001600160a01b0319166001600160a01b0384161790555b6127548383612a28565b9392505050565b5f8215801561277757506002546001600160a01b038381169116145b1561278d57600280546001600160a01b03191690555b6127548383612ab7565b60035460ff16610bac57604051638dfc202b60e01b815260040160405180910390fd5b60405163a9059cbb60e01b5f8181526001600160a01b038616600452602485905291602083604481808b5af1925060015f51148316612810578383151615612804573d5f823e3d81fd5b5f873b113d1516831692505b60405250949350505050565b60405163095ea7b360e01b5f8181526001600160a01b038616600452602485905291602083604481808b5af1925060015f51148316612810578383151615612804573d5f823e3d81fd5b5f65ffffffffffff821115612898576040516306dfcc6560e41b81526030600482015260248101839052604401610830565b5090565b5f6128a5610fa0565b6001805465ffffffffffff8616600160a01b026001600160d01b03199091166001600160a01b0388161717905591506128e790508165ffffffffffff16151590565b15611324576040517f8886ebfc4259abdbc16601dd8fb5678e54878f47b3c34836cfc51154a9605109905f90a1505050565b5f5f612923610f03565b90508065ffffffffffff168365ffffffffffff161161294b576129468382612e49565b612754565b61275465ffffffffffff8416620697805f828218828410028218612754565b60035460ff1615610bac5760405163d93c066560e01b815260040160405180910390fd5b6040516323b872dd60e01b5f8181526001600160a01b038781166004528616602452604485905291602083606481808c5af1925060015f511483166129ea5783831516156129de573d5f823e3d81fd5b5f883b113d1516831692505b604052505f60605295945050505050565b5f610ce88484845f6127ba565b5f5f5f83516020850186885af1949350505050565b6040513d5f823e3d81fd5b5f612a338383610bc6565b612ab0575f838152602081815260408083206001600160a01b03861684529091529020805460ff19166001179055612a683390565b6001600160a01b0316826001600160a01b0316847f2f8788117e7eff1d82e926ec794901d17c78024a50270940304540a733656f0d60405160405180910390a4506001610743565b505f610743565b5f612ac28383610bc6565b15612ab0575f838152602081815260408083206001600160a01b0386168085529252808320805460ff1916905551339286917ff6391f5c32d9c69d2a47ea670b442974b53935d1edc7fd64eb21e047a839171b9190a4506001610743565b5f60208284031215612b30575f5ffd5b81356001600160e01b031981168114612754575f5ffd5b60048110610782575f5ffd5b5f60208284031215612b63575f5ffd5b813561275481612b47565b634e487b7160e01b5f52602160045260245ffd5b6004811061078257634e487b7160e01b5f52602160045260245ffd5b60208101612bab83612b82565b91905290565b5f60208284031215612bc1575f5ffd5b5035919050565b6001600160a01b0381168114610782575f5ffd5b5f5f60408385031215612bed575f5ffd5b823591506020830135612bff81612bc8565b809150509250929050565b5f60208284031215612c1a575f5ffd5b813561275481612bc8565b5f60208284031215612c35575f5ffd5b813565ffffffffffff81168114612754575f5ffd5b5f5f5f60608486031215612c5c575f5ffd5b8335612c6781612bc8565b9250602084013591506040840135612c7e81612bc8565b809150509250925092565b5f5f5f5f5f60a08688031215612c9d575f5ffd5b8535612ca881612b47565b94506020860135612cb881612b47565b94979496505050506040830135926060810135926080909101359150565b5f60208284031215612ce6575f5ffd5b5051919050565b634e487b7160e01b5f52601160045260245ffd5b8082018082111561074357610743612ced565b808202811582820484141761074357610743612ced565b5f82612d4557634e487b7160e01b5f52601260045260245ffd5b500490565b8181038181111561074357610743612ced565b828152604060208201525f82518060408401528060208501606085015e5f606082850101526060601f19601f8301168401019150509392505050565b60408101612da684612b82565b838252612db283612b82565b8260208301529392505050565b60a08101612dcc87612b82565b868252612dd886612b82565b8560208301528460408301528360608301528260808301529695505050505050565b5f60208284031215612e0a575f5ffd5b815161275481612bc8565b65ffffffffffff818116838216019081111561074357610743612ced565b5f82518060208501845e5f920191825250919050565b65ffffffffffff828116828216039081111561074357610743612ced56fe6c0757dc3e6b28b2580c03fd9e96c274acf4f99d91fbec9b418fa1d70604ff1ca2646970667358221220a9e99a65f7f174b468a550848d11bb75945723abf5052f27742bbbbb60dbc8a064736f6c634300081e0033000000000000000000000000833589fcd6edb6e08f4c7c32d4f71b54bda02913000000000000000000000000420675dfaf02750a7ddfad702d13e32eb2c67602000000000000000000000000000000000000000000000000000000000003f4800000000000000000000000007a5f8a4af0fedabb1625b6f04ba38fc75e7e843e000000000000000000000000c462ca16286a9a877a499f9474827ba801f2090d0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000010000000000000000000000000000000000000000000000000000000000000002000000000000000000000000000000000000000000000000000000000000000007000000000000000000000000a737cb590c0f4d00d2140a429728681e1e74c5db00000000000000000000000031b5abcf044049daa96cdc387a44747a48a0ac6200000000000000000000000061d4d1ab7ea7b3a54c7b2d646eb8189fad7b1050000000000000000000000000a82a5201e630b40914bf4fed0b0b40180bcb93f7000000000000000000000000e3685f1c0652430e501b314b3035cb7dd5b21c5f0000000000000000000000005adf0b683b49217704eff3f85eda468651c50a4800000000000000000000000018e129122a338f2e6871764fe0e4426de848ef990000000000000000000000000000000000000000000000000000000000000007000000000000000000000000a737cb590c0f4d00d2140a429728681e1e74c5db00000000000000000000000031b5abcf044049daa96cdc387a44747a48a0ac6200000000000000000000000061d4d1ab7ea7b3a54c7b2d646eb8189fad7b1050000000000000000000000000a82a5201e630b40914bf4fed0b0b40180bcb93f7000000000000000000000000e3685f1c0652430e501b314b3035cb7dd5b21c5f0000000000000000000000005adf0b683b49217704eff3f85eda468651c50a4800000000000000000000000018e129122a338f2e6871764fe0e4426de848ef99
+maxFeePerBlobGas     
+maxFeePerGas         
+maxPriorityFeePerGas 
+nonce                259
+to                   
+type                 0
+value                0
+
+
+SIMULATION COMPLETE. To broadcast these transactions, add --broadcast and wallet configuration(s) to the previous command. See forge script --help for more.
+
+Transactions saved to: /home/cmarchese/undr/yummy/ForwarderWithFeeTaken/broadcast/DeployForwarder.s.sol/8453/dry-run/run-latest.json
+
+Sensitive values saved to: /home/cmarchese/undr/yummy/ForwarderWithFeeTaken/cache/DeployForwarder.s.sol/8453/dry-run/run-latest.json
+

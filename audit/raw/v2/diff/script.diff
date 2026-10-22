@@ -1,0 +1,135 @@
+diff --git a/script/DeployForwarder.s.sol b/script/DeployForwarder.s.sol
+index 5c1f277..acf2b34 100644
+--- a/script/DeployForwarder.s.sol
++++ b/script/DeployForwarder.s.sol
+@@ -12,7 +12,8 @@ import {ForwarderDeployConfig as Config} from "./ForwarderDeployConfig.sol";
+ /**
+  * @title DeployForwarder
+  * @notice Deploys the Forwarder on Base mainnet with the production parameters of `ForwarderDeployConfig` in a
+- * single contract creation (all roles are granted by the constructor).
++ * single contract creation (all roles are granted by the constructor). Refuses to broadcast while no vault guardian
++ * is configured.
+  *
+  * The constructor runs the vault health check with 0.001 USDC of the deployer, so the script first sends an
+  * `approve(predictedAddress, VAULT_TEST_AMOUNT)` from the deployer and then the creation transaction. The USDC
+@@ -26,12 +27,14 @@ import {ForwarderDeployConfig as Config} from "./ForwarderDeployConfig.sol";
+  */
+ contract DeployForwarder is Script {
+     function run() external returns (Forwarder) {
++        require(Config.vaultGuardians().length > 0, "deploy: vault guardians not confirmed");
+         return deploy(msg.sender);
+     }
+ 
+     function deploy(address deployer) public returns (Forwarder forwarder) {
+         address[] memory managers = Config.feeManagers(deployer);
+-        _preflight(deployer, managers);
++        address[] memory guardians = Config.vaultGuardians();
++        _preflight(deployer, managers, guardians);
+ 
+         uint256 testAmount = 1000; // Forwarder.VAULT_TEST_AMOUNT
+         uint256 deployerUsdcBefore = IERC20(Config.USDC).balanceOf(deployer);
+@@ -47,13 +50,14 @@ contract DeployForwarder is Script {
+             Config.TREASURY,
+             IERC4626(Config.VAULT),
+             Config.ROUTING_MODE,
+-            managers
++            managers,
++            guardians
+         );
+         vm.stopBroadcast();
+ 
+         require(address(forwarder) == predicted, "deploy: unexpected address");
+         require(forwarder.VAULT_TEST_AMOUNT() == testAmount, "deploy: test amount");
+-        _verify(forwarder, deployer, managers, deployerUsdcBefore);
++        _verify(forwarder, deployer, managers, guardians, deployerUsdcBefore);
+ 
+         console.log("Forwarder deployed   :", address(forwarder));
+         console.log("Constructor args     :");
+@@ -65,12 +69,13 @@ contract DeployForwarder is Script {
+                 Config.TREASURY,
+                 Config.VAULT,
+                 uint8(Config.ROUTING_MODE),
+-                managers
++                managers,
++                guardians
+             )
+         );
+     }
+ 
+-    function _preflight(address deployer, address[] memory managers) internal view {
++    function _preflight(address deployer, address[] memory managers, address[] memory guardians) internal view {
+         console.log("=== Preflight ===");
+         console.log("Chain id             :", block.chainid);
+         console.log("Deployer             :", deployer);
+@@ -84,6 +89,9 @@ contract DeployForwarder is Script {
+         for (uint256 i = 0; i < managers.length; ++i) {
+             console.log("Fee manager          :", managers[i]);
+         }
++        for (uint256 i = 0; i < guardians.length; ++i) {
++            console.log("Vault guardian       :", guardians[i]);
++        }
+ 
+         require(block.chainid == Config.CHAIN_ID, "preflight: not Base mainnet");
+         require(deployer != address(0), "preflight: deployer");
+@@ -101,16 +109,26 @@ contract DeployForwarder is Script {
+                 require(managers[i] != managers[j], "preflight: duplicated fee manager");
+             }
+         }
++        for (uint256 i = 0; i < guardians.length; ++i) {
++            require(guardians[i] != address(0), "preflight: zero vault guardian");
++            require(guardians[i] != Config.ADMIN, "preflight: admin as vault guardian");
++            for (uint256 j = i + 1; j < guardians.length; ++j) {
++                require(guardians[i] != guardians[j], "preflight: duplicated vault guardian");
++            }
++        }
+         uint256 deployerUsdc = IERC20(Config.USDC).balanceOf(deployer);
+         console.log("Deployer USDC        :", deployerUsdc);
+         console.log("Deployer ETH (wei)   :", deployer.balance);
+         require(deployerUsdc >= 1000, "preflight: deployer needs 0.001 USDC for the vault health check");
+     }
+ 
+-    function _verify(Forwarder forwarder, address deployer, address[] memory managers, uint256 deployerUsdcBefore)
+-        internal
+-        view
+-    {
++    function _verify(
++        Forwarder forwarder,
++        address deployer,
++        address[] memory managers,
++        address[] memory guardians,
++        uint256 deployerUsdcBefore
++    ) internal view {
+         require(address(forwarder.USDC()) == Config.USDC, "verify: USDC");
+         require(forwarder.defaultAdmin() == Config.ADMIN, "verify: admin");
+         require(forwarder.defaultAdminDelay() == Config.ADMIN_DELAY, "verify: admin delay");
+@@ -127,6 +145,14 @@ contract DeployForwarder is Script {
+         for (uint256 i = 0; i < managers.length; ++i) {
+             require(forwarder.hasRole(feeManagerRole, managers[i]), "verify: fee manager");
+         }
++        bytes32 guardianRole = forwarder.VAULT_GUARDIAN_ROLE();
++        for (uint256 i = 0; i < guardians.length; ++i) {
++            require(forwarder.hasRole(guardianRole, guardians[i]), "verify: vault guardian");
++        }
++        require(forwarder.getRoleAdmin(guardianRole) == forwarder.DEFAULT_ADMIN_ROLE(), "verify: guardian role admin");
++        require(address(forwarder.pendingVault()) == address(0), "verify: pending vault");
++        require(forwarder.pendingVaultExecutableAt() == 0, "verify: pending vault timestamp");
++        require(forwarder.VAULT_CHANGE_DELAY() == 72 hours, "verify: vault change delay");
+         require(!forwarder.hasRole(forwarder.DEFAULT_ADMIN_ROLE(), deployer), "verify: deployer is admin");
+         uint256 expectedAllowance = Config.ROUTING_MODE == Forwarder.RoutingMode.DIRECT_DIRECT ? 0 : type(uint256).max;
+         require(
+diff --git a/script/ForwarderDeployConfig.sol b/script/ForwarderDeployConfig.sol
+index f5a0fdb..0791f2e 100644
+--- a/script/ForwarderDeployConfig.sol
++++ b/script/ForwarderDeployConfig.sol
+@@ -55,4 +55,11 @@ library ForwarderDeployConfig {
+         }
+         if (!deployerIncluded) managers[7] = deployer;
+     }
++
++    /// @notice VAULT_GUARDIAN_ROLE holders granted at deployment (they can only cancel a pending vault change).
++    /// @dev Pending confirmation: no guardian address has been confirmed yet. `DeployForwarder.run` refuses to
++    /// broadcast while this list is empty.
++    function vaultGuardians() internal pure returns (address[] memory guardians) {
++        guardians = new address[](0);
++    }
+ }

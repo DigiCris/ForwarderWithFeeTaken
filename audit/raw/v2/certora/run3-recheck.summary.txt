@@ -1,0 +1,5 @@
+job: https://prover.certora.com/output/3658204/ca5d97f106c64b67a97a56042ca0f3d6
+config: certora/conf/ForwarderV2.conf --rule feeManagerRoleOnlyChangedByAdminOrSelf
+feeManagerRoleOnlyChangedByAdminOrSelf: SUCCESS (24/24 methods verified, 24/24 non-vacuity witnesses)
+final verdict: No errors found by Prover!
+reason: run 2 printed no "Result for" line for this rule and no witness line for its executeVaultChange() sanity check; re-run alone to obtain a complete result.
