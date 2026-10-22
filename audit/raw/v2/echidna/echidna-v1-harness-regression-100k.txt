@@ -1,33 +1,33 @@
 [2026-10-22 17:00:25.38] Compiling echidna/ForwarderEchidna.sol... Done! (2.547681298s)
 Analyzing contract: /home/cmarchese/undr/yummy/ForwarderWithFeeTaken/echidna/ForwarderEchidna.sol:ForwarderEchidna
 [2026-10-22 17:00:28.45] Running slither on echidna/ForwarderEchidna.sol... Done! (8.132739335s)
-Loaded 0 transaction sequences from /tmp/claude-1000/-home-cmarchese-undr-yummy-ForwarderWithFeeTaken/20e5a9a2-b279-48b7-bc83-498f284922bf/scratchpad/echidna-v1-regression/reproducers
-Loaded 0 transaction sequences from /tmp/claude-1000/-home-cmarchese-undr-yummy-ForwarderWithFeeTaken/20e5a9a2-b279-48b7-bc83-498f284922bf/scratchpad/echidna-v1-regression/coverage
+Loaded 0 transaction sequences from <corpus-dir>/reproducers
+Loaded 0 transaction sequences from <corpus-dir>/coverage
 [2026-10-22 17:00:38.97] [Worker 0] New coverage: 18345 instr, 5 contracts, 1 seqs in corpus
 [2026-10-22 17:00:39.12] [Worker 3] New coverage: 18380 instr, 5 contracts, 2 seqs in corpus
 [2026-10-22 17:00:39.22] [Worker 2] New coverage: 18380 instr, 5 contracts, 3 seqs in corpus
-[2026-10-22 17:00:39.23]  Saved reproducer to /tmp/claude-1000/-home-cmarchese-undr-yummy-ForwarderWithFeeTaken/20e5a9a2-b279-48b7-bc83-498f284922bf/scratchpad/echidna-v1-regression/coverage/7155207629615484085.txt
-[2026-10-22 17:00:39.47]  Saved reproducer to /tmp/claude-1000/-home-cmarchese-undr-yummy-ForwarderWithFeeTaken/20e5a9a2-b279-48b7-bc83-498f284922bf/scratchpad/echidna-v1-regression/coverage/3678316620640096717.txt
+[2026-10-22 17:00:39.23]  Saved reproducer to <corpus-dir>/coverage/7155207629615484085.txt
+[2026-10-22 17:00:39.47]  Saved reproducer to <corpus-dir>/coverage/3678316620640096717.txt
 [2026-10-22 17:00:39.61] [Worker 1] New coverage: 18380 instr, 5 contracts, 4 seqs in corpus
-[2026-10-22 17:00:39.67]  Saved reproducer to /tmp/claude-1000/-home-cmarchese-undr-yummy-ForwarderWithFeeTaken/20e5a9a2-b279-48b7-bc83-498f284922bf/scratchpad/echidna-v1-regression/coverage/1486085613116245207.txt
+[2026-10-22 17:00:39.67]  Saved reproducer to <corpus-dir>/coverage/1486085613116245207.txt
 [2026-10-22 17:00:39.83] [status] tests: 0/11, fuzzing: 404/100000, values: [], cov: 18380, corpus: 4
-[2026-10-22 17:00:39.85]  Saved reproducer to /tmp/claude-1000/-home-cmarchese-undr-yummy-ForwarderWithFeeTaken/20e5a9a2-b279-48b7-bc83-498f284922bf/scratchpad/echidna-v1-regression/coverage/3189057397667143071.txt
+[2026-10-22 17:00:39.85]  Saved reproducer to <corpus-dir>/coverage/3189057397667143071.txt
 [2026-10-22 17:00:41.46] [Worker 2] New coverage: 18519 instr, 5 contracts, 5 seqs in corpus
-[2026-10-22 17:00:41.67]  Saved reproducer to /tmp/claude-1000/-home-cmarchese-undr-yummy-ForwarderWithFeeTaken/20e5a9a2-b279-48b7-bc83-498f284922bf/scratchpad/echidna-v1-regression/coverage/1336131263298381358.txt
+[2026-10-22 17:00:41.67]  Saved reproducer to <corpus-dir>/coverage/1336131263298381358.txt
 [2026-10-22 17:00:42.84] [status] tests: 0/11, fuzzing: 858/100000, values: [], cov: 18525, corpus: 5
 [2026-10-22 17:00:43.81] [Worker 3] New coverage: 18525 instr, 5 contracts, 6 seqs in corpus
-[2026-10-22 17:00:44.09]  Saved reproducer to /tmp/claude-1000/-home-cmarchese-undr-yummy-ForwarderWithFeeTaken/20e5a9a2-b279-48b7-bc83-498f284922bf/scratchpad/echidna-v1-regression/coverage/868262222898192855.txt
+[2026-10-22 17:00:44.09]  Saved reproducer to <corpus-dir>/coverage/868262222898192855.txt
 [2026-10-22 17:00:45.45] [Worker 0] New coverage: 18618 instr, 5 contracts, 7 seqs in corpus
-[2026-10-22 17:00:45.71]  Saved reproducer to /tmp/claude-1000/-home-cmarchese-undr-yummy-ForwarderWithFeeTaken/20e5a9a2-b279-48b7-bc83-498f284922bf/scratchpad/echidna-v1-regression/coverage/5351634613604730686.txt
+[2026-10-22 17:00:45.71]  Saved reproducer to <corpus-dir>/coverage/5351634613604730686.txt
 [2026-10-22 17:00:45.85] [status] tests: 0/11, fuzzing: 1529/100000, values: [], cov: 18618, corpus: 7
 [2026-10-22 17:00:47.55] [Worker 2] New coverage: 18788 instr, 5 contracts, 8 seqs in corpus
-[2026-10-22 17:00:47.83]  Saved reproducer to /tmp/claude-1000/-home-cmarchese-undr-yummy-ForwarderWithFeeTaken/20e5a9a2-b279-48b7-bc83-498f284922bf/scratchpad/echidna-v1-regression/coverage/3583694699574388928.txt
+[2026-10-22 17:00:47.83]  Saved reproducer to <corpus-dir>/coverage/3583694699574388928.txt
 [2026-10-22 17:00:47.87] [Worker 3] New coverage: 18791 instr, 5 contracts, 9 seqs in corpus
-[2026-10-22 17:00:48.13]  Saved reproducer to /tmp/claude-1000/-home-cmarchese-undr-yummy-ForwarderWithFeeTaken/20e5a9a2-b279-48b7-bc83-498f284922bf/scratchpad/echidna-v1-regression/coverage/4549974344938270640.txt
+[2026-10-22 17:00:48.13]  Saved reproducer to <corpus-dir>/coverage/4549974344938270640.txt
 [2026-10-22 17:00:48.85] [status] tests: 0/11, fuzzing: 2135/100000, values: [], cov: 18791, corpus: 9
 [2026-10-22 17:00:51.86] [status] tests: 0/11, fuzzing: 2741/100000, values: [], cov: 18791, corpus: 9
 [2026-10-22 17:00:53.18] [Worker 1] New coverage: 18813 instr, 5 contracts, 10 seqs in corpus
-[2026-10-22 17:00:53.49]  Saved reproducer to /tmp/claude-1000/-home-cmarchese-undr-yummy-ForwarderWithFeeTaken/20e5a9a2-b279-48b7-bc83-498f284922bf/scratchpad/echidna-v1-regression/coverage/1313404439579329525.txt
+[2026-10-22 17:00:53.49]  Saved reproducer to <corpus-dir>/coverage/1313404439579329525.txt
 [2026-10-22 17:00:54.86] [status] tests: 0/11, fuzzing: 3245/100000, values: [], cov: 18813, corpus: 10
 [2026-10-22 17:00:57.87] [status] tests: 0/11, fuzzing: 3952/100000, values: [], cov: 18813, corpus: 10
 [2026-10-22 17:01:00.87] [status] tests: 0/11, fuzzing: 4457/100000, values: [], cov: 18813, corpus: 10
