@@ -37,4 +37,31 @@ contract ForwarderHarness is Forwarder {
     function usdcBalance(address account) external view returns (uint256) {
         return USDC.balanceOf(account);
     }
+
+    /// @dev True while a `nonReentrant` function is executing (transient storage, zero at the start of a transaction).
+    function reentrancyGuardEntered() external view returns (bool) {
+        return _reentrancyGuardEntered();
+    }
+
+    /// @dev Raw storage values of the enums (no ABI enum decoding), used to state that they are always valid.
+    function routingModeRaw() external view returns (uint8 value) {
+        RoutingMode mode = routingMode;
+        assembly ("memory-safe") {
+            value := mode
+        }
+    }
+
+    function lowerFeeModelRaw() external view returns (uint8 value) {
+        FeeModel model = lowerFeeModel;
+        assembly ("memory-safe") {
+            value := model
+        }
+    }
+
+    function upperFeeModelRaw() external view returns (uint8 value) {
+        FeeModel model = upperFeeModel;
+        assembly ("memory-safe") {
+            value := model
+        }
+    }
 }
