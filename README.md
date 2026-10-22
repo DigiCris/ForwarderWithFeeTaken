@@ -94,7 +94,8 @@ DEPLOYED_FORWARDER=<address> POST_DEPLOY_FORK_BLOCK=<block after deployment> \
 ```shell
 slither . --filter-paths "lib/|test/|script/|echidna/|certora/"
 SOLC_VERSION=0.8.30 echidna echidna/ForwarderEchidna.sol --contract ForwarderEchidna --config echidna/echidna.yaml
-SOLC_VERSION=0.8.30 certoraRun certora/conf/Forwarder.conf
+SOLC_VERSION=0.8.30 certoraRun certora/conf/Forwarder.conf            # rules
+SOLC_VERSION=0.8.30 certoraRun certora/conf/ForwarderInvariants.conf  # invariants
 ```
 
 ## Deployment

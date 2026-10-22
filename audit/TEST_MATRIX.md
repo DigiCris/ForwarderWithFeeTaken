@@ -35,27 +35,27 @@ Every requirement of the test plan, mapped to the tests that exercise it. File a
 | NONE / FIXED / PERCENT / FIXED_PLUS_PERCENT | U-Fee `test_EachFeeModel` |
 | amount < / == / > threshold | U-Fee `test_ThresholdBoundaries`, `test_AllModelCombinationsAroundThreshold`; C `lowerModelUpToThreshold`, `upperModelAboveThreshold` |
 | all 16 lower/upper combinations | U-Fee `test_AllModelCombinationsAroundThreshold`; F `testFuzz_CalculateFeeMatchesSpecification` |
-| full amount above threshold (spec example 150 USDC) | U-Fee `test_FeeUsesFullAmountAboveThreshold`, `test_FeeUsesFullAmountWhenUpperIsFixedPlusPercent`; F `testFuzz_FeeAboveThresholdUsesFullAmount`; K `test_Fork_FeeUsesFullAmountAboveThreshold`; C `percentUsesWholeAmount`, `percentUsesWholeAmountIsNotTheExcessFee` |
+| full amount above threshold (spec example 150 USDC) | U-Fee `test_FeeUsesFullAmountAboveThreshold`, `test_FeeUsesFullAmountWhenUpperIsFixedPlusPercent`; F `testFuzz_FeeAboveThresholdUsesFullAmount`; K `test_Fork_FeeUsesFullAmountAboveThreshold`; C `percentUsesWholeAmount`, `percentUsesWholeAmountIsNotTheExcessFee`, `percentAboveThresholdUsesWholeAmount`, `percentAboveThresholdIsNotExcessFee` |
 | paused ⇒ fee 0 | U-Fee `test_PausedFeeIsZero`; F `testFuzz_PausedFeeIsZero`; I `invariant_PausedImpliesZeroFee`; E `echidna_paused_means_zero_fee`; K `test_Fork_PausedFeesForwardFullAmount`; C `pausedFeeIsZero`, `pausedForwardDeliversWholeAmount` |
 | fee == amount | U-Fee `test_FeeEqualToAmount`; U-Zero `test_ZeroUserAmountWithFallback`, `test_ZeroUserAmountWithWorkingZeroDeposit`; K `test_Fork_FeeEqualToAndAboveAmount` |
 | fee just below amount | U-Fee `test_FeeJustBelowAmount` |
 | fee > amount reverts (checked arithmetic, no clamp) | U-Fee `test_RevertWhen_FeeAboveAmount`, `test_RevertWhen_FixedFeeAndZeroAmount`; F `testFuzz_ForwardAccounting`; K `test_Fork_FeeEqualToAndAboveAmount` |
 | rounding down | U-Fee `test_PercentRoundsDown` |
-| exact formula, only overflow can revert | C `feeMatchesSpecification`; F `testFuzz_CalculateFeeNeverRevertsForRealisticAmounts`, `testFuzz_FeeIsBoundedByCaps` |
-| fee config events | U-Fee `test_IndividualSettersEmitFullConfig` |
+| exact formula, only overflow can revert | C `feeMatchesSpecification`, `feeMatchesSpecificationForAnyConfiguration`, `fixedModelIsReachable`, `percentModelIsReachable`, `fixedPlusPercentModelIsReachable`, `fixedModelChargesAfterConfiguration`, `fixedPlusPercentModelChargesAfterConfiguration`; F `testFuzz_CalculateFeeNeverRevertsForRealisticAmounts`, `testFuzz_FeeIsBoundedByCaps` |
+| fee config events / stored configuration | U-Fee `test_IndividualSettersEmitFullConfig`; C `setFeeConfigStoresConfiguration` |
 
 ## Roles
 
 | Case | Tests |
 |---|---|
-| every admin function from fee manager / stranger reverts | U-AC `test_FeeManagerAndStrangerCannotCallAdminFunctions`; F `testFuzz_UnprivilegedCallerCannotConfigure`; I `invariant_NoUnexpectedOutcome` (handler `unauthorizedCall`); E `echidna_no_unexpected_outcome`; K `test_Fork_EveryFeeManagerCanConfigureAndPauseButNotAdminister`, `test_Fork_StrangerCannotDoAnything`; C `onlyAdminChangesTreasury`, `onlyAdminChangesVault`, `onlyAdminChangesRoutingMode`, `feeManagerCannotAdminister`, `unprivilegedChangesNothing` |
+| every admin function from fee manager / stranger reverts | U-AC `test_FeeManagerAndStrangerCannotCallAdminFunctions`; F `testFuzz_UnprivilegedCallerCannotConfigure`; I `invariant_NoUnexpectedOutcome` (handler `unauthorizedCall`); E `echidna_no_unexpected_outcome`; K `test_Fork_EveryFeeManagerCanConfigureAndPauseButNotAdminister`, `test_Fork_StrangerCannotDoAnything`; C `onlyAdminChangesTreasury`, `onlyAdminChangesVault`, `onlyAdminChangesRoutingMode`, `feeManagerCannotAdminister`, `unprivilegedChangesNoConfiguration`, `feeManagerRoleOnlyChangedByAdminOrSelf` |
 | every fee function from admin / stranger reverts | U-AC `test_AdminAndStrangerCannotCallFeeManagerFunctions`; C `onlyFeeManagerChangesFeeConfig` |
 | every fee manager can set fees | U-AC `test_EveryFeeManagerCanSetFees`; K `test_Fork_EveryFeeManagerCanConfigureAndPauseButNotAdminister` (all 7 production fee managers) |
 | fee manager can pause / admin can pause / stranger cannot | U-AC `test_FeeManagerCanPause`, `test_AdminCanPause`, `test_RevertWhen_StrangerPauses`; C `onlyPrivilegedPause` |
 | fee manager cannot unpause / admin can | U-AC `test_FeeManagerCannotUnpause`, `test_AdminCanUnpause`; C `onlyAdminUnpauses` |
 | fee manager cannot change treasury / vault / routing / rescue | U-AC `test_FeeManagerCannotChangeTreasuryVaultRoutingOrRescue`; C `feeManagerCannotAdminister` |
 | fee manager cannot grant roles | U-AC `test_FeeManagerCannotGrantRoles` |
-| admin manages fee managers | U-AC `test_AdminManagesFeeManagers`; K `test_Fork_AdminSafeCanAdminister` |
+| admin manages fee managers | U-AC `test_AdminManagesFeeManagers`; K `test_Fork_AdminSafeCanAdminister`; C `feeManagerRoleOnlyChangedByAdminOrSelf`, `feeManagerAdminIsDefaultAdmin` |
 | default admin transfer delay (3 days), no direct grant | U-AC `test_DefaultAdminTransferRespectsDelay`, `test_DefaultAdminCannotBeGrantedDirectly` |
 | compromised fee manager blast radius | U-AC `test_CompromisedFeeManagerBlastRadius` |
 | privileges never change under random sequences | I `invariant_PrivilegesNeverChange`; E `echidna_roles_never_change` |
@@ -68,7 +68,7 @@ Every requirement of the test plan, mapped to the tests that exercise it. File a
 | VAULT_USER_DIRECT_TREASURY | U-Route `test_VaultUserDirectTreasury`; K `test_Fork_AllRoutingModes` |
 | DIRECT_USER_VAULT_TREASURY | U-Route `test_DirectUserVaultTreasury`; K `test_Fork_AllRoutingModes` |
 | VAULT_VAULT | U-Route `test_VaultVault`; K `test_Fork_AllRoutingModes` |
-| balances/shares of user, treasury and Forwarder | all of the above; F `testFuzz_ForwardAccounting`; I `invariant_UserGetsExactlyAmountMinusFee`, `invariant_TreasuryAccounting`, `invariant_Conservation`; C `forwardUserReceivesAmountMinusFee`, `forwardTreasuryAccounting` |
+| balances/shares of user, treasury and Forwarder | all of the above; F `testFuzz_ForwardAccounting`; I `invariant_UserGetsExactlyAmountMinusFee`, `invariant_TreasuryAccounting`, `invariant_Conservation`; C `forwardUserReceivesAmountMinusFee`(+`ForAnyConfiguration`), `forwardTreasuryAccounting`(+`ForAnyConfiguration`) |
 | mode changes between forwards | U-Route `test_SequentialForwardsAcrossModeChanges` |
 | third-party real vault | K `test_Fork_ReplaceVaultWithThirdPartyVault` (Steakhouse USDC) |
 
@@ -95,7 +95,7 @@ Every requirement of the test plan, mapped to the tests that exercise it. File a
 | accumulation and retry | U-Treasury `test_FailuresAccumulateAndAreDeliveredTogether` |
 | pending funds after treasury replacement | U-Treasury `test_PendingFundsGoToTheNewTreasury` |
 | no treasury action when balance is zero | U-Treasury `test_NoTreasuryActionWhenNothingIsLeft` |
-| never reverts forward (formal) | C `treasuryFailureNeverRevertsForward` |
+| never reverts forward (formal) | C `treasuryFailureNeverRevertsForward`, `treasuryFailureNeverRevertsForwardForAnyConfiguration` |
 
 ## Accidental USDC
 
@@ -176,6 +176,7 @@ Every requirement of the test plan, mapped to the tests that exercise it. File a
 | forward never paused | U-Val `test_ForwardWorksWhilePaused`; K `test_Fork_PausedFeesForwardFullAmount` |
 | treasury validation | U-Val `test_SetTreasury`, `test_RevertWhen_TreasuryIsZeroOrForwarder`; I `invariant_TreasuryIsAlwaysValid`; C `treasuryIsValid` |
 | vault mode requires a vault | U-Val `test_RevertWhen_VaultModeWithoutVault`; U-Ctor `test_RevertWhen_DeployVaultModeWithoutVault`; I `invariant_VaultModeHasVault`; C `vaultModeHasVault` |
+| stored enums always valid | U-Fee `test_RevertWhen_InvalidEnumValue`; C `enumsAreValid` |
 | constructor validation and initial state | U-Ctor (18 tests); K `test_Fork_DeploymentState`, `test_Fork_ProductionConfiguration`, `test_Fork_DeployerOutsideTheListIsAddedAsFeeManager`, `test_Fork_RevertWhen_DeployerHasNoUsdc` |
 | no DELEGATECALL / CALLCODE / SELFDESTRUCT, code never changes | U-Ctor `test_RuntimeCodeHasNoDelegatecallOrSelfdestruct`; I `invariant_CodeNeverChanges` |
 | no native receive | U-Ctor `test_RejectsDirectNativeTransfers`; K `test_Fork_RejectsDirectNative` |
