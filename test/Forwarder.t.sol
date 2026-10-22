@@ -81,9 +81,7 @@ contract ForwarderConstructorTest is ForwarderTestBase {
     }
 
     function test_DeployEmitsConfigurationEvents() public {
-        usdc.mint(address(this), TEST_AMOUNT);
-        address predicted = vm.computeCreateAddress(address(this), vm.getNonce(address(this)));
-        usdc.approve(predicted, TEST_AMOUNT);
+        address predicted = _fundDeployment();
 
         vm.expectEmit(true, true, true, true, predicted);
         emit Forwarder.TreasuryUpdated(address(0), treasury);

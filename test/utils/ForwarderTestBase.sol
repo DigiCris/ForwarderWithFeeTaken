@@ -72,9 +72,18 @@ abstract contract ForwarderTestBase is Test {
     }
 
     /// @dev Funds this contract and approves the address of its next deployment for the constructor health check.
-    function _fundDeployment() internal {
+    /// Under `--isolate` (enabled by `--gas-report`) every top-level call is a transaction that bumps this contract's
+    /// nonce, so the approval is repeated for the address that the next CREATE will actually use.
+    function _fundDeployment() internal returns (address predicted) {
         usdc.mint(address(this), TEST_AMOUNT);
-        usdc.approve(vm.computeCreateAddress(address(this), vm.getNonce(address(this))), TEST_AMOUNT);
+        uint64 nonce = vm.getNonce(address(this));
+        predicted = vm.computeCreateAddress(address(this), nonce);
+        usdc.approve(predicted, TEST_AMOUNT);
+        uint64 nonceAfter = vm.getNonce(address(this));
+        if (nonceAfter != nonce) {
+            predicted = vm.computeCreateAddress(address(this), nonceAfter + 1);
+            usdc.approve(predicted, TEST_AMOUNT);
+        }
     }
 
     // -----------------------------------------------------------------------------------------------------------
