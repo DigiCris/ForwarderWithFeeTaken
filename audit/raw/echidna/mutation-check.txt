@@ -1,0 +1,6 @@
+M05 KILLED | echidna_conservation echidna_treasury_accounting echidna_user_gets_amount_minus_fee 
+M08 KILLED | echidna_allowances 
+M10 KILLED | echidna_no_unexpected_outcome 
+M12 KILLED | echidna_conservation echidna_treasury_accounting echidna_no_unexpected_outcome 
+M15 KILLED | echidna_treasury_accounting 
+DONE

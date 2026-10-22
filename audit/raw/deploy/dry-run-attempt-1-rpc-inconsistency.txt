@@ -1,0 +1,135 @@
+Compiling 17 files with Solc 0.8.30
+Solc 0.8.30 finished in 2.21s
+Compiler run successful!
+Traces:
+  [5121986] → new DeployForwarder@0x5b73C5498c1E3b4dbA84de0F1833c4a029d90519
+    └─ ← [Return] 25469 bytes of code
+
+  [321912] DeployForwarder::run()
+    ├─ [0] console::log("=== Preflight ===") [staticcall]
+    │   └─ ← [Stop]
+    ├─ [0] console::log("Chain id             :", 8453) [staticcall]
+    │   └─ ← [Stop]
+    ├─ [0] console::log("Deployer             :", 0x18e129122a338f2e6871764fe0e4426dE848Ef99) [staticcall]
+    │   └─ ← [Stop]
+    ├─ [0] console::log("USDC                 :", FiatTokenProxy: [0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913]) [staticcall]
+    │   └─ ← [Stop]
+    ├─ [0] console::log("Admin                :", 0x420675DFAf02750a7DdFad702D13e32eb2C67602) [staticcall]
+    │   └─ ← [Stop]
+    ├─ [0] console::log("Admin delay (s)      :", 259200 [2.592e5]) [staticcall]
+    │   └─ ← [Stop]
+    ├─ [0] console::log("Treasury             :", 0x7a5F8A4aF0FEDaBb1625b6f04bA38fC75e7E843e) [staticcall]
+    │   └─ ← [Stop]
+    ├─ [0] console::log("Vault                :", LucaMoneyVault: [0xc462cA16286a9a877a499f9474827bA801f2090D]) [staticcall]
+    │   └─ ← [Stop]
+    ├─ [0] console::log("Routing mode         :", 0) [staticcall]
+    │   └─ ← [Stop]
+    ├─ [0] console::log("Initial fees         : NONE/NONE, threshold 0, fixed 0, variable 0, not paused") [staticcall]
+    │   └─ ← [Stop]
+    ├─ [0] console::log("Fee manager          :", 0xa737cB590c0F4d00D2140a429728681e1e74C5db) [staticcall]
+    │   └─ ← [Stop]
+    ├─ [0] console::log("Fee manager          :", 0x31B5aBcF044049daa96cDC387a44747a48a0ac62) [staticcall]
+    │   └─ ← [Stop]
+    ├─ [0] console::log("Fee manager          :", 0x61D4d1Ab7eA7B3A54C7B2D646Eb8189faD7B1050) [staticcall]
+    │   └─ ← [Stop]
+    ├─ [0] console::log("Fee manager          :", 0xa82a5201E630b40914bf4fed0B0b40180BCB93F7) [staticcall]
+    │   └─ ← [Stop]
+    ├─ [0] console::log("Fee manager          :", 0xe3685F1C0652430e501B314b3035CB7Dd5b21c5f) [staticcall]
+    │   └─ ← [Stop]
+    ├─ [0] console::log("Fee manager          :", 0x5aDF0B683B49217704eff3f85eda468651C50A48) [staticcall]
+    │   └─ ← [Stop]
+    ├─ [0] console::log("Fee manager          :", 0x18e129122a338f2e6871764fe0e4426dE848Ef99) [staticcall]
+    │   └─ ← [Stop]
+    ├─ [9543] FiatTokenProxy::fallback() [staticcall]
+    │   ├─ [2381] FiatTokenV2_2::decimals() [delegatecall]
+    │   │   └─ ← [Return] 6
+    │   └─ ← [Return] 6
+    ├─ [3781] FiatTokenProxy::fallback() [staticcall]
+    │   ├─ [3081] FiatTokenV2_2::symbol() [delegatecall]
+    │   │   └─ ← [Return] "USDC"
+    │   └─ ← [Return] "USDC"
+    ├─ [650] LucaMoneyVault::asset() [staticcall]
+    │   └─ ← [Return] FiatTokenProxy: [0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913]
+    ├─ [3250] FiatTokenProxy::fallback(0x18e129122a338f2e6871764fe0e4426dE848Ef99) [staticcall]
+    │   ├─ [2553] FiatTokenV2_2::balanceOf(0x18e129122a338f2e6871764fe0e4426dE848Ef99) [delegatecall]
+    │   │   └─ ← [Return] 84759159 [8.475e7]
+    │   └─ ← [Return] 84759159 [8.475e7]
+    ├─ [0] console::log("Deployer USDC        :", 84759159 [8.475e7]) [staticcall]
+    │   └─ ← [Stop]
+    ├─ [0] console::log("Deployer ETH (wei)   :", 1807735190598862 [1.807e15]) [staticcall]
+    │   └─ ← [Stop]
+    ├─ [1250] FiatTokenProxy::fallback(0x18e129122a338f2e6871764fe0e4426dE848Ef99) [staticcall]
+    │   ├─ [553] FiatTokenV2_2::balanceOf(0x18e129122a338f2e6871764fe0e4426dE848Ef99) [delegatecall]
+    │   │   └─ ← [Return] 84759159 [8.475e7]
+    │   └─ ← [Return] 84759159 [8.475e7]
+    ├─ [0] VM::getNonce(0x18e129122a338f2e6871764fe0e4426dE848Ef99) [staticcall]
+    │   └─ ← [Return] 256
+    ├─ [0] VM::computeCreateAddress(0x18e129122a338f2e6871764fe0e4426dE848Ef99, 257) [staticcall]
+    │   └─ ← [Return] 0xA7A2Be29D45F0cD465BF4F8775931bfb096d5647
+    ├─ [0] console::log("Predicted Forwarder  :", 0xA7A2Be29D45F0cD465BF4F8775931bfb096d5647) [staticcall]
+    │   └─ ← [Stop]
+    ├─ [0] VM::startBroadcast(0x18e129122a338f2e6871764fe0e4426dE848Ef99)
+    │   └─ ← [Return]
+    ├─ [27341] FiatTokenProxy::fallback(0xA7A2Be29D45F0cD465BF4F8775931bfb096d5647, 1000)
+    │   ├─ [26673] FiatTokenV2_2::approve(0xA7A2Be29D45F0cD465BF4F8775931bfb096d5647, 1000) [delegatecall]
+    │   │   ├─ emit Approval(owner: 0x18e129122a338f2e6871764fe0e4426dE848Ef99, spender: 0xA7A2Be29D45F0cD465BF4F8775931bfb096d5647, value: 1000)
+    │   │   └─ ← [Return] true
+    │   └─ ← [Return] true
+    ├─ [195458] → new <unknown>@0xA7A2Be29D45F0cD465BF4F8775931bfb096d5647
+    │   ├─ emit RoleGranted(role: 0x0000000000000000000000000000000000000000000000000000000000000000, account: 0x420675DFAf02750a7DdFad702D13e32eb2C67602, sender: 0x18e129122a338f2e6871764fe0e4426dE848Ef99)
+    │   ├─ emit TreasuryUpdated(previousTreasury: 0x0000000000000000000000000000000000000000, newTreasury: 0x7a5F8A4aF0FEDaBb1625b6f04bA38fC75e7E843e)
+    │   ├─ [650] LucaMoneyVault::asset() [staticcall]
+    │   │   └─ ← [Return] FiatTokenProxy: [0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913]
+    │   ├─ [3250] FiatTokenProxy::fallback(0xA7A2Be29D45F0cD465BF4F8775931bfb096d5647) [staticcall]
+    │   │   ├─ [2553] FiatTokenV2_2::balanceOf(0xA7A2Be29D45F0cD465BF4F8775931bfb096d5647) [delegatecall]
+    │   │   │   └─ ← [Return] 0
+    │   │   └─ ← [Return] 0
+    │   ├─ [29128] FiatTokenProxy::fallback(0x18e129122a338f2e6871764fe0e4426dE848Ef99, 0xA7A2Be29D45F0cD465BF4F8775931bfb096d5647, 1000)
+    │   │   ├─ [28454] FiatTokenV2_2::transferFrom(0x18e129122a338f2e6871764fe0e4426dE848Ef99, 0xA7A2Be29D45F0cD465BF4F8775931bfb096d5647, 1000) [delegatecall]
+    │   │   │   ├─ emit Transfer(from: 0x18e129122a338f2e6871764fe0e4426dE848Ef99, to: 0xA7A2Be29D45F0cD465BF4F8775931bfb096d5647, value: 1000)
+    │   │   │   └─ ← [Return] true
+    │   │   └─ ← [Return] true
+    │   ├─ [25341] FiatTokenProxy::fallback(LucaMoneyVault: [0xc462cA16286a9a877a499f9474827bA801f2090D], 1000)
+    │   │   ├─ [24673] FiatTokenV2_2::approve(LucaMoneyVault: [0xc462cA16286a9a877a499f9474827bA801f2090D], 1000) [delegatecall]
+    │   │   │   ├─ emit Approval(owner: 0xA7A2Be29D45F0cD465BF4F8775931bfb096d5647, spender: LucaMoneyVault: [0xc462cA16286a9a877a499f9474827bA801f2090D], value: 1000)
+    │   │   │   └─ ← [Return] true
+    │   │   └─ ← [Return] true
+    │   ├─ [3281] LucaMoneyVault::balanceOf(0xA7A2Be29D45F0cD465BF4F8775931bfb096d5647) [staticcall]
+    │   │   └─ ← [Return] 0
+    │   ├─ [33621] LucaMoneyVault::deposit(1000, 0xA7A2Be29D45F0cD465BF4F8775931bfb096d5647)
+    │   │   ├─ [20467] 0x4e65fE4DbA92790696d040ac24Aa414708F5c0AB::balanceOf(LucaMoneyVault: [0xc462cA16286a9a877a499f9474827bA801f2090D]) [staticcall]
+    │   │   │   ├─ [15358] ATokenInstance::balanceOf(LucaMoneyVault: [0xc462cA16286a9a877a499f9474827bA801f2090D]) [delegatecall]
+    │   │   │   │   ├─ [10110] InitializableImmutableAdminUpgradeabilityProxy::fallback(FiatTokenProxy: [0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913]) [staticcall]
+    │   │   │   │   │   ├─ [5001] L2PoolInstance::getReserveNormalizedIncome(FiatTokenProxy: [0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913]) [delegatecall]
+    │   │   │   │   │   │   └─ ← [Revert] panic: arithmetic underflow or overflow (0x11)
+    │   │   │   │   │   └─ ← [Revert] panic: arithmetic underflow or overflow (0x11)
+    │   │   │   │   └─ ← [Revert] panic: arithmetic underflow or overflow (0x11)
+    │   │   │   └─ ← [Revert] panic: arithmetic underflow or overflow (0x11)
+    │   │   └─ ← [Revert] panic: arithmetic underflow or overflow (0x11)
+    │   └─ ← [Revert] 0x4e487b710000000000000000000000000000000000000000000000000000000000000011
+    └─ ← [Revert] panic: arithmetic underflow or overflow (0x11)
+
+
+
+== Logs ==
+  === Preflight ===
+  Chain id             : 8453
+  Deployer             : 0x18e129122a338f2e6871764fe0e4426dE848Ef99
+  USDC                 : 0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913
+  Admin                : 0x420675DFAf02750a7DdFad702D13e32eb2C67602
+  Admin delay (s)      : 259200
+  Treasury             : 0x7a5F8A4aF0FEDaBb1625b6f04bA38fC75e7E843e
+  Vault                : 0xc462cA16286a9a877a499f9474827bA801f2090D
+  Routing mode         : 0
+  Initial fees         : NONE/NONE, threshold 0, fixed 0, variable 0, not paused
+  Fee manager          : 0xa737cB590c0F4d00D2140a429728681e1e74C5db
+  Fee manager          : 0x31B5aBcF044049daa96cDC387a44747a48a0ac62
+  Fee manager          : 0x61D4d1Ab7eA7B3A54C7B2D646Eb8189faD7B1050
+  Fee manager          : 0xa82a5201E630b40914bf4fed0B0b40180BCB93F7
+  Fee manager          : 0xe3685F1C0652430e501B314b3035CB7Dd5b21c5f
+  Fee manager          : 0x5aDF0B683B49217704eff3f85eda468651C50A48
+  Fee manager          : 0x18e129122a338f2e6871764fe0e4426dE848Ef99
+  Deployer USDC        : 84759159
+  Deployer ETH (wei)   : 1807735190598862
+  Predicted Forwarder  : 0xA7A2Be29D45F0cD465BF4F8775931bfb096d5647
+Error: script failed: panic: arithmetic underflow or overflow (0x11)

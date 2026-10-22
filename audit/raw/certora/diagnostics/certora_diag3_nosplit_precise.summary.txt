@@ -1,0 +1,9 @@
+[ForkJoinPool-1-worker-1] ERROR FUNCTION_BUILDER - ForwarderHarness-changeDefaultAdminDelay(uint48): Detected an internal function but it's not matching, we expected Math.ternary(bool condition, uint256 a, uint256 b) returns (uint256) @ CmdPointer(block=22098_1010_0_0_0_0, pos=24) (source: null
+[ForkJoinPool-1-worker-19] ERROR ALWAYS - Failed to build callgraph from points-to information in forward(address,uint256,address) @ LTACCmd(ptr=CmdPointer(block=14139_1007_0_0_0_232, pos=0), cmd=SummaryCmd  )
+Result for envfreeFuncsStaticCheck: envfreeFuncsStaticCheck: upperFeeModelRaw(): SUCCESS
+Result for concreteReachableBaseline: concreteReachableBaseline: SUCCESS
+Result for concreteNoneFeeEnum: concreteNoneFeeEnum: SUCCESS
+Result for concretePercentFeeRaw: concretePercentFeeRaw: SUCCESS
+Result for concretePercentFeeEnum: concretePercentFeeEnum: SUCCESS
+Result for concreteFixedFeeEnum: concreteFixedFeeEnum: SUCCESS
+exit=0

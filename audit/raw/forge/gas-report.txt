@@ -1,0 +1,992 @@
+Compiling 6 files with Solc 0.8.30
+Solc 0.8.30 finished in 15.74s
+Compiler run successful with warnings:
+Warning (5159): "selfdestruct" has been deprecated. Note that, starting from the Cancun hard fork, the underlying opcode no longer deletes the code and data associated with an account and only transfers its Ether to the beneficiary, unless executed in the same transaction in which the contract was created (see EIP-6780). Any use in newly deployed contracts is strongly discouraged even if the new behavior is taken into account. Future changes to the EVM might further reduce the functionality of the opcode.
+  --> test/mocks/MockTokens.sol:79:9:
+   |
+79 |         selfdestruct(target);
+   |         ^^^^^^^^^^^^
+
+
+Ran 17 tests for test/Forwarder.t.sol:ForwarderAccessControlTest
+[PASS] test_AdminAndStrangerCannotCallFeeManagerFunctions() (gas: 333143)
+[PASS] test_AdminCanPause() (gas: 45444)
+[PASS] test_AdminCanUnpause() (gas: 77901)
+[PASS] test_AdminManagesFeeManagers() (gas: 189854)
+[PASS] test_CompromisedFeeManagerBlastRadius() (gas: 216686)
+[PASS] test_DefaultAdminCannotBeGrantedDirectly() (gas: 36852)
+[PASS] test_DefaultAdminTransferRespectsDelay() (gas: 229623)
+[PASS] test_EveryFeeManagerCanSetFees() (gas: 537823)
+[PASS] test_FeeManagerAndStrangerCannotCallAdminFunctions() (gas: 698274)
+[PASS] test_FeeManagerCanPause() (gas: 44947)
+[PASS] test_FeeManagerCanRenounce() (gas: 36376)
+[PASS] test_FeeManagerCannotChangeTreasuryVaultRoutingOrRescue() (gas: 157453)
+[PASS] test_FeeManagerCannotGrantRoles() (gas: 97942)
+[PASS] test_FeeManagerCannotUnpause() (gas: 70956)
+[PASS] test_RevertWhen_PauseWhilePaused() (gas: 69444)
+[PASS] test_RevertWhen_StrangerPauses() (gas: 39311)
+[PASS] test_RevertWhen_UnpauseWhileNotPaused() (gas: 36512)
+Suite result: ok. 17 passed; 0 failed; 0 skipped; finished in 78.61ms (74.75ms CPU time)
+
+Ran 21 tests for test/Forwarder.t.sol:ForwarderFeeTest
+[PASS] test_AllModelCombinationsAroundThreshold() (gas: 2203809)
+[PASS] test_DefaultThresholdZero() (gas: 127958)
+[PASS] test_EachFeeModel() (gas: 275186)
+[PASS] test_FeeEqualToAmount() (gas: 298129)
+[PASS] test_FeeJustBelowAmount() (gas: 296452)
+[PASS] test_FeeUsesFullAmountAboveThreshold() (gas: 353301)
+[PASS] test_FeeUsesFullAmountWhenUpperIsFixedPlusPercent() (gas: 135978)
+[PASS] test_FixedFeeValues() (gas: 195791)
+[PASS] test_IndividualSettersEmitFullConfig() (gas: 352507)
+[PASS] test_MaxThresholdAlwaysUsesLowerModel() (gas: 133700)
+[PASS] test_MaximumFeeConfiguration() (gas: 101843)
+[PASS] test_PausedFeeIsZero() (gas: 429974)
+[PASS] test_PercentRoundsDown() (gas: 108212)
+[PASS] test_RevertWhen_FeeAboveAmount() (gas: 230769)
+[PASS] test_RevertWhen_FixedFeeAboveMaximum() (gas: 64395)
+[PASS] test_RevertWhen_FixedFeeAndZeroAmount() (gas: 109598)
+[PASS] test_RevertWhen_InvalidEnumValue() (gas: 56578)
+[PASS] test_RevertWhen_VariableFeeAboveMaximum() (gas: 89996)
+[PASS] test_ThresholdBoundaries() (gas: 162068)
+[PASS] test_VariableFeeAtMaximumIsAccepted() (gas: 68071)
+[PASS] test_VariableFeeGranularity() (gas: 315933)
+Suite result: ok. 21 passed; 0 failed; 0 skipped; finished in 81.97ms (105.90ms CPU time)
+
+Ran 4 tests for test/ForwarderRouting.t.sol:ForwarderAccidentalBalanceTest
+[PASS] test_DonationIsDepositedForTreasury() (gas: 488339)
+[PASS] test_DonationIsSweptDirectly() (gas: 324483)
+[PASS] test_DonationIsSweptEvenWithoutFees() (gas: 333348)
+[PASS] test_UserNeverReceivesTheDonation() (gas: 444706)
+Suite result: ok. 4 passed; 0 failed; 0 skipped; finished in 52.68ms (16.02ms CPU time)
+
+Ran 6 tests for test/ForwarderRouting.t.sol:ForwarderAllowanceTest
+[PASS] test_EveryRoutingTransition() (gas: 2122015)
+[PASS] test_FailedReplacementKeepsAllowances() (gas: 1946843)
+[PASS] test_ForwardNeverApproves() (gas: 1151915)
+[PASS] test_UsdcStyleAllowanceDecrementAndRefresh() (gas: 685118)
+[PASS] test_VaultReplacementInDirectMode() (gas: 1864003)
+[PASS] test_VaultReplacementInVaultMode() (gas: 2176942)
+Suite result: ok. 6 passed; 0 failed; 0 skipped; finished in 113.02ms (47.88ms CPU time)
+
+Ran 11 tests for test/Forwarder.t.sol:ForwarderValidationTest
+[PASS] test_AnyCallerCanForwardItsOwnFunds() (gas: 203300)
+[PASS] test_ForwardWorksWhilePaused() (gas: 237269)
+[PASS] test_RevertWhen_CallerHasNoAllowance() (gas: 116538)
+[PASS] test_RevertWhen_CallerHasNoBalance() (gas: 122591)
+[PASS] test_RevertWhen_RecipientIsForwarder() (gas: 154293)
+[PASS] test_RevertWhen_RecipientIsZero() (gas: 153901)
+[PASS] test_RevertWhen_TokenIsNotUsdc() (gas: 614404)
+[PASS] test_RevertWhen_TreasuryIsZeroOrForwarder() (gas: 61108)
+[PASS] test_RevertWhen_UsdcIsPaused() (gas: 220087)
+[PASS] test_RevertWhen_VaultModeWithoutVault() (gas: 2811366)
+[PASS] test_SetTreasury() (gas: 49951)
+Suite result: ok. 11 passed; 0 failed; 0 skipped; finished in 111.74ms (66.05ms CPU time)
+
+Ran 13 tests for test/ForwarderVaultAndRescue.t.sol:ForwarderRescueTest
+[PASS] test_RescueArbitraryToken() (gas: 690805)
+[PASS] test_RescueDaiLikeToken() (gas: 698474)
+[PASS] test_RescueForcedNative() (gas: 167927)
+[PASS] test_RescueGoesToCurrentTreasury() (gas: 184516)
+[PASS] test_RescueNative() (gas: 78137)
+[PASS] test_RescueNativeZeroBalance() (gas: 43110)
+[PASS] test_RescueUsdc() (gas: 155944)
+[PASS] test_RescueUsdcInVaultModeGoesDirectlyToTreasury() (gas: 217809)
+[PASS] test_RescueUsdtLikeToken() (gas: 535026)
+[PASS] test_RescueVaultShares() (gas: 330849)
+[PASS] test_RescueZeroBalance() (gas: 66169)
+[PASS] test_RevertWhen_RescueTokenReturnsFalse() (gas: 651264)
+[PASS] test_RevertWhen_TreasuryRejectsNative() (gas: 191540)
+Suite result: ok. 13 passed; 0 failed; 0 skipped; finished in 40.15ms (23.52ms CPU time)
+
+Ran 6 tests for test/ForwarderRouting.t.sol:ForwarderZeroValuesTest
+[PASS] test_ZeroAmountDirect() (gas: 88989)
+[PASS] test_ZeroAmountVaultDepositThatRevertsFallsBack() (gas: 226188)
+[PASS] test_ZeroAmountVaultDepositThatWorks() (gas: 188579)
+[PASS] test_ZeroFee() (gas: 213026)
+[PASS] test_ZeroUserAmountWithFallback() (gas: 410048)
+[PASS] test_ZeroUserAmountWithWorkingZeroDeposit() (gas: 435142)
+Suite result: ok. 6 passed; 0 failed; 0 skipped; finished in 72.23ms (60.37ms CPU time)
+
+Ran 6 tests for test/ForwarderRouting.t.sol:ForwarderRoutingTest
+[PASS] test_DirectDirect() (gas: 294019)
+[PASS] test_DirectUserVaultTreasury() (gas: 425898)
+[PASS] test_RecipientCanBeTheTreasury() (gas: 209909)
+[PASS] test_SequentialForwardsAcrossModeChanges() (gas: 1125422)
+[PASS] test_VaultUserDirectTreasury() (gas: 451169)
+[PASS] test_VaultVault() (gas: 441874)
+Suite result: ok. 6 passed; 0 failed; 0 skipped; finished in 54.45ms (47.27ms CPU time)
+
+Ran 18 tests for test/ForwarderVaultAndRescue.t.sol:ForwarderSetVaultTest
+[PASS] test_FailedHealthCheckLeavesNoPartialState() (gas: 517539)
+[PASS] test_HealthCheckNeverUsesForwarderFunds() (gas: 391832)
+[PASS] test_HealthCheckOnlyRedeemsNewShares() (gas: 524035)
+[PASS] test_HealthCheckRefundsAssetsTheVaultDidNotPull() (gas: 354023)
+[PASS] test_RevertWhen_CallerDidNotFundHealthCheck() (gas: 66146)
+[PASS] test_RevertWhen_VaultAssetIsNotUsdc() (gas: 2183128)
+[PASS] test_RevertWhen_VaultDepositFails() (gas: 316278)
+[PASS] test_RevertWhen_VaultIsEoa() (gas: 165017)
+[PASS] test_RevertWhen_VaultIsNotErc4626() (gas: 275336)
+[PASS] test_RevertWhen_VaultIsPaused() (gas: 306043)
+[PASS] test_RevertWhen_VaultIsZero() (gas: 160526)
+[PASS] test_RevertWhen_VaultMintsNoShares() (gas: 352179)
+[PASS] test_RevertWhen_VaultRedeemFails() (gas: 399050)
+[PASS] test_RevertWhen_VaultRedeemReturnsNothing() (gas: 410985)
+[PASS] test_SetSameVaultAgain() (gas: 302523)
+[PASS] test_SetVault() (gas: 343059)
+[PASS] test_VaultReturningLessThanDepositedIsAccepted() (gas: 356343)
+[PASS] test_VaultWithRoundingLossIsAccepted() (gas: 602193)
+Suite result: ok. 18 passed; 0 failed; 0 skipped; finished in 66.82ms (50.89ms CPU time)
+
+Ran 18 tests for test/Forwarder.t.sol:ForwarderConstructorTest
+[PASS] test_Constants() (gas: 32014)
+[PASS] test_DeployEmitsConfigurationEvents() (gas: 2881529)
+[PASS] test_DeployWithDuplicatedFeeManagers() (gas: 2705570)
+[PASS] test_DeployWithEachVaultModeSetsMaxAllowance() (gas: 8637189)
+[PASS] test_DeployWithoutVault() (gas: 2699367)
+[PASS] test_DeploymentHealthCheckUsesAndRefundsDeployerFunds() (gas: 44679)
+[PASS] test_InitialState() (gas: 212660)
+[PASS] test_RejectsDirectNativeTransfers() (gas: 38639)
+[PASS] test_RevertWhen_DeployHealthCheckNotFunded() (gas: 454427)
+[PASS] test_RevertWhen_DeployVaultModeWithoutVault() (gas: 1281588)
+[PASS] test_RevertWhen_DeployWithFailingVault() (gas: 818689)
+[PASS] test_RevertWhen_DeployWithWrongAssetVault() (gas: 2610171)
+[PASS] test_RevertWhen_DeployZeroAdmin() (gas: 339137)
+[PASS] test_RevertWhen_DeployZeroFeeManager() (gas: 461026)
+[PASS] test_RevertWhen_DeployZeroTreasury() (gas: 408398)
+[PASS] test_RevertWhen_DeployZeroUsdc() (gas: 407997)
+[PASS] test_RuntimeCodeHasNoDelegatecallOrSelfdestruct() (gas: 7473342)
+[PASS] test_SupportsInterface() (gas: 22681)
+Suite result: ok. 18 passed; 0 failed; 0 skipped; finished in 176.61ms (156.24ms CPU time)
+
+Ran 9 tests for test/ForwarderVaultAndRescue.t.sol:ForwarderReentrancyTest
+[PASS] test_CandidateVaultCannotReenterForwardDuringHealthCheck() (gas: 2311040)
+[PASS] test_CandidateVaultCannotReenterSetVaultDuringHealthCheck() (gas: 2275242)
+[PASS] test_ForwardCannotBeReentered() (gas: 526645)
+[PASS] test_ForwardUsesConfigurationSnapshot() (gas: 573564)
+[PASS] test_RescueNativeCannotBeReenteredFromForward() (gas: 417262)
+[PASS] test_RescueTokenCannotBeReenteredFromForward() (gas: 473569)
+[PASS] test_RescuedTokenCannotReenter() (gas: 1427552)
+[PASS] test_SetRoutingModeCannotBeReenteredFromForward() (gas: 451377)
+[PASS] test_SetVaultCannotBeReenteredFromForward() (gas: 475601)
+Suite result: ok. 9 passed; 0 failed; 0 skipped; finished in 30.43ms (22.69ms CPU time)
+
+Ran 8 tests for test/ForwarderRouting.t.sol:ForwarderTreasuryDeliveryTest
+[PASS] test_DirectTreasuryTransferReturningFalse() (gas: 561889)
+[PASS] test_DirectTreasuryTransferReverting() (gas: 543055)
+[PASS] test_FailuresAccumulateAndAreDeliveredTogether() (gas: 917692)
+[PASS] test_NoTreasuryActionWhenNothingIsLeft() (gas: 1043020)
+[PASS] test_PendingFundsGoToTheNewTreasury() (gas: 537164)
+[PASS] test_TreasuryLegNeverRevertsOnMalformedVaultReturn() (gas: 2209523)
+[PASS] test_TreasuryOnlyVaultFailureInVaultVault() (gas: 766597)
+[PASS] test_TreasuryVaultFailureKeepsFundsAndRetries() (gas: 727448)
+Suite result: ok. 8 passed; 0 failed; 0 skipped; finished in 83.97ms (76.10ms CPU time)
+
+Ran 9 tests for test/ForwarderRouting.t.sol:ForwarderUserFallbackTest
+[PASS] test_FallbackInVaultVaultKeepsTreasuryFundsWhenBothDepositsFail() (gas: 400364)
+[PASS] test_FallbackWhenAllowanceIsExhausted() (gas: 357209)
+[PASS] test_FallbackWhenDepositCapIsExceededWhileTreasuryDepositWorks() (gas: 444260)
+[PASS] test_FallbackWhenDepositReverts() (gas: 401756)
+[PASS] test_FallbackWhenVaultIsPaused() (gas: 355794)
+[PASS] test_RevertWhen_DirectUserTransferFails() (gas: 269633)
+[PASS] test_RevertWhen_FallbackTransferAlsoFails() (gas: 413608)
+[PASS] test_UserLegRevertsWhenVaultReturnsMalformedData() (gas: 2196502)
+[PASS] test_VaultDepositResumesAfterRecovery() (gas: 661418)
+Suite result: ok. 9 passed; 0 failed; 0 skipped; finished in 50.97ms (47.15ms CPU time)
+
+Ran 13 tests for test/ForwarderFuzz.t.sol:ForwarderFuzzTest
+[PASS] testFuzz_AnyValidRecipient(address,uint256) (runs: 1000, μ: 219346, ~: 219694)
+[PASS] testFuzz_CalculateFeeMatchesSpecification((uint8,uint8,uint256,uint256,uint256,bool),uint256) (runs: 1000, μ: 154863, ~: 147722)
+[PASS] testFuzz_CalculateFeeNeverRevertsForRealisticAmounts((uint8,uint8,uint256,uint256,uint256,bool),uint256) (runs: 1000, μ: 154210, ~: 146697)
+[PASS] testFuzz_FeeAboveThresholdUsesFullAmount(uint256,uint256,uint256) (runs: 1000, μ: 122974, ~: 123232)
+[PASS] testFuzz_FeeIsBoundedByCaps((uint8,uint8,uint256,uint256,uint256,bool),uint256) (runs: 1000, μ: 154528, ~: 147283)
+[PASS] testFuzz_ForwardAccounting((uint8,uint8,uint256,uint256,uint256,bool),uint256,uint8,uint256,bool,bool) (runs: 1000, μ: 628267, ~: 639728)
+[PASS] testFuzz_HealthCheckAcceptsAnyPositiveReturn(uint256) (runs: 1000, μ: 1816829, ~: 1813731)
+[PASS] testFuzz_PausedFeeIsZero((uint8,uint8,uint256,uint256,uint256,bool),uint256) (runs: 1000, μ: 158766, ~: 160044)
+[PASS] testFuzz_RescueSendsEverythingToTreasury(uint256,uint256) (runs: 1000, μ: 775084, ~: 776112)
+[PASS] testFuzz_RevertWhen_TokenIsNotUsdc(address,uint256) (runs: 1000, μ: 36344, ~: 36346)
+[PASS] testFuzz_RoutingSequenceAllowance(uint8[8]) (runs: 1000, μ: 527133, ~: 520921)
+[PASS] testFuzz_SetterBounds(uint256,uint256) (runs: 1000, μ: 89562, ~: 71663)
+[PASS] testFuzz_UnprivilegedCallerCannotConfigure(address,uint8,uint256) (runs: 1000, μ: 69959, ~: 69838)
+Suite result: ok. 13 passed; 0 failed; 0 skipped; finished in 30.13s (79.52s CPU time)
+
+Ran 12 tests for test/ForwarderInvariant.t.sol:ForwarderInvariantTest
+[PASS] invariant_Allowances() (runs: 256, calls: 16384, reverts: 0)
+
+╭------------------+-----------------------+-------+---------+----------╮
+| Contract         | Selector              | Calls | Reverts | Discards |
++=======================================================================+
+| ForwarderHandler | donate                | 1234  | 0       | 0        |
+|------------------+-----------------------+-------+---------+----------|
+| ForwarderHandler | forward               | 2305  | 0       | 0        |
+|------------------+-----------------------+-------+---------+----------|
+| ForwarderHandler | pause                 | 1168  | 0       | 0        |
+|------------------+-----------------------+-------+---------+----------|
+| ForwarderHandler | rescueNative          | 1160  | 0       | 0        |
+|------------------+-----------------------+-------+---------+----------|
+| ForwarderHandler | rescueUsdc            | 1097  | 0       | 0        |
+|------------------+-----------------------+-------+---------+----------|
+| ForwarderHandler | setFeeConfig          | 1165  | 0       | 0        |
+|------------------+-----------------------+-------+---------+----------|
+| ForwarderHandler | setRoutingMode        | 1155  | 0       | 0        |
+|------------------+-----------------------+-------+---------+----------|
+| ForwarderHandler | setSingleFeeParameter | 1194  | 0       | 0        |
+|------------------+-----------------------+-------+---------+----------|
+| ForwarderHandler | setTreasury           | 1185  | 0       | 0        |
+|------------------+-----------------------+-------+---------+----------|
+| ForwarderHandler | setVault              | 1210  | 0       | 0        |
+|------------------+-----------------------+-------+---------+----------|
+| ForwarderHandler | toggleFailure         | 1191  | 0       | 0        |
+|------------------+-----------------------+-------+---------+----------|
+| ForwarderHandler | unauthorizedCall      | 1098  | 0       | 0        |
+|------------------+-----------------------+-------+---------+----------|
+| ForwarderHandler | unpause               | 1222  | 0       | 0        |
+╰------------------+-----------------------+-------+---------+----------╯
+
+[PASS] invariant_CodeNeverChanges() (runs: 256, calls: 16384, reverts: 0)
+
+╭------------------+-----------------------+-------+---------+----------╮
+| Contract         | Selector              | Calls | Reverts | Discards |
++=======================================================================+
+| ForwarderHandler | donate                | 1234  | 0       | 0        |
+|------------------+-----------------------+-------+---------+----------|
+| ForwarderHandler | forward               | 2305  | 0       | 0        |
+|------------------+-----------------------+-------+---------+----------|
+| ForwarderHandler | pause                 | 1168  | 0       | 0        |
+|------------------+-----------------------+-------+---------+----------|
+| ForwarderHandler | rescueNative          | 1160  | 0       | 0        |
+|------------------+-----------------------+-------+---------+----------|
+| ForwarderHandler | rescueUsdc            | 1097  | 0       | 0        |
+|------------------+-----------------------+-------+---------+----------|
+| ForwarderHandler | setFeeConfig          | 1165  | 0       | 0        |
+|------------------+-----------------------+-------+---------+----------|
+| ForwarderHandler | setRoutingMode        | 1155  | 0       | 0        |
+|------------------+-----------------------+-------+---------+----------|
+| ForwarderHandler | setSingleFeeParameter | 1194  | 0       | 0        |
+|------------------+-----------------------+-------+---------+----------|
+| ForwarderHandler | setTreasury           | 1185  | 0       | 0        |
+|------------------+-----------------------+-------+---------+----------|
+| ForwarderHandler | setVault              | 1210  | 0       | 0        |
+|------------------+-----------------------+-------+---------+----------|
+| ForwarderHandler | toggleFailure         | 1191  | 0       | 0        |
+|------------------+-----------------------+-------+---------+----------|
+| ForwarderHandler | unauthorizedCall      | 1098  | 0       | 0        |
+|------------------+-----------------------+-------+---------+----------|
+| ForwarderHandler | unpause               | 1222  | 0       | 0        |
+╰------------------+-----------------------+-------+---------+----------╯
+
+[PASS] invariant_Conservation() (runs: 256, calls: 16384, reverts: 0)
+
+╭------------------+-----------------------+-------+---------+----------╮
+| Contract         | Selector              | Calls | Reverts | Discards |
++=======================================================================+
+| ForwarderHandler | donate                | 1234  | 0       | 0        |
+|------------------+-----------------------+-------+---------+----------|
+| ForwarderHandler | forward               | 2305  | 0       | 0        |
+|------------------+-----------------------+-------+---------+----------|
+| ForwarderHandler | pause                 | 1168  | 0       | 0        |
+|------------------+-----------------------+-------+---------+----------|
+| ForwarderHandler | rescueNative          | 1160  | 0       | 0        |
+|------------------+-----------------------+-------+---------+----------|
+| ForwarderHandler | rescueUsdc            | 1097  | 0       | 0        |
+|------------------+-----------------------+-------+---------+----------|
+| ForwarderHandler | setFeeConfig          | 1165  | 0       | 0        |
+|------------------+-----------------------+-------+---------+----------|
+| ForwarderHandler | setRoutingMode        | 1155  | 0       | 0        |
+|------------------+-----------------------+-------+---------+----------|
+| ForwarderHandler | setSingleFeeParameter | 1194  | 0       | 0        |
+|------------------+-----------------------+-------+---------+----------|
+| ForwarderHandler | setTreasury           | 1185  | 0       | 0        |
+|------------------+-----------------------+-------+---------+----------|
+| ForwarderHandler | setVault              | 1210  | 0       | 0        |
+|------------------+-----------------------+-------+---------+----------|
+| ForwarderHandler | toggleFailure         | 1191  | 0       | 0        |
+|------------------+-----------------------+-------+---------+----------|
+| ForwarderHandler | unauthorizedCall      | 1098  | 0       | 0        |
+|------------------+-----------------------+-------+---------+----------|
+| ForwarderHandler | unpause               | 1222  | 0       | 0        |
+╰------------------+-----------------------+-------+---------+----------╯
+
+[PASS] invariant_FeeConfigWithinCaps() (runs: 256, calls: 16384, reverts: 0)
+
+╭------------------+-----------------------+-------+---------+----------╮
+| Contract         | Selector              | Calls | Reverts | Discards |
++=======================================================================+
+| ForwarderHandler | donate                | 1234  | 0       | 0        |
+|------------------+-----------------------+-------+---------+----------|
+| ForwarderHandler | forward               | 2305  | 0       | 0        |
+|------------------+-----------------------+-------+---------+----------|
+| ForwarderHandler | pause                 | 1168  | 0       | 0        |
+|------------------+-----------------------+-------+---------+----------|
+| ForwarderHandler | rescueNative          | 1160  | 0       | 0        |
+|------------------+-----------------------+-------+---------+----------|
+| ForwarderHandler | rescueUsdc            | 1097  | 0       | 0        |
+|------------------+-----------------------+-------+---------+----------|
+| ForwarderHandler | setFeeConfig          | 1165  | 0       | 0        |
+|------------------+-----------------------+-------+---------+----------|
+| ForwarderHandler | setRoutingMode        | 1155  | 0       | 0        |
+|------------------+-----------------------+-------+---------+----------|
+| ForwarderHandler | setSingleFeeParameter | 1194  | 0       | 0        |
+|------------------+-----------------------+-------+---------+----------|
+| ForwarderHandler | setTreasury           | 1185  | 0       | 0        |
+|------------------+-----------------------+-------+---------+----------|
+| ForwarderHandler | setVault              | 1210  | 0       | 0        |
+|------------------+-----------------------+-------+---------+----------|
+| ForwarderHandler | toggleFailure         | 1191  | 0       | 0        |
+|------------------+-----------------------+-------+---------+----------|
+| ForwarderHandler | unauthorizedCall      | 1098  | 0       | 0        |
+|------------------+-----------------------+-------+---------+----------|
+| ForwarderHandler | unpause               | 1222  | 0       | 0        |
+╰------------------+-----------------------+-------+---------+----------╯
+
+[PASS] invariant_ForwarderNeverHoldsShares() (runs: 256, calls: 16384, reverts: 0)
+
+╭------------------+-----------------------+-------+---------+----------╮
+| Contract         | Selector              | Calls | Reverts | Discards |
++=======================================================================+
+| ForwarderHandler | donate                | 1234  | 0       | 0        |
+|------------------+-----------------------+-------+---------+----------|
+| ForwarderHandler | forward               | 2305  | 0       | 0        |
+|------------------+-----------------------+-------+---------+----------|
+| ForwarderHandler | pause                 | 1168  | 0       | 0        |
+|------------------+-----------------------+-------+---------+----------|
+| ForwarderHandler | rescueNative          | 1160  | 0       | 0        |
+|------------------+-----------------------+-------+---------+----------|
+| ForwarderHandler | rescueUsdc            | 1097  | 0       | 0        |
+|------------------+-----------------------+-------+---------+----------|
+| ForwarderHandler | setFeeConfig          | 1165  | 0       | 0        |
+|------------------+-----------------------+-------+---------+----------|
+| ForwarderHandler | setRoutingMode        | 1155  | 0       | 0        |
+|------------------+-----------------------+-------+---------+----------|
+| ForwarderHandler | setSingleFeeParameter | 1194  | 0       | 0        |
+|------------------+-----------------------+-------+---------+----------|
+| ForwarderHandler | setTreasury           | 1185  | 0       | 0        |
+|------------------+-----------------------+-------+---------+----------|
+| ForwarderHandler | setVault              | 1210  | 0       | 0        |
+|------------------+-----------------------+-------+---------+----------|
+| ForwarderHandler | toggleFailure         | 1191  | 0       | 0        |
+|------------------+-----------------------+-------+---------+----------|
+| ForwarderHandler | unauthorizedCall      | 1098  | 0       | 0        |
+|------------------+-----------------------+-------+---------+----------|
+| ForwarderHandler | unpause               | 1222  | 0       | 0        |
+╰------------------+-----------------------+-------+---------+----------╯
+
+[PASS] invariant_NoUnexpectedOutcome() (runs: 256, calls: 16384, reverts: 0)
+
+╭------------------+-----------------------+-------+---------+----------╮
+| Contract         | Selector              | Calls | Reverts | Discards |
++=======================================================================+
+| ForwarderHandler | donate                | 1234  | 0       | 0        |
+|------------------+-----------------------+-------+---------+----------|
+| ForwarderHandler | forward               | 2305  | 0       | 0        |
+|------------------+-----------------------+-------+---------+----------|
+| ForwarderHandler | pause                 | 1168  | 0       | 0        |
+|------------------+-----------------------+-------+---------+----------|
+| ForwarderHandler | rescueNative          | 1160  | 0       | 0        |
+|------------------+-----------------------+-------+---------+----------|
+| ForwarderHandler | rescueUsdc            | 1097  | 0       | 0        |
+|------------------+-----------------------+-------+---------+----------|
+| ForwarderHandler | setFeeConfig          | 1165  | 0       | 0        |
+|------------------+-----------------------+-------+---------+----------|
+| ForwarderHandler | setRoutingMode        | 1155  | 0       | 0        |
+|------------------+-----------------------+-------+---------+----------|
+| ForwarderHandler | setSingleFeeParameter | 1194  | 0       | 0        |
+|------------------+-----------------------+-------+---------+----------|
+| ForwarderHandler | setTreasury           | 1185  | 0       | 0        |
+|------------------+-----------------------+-------+---------+----------|
+| ForwarderHandler | setVault              | 1210  | 0       | 0        |
+|------------------+-----------------------+-------+---------+----------|
+| ForwarderHandler | toggleFailure         | 1191  | 0       | 0        |
+|------------------+-----------------------+-------+---------+----------|
+| ForwarderHandler | unauthorizedCall      | 1098  | 0       | 0        |
+|------------------+-----------------------+-------+---------+----------|
+| ForwarderHandler | unpause               | 1222  | 0       | 0        |
+╰------------------+-----------------------+-------+---------+----------╯
+
+[PASS] invariant_PausedImpliesZeroFee() (runs: 256, calls: 16384, reverts: 0)
+
+╭------------------+-----------------------+-------+---------+----------╮
+| Contract         | Selector              | Calls | Reverts | Discards |
++=======================================================================+
+| ForwarderHandler | donate                | 1234  | 0       | 0        |
+|------------------+-----------------------+-------+---------+----------|
+| ForwarderHandler | forward               | 2305  | 0       | 0        |
+|------------------+-----------------------+-------+---------+----------|
+| ForwarderHandler | pause                 | 1168  | 0       | 0        |
+|------------------+-----------------------+-------+---------+----------|
+| ForwarderHandler | rescueNative          | 1160  | 0       | 0        |
+|------------------+-----------------------+-------+---------+----------|
+| ForwarderHandler | rescueUsdc            | 1097  | 0       | 0        |
+|------------------+-----------------------+-------+---------+----------|
+| ForwarderHandler | setFeeConfig          | 1165  | 0       | 0        |
+|------------------+-----------------------+-------+---------+----------|
+| ForwarderHandler | setRoutingMode        | 1155  | 0       | 0        |
+|------------------+-----------------------+-------+---------+----------|
+| ForwarderHandler | setSingleFeeParameter | 1194  | 0       | 0        |
+|------------------+-----------------------+-------+---------+----------|
+| ForwarderHandler | setTreasury           | 1185  | 0       | 0        |
+|------------------+-----------------------+-------+---------+----------|
+| ForwarderHandler | setVault              | 1210  | 0       | 0        |
+|------------------+-----------------------+-------+---------+----------|
+| ForwarderHandler | toggleFailure         | 1191  | 0       | 0        |
+|------------------+-----------------------+-------+---------+----------|
+| ForwarderHandler | unauthorizedCall      | 1098  | 0       | 0        |
+|------------------+-----------------------+-------+---------+----------|
+| ForwarderHandler | unpause               | 1222  | 0       | 0        |
+╰------------------+-----------------------+-------+---------+----------╯
+
+[PASS] invariant_PrivilegesNeverChange() (runs: 256, calls: 16384, reverts: 0)
+
+╭------------------+-----------------------+-------+---------+----------╮
+| Contract         | Selector              | Calls | Reverts | Discards |
++=======================================================================+
+| ForwarderHandler | donate                | 1234  | 0       | 0        |
+|------------------+-----------------------+-------+---------+----------|
+| ForwarderHandler | forward               | 2305  | 0       | 0        |
+|------------------+-----------------------+-------+---------+----------|
+| ForwarderHandler | pause                 | 1168  | 0       | 0        |
+|------------------+-----------------------+-------+---------+----------|
+| ForwarderHandler | rescueNative          | 1160  | 0       | 0        |
+|------------------+-----------------------+-------+---------+----------|
+| ForwarderHandler | rescueUsdc            | 1097  | 0       | 0        |
+|------------------+-----------------------+-------+---------+----------|
+| ForwarderHandler | setFeeConfig          | 1165  | 0       | 0        |
+|------------------+-----------------------+-------+---------+----------|
+| ForwarderHandler | setRoutingMode        | 1155  | 0       | 0        |
+|------------------+-----------------------+-------+---------+----------|
+| ForwarderHandler | setSingleFeeParameter | 1194  | 0       | 0        |
+|------------------+-----------------------+-------+---------+----------|
+| ForwarderHandler | setTreasury           | 1185  | 0       | 0        |
+|------------------+-----------------------+-------+---------+----------|
+| ForwarderHandler | setVault              | 1210  | 0       | 0        |
+|------------------+-----------------------+-------+---------+----------|
+| ForwarderHandler | toggleFailure         | 1191  | 0       | 0        |
+|------------------+-----------------------+-------+---------+----------|
+| ForwarderHandler | unauthorizedCall      | 1098  | 0       | 0        |
+|------------------+-----------------------+-------+---------+----------|
+| ForwarderHandler | unpause               | 1222  | 0       | 0        |
+╰------------------+-----------------------+-------+---------+----------╯
+
+[PASS] invariant_TreasuryAccounting() (runs: 256, calls: 16384, reverts: 0)
+
+╭------------------+-----------------------+-------+---------+----------╮
+| Contract         | Selector              | Calls | Reverts | Discards |
++=======================================================================+
+| ForwarderHandler | donate                | 1234  | 0       | 0        |
+|------------------+-----------------------+-------+---------+----------|
+| ForwarderHandler | forward               | 2305  | 0       | 0        |
+|------------------+-----------------------+-------+---------+----------|
+| ForwarderHandler | pause                 | 1168  | 0       | 0        |
+|------------------+-----------------------+-------+---------+----------|
+| ForwarderHandler | rescueNative          | 1160  | 0       | 0        |
+|------------------+-----------------------+-------+---------+----------|
+| ForwarderHandler | rescueUsdc            | 1097  | 0       | 0        |
+|------------------+-----------------------+-------+---------+----------|
+| ForwarderHandler | setFeeConfig          | 1165  | 0       | 0        |
+|------------------+-----------------------+-------+---------+----------|
+| ForwarderHandler | setRoutingMode        | 1155  | 0       | 0        |
+|------------------+-----------------------+-------+---------+----------|
+| ForwarderHandler | setSingleFeeParameter | 1194  | 0       | 0        |
+|------------------+-----------------------+-------+---------+----------|
+| ForwarderHandler | setTreasury           | 1185  | 0       | 0        |
+|------------------+-----------------------+-------+---------+----------|
+| ForwarderHandler | setVault              | 1210  | 0       | 0        |
+|------------------+-----------------------+-------+---------+----------|
+| ForwarderHandler | toggleFailure         | 1191  | 0       | 0        |
+|------------------+-----------------------+-------+---------+----------|
+| ForwarderHandler | unauthorizedCall      | 1098  | 0       | 0        |
+|------------------+-----------------------+-------+---------+----------|
+| ForwarderHandler | unpause               | 1222  | 0       | 0        |
+╰------------------+-----------------------+-------+---------+----------╯
+
+[PASS] invariant_TreasuryIsAlwaysValid() (runs: 256, calls: 16384, reverts: 0)
+
+╭------------------+-----------------------+-------+---------+----------╮
+| Contract         | Selector              | Calls | Reverts | Discards |
++=======================================================================+
+| ForwarderHandler | donate                | 1234  | 0       | 0        |
+|------------------+-----------------------+-------+---------+----------|
+| ForwarderHandler | forward               | 2305  | 0       | 0        |
+|------------------+-----------------------+-------+---------+----------|
+| ForwarderHandler | pause                 | 1168  | 0       | 0        |
+|------------------+-----------------------+-------+---------+----------|
+| ForwarderHandler | rescueNative          | 1160  | 0       | 0        |
+|------------------+-----------------------+-------+---------+----------|
+| ForwarderHandler | rescueUsdc            | 1097  | 0       | 0        |
+|------------------+-----------------------+-------+---------+----------|
+| ForwarderHandler | setFeeConfig          | 1165  | 0       | 0        |
+|------------------+-----------------------+-------+---------+----------|
+| ForwarderHandler | setRoutingMode        | 1155  | 0       | 0        |
+|------------------+-----------------------+-------+---------+----------|
+| ForwarderHandler | setSingleFeeParameter | 1194  | 0       | 0        |
+|------------------+-----------------------+-------+---------+----------|
+| ForwarderHandler | setTreasury           | 1185  | 0       | 0        |
+|------------------+-----------------------+-------+---------+----------|
+| ForwarderHandler | setVault              | 1210  | 0       | 0        |
+|------------------+-----------------------+-------+---------+----------|
+| ForwarderHandler | toggleFailure         | 1191  | 0       | 0        |
+|------------------+-----------------------+-------+---------+----------|
+| ForwarderHandler | unauthorizedCall      | 1098  | 0       | 0        |
+|------------------+-----------------------+-------+---------+----------|
+| ForwarderHandler | unpause               | 1222  | 0       | 0        |
+╰------------------+-----------------------+-------+---------+----------╯
+
+[PASS] invariant_UserGetsExactlyAmountMinusFee() (runs: 256, calls: 16384, reverts: 0)
+
+╭------------------+-----------------------+-------+---------+----------╮
+| Contract         | Selector              | Calls | Reverts | Discards |
++=======================================================================+
+| ForwarderHandler | donate                | 1234  | 0       | 0        |
+|------------------+-----------------------+-------+---------+----------|
+| ForwarderHandler | forward               | 2305  | 0       | 0        |
+|------------------+-----------------------+-------+---------+----------|
+| ForwarderHandler | pause                 | 1168  | 0       | 0        |
+|------------------+-----------------------+-------+---------+----------|
+| ForwarderHandler | rescueNative          | 1160  | 0       | 0        |
+|------------------+-----------------------+-------+---------+----------|
+| ForwarderHandler | rescueUsdc            | 1097  | 0       | 0        |
+|------------------+-----------------------+-------+---------+----------|
+| ForwarderHandler | setFeeConfig          | 1165  | 0       | 0        |
+|------------------+-----------------------+-------+---------+----------|
+| ForwarderHandler | setRoutingMode        | 1155  | 0       | 0        |
+|------------------+-----------------------+-------+---------+----------|
+| ForwarderHandler | setSingleFeeParameter | 1194  | 0       | 0        |
+|------------------+-----------------------+-------+---------+----------|
+| ForwarderHandler | setTreasury           | 1185  | 0       | 0        |
+|------------------+-----------------------+-------+---------+----------|
+| ForwarderHandler | setVault              | 1210  | 0       | 0        |
+|------------------+-----------------------+-------+---------+----------|
+| ForwarderHandler | toggleFailure         | 1191  | 0       | 0        |
+|------------------+-----------------------+-------+---------+----------|
+| ForwarderHandler | unauthorizedCall      | 1098  | 0       | 0        |
+|------------------+-----------------------+-------+---------+----------|
+| ForwarderHandler | unpause               | 1222  | 0       | 0        |
+╰------------------+-----------------------+-------+---------+----------╯
+
+[PASS] invariant_VaultModeHasVault() (runs: 256, calls: 16384, reverts: 0)
+
+╭------------------+-----------------------+-------+---------+----------╮
+| Contract         | Selector              | Calls | Reverts | Discards |
++=======================================================================+
+| ForwarderHandler | donate                | 1234  | 0       | 0        |
+|------------------+-----------------------+-------+---------+----------|
+| ForwarderHandler | forward               | 2305  | 0       | 0        |
+|------------------+-----------------------+-------+---------+----------|
+| ForwarderHandler | pause                 | 1168  | 0       | 0        |
+|------------------+-----------------------+-------+---------+----------|
+| ForwarderHandler | rescueNative          | 1160  | 0       | 0        |
+|------------------+-----------------------+-------+---------+----------|
+| ForwarderHandler | rescueUsdc            | 1097  | 0       | 0        |
+|------------------+-----------------------+-------+---------+----------|
+| ForwarderHandler | setFeeConfig          | 1165  | 0       | 0        |
+|------------------+-----------------------+-------+---------+----------|
+| ForwarderHandler | setRoutingMode        | 1155  | 0       | 0        |
+|------------------+-----------------------+-------+---------+----------|
+| ForwarderHandler | setSingleFeeParameter | 1194  | 0       | 0        |
+|------------------+-----------------------+-------+---------+----------|
+| ForwarderHandler | setTreasury           | 1185  | 0       | 0        |
+|------------------+-----------------------+-------+---------+----------|
+| ForwarderHandler | setVault              | 1210  | 0       | 0        |
+|------------------+-----------------------+-------+---------+----------|
+| ForwarderHandler | toggleFailure         | 1191  | 0       | 0        |
+|------------------+-----------------------+-------+---------+----------|
+| ForwarderHandler | unauthorizedCall      | 1098  | 0       | 0        |
+|------------------+-----------------------+-------+---------+----------|
+| ForwarderHandler | unpause               | 1222  | 0       | 0        |
+╰------------------+-----------------------+-------+---------+----------╯
+
+Suite result: ok. 12 passed; 0 failed; 0 skipped; finished in 42.82s (271.38s CPU time)
+
+╭--------------------------------------+-----------------+--------+--------+--------+---------╮
+| src/Forwarder.sol:Forwarder Contract |                 |        |        |        |         |
++=============================================================================================+
+| Deployment Cost                      | Deployment Size |        |        |        |         |
+|--------------------------------------+-----------------+--------+--------+--------+---------|
+| 2763657                              | 15272           |        |        |        |         |
+|--------------------------------------+-----------------+--------+--------+--------+---------|
+|                                      |                 |        |        |        |         |
+|--------------------------------------+-----------------+--------+--------+--------+---------|
+| Function Name                        | Min             | Avg    | Median | Max    | # Calls |
+|--------------------------------------+-----------------+--------+--------+--------+---------|
+| DEFAULT_ADMIN_ROLE                   | 238             | 238    | 238    | 238    | 1243    |
+|--------------------------------------+-----------------+--------+--------+--------+---------|
+| FEE_DENOMINATOR                      | 305             | 305    | 305    | 305    | 1       |
+|--------------------------------------+-----------------+--------+--------+--------+---------|
+| FEE_MANAGER_ROLE                     | 314             | 314    | 314    | 314    | 1007    |
+|--------------------------------------+-----------------+--------+--------+--------+---------|
+| MAX_FIXED_FEE                        | 260             | 260    | 260    | 260    | 2       |
+|--------------------------------------+-----------------+--------+--------+--------+---------|
+| MAX_VARIABLE_FEE                     | 283             | 283    | 283    | 283    | 2       |
+|--------------------------------------+-----------------+--------+--------+--------+---------|
+| USDC                                 | 348             | 348    | 348    | 348    | 1       |
+|--------------------------------------+-----------------+--------+--------+--------+---------|
+| VAULT_TEST_AMOUNT                    | 240             | 240    | 240    | 240    | 1       |
+|--------------------------------------+-----------------+--------+--------+--------+---------|
+| acceptDefaultAdminTransfer           | 23941           | 41991  | 41991  | 60042  | 2       |
+|--------------------------------------+-----------------+--------+--------+--------+---------|
+| beginDefaultAdminTransfer            | 24346           | 26664  | 24346  | 33619  | 4       |
+|--------------------------------------+-----------------+--------+--------+--------+---------|
+| calculateFee                         | 2564            | 5863   | 6874   | 11430  | 29438   |
+|--------------------------------------+-----------------+--------+--------+--------+---------|
+| cancelDefaultAdminTransfer           | 23738           | 23738  | 23738  | 23738  | 2       |
+|--------------------------------------+-----------------+--------+--------+--------+---------|
+| changeDefaultAdminDelay              | 23990           | 23990  | 23990  | 23990  | 2       |
+|--------------------------------------+-----------------+--------+--------+--------+---------|
+| defaultAdmin                         | 2441            | 2441   | 2441   | 2441   | 3       |
+|--------------------------------------+-----------------+--------+--------+--------+---------|
+| defaultAdminDelay                    | 4641            | 4641   | 4641   | 4641   | 1       |
+|--------------------------------------+-----------------+--------+--------+--------+---------|
+| fixedFee                             | 2362            | 2362   | 2362   | 2362   | 260     |
+|--------------------------------------+-----------------+--------+--------+--------+---------|
+| forward                              | 22728           | 102211 | 90818  | 224267 | 28611   |
+|--------------------------------------+-----------------+--------+--------+--------+---------|
+| getRoleAdmin                         | 2490            | 2490   | 2490   | 2490   | 1       |
+|--------------------------------------+-----------------+--------+--------+--------+---------|
+| grantRole                            | 22010           | 24237  | 22010  | 51618  | 1926    |
+|--------------------------------------+-----------------+--------+--------+--------+---------|
+| hasRole                              | 2736            | 2736   | 2736   | 2736   | 534     |
+|--------------------------------------+-----------------+--------+--------+--------+---------|
+| lowerFeeModel                        | 2442            | 2442   | 2442   | 2442   | 2       |
+|--------------------------------------+-----------------+--------+--------+--------+---------|
+| owner                                | 2522            | 2522   | 2522   | 2522   | 1       |
+|--------------------------------------+-----------------+--------+--------+--------+---------|
+| pause                                | 25861           | 29408  | 29966  | 32269  | 15011   |
+|--------------------------------------+-----------------+--------+--------+--------+---------|
+| paused                               | 2404            | 2404   | 2404   | 2404   | 56503   |
+|--------------------------------------+-----------------+--------+--------+--------+---------|
+| pendingDefaultAdmin                  | 2559            | 2559   | 2559   | 2559   | 2       |
+|--------------------------------------+-----------------+--------+--------+--------+---------|
+| renounceRole                         | 25214           | 25214  | 25214  | 25214  | 1       |
+|--------------------------------------+-----------------+--------+--------+--------+---------|
+| rescueNative                         | 23825           | 46006  | 37328  | 62328  | 15379   |
+|--------------------------------------+-----------------+--------+--------+--------+---------|
+| rescueToken                          | 24280           | 49085  | 49112  | 117240 | 14711   |
+|--------------------------------------+-----------------+--------+--------+--------+---------|
+| revokeRole                           | 26990           | 27879  | 26990  | 29658  | 3       |
+|--------------------------------------+-----------------+--------+--------+--------+---------|
+| rollbackDefaultAdminDelay            | 23806           | 23806  | 23806  | 23806  | 2       |
+|--------------------------------------+-----------------+--------+--------+--------+---------|
+| routingMode                          | 2553            | 2553   | 2553   | 2553   | 48223   |
+|--------------------------------------+-----------------+--------+--------+--------+---------|
+| setFeeConfig                         | 24713           | 54103  | 48000  | 99648  | 16018   |
+|--------------------------------------+-----------------+--------+--------+--------+---------|
+| setFixedFee                          | 24017           | 37906  | 37837  | 54937  | 3417    |
+|--------------------------------------+-----------------+--------+--------+--------+---------|
+| setLowerFeeModel                     | 21564           | 35611  | 37897  | 37909  | 2780    |
+|--------------------------------------+-----------------+--------+--------+--------+---------|
+| setRoutingMode                       | 21543           | 42111  | 31484  | 66039  | 17902   |
+|--------------------------------------+-----------------+--------+--------+--------+---------|
+| setThreshold                         | 24017           | 40088  | 37818  | 54918  | 3115    |
+|--------------------------------------+-----------------+--------+--------+--------+---------|
+| setTreasury                          | 24050           | 29126  | 31041  | 31053  | 17200   |
+|--------------------------------------+-----------------+--------+--------+--------+---------|
+| setUpperFeeModel                     | 24029           | 35112  | 37830  | 37842  | 2372    |
+|--------------------------------------+-----------------+--------+--------+--------+---------|
+| setVariableFee                       | 23994           | 37987  | 37802  | 54902  | 4617    |
+|--------------------------------------+-----------------+--------+--------+--------+---------|
+| setVault                             | 24257           | 170235 | 199797 | 278046 | 16496   |
+|--------------------------------------+-----------------+--------+--------+--------+---------|
+| supportsInterface                    | 432             | 526    | 549    | 574    | 4       |
+|--------------------------------------+-----------------+--------+--------+--------+---------|
+| threshold                            | 2362            | 2362   | 2362   | 2362   | 3       |
+|--------------------------------------+-----------------+--------+--------+--------+---------|
+| treasury                             | 2481            | 2481   | 2481   | 2481   | 27187   |
+|--------------------------------------+-----------------+--------+--------+--------+---------|
+| unpause                              | 23827           | 27474  | 25935  | 30022  | 15834   |
+|--------------------------------------+-----------------+--------+--------+--------+---------|
+| upperFeeModel                        | 2529            | 2529   | 2529   | 2529   | 2       |
+|--------------------------------------+-----------------+--------+--------+--------+---------|
+| variableFee                          | 2404            | 2404   | 2404   | 2404   | 262     |
+|--------------------------------------+-----------------+--------+--------+--------+---------|
+| vault                                | 468             | 2467   | 2468   | 2468   | 56545   |
+╰--------------------------------------+-----------------+--------+--------+--------+---------╯
+
+╭----------------------------------------------------------------+-----------------+--------+--------+--------+---------╮
+| test/invariants/ForwarderHandler.sol:ForwarderHandler Contract |                 |        |        |        |         |
++=======================================================================================================================+
+| Deployment Cost                                                | Deployment Size |        |        |        |         |
+|----------------------------------------------------------------+-----------------+--------+--------+--------+---------|
+| 5070931                                                        | 24017           |        |        |        |         |
+|----------------------------------------------------------------+-----------------+--------+--------+--------+---------|
+|                                                                |                 |        |        |        |         |
+|----------------------------------------------------------------+-----------------+--------+--------+--------+---------|
+| Function Name                                                  | Min             | Avg    | Median | Max    | # Calls |
+|----------------------------------------------------------------+-----------------+--------+--------+--------+---------|
+| calls                                                          | 2491            | 2491   | 2491   | 2491   | 12      |
+|----------------------------------------------------------------+-----------------+--------+--------+--------+---------|
+| donate                                                         | 60130           | 79586  | 77266  | 112162 | 14892   |
+|----------------------------------------------------------------+-----------------+--------+--------+--------+---------|
+| forward                                                        | 369834          | 713874 | 720385 | 914800 | 27768   |
+|----------------------------------------------------------------+-----------------+--------+--------+--------+---------|
+| ghostAllowance                                                 | 2589            | 2589   | 2589   | 2589   | 3       |
+|----------------------------------------------------------------+-----------------+--------+--------+--------+---------|
+| ghostDeposited                                                 | 2350            | 2350   | 2350   | 2350   | 2       |
+|----------------------------------------------------------------+-----------------+--------+--------+--------+---------|
+| ghostDonated                                                   | 2328            | 2328   | 2328   | 2328   | 1       |
+|----------------------------------------------------------------+-----------------+--------+--------+--------+---------|
+| ghostFees                                                      | 2416            | 2416   | 2416   | 2416   | 1       |
+|----------------------------------------------------------------+-----------------+--------+--------+--------+---------|
+| ghostPausedFeeCharged                                          | 2372            | 2372   | 2372   | 2372   | 1       |
+|----------------------------------------------------------------+-----------------+--------+--------+--------+---------|
+| ghostRescueMisroutes                                           | 2329            | 2329   | 2329   | 2329   | 1       |
+|----------------------------------------------------------------+-----------------+--------+--------+--------+---------|
+| ghostTreasuryMismatches                                        | 2329            | 2329   | 2329   | 2329   | 1       |
+|----------------------------------------------------------------+-----------------+--------+--------+--------+---------|
+| ghostTreasuryReceived                                          | 2351            | 2351   | 2351   | 2351   | 1       |
+|----------------------------------------------------------------+-----------------+--------+--------+--------+---------|
+| ghostUnexpectedReverts                                         | 2350            | 2350   | 2350   | 2350   | 1       |
+|----------------------------------------------------------------+-----------------+--------+--------+--------+---------|
+| ghostUnexpectedSuccesses                                       | 2351            | 2351   | 2351   | 2351   | 1       |
+|----------------------------------------------------------------+-----------------+--------+--------+--------+---------|
+| ghostUserMismatches                                            | 2440            | 2440   | 2440   | 2440   | 1       |
+|----------------------------------------------------------------+-----------------+--------+--------+--------+---------|
+| ghostUserReceived                                              | 2439            | 2439   | 2439   | 2439   | 2       |
+|----------------------------------------------------------------+-----------------+--------+--------+--------+---------|
+| pause                                                          | 42348           | 51979  | 48950  | 68219  | 14040   |
+|----------------------------------------------------------------+-----------------+--------+--------+--------+---------|
+| rescueNative                                                   | 56808           | 77766  | 64192  | 106292 | 13968   |
+|----------------------------------------------------------------+-----------------+--------+--------+--------+---------|
+| rescueUsdc                                                     | 68433           | 97752  | 89971  | 144871 | 13212   |
+|----------------------------------------------------------------+-----------------+--------+--------+--------+---------|
+| setFeeConfig                                                   | 51272           | 81731  | 75216  | 145020 | 14076   |
+|----------------------------------------------------------------+-----------------+--------+--------+--------+---------|
+| setRoutingMode                                                 | 51009           | 78183  | 68109  | 127888 | 13920   |
+|----------------------------------------------------------------+-----------------+--------+--------+--------+---------|
+| setSingleFeeParameter                                          | 43557           | 61454  | 57924  | 92188  | 14364   |
+|----------------------------------------------------------------+-----------------+--------+--------+--------+---------|
+| setTreasury                                                    | 41460           | 49499  | 46760  | 63860  | 14280   |
+|----------------------------------------------------------------+-----------------+--------+--------+--------+---------|
+| setVault                                                       | 265338          | 388487 | 392282 | 490409 | 14556   |
+|----------------------------------------------------------------+-----------------+--------+--------+--------+---------|
+| sra                                                            | 2426            | 2426   | 2426   | 2426   | 1       |
+|----------------------------------------------------------------+-----------------+--------+--------+--------+---------|
+| strangerCount                                                  | 2360            | 2360   | 2360   | 2360   | 4       |
+|----------------------------------------------------------------+-----------------+--------+--------+--------+---------|
+| strangers                                                      | 4679            | 4679   | 4679   | 4679   | 3       |
+|----------------------------------------------------------------+-----------------+--------+--------+--------+---------|
+| toggleFailure                                                  | 39450           | 54702  | 58741  | 79138  | 14376   |
+|----------------------------------------------------------------+-----------------+--------+--------+--------+---------|
+| unauthorizedCall                                               | 40129           | 45496  | 40816  | 63739  | 13236   |
+|----------------------------------------------------------------+-----------------+--------+--------+--------+---------|
+| unpause                                                        | 39874           | 47786  | 46464  | 63564  | 14688   |
+|----------------------------------------------------------------+-----------------+--------+--------+--------+---------|
+| vaultCount                                                     | 2414            | 2414   | 2414   | 2414   | 8       |
+|----------------------------------------------------------------+-----------------+--------+--------+--------+---------|
+| vaults                                                         | 4678            | 4678   | 4678   | 4678   | 6       |
+╰----------------------------------------------------------------+-----------------+--------+--------+--------+---------╯
+
+╭----------------------------------------------+-----------------+-------+--------+-------+---------╮
+| test/mocks/MockTokens.sol:MockERC20 Contract |                 |       |        |       |         |
++===================================================================================================+
+| Deployment Cost                              | Deployment Size |       |        |       |         |
+|----------------------------------------------+-----------------+-------+--------+-------+---------|
+| 520754                                       | 2834            |       |        |       |         |
+|----------------------------------------------+-----------------+-------+--------+-------+---------|
+|                                              |                 |       |        |       |         |
+|----------------------------------------------+-----------------+-------+--------+-------+---------|
+| Function Name                                | Min             | Avg   | Median | Max   | # Calls |
+|----------------------------------------------+-----------------+-------+--------+-------+---------|
+| balanceOf                                    | 2559            | 2559  | 2559   | 2559  | 773     |
+|----------------------------------------------+-----------------+-------+--------+-------+---------|
+| decimals                                     | 271             | 271   | 271    | 271   | 2       |
+|----------------------------------------------+-----------------+-------+--------+-------+---------|
+| mint                                         | 28543           | 67826 | 68415  | 68535 | 258     |
+╰----------------------------------------------+-----------------+-------+--------+-------+---------╯
+
+╭---------------------------------------------------------+-----------------+-------+--------+-------+---------╮
+| test/mocks/MockTokens.sol:MockFalseReturnToken Contract |                 |       |        |       |         |
++==============================================================================================================+
+| Deployment Cost                                         | Deployment Size |       |        |       |         |
+|---------------------------------------------------------+-----------------+-------+--------+-------+---------|
+| 505578                                                  | 2320            |       |        |       |         |
+|---------------------------------------------------------+-----------------+-------+--------+-------+---------|
+|                                                         |                 |       |        |       |         |
+|---------------------------------------------------------+-----------------+-------+--------+-------+---------|
+| Function Name                                           | Min             | Avg   | Median | Max   | # Calls |
+|---------------------------------------------------------+-----------------+-------+--------+-------+---------|
+| balanceOf                                               | 2559            | 2559  | 2559   | 2559  | 1       |
+|---------------------------------------------------------+-----------------+-------+--------+-------+---------|
+| mint                                                    | 68415           | 68415 | 68415  | 68415 | 1       |
+╰---------------------------------------------------------+-----------------+-------+--------+-------+---------╯
+
+╭------------------------------------------------------+-----------------+-------+--------+-------+---------╮
+| test/mocks/MockTokens.sol:MockNoReturnToken Contract |                 |       |        |       |         |
++===========================================================================================================+
+| Deployment Cost                                      | Deployment Size |       |        |       |         |
+|------------------------------------------------------+-----------------+-------+--------+-------+---------|
+| 359106                                               | 1442            |       |        |       |         |
+|------------------------------------------------------+-----------------+-------+--------+-------+---------|
+|                                                      |                 |       |        |       |         |
+|------------------------------------------------------+-----------------+-------+--------+-------+---------|
+| Function Name                                        | Min             | Avg   | Median | Max   | # Calls |
+|------------------------------------------------------+-----------------+-------+--------+-------+---------|
+| balanceOf                                            | 2538            | 2538  | 2538   | 2538  | 3       |
+|------------------------------------------------------+-----------------+-------+--------+-------+---------|
+| mint                                                 | 66412           | 66412 | 66412  | 66412 | 1       |
+╰------------------------------------------------------+-----------------+-------+--------+-------+---------╯
+
+╭-------------------------------------------+-----------------+-------+--------+-------+---------╮
+| test/mocks/MockUSDC.sol:MockUSDC Contract |                 |       |        |       |         |
++================================================================================================+
+| Deployment Cost                           | Deployment Size |       |        |       |         |
+|-------------------------------------------+-----------------+-------+--------+-------+---------|
+| 650804                                    | 2987            |       |        |       |         |
+|-------------------------------------------+-----------------+-------+--------+-------+---------|
+|                                           |                 |       |        |       |         |
+|-------------------------------------------+-----------------+-------+--------+-------+---------|
+| Function Name                             | Min             | Avg   | Median | Max   | # Calls |
+|-------------------------------------------+-----------------+-------+--------+-------+---------|
+| allowance                                 | 2788            | 2788  | 2788   | 2788  | 2116    |
+|-------------------------------------------+-----------------+-------+--------+-------+---------|
+| approve                                   | 31217           | 47464 | 53141  | 53201 | 58108   |
+|-------------------------------------------+-----------------+-------+--------+-------+---------|
+| balanceOf                                 | 586             | 2325  | 2586   | 2586  | 542701  |
+|-------------------------------------------+-----------------+-------+--------+-------+---------|
+| decimals                                  | 243             | 243   | 243    | 243   | 485     |
+|-------------------------------------------+-----------------+-------+--------+-------+---------|
+| isBlacklisted                             | 2620            | 2620  | 2620   | 2620  | 1137    |
+|-------------------------------------------+-----------------+-------+--------+-------+---------|
+| mint                                      | 37747           | 54702 | 60483  | 75583 | 58528   |
+|-------------------------------------------+-----------------+-------+--------+-------+---------|
+| returnFalseOnTransferTo                   | 2599            | 2599  | 2599   | 2599  | 440     |
+|-------------------------------------------+-----------------+-------+--------+-------+---------|
+| setBlacklisted                            | 22300           | 34392 | 44212  | 44224 | 2231    |
+|-------------------------------------------+-----------------+-------+--------+-------+---------|
+| setPaused                                 | 43713           | 43713 | 43713  | 43713 | 1       |
+|-------------------------------------------+-----------------+-------+--------+-------+---------|
+| setReturnFalseOnTransferTo                | 22280           | 35240 | 44192  | 44204 | 1888    |
+╰-------------------------------------------+-----------------+-------+--------+-------+---------╯
+
+╭---------------------------------------------+-----------------+--------+--------+--------+---------╮
+| test/mocks/MockVault.sol:MockVault Contract |                 |        |        |        |         |
++====================================================================================================+
+| Deployment Cost                             | Deployment Size |        |        |        |         |
+|---------------------------------------------+-----------------+--------+--------+--------+---------|
+| 1431353                                     | 6757            |        |        |        |         |
+|---------------------------------------------+-----------------+--------+--------+--------+---------|
+|                                             |                 |        |        |        |         |
+|---------------------------------------------+-----------------+--------+--------+--------+---------|
+| Function Name                               | Min             | Avg    | Median | Max    | # Calls |
+|---------------------------------------------+-----------------+--------+--------+--------+---------|
+| asset                                       | 258             | 258    | 258    | 258    | 15009   |
+|---------------------------------------------+-----------------+--------+--------+--------+---------|
+| balanceOf                                   | 659             | 2621   | 2659   | 2659   | 679255  |
+|---------------------------------------------+-----------------+--------+--------+--------+---------|
+| convertToAssets                             | 9071            | 9071   | 9071   | 9071   | 12      |
+|---------------------------------------------+-----------------+--------+--------+--------+---------|
+| deposit                                     | 122294          | 122294 | 122294 | 122294 | 3       |
+|---------------------------------------------+-----------------+--------+--------+--------+---------|
+| depositReverts                              | 2419            | 2419   | 2419   | 2419   | 10123   |
+|---------------------------------------------+-----------------+--------+--------+--------+---------|
+| paused                                      | 2354            | 2354   | 2354   | 2354   | 8758    |
+|---------------------------------------------+-----------------+--------+--------+--------+---------|
+| previewDeposit                              | 9112            | 9112   | 9112   | 9112   | 1       |
+|---------------------------------------------+-----------------+--------+--------+--------+---------|
+| setBlockedReceiver                          | 21817           | 33667  | 26857  | 43957  | 2959    |
+|---------------------------------------------+-----------------+--------+--------+--------+---------|
+| setDepositCap                               | 26496           | 26496  | 26496  | 26496  | 1       |
+|---------------------------------------------+-----------------+--------+--------+--------+---------|
+| setDepositReverts                           | 21828           | 32536  | 23840  | 43740  | 4685    |
+|---------------------------------------------+-----------------+--------+--------+--------+---------|
+| setMintsNoShares                            | 43687           | 43687  | 43687  | 43687  | 1       |
+|---------------------------------------------+-----------------+--------+--------+--------+---------|
+| setPartialPullBps                           | 43660           | 43660  | 43660  | 43660  | 1       |
+|---------------------------------------------+-----------------+--------+--------+--------+---------|
+| setPaused                                   | 21718           | 33067  | 23730  | 43630  | 2893    |
+|---------------------------------------------+-----------------+--------+--------+--------+---------|
+| setRedeemLossBps                            | 23670           | 43283  | 43594  | 43594  | 258     |
+|---------------------------------------------+-----------------+--------+--------+--------+---------|
+| setRedeemPaysNothing                        | 43753           | 43753  | 43753  | 43753  | 2       |
+|---------------------------------------------+-----------------+--------+--------+--------+---------|
+| setRedeemReverts                            | 43643           | 43643  | 43643  | 43643  | 15      |
+|---------------------------------------------+-----------------+--------+--------+--------+---------|
+| setZeroDepositReverts                       | 43642           | 43642  | 43642  | 43642  | 2       |
+|---------------------------------------------+-----------------+--------+--------+--------+---------|
+| totalAssets                                 | 5701            | 5701   | 5701   | 5701   | 4       |
+|---------------------------------------------+-----------------+--------+--------+--------+---------|
+| totalSupply                                 | 2348            | 2348   | 2348   | 2348   | 2       |
+╰---------------------------------------------+-----------------+--------+--------+--------+---------╯
+
+╭-----------------------------------------------------+-----------------+-------+--------+-------+---------╮
+| test/mocks/MockVault.sol:NoReturnDataVault Contract |                 |       |        |       |         |
++==========================================================================================================+
+| Deployment Cost                                     | Deployment Size |       |        |       |         |
+|-----------------------------------------------------+-----------------+-------+--------+-------+---------|
+| 1452471                                             | 6857            |       |        |       |         |
+|-----------------------------------------------------+-----------------+-------+--------+-------+---------|
+|                                                     |                 |       |        |       |         |
+|-----------------------------------------------------+-----------------+-------+--------+-------+---------|
+| Function Name                                       | Min             | Avg   | Median | Max   | # Calls |
+|-----------------------------------------------------+-----------------+-------+--------+-------+---------|
+| asset                                               | 258             | 258   | 258    | 258   | 2       |
+|-----------------------------------------------------+-----------------+-------+--------+-------+---------|
+| balanceOf                                           | 659             | 1859  | 2659   | 2659  | 5       |
+|-----------------------------------------------------+-----------------+-------+--------+-------+---------|
+| convertToAssets                                     | 9071            | 9071  | 9071   | 9071  | 1       |
+|-----------------------------------------------------+-----------------+-------+--------+-------+---------|
+| setReturnsNoData                                    | 43740           | 43740 | 43740  | 43740 | 2       |
+╰-----------------------------------------------------+-----------------+-------+--------+-------+---------╯
+
+╭---------------------------------------------+-----------------+-----+--------+-----+---------╮
+| test/mocks/MockVault.sol:NotAVault Contract |                 |     |        |     |         |
++==============================================================================================+
+| Deployment Cost                             | Deployment Size |     |        |     |         |
+|---------------------------------------------+-----------------+-----+--------+-----+---------|
+| 79611                                       | 147             |     |        |     |         |
+|---------------------------------------------+-----------------+-----+--------+-----+---------|
+|                                             |                 |     |        |     |         |
+|---------------------------------------------+-----------------+-----+--------+-----+---------|
+| Function Name                               | Min             | Avg | Median | Max | # Calls |
+|---------------------------------------------+-----------------+-----+--------+-----+---------|
+| asset                                       | 101             | 101 | 101    | 101 | 1       |
+╰---------------------------------------------+-----------------+-----+--------+-----+---------╯
+
+╭--------------------------------------------------------+-----------------+--------+--------+--------+---------╮
+| test/mocks/ReentrancyMocks.sol:ReentrantToken Contract |                 |        |        |        |         |
++===============================================================================================================+
+| Deployment Cost                                        | Deployment Size |        |        |        |         |
+|--------------------------------------------------------+-----------------+--------+--------+--------+---------|
+| 843286                                                 | 3879            |        |        |        |         |
+|--------------------------------------------------------+-----------------+--------+--------+--------+---------|
+|                                                        |                 |        |        |        |         |
+|--------------------------------------------------------+-----------------+--------+--------+--------+---------|
+| Function Name                                          | Min             | Avg    | Median | Max    | # Calls |
+|--------------------------------------------------------+-----------------+--------+--------+--------+---------|
+| arm                                                    | 46770           | 102966 | 102966 | 159162 | 2       |
+|--------------------------------------------------------+-----------------+--------+--------+--------+---------|
+| balanceOf                                              | 2560            | 2560   | 2560   | 2560   | 3       |
+|--------------------------------------------------------+-----------------+--------+--------+--------+---------|
+| mint                                                   | 51382           | 59932  | 59932  | 68482  | 2       |
+|--------------------------------------------------------+-----------------+--------+--------+--------+---------|
+| reentryReturnData                                      | 3210            | 3210   | 3210   | 3210   | 2       |
+|--------------------------------------------------------+-----------------+--------+--------+--------+---------|
+| reentrySucceeded                                       | 2415            | 2415   | 2415   | 2415   | 2       |
+╰--------------------------------------------------------+-----------------+--------+--------+--------+---------╯
+
+╭--------------------------------------------------------+-----------------+--------+--------+--------+---------╮
+| test/mocks/ReentrancyMocks.sol:ReentrantVault Contract |                 |        |        |        |         |
++===============================================================================================================+
+| Deployment Cost                                        | Deployment Size |        |        |        |         |
+|--------------------------------------------------------+-----------------+--------+--------+--------+---------|
+| 1766687                                                | 8310            |        |        |        |         |
+|--------------------------------------------------------+-----------------+--------+--------+--------+---------|
+|                                                        |                 |        |        |        |         |
+|--------------------------------------------------------+-----------------+--------+--------+--------+---------|
+| Function Name                                          | Min             | Avg    | Median | Max    | # Calls |
+|--------------------------------------------------------+-----------------+--------+--------+--------+---------|
+| arm                                                    | 89729           | 132550 | 134480 | 159206 | 8       |
+|--------------------------------------------------------+-----------------+--------+--------+--------+---------|
+| asset                                                  | 346             | 346    | 346    | 346    | 11      |
+|--------------------------------------------------------+-----------------+--------+--------+--------+---------|
+| attempted                                              | 2394            | 2394   | 2394   | 2394   | 7       |
+|--------------------------------------------------------+-----------------+--------+--------+--------+---------|
+| balanceOf                                              | 593             | 1713   | 2593   | 2593   | 25      |
+|--------------------------------------------------------+-----------------+--------+--------+--------+---------|
+| convertToAssets                                        | 9071            | 9071   | 9071   | 9071   | 2       |
+|--------------------------------------------------------+-----------------+--------+--------+--------+---------|
+| reentryReturnData                                      | 3211            | 3211   | 3211   | 3211   | 7       |
+|--------------------------------------------------------+-----------------+--------+--------+--------+---------|
+| reentrySucceeded                                       | 2438            | 2438   | 2438   | 2438   | 8       |
+╰--------------------------------------------------------+-----------------+--------+--------+--------+---------╯
+
+
+Ran 15 test suites in 52.38s (73.97s CPU time): 171 tests passed, 0 failed, 0 skipped (171 total tests)

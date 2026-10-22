@@ -1,0 +1,13 @@
+Result for envfreeFuncsStaticCheck: envfreeFuncsStaticCheck: lowerFeeModelRaw(): SUCCESS
+Result for diagUpperPercentReachable: diagUpperPercentReachable: Satisfy_true_(Diag_spec_15_5): SANITY_FAIL
+Result for diagUpperRawPercentCalculates: diagUpperRawPercentCalculates: Satisfy_lastReverted_(Diag_spec_31_5): SANITY_FAIL
+Result for diagUpperPercentCalculates: diagUpperPercentCalculates: Satisfy_lastReverted_(Diag_spec_23_5): SANITY_FAIL
+Result for diagSetLowerKeepsRawRouting: diagSetLowerKeepsRawRouting: SUCCESS
+Result for diagSetLowerKeepsRouting: diagSetLowerKeepsRouting: SUCCESS
+Result for diagSetLowerKeepsRoutingWhenValid: diagSetLowerKeepsRoutingWhenValid: SUCCESS
+ERROR: Prover found violations:
+[rule] diagUpperPercentCalculates: FAIL
+[rule] diagUpperPercentReachable: FAIL
+[rule] diagUpperRawPercentCalculates: FAIL
+report url: https://prover.certora.com/output/3658204/5c2577b69f474ed89ed9814d196f55f7?anonymousKey=<redacted>
+exit=1

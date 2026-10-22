@@ -1,0 +1,12 @@
+ERROR: Prover found violations:
+[rule] fixedModelChargesAfterConfiguration: FAIL
+[rule] fixedModelIsReachable: FAIL
+[rule] fixedPlusPercentModelChargesAfterConfiguration: FAIL
+[rule] fixedPlusPercentModelIsReachable: FAIL
+[rule] percentAboveThresholdIsNotExcessFee: FAIL
+[rule] percentAboveThresholdUsesWholeAmount: SANITY_FAIL
+[rule] percentModelIsReachable: FAIL
+[rule] percentUsesWholeAmount: SANITY_FAIL
+[rule] percentUsesWholeAmountIsNotTheExcessFee: FAIL
+report url: https://prover.certora.com/output/3658204/e9b3679c1e834caea5d21d4ed25e722c?anonymousKey=<redacted>
+exit=1

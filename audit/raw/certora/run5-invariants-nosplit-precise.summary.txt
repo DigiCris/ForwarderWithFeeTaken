@@ -1,0 +1,20 @@
+job: https://prover.certora.com/output/3658204/81160b54ed9845eab2751117486cf8c1
+config: certora/conf/ForwarderInvariantsPrecise.conf (-enableStorageSplitting false, precise_bitwise_ops)
+Result for envfreeFuncsStaticCheck: envfreeFuncsStaticCheck: DummyUSDC.balanceOf(address): SUCCESS
+Result for feeCaps: feeCaps: Induction base: After the constructor: SUCCESS
+Result for feeManagerAdminIsDefaultAdmin: feeManagerAdminIsDefaultAdmin: Induction base: After the constructor: SUCCESS
+Result for directDirectMeansNoVaultAllowance: directDirectMeansNoVaultAllowance: Induction base: After the constructor: SUCCESS
+Result for enumsAreValid: enumsAreValid: Induction base: After the constructor: SUCCESS
+Result for treasuryIsValid: treasuryIsValid: Induction base: After the constructor: SUCCESS
+Result for vaultModeHasVault: vaultModeHasVault: Induction base: After the constructor: SUCCESS
+[32mNo errors found by Prover![0m
+exit=0
+induction steps verified per invariant (Using general requirements):
+     22 directDirectMeansNoVaultAllowance
+     22 enumsAreValid
+     22 feeCaps
+     22 feeManagerAdminIsDefaultAdmin
+     22 treasuryIsValid
+     22 vaultModeHasVault
+induction step violations:
+0

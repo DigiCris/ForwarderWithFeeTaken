@@ -1,0 +1,12 @@
+Result for envfreeFuncsStaticCheck: envfreeFuncsStaticCheck: upperFeeModelRaw(): SUCCESS
+Result for concreteFixedFeeEnum: concreteFixedFeeEnum: SANITY_FAIL
+Result for concretePercentFeeRaw: concretePercentFeeRaw: SANITY_FAIL
+Result for concretePercentFeeEnum: concretePercentFeeEnum: SANITY_FAIL
+Result for concreteReachableBaseline: concreteReachableBaseline: SUCCESS
+Result for concreteNoneFeeEnum: concreteNoneFeeEnum: SUCCESS
+ERROR: Prover found violations:
+[rule] concreteFixedFeeEnum: SANITY_FAIL
+[rule] concretePercentFeeEnum: SANITY_FAIL
+[rule] concretePercentFeeRaw: SANITY_FAIL
+report url: https://prover.certora.com/output/3658204/17a7a204fb094f22a290b1b8b80cff2f?anonymousKey=<redacted>
+exit=1

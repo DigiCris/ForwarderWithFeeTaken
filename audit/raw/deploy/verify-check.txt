@@ -1,0 +1,4 @@
+Contract verification status:
+Response: `OK`
+Details: `Pass - Verified`
+Contract successfully verified

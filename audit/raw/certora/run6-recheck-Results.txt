@@ -1,0 +1,717 @@
+Start Thu Oct 22 06:15:12 GMT 2026
+Start Thu Oct 22 06:15:12 GMT 2026
+[ForkJoinPool-1-worker-1] WARN ALWAYS - The type `AccessControl.RoleData` will not be accessible in CVL code
+Reason(s):
+	struct field `hasRole` cannot be expressed in CVL: [mapping types are not supported]
+[ForkJoinPool-1-worker-1] WARN ALWAYS - Syntax warning in spec file Forwarder.spec:48:5: Method declaration for DummyUSDC.transfer(address, uint256) returns (bool) is neither `envfree`, `optional`, nor summarized, so it has no effect.
+[ForkJoinPool-1-worker-1] WARN ALWAYS - Syntax warning in spec file Forwarder.spec:49:5: Method declaration for DummyUSDC.transferFrom(address, address, uint256) returns (bool) is neither `envfree`, `optional`, nor summarized, so it has no effect.
+[ForkJoinPool-1-worker-1] WARN ALWAYS - Syntax warning in spec file Forwarder.spec:50:5: Method declaration for DummyUSDC.approve(address, uint256) returns (bool) is neither `envfree`, `optional`, nor summarized, so it has no effect.
+[ForkJoinPool-1-worker-1] WARN ALWAYS - Syntax warning in spec file Forwarder.spec:241:5: calculateFee is called with `@withrevert`, it's return values [fee] are undefined if this call reverts. Make sure to check that `!lastReverted` before using them
+[ForkJoinPool-1-worker-1] WARN ALWAYS - Syntax warning in spec file Forwarder.spec:701:5: calculateFee is called with `@withrevert`, it's return values [fee] are undefined if this call reverts. Make sure to check that `!lastReverted` before using them
+[ForkJoinPool-1-worker-3] ERROR FUNCTION_BUILDER - ForwarderHarness-changeDefaultAdminDelay(uint48): Detected an internal function but it's not matching, we expected Math.ternary(bool condition, uint256 a, uint256 b) returns (uint256) @ CmdPointer(block=22098_1010_0_0_0_0, pos=25) (source: null
+[ForkJoinPool-1-worker-5] WARN BIT_BLAST - The translation of LTACCmd(ptr=CmdPointer(block=2095_1016_0_0_0_0, pos=6), cmd=AssignExpCmd R53:bv256 tacAddress:bv256 (14813:32:1:0xce4604a0000000000000000000000024) // Forwarder.sol) returned null, assuming nondet
+[ForkJoinPool-1-worker-5] WARN BIT_BLAST - Found command type we can't interpret LTACCmd(ptr=CmdPointer(block=2095_1016_0_0_0_0, pos=8), cmd=SummaryCmd  (14813:32:1:0xce4604a0000000000000000000000024) // Forwarder.sol), giving up
+[ForkJoinPool-1-worker-4] WARN BIT_BLAST - The translation of LTACCmd(ptr=CmdPointer(block=2095_1016_0_0_0_0, pos=6), cmd=AssignExpCmd R59:bv256 tacAddress:bv256 (14576:32:1:0xce4604a0000000000000000000000024) // Forwarder.sol) returned null, assuming nondet
+[ForkJoinPool-1-worker-4] WARN BIT_BLAST - Found command type we can't interpret LTACCmd(ptr=CmdPointer(block=2095_1016_0_0_0_0, pos=8), cmd=SummaryCmd  (14576:32:1:0xce4604a0000000000000000000000024) // Forwarder.sol), giving up
+[ForkJoinPool-1-worker-9] WARN BIT_BLAST - Found command type we can't interpret LTACCmd(ptr=CmdPointer(block=7758_1012_0_0_0_0, pos=4), cmd=SummaryCmd  (13442:32:1:0xce4604a0000000000000000000000024) // Forwarder.sol), giving up
+[ForkJoinPool-1-worker-17] WARN BIT_BLAST - The translation of LTACCmd(ptr=CmdPointer(block=2229_1015_2_0_0_0, pos=4), cmd=AssignExpCmd R89:bv256 tacAddress:bv256 (13442:32:1:0xce4604a0000000000000000000000024) // Forwarder.sol) returned null, assuming nondet
+[ForkJoinPool-1-worker-17] WARN BIT_BLAST - Found command type we can't interpret LTACCmd(ptr=CmdPointer(block=2229_1015_2_0_0_0, pos=6), cmd=SummaryCmd  (13442:32:1:0xce4604a0000000000000000000000024) // Forwarder.sol), giving up
+[ForkJoinPool-1-worker-12] WARN BIT_BLAST - The translation of LTACCmd(ptr=CmdPointer(block=9070_1016_0_0_0_0, pos=2), cmd=AssignExpCmd R110:bv256 tacAddress:bv256 (25679:28:1:0xce4604a0000000000000000000000024) // Forwarder.sol) returned null, assuming nondet
+[ForkJoinPool-1-worker-12] WARN BIT_BLAST - Found command type we can't interpret LTACCmd(ptr=CmdPointer(block=9070_1016_0_0_0_0, pos=4), cmd=SummaryCmd  (25679:28:1:0xce4604a0000000000000000000000024) // Forwarder.sol), giving up
+The scene contains 23 contracts:
+DummyUSDC : 0xce4604a0000000000000000000000001,
+DummyVault2 : 0xce4604a000000000000000000000000b,
+DummyVault : 0xce4604a0000000000000000000000005,
+ForwarderHarness : 0xce4604a0000000000000000000000024,
+ecrecover : 0x1,
+sha256 : 0x2,
+ripemd160 : 0x3,
+identity : 0x4,
+bigmod : 0x5,
+bn256Add : 0x6,
+bn256ScalarMul : 0x7,
+bn256Pairing : 0x8,
+Precompiled244 : 0xf4,
+Precompiled245 : 0xf5,
+Precompiled246 : 0xf6,
+Precompiled247 : 0xf7,
+Precompiled248 : 0xf8,
+Precompiled249 : 0xf9,
+Precompiled250 : 0xfa,
+Precompiled251 : 0xfb,
+Precompiled252 : 0xfc,
+Precompiled253 : 0xfd,
+Precompiled254 : 0xfe
+Running initial transformations
+[ForkJoinPool-1-worker-11] WARN ALLOC - In identity: Found multiple (or zero) initial writes: []
+[ForkJoinPool-1-worker-8] WARN ALLOC - In ecrecover: Found multiple (or zero) initial writes: []
+[ForkJoinPool-1-worker-5] WARN ALLOC - In sha256: Found multiple (or zero) initial writes: []
+Has CVL checks.
+Checking CVL certora/specs/Forwarder.spec for contract ForwarderHarness
+Unrolling loops 3 times, unwinding condition is assumed
+Checking rule envfreeFuncsStaticCheck (5 out of 5)...
+Checking rule feeMatchesSpecificationForAnyConfiguration (3 out of 5)...
+Checking rule fixedFeeSetterRejectsValuesAboveCap (2 out of 5)...
+Checking rule setFeeConfigStoresConfiguration (4 out of 5)...
+Checking rule settersRejectValuesAboveCaps (1 out of 5)...
+[ForkJoinPool-1-worker-24] WARN SPEC - Expected to have one matching storage variable for slot 0 in DummyVault2, got [] out of []
+[ForkJoinPool-1-worker-1] WARN SPEC - Expected to have one matching storage variable for slot 0 in DummyVault2, got [] out of []
+[ForkJoinPool-1-worker-10] WARN SPEC - Expected to have one matching storage variable for slot 0 in DummyVault2, got [] out of []
+[ForkJoinPool-1-worker-24] WARN SPEC - Expected to have one matching storage variable for slot 0 in DummyVault, got [] out of []
+[ForkJoinPool-1-worker-10] WARN SPEC - Expected to have one matching storage variable for slot 0 in DummyVault, got [] out of []
+[ForkJoinPool-1-worker-1] WARN SPEC - Expected to have one matching storage variable for slot 0 in DummyVault, got [] out of []
+[ForkJoinPool-1-worker-16] WARN SPEC - Expected to have one matching storage variable for slot 0 in DummyVault2, got [] out of []
+[ForkJoinPool-1-worker-16] WARN SPEC - Expected to have one matching storage variable for slot 0 in DummyVault, got [] out of []
+Result for envfreeFuncsStaticCheck: envfreeFuncsStaticCheck: DummyUSDC.balanceOf(address): SUCCESS
+DummyUSDC.blocked(address): SUCCESS
+DummyUSDC.allowance(address,address): SUCCESS
+DummyVault2.underlying(): SUCCESS
+DummyVault.underlying(): SUCCESS
+DummyVault.balanceOf(address): SUCCESS
+DummyVault.depositReverts(): SUCCESS
+lowerFeeModelRaw(): SUCCESS
+vaultAllowance(): SUCCESS
+lowerFeeModel(): SUCCESS
+getRoleAdmin(bytes32): SUCCESS
+upperFeeModelRaw(): SUCCESS
+treasury(): SUCCESS
+pendingDefaultAdmin(): SUCCESS
+paused(): SUCCESS
+FEE_MANAGER_ROLE(): SUCCESS
+allowanceTo(address): SUCCESS
+variableFee(): SUCCESS
+routingMode(): SUCCESS
+calculateFee(uint256): SUCCESS
+upperFeeModel(): SUCCESS
+vault(): SUCCESS
+hasRole(bytes32,address): SUCCESS
+usdcAddress(): SUCCESS
+fixedFee(): SUCCESS
+DEFAULT_ADMIN_ROLE(): SUCCESS
+reentrancyGuardEntered(): SUCCESS
+usdcBalance(address): SUCCESS
+threshold(): SUCCESS
+defaultAdmin(): SUCCESS
+routingModeRaw(): SUCCESS
+[ForkJoinPool-1-worker-16] WARN SPEC - Expected to have one matching storage variable for slot 0 in DummyVault2, got [] out of []
+[ForkJoinPool-1-worker-16] WARN SPEC - Expected to have one matching storage variable for slot 0 in DummyVault, got [] out of []
+[ForkJoinPool-1-worker-1] WARN SPEC - Expected to have one matching storage variable for slot 0 in DummyVault2, got [] out of []
+[ForkJoinPool-1-worker-1] WARN SPEC - Expected to have one matching storage variable for slot 0 in DummyVault, got [] out of []
+[ForkJoinPool-1-worker-10] WARN SPEC - Expected to have one matching storage variable for slot 0 in DummyVault2, got [] out of []
+[ForkJoinPool-1-worker-10] WARN SPEC - Expected to have one matching storage variable for slot 0 in DummyVault, got [] out of []
+[ForkJoinPool-1-worker-24] WARN SPEC - Expected to have one matching storage variable for slot 0 in DummyVault2, got [] out of []
+[ForkJoinPool-1-worker-24] WARN SPEC - Expected to have one matching storage variable for slot 0 in DummyVault, got [] out of []
+Starting to run on rule fixedFeeSetterRejectsValuesAboveCap-Assert_value__10000000__reverted_(Forwarder_spec_321_5)
+Starting to run on rule fixedFeeSetterRejectsValuesAboveCap-CheckAutoGeneratedAsserts
+Starting to run on rule fixedFeeSetterRejectsValuesAboveCap-Assert_value__10000000__isManager__reverted_(Forwarder_spec_322_5)
+Starting to run on rule settersRejectValuesAboveCaps-Assert_value__10000__reverted_(Forwarder_spec_311_5)
+Starting to run on rule settersRejectValuesAboveCaps-Assert_value__10000__isManager__reverted_(Forwarder_spec_312_5)
+Starting to run on rule settersRejectValuesAboveCaps-CheckAutoGeneratedAsserts
+Starting to run on rule feeMatchesSpecificationForAnyConfiguration-Assert_revert_condition_(Forwarder_spec_703_5)
+Starting to run on rule feeMatchesSpecificationForAnyConfiguration-Assert_fee_value_(Forwarder_spec_704_5)
+Starting to run on rule feeMatchesSpecificationForAnyConfiguration-CheckAutoGeneratedAsserts
+Starting to run on rule setFeeConfigStoresConfiguration-Assert_lower_(Forwarder_spec_718_5)
+Starting to run on rule setFeeConfigStoresConfiguration-Assert_upper_(Forwarder_spec_719_5)
+Starting to run on rule setFeeConfigStoresConfiguration-CheckAutoGeneratedAsserts
+Starting to run on rule setFeeConfigStoresConfiguration-Assert_values_(Forwarder_spec_720_5)
+Verified: setFeeConfigStoresConfiguration-CheckAutoGeneratedAsserts
+setFeeConfigStoresConfiguration-CheckAutoGeneratedAsserts: Properties successfully verified on all inputs
+[ForkJoinPool-1-worker-24] WARN UI - internal function calls/returns not well-nested when exiting outermost internal call
+Total time for setFeeConfigStoresConfiguration-Assert_values_(Forwarder_spec_720_5): 0 seconds ; Split time: 0 seconds ; Number of problems: 1 ; Solver time : 0 seconds
+Verified: setFeeConfigStoresConfiguration-Assert_values_(Forwarder_spec_720_5)
+setFeeConfigStoresConfiguration-Assert_values_(Forwarder_spec_720_5): Properties successfully verified on all inputs
+Verified: fixedFeeSetterRejectsValuesAboveCap-CheckAutoGeneratedAsserts
+fixedFeeSetterRejectsValuesAboveCap-CheckAutoGeneratedAsserts: Properties successfully verified on all inputs
+[ForkJoinPool-1-worker-10] WARN AUTOCONFIG - The given logic does not match any BaseLogic: BitVector
+[ForkJoinPool-1-worker-10] WARN AUTOCONFIG - The given logic does not match any BaseLogic: BitVector
+[ForkJoinPool-1-worker-10] WARN AUTOCONFIG - The given logic does not match any BaseLogic: BitVector
+Total time for setFeeConfigStoresConfiguration-Assert_lower_(Forwarder_spec_718_5): 1 seconds ; Split time: 0 seconds ; Number of problems: 1 ; Solver time : 1 seconds
+Verified: setFeeConfigStoresConfiguration-Assert_lower_(Forwarder_spec_718_5)
+setFeeConfigStoresConfiguration-Assert_lower_(Forwarder_spec_718_5): Properties successfully verified on all inputs
+Verified: feeMatchesSpecificationForAnyConfiguration-CheckAutoGeneratedAsserts
+Verified: settersRejectValuesAboveCaps-CheckAutoGeneratedAsserts
+settersRejectValuesAboveCaps-CheckAutoGeneratedAsserts: Properties successfully verified on all inputs
+feeMatchesSpecificationForAnyConfiguration-CheckAutoGeneratedAsserts: Properties successfully verified on all inputs
+Total time for settersRejectValuesAboveCaps-Assert_value__10000__isManager__reverted_(Forwarder_spec_312_5): 0 seconds ; Split time: 0 seconds ; Number of problems: 1 ; Solver time : 0 seconds
+Verified: settersRejectValuesAboveCaps-Assert_value__10000__isManager__reverted_(Forwarder_spec_312_5)
+settersRejectValuesAboveCaps-Assert_value__10000__isManager__reverted_(Forwarder_spec_312_5): Properties successfully verified on all inputs
+[pool-2-thread-12] WARN SMT_CMDPROCESSOR - solver Bitwuzla does not support (reset), restarting the solver process instead
+[ForkJoinPool-1-worker-22] WARN AUTOCONFIG - The given logic does not match any BaseLogic: BitVector
+[ForkJoinPool-1-worker-22] WARN AUTOCONFIG - The given logic does not match any BaseLogic: BitVector
+[ForkJoinPool-1-worker-22] WARN AUTOCONFIG - The given logic does not match any BaseLogic: BitVector
+[ForkJoinPool-1-worker-22] WARN AUTOCONFIG - The given logic does not match any BaseLogic: BitVector
+Total time for setFeeConfigStoresConfiguration-Assert_upper_(Forwarder_spec_719_5): 0 seconds ; Split time: 0 seconds ; Number of problems: 1 ; Solver time : 0 seconds
+Verified: setFeeConfigStoresConfiguration-Assert_upper_(Forwarder_spec_719_5)
+setFeeConfigStoresConfiguration-Assert_upper_(Forwarder_spec_719_5): Properties successfully verified on all inputs
+[ForkJoinPool-1-worker-27] WARN UI - internal function calls/returns not well-nested when exiting outermost internal call
+Total time for fixedFeeSetterRejectsValuesAboveCap-Assert_value__10000000__reverted_(Forwarder_spec_321_5): 0 seconds ; Split time: 0 seconds ; Number of problems: 1 ; Solver time : 0 seconds
+Starting to run on rule setFeeConfigStoresConfiguration-rule_not_vacuous
+Verified: fixedFeeSetterRejectsValuesAboveCap-Assert_value__10000000__reverted_(Forwarder_spec_321_5)
+fixedFeeSetterRejectsValuesAboveCap-Assert_value__10000000__reverted_(Forwarder_spec_321_5): Properties successfully verified on all inputs
+Total time for fixedFeeSetterRejectsValuesAboveCap-Assert_value__10000000__isManager__reverted_(Forwarder_spec_322_5): 0 seconds ; Split time: 0 seconds ; Number of problems: 1 ; Solver time : 0 seconds
+Verified: fixedFeeSetterRejectsValuesAboveCap-Assert_value__10000000__isManager__reverted_(Forwarder_spec_322_5)
+fixedFeeSetterRejectsValuesAboveCap-Assert_value__10000000__isManager__reverted_(Forwarder_spec_322_5): Properties successfully verified on all inputs
+Starting to run on rule fixedFeeSetterRejectsValuesAboveCap-rule_not_vacuous
+Total time for settersRejectValuesAboveCaps-Assert_value__10000__reverted_(Forwarder_spec_311_5): 0 seconds ; Split time: 0 seconds ; Number of problems: 1 ; Solver time : 0 seconds
+Verified: settersRejectValuesAboveCaps-Assert_value__10000__reverted_(Forwarder_spec_311_5)
+settersRejectValuesAboveCaps-Assert_value__10000__reverted_(Forwarder_spec_311_5): Properties successfully verified on all inputs
+Starting to run on rule settersRejectValuesAboveCaps-rule_not_vacuous
+[ForkJoinPool-1-worker-2] WARN AUTOCONFIG - The given logic does not match any BaseLogic: BitVector
+[ForkJoinPool-1-worker-2] WARN AUTOCONFIG - The given logic does not match any BaseLogic: BitVector
+[ForkJoinPool-1-worker-2] WARN AUTOCONFIG - The given logic does not match any BaseLogic: BitVector
+[ForkJoinPool-1-worker-2] WARN AUTOCONFIG - The given logic does not match any BaseLogic: BitVector
+[ForkJoinPool-1-worker-2] WARN AUTOCONFIG - The given logic does not match any BaseLogic: BitVector
+[ForkJoinPool-1-worker-2] WARN AUTOCONFIG - The given logic does not match any BaseLogic: BitVector
+[ForkJoinPool-1-worker-2] WARN AUTOCONFIG - The given logic does not match any BaseLogic: BitVector
+[ForkJoinPool-1-worker-2] WARN AUTOCONFIG - The given logic does not match any BaseLogic: BitVector
+[ForkJoinPool-1-worker-2] WARN AUTOCONFIG - The given logic does not match any BaseLogic: BitVector
+[ForkJoinPool-1-worker-2] WARN AUTOCONFIG - The given logic does not match any BaseLogic: BitVector
+[ForkJoinPool-1-worker-27] WARN AUTOCONFIG - The given logic does not match any BaseLogic: BitVector
+[pool-2-thread-6] WARN SMT_CMDPROCESSOR - solver Bitwuzla does not support (reset), restarting the solver process instead
+[ForkJoinPool-1-worker-16] WARN AUTOCONFIG - The given logic does not match any BaseLogic: BitVector
+[ForkJoinPool-1-worker-16] WARN AUTOCONFIG - The given logic does not match any BaseLogic: BitVector
+[ForkJoinPool-1-worker-16] WARN AUTOCONFIG - The given logic does not match any BaseLogic: BitVector
+[ForkJoinPool-1-worker-16] WARN AUTOCONFIG - The given logic does not match any BaseLogic: BitVector
+[ForkJoinPool-1-worker-16] WARN AUTOCONFIG - The given logic does not match any BaseLogic: BitVector
+Total time for setFeeConfigStoresConfiguration-rule_not_vacuous: 0 seconds ; Split time: 0 seconds ; Number of problems: 1 ; Solver time : 0 seconds
+Violated: setFeeConfigStoresConfiguration-rule_not_vacuous
+setFeeConfigStoresConfiguration-rule_not_vacuous: A property is violated
+[ForkJoinPool-1-worker-16] WARN COMMON - Got a non-constant, non-variable operand (Operand(out=R68:bv256, exp=ForwarderHarness.routingModeRaw())) that is not in the builderState. Failed to construct its complete syntax-tree
+[ForkJoinPool-1-worker-16] WARN COMMON - Got a non-constant, non-variable operand (Operand(out=R68:bv256, exp=ForwarderHarness.routingModeRaw())) that is not in the builderState. Failed to construct its complete syntax-tree
+[ForkJoinPool-1-worker-16] WARN COMMON - Got a non-constant, non-variable operand (Operand(out=R82:bv256, exp=ForwarderHarness.lowerFeeModelRaw())) that is not in the builderState. Failed to construct its complete syntax-tree
+[ForkJoinPool-1-worker-16] WARN COMMON - Got a non-constant, non-variable operand (Operand(out=B217:bool, exp=ForwarderHarness.lowerFeeModelRaw() < 4)) that is not in the builderState. Failed to construct its complete syntax-tree
+[ForkJoinPool-1-worker-16] WARN COMMON - Got a non-constant, non-variable operand (Operand(out=R92:bv256, exp=ForwarderHarness.upperFeeModelRaw())) that is not in the builderState. Failed to construct its complete syntax-tree
+[ForkJoinPool-1-worker-16] WARN COMMON - Got a non-constant, non-variable operand (Operand(out=CANON39!!85:bool, exp=ForwarderHarness.routingModeRaw() < 4 && ForwarderHarness.lowerFeeModelRaw() < 4)) that is not in the builderState. Failed to construct its complete syntax-tree
+[ForkJoinPool-1-worker-16] WARN COMMON - Got a non-constant, non-variable operand (Operand(out=B214:bool, exp=ForwarderHarness.upperFeeModelRaw() < 4)) that is not in the builderState. Failed to construct its complete syntax-tree
+[ForkJoinPool-1-worker-16] WARN COMMON - Got a non-constant, non-variable operand (Operand(out=R168:bv256, exp=ForwarderHarness.lowerFeeModel())) that is not in the builderState. Failed to construct its complete syntax-tree
+[ForkJoinPool-1-worker-16] WARN COMMON - Got a non-constant, non-variable operand (Operand(out=R177:bv256, exp=ForwarderHarness.upperFeeModel())) that is not in the builderState. Failed to construct its complete syntax-tree
+[ForkJoinPool-1-worker-16] WARN COMMON - Got a non-constant, non-variable operand (Operand(out=R184:bv256, exp=ForwarderHarness.threshold())) that is not in the builderState. Failed to construct its complete syntax-tree
+[ForkJoinPool-1-worker-16] WARN COMMON - Got a non-constant, non-variable operand (Operand(out=R192:bv256, exp=ForwarderHarness.fixedFee())) that is not in the builderState. Failed to construct its complete syntax-tree
+[ForkJoinPool-1-worker-16] WARN COMMON - Got a non-constant, non-variable operand (Operand(out=CANON85!!211:bool, exp=ForwarderHarness.fixedFee() == fixedF)) that is not in the builderState. Failed to construct its complete syntax-tree
+[ForkJoinPool-1-worker-16] WARN COMMON - Got a non-constant, non-variable operand (Operand(out=R201:bv256, exp=ForwarderHarness.variableFee())) that is not in the builderState. Failed to construct its complete syntax-tree
+[ForkJoinPool-1-worker-16] WARN COMMON - Got a non-constant, non-variable operand (Operand(out=CANON84!!196:bool, exp=ForwarderHarness.threshold() == thr && ForwarderHarness.fixedFee() == fixedF)) that is not in the builderState. Failed to construct its complete syntax-tree
+[ForkJoinPool-1-worker-16] WARN COMMON - Got a non-constant, non-variable operand (Operand(out=CANON88!!208:bool, exp=ForwarderHarness.variableFee() == variableF)) that is not in the builderState. Failed to construct its complete syntax-tree
+Result for setFeeConfigStoresConfiguration: setFeeConfigStoresConfiguration: Assert_lower_(Forwarder_spec_718_5): SUCCESS
+Assert_upper_(Forwarder_spec_719_5): SUCCESS
+Assert_values_(Forwarder_spec_720_5): SUCCESS
+CheckAutoGeneratedAsserts: SUCCESS
+[pool-2-thread-8] WARN SMT_CMDPROCESSOR - solver Bitwuzla does not support (reset), restarting the solver process instead
+[pool-2-thread-1] WARN SMTLIBUTILS - failed to parse counter example value from solver:
+(slct_tacCalldatabuf@3 (lambda ((a!a (_ BitVec 256))) (ite (bvult a!a #b0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000100) ((_ int2bv 256) (ite (= (bv2nat a!a) 0) 38115291697604548985141571819895316078595901404868325689085701417561126600704 19023683729986998152855449004367162235047603150676477921874092463359369674752)) #b0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000)))
+[pool-2-thread-1] WARN SMTLIBUTILS - failed to parse counter example value from solver:
+(slct_tacCalldatabuf@4 (lambda ((a!a (_ BitVec 256))) (ite (bvult a!a #b0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000100) ((_ int2bv 256) (ite (= (bv2nat a!a) 0) 113673475016172509657744664863170042297947568918519997298474781035022707064832 19023683729986998152855449004367162235047603150676477921874092463359369674752)) #b0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000)))
+[pool-2-thread-1] WARN SMTLIBUTILS - failed to parse counter example value from solver:
+(slct_tacCalldatabuf@1 (lambda ((a!a (_ BitVec 256))) (ite (bvult a!a #b0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000100100) ((_ int2bv 256) (ite (= (bv2nat a!a) 0) 97061135125444052224320841747449774981997046579061088413851828083941183586304 19023683729986998152855449004367162235047603150676477921874092463359369674752)) #b0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000)))
+[pool-2-thread-1] WARN SMTLIBUTILS - failed to parse counter example value from solver:
+(slct_tacCalldatabuf!!103@6 (lambda ((a!a (_ BitVec 256))) (ite (= a!a #b0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000100) #b0110110000000111010101111101110000111110011010110010100010110010010110000000110000000011111111011001111010010110110000100111010010101100111101001111100110011101100100011111101111101100100110110100000110001111101000011101011100000110000001001111111100011100 (ite (bvult a!a #b0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000001000100) ((_ int2bv 256) (ite (= (bv2nat a!a) 0) 65955133271484797600261350459683756532805699451836107848961498002499578101760 19023683729986998152855449004367162235047603150676477921874092463359369674752)) #b0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000))))
+[pool-2-thread-1] WARN SMTLIBUTILS - failed to parse counter example value from solver:
+(slct_tacCalldatabuf!!101@6 (lambda ((a!a (_ BitVec 256))) (ite (bvult a!a #b0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000001000100) ((_ int2bv 256) (ite (= (bv2nat a!a) 0) 65955133271484797600261350459683756532805699451836107848961498002499578101760 19023683729986998152855449004367162235047603150676477921874092463359369674752)) #b0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000)))
+[pool-2-thread-1] WARN SMTLIBUTILS - failed to parse counter example value from solver:
+(slct_tacCalldatabuf@5 (lambda ((a!a (_ BitVec 256))) (ite (bvult a!a #b0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000100) ((_ int2bv 256) (ite (= (bv2nat a!a) 0) 2648829884577630631334959040495142531697657349952632291529591606110821810176 19023683729986998152855449004367162235047603150676477921874092463359369674752)) #b0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000)))
+[ForkJoinPool-1-worker-1] WARN AUTOCONFIG - The given logic does not match any BaseLogic: BitVector
+Total time for settersRejectValuesAboveCaps-rule_not_vacuous: 0 seconds ; Split time: 0 seconds ; Number of problems: 1 ; Solver time : 0 seconds
+Violated: settersRejectValuesAboveCaps-rule_not_vacuous
+settersRejectValuesAboveCaps-rule_not_vacuous: A property is violated
+[ForkJoinPool-1-worker-1] WARN COMMON - Got a non-constant, non-variable operand (Operand(out=R63:bv256, exp=ForwarderHarness.routingModeRaw())) that is not in the builderState. Failed to construct its complete syntax-tree
+[ForkJoinPool-1-worker-1] WARN COMMON - Got a non-constant, non-variable operand (Operand(out=R63:bv256, exp=ForwarderHarness.routingModeRaw())) that is not in the builderState. Failed to construct its complete syntax-tree
+[ForkJoinPool-1-worker-1] WARN COMMON - Got a non-constant, non-variable operand (Operand(out=R77:bv256, exp=ForwarderHarness.lowerFeeModelRaw())) that is not in the builderState. Failed to construct its complete syntax-tree
+[ForkJoinPool-1-worker-1] WARN COMMON - Got a non-constant, non-variable operand (Operand(out=B181:bool, exp=ForwarderHarness.lowerFeeModelRaw() < 4)) that is not in the builderState. Failed to construct its complete syntax-tree
+[ForkJoinPool-1-worker-1] WARN COMMON - Got a non-constant, non-variable operand (Operand(out=R87:bv256, exp=ForwarderHarness.upperFeeModelRaw())) that is not in the builderState. Failed to construct its complete syntax-tree
+[ForkJoinPool-1-worker-1] WARN COMMON - Got a non-constant, non-variable operand (Operand(out=CANON36!!80:bool, exp=ForwarderHarness.routingModeRaw() < 4 && ForwarderHarness.lowerFeeModelRaw() < 4)) that is not in the builderState. Failed to construct its complete syntax-tree
+[ForkJoinPool-1-worker-1] WARN COMMON - Got a non-constant, non-variable operand (Operand(out=B178:bool, exp=ForwarderHarness.upperFeeModelRaw() < 4)) that is not in the builderState. Failed to construct its complete syntax-tree
+[ForkJoinPool-1-worker-1] WARN COMMON - Got a non-constant, non-variable operand (Operand(out=CANON3:int, exp=e.msg.value)) that is not in the builderState. Failed to construct its complete syntax-tree
+[ForkJoinPool-1-worker-1] WARN CALLTRACE - displayName ghostNativeAmount given to two symbols: CANON92!!161:int and CANON92!!17:int
+[ForkJoinPool-1-worker-1] WARN CALLTRACE - displayName ghostNativeRecipient given to two symbols: CANON93!!162:int and CANON93!!18:int
+[ForkJoinPool-1-worker-1] WARN CALLTRACE - displayName ghostNativeTransfers given to two symbols: CANON94!!163:int and CANON94!!19:int
+Result for settersRejectValuesAboveCaps: settersRejectValuesAboveCaps: Assert_value__10000__reverted_(Forwarder_spec_311_5): SUCCESS
+Assert_value__10000__isManager__reverted_(Forwarder_spec_312_5): SUCCESS
+CheckAutoGeneratedAsserts: SUCCESS
+[pool-2-thread-1] WARN SMTLIBUTILS - failed to parse counter example value from solver:
+(slct_tacCalldatabuf@3 (lambda ((a!a (_ BitVec 256))) (ite (bvult a!a #b0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000100) ((_ int2bv 256) (ite (= (bv2nat a!a) 0) 38115291697604548985141571819895316078595901404868325689085701417561126600704 19023683729986998152855449004367162235047603150676477921874092463359369674752)) #b0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000)))
+[pool-2-thread-1] WARN SMTLIBUTILS - failed to parse counter example value from solver:
+(slct_tacCalldatabuf@4 (lambda ((a!a (_ BitVec 256))) (ite (bvult a!a #b0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000100) ((_ int2bv 256) (ite (= (bv2nat a!a) 0) 113673475016172509657744664863170042297947568918519997298474781035022707064832 19023683729986998152855449004367162235047603150676477921874092463359369674752)) #b0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000)))
+[pool-2-thread-1] WARN SMTLIBUTILS - failed to parse counter example value from solver:
+(slct_tacCalldatabuf@1 (lambda ((a!a (_ BitVec 256))) (ite (bvult a!a #b0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000100100) ((_ int2bv 256) (ite (= (bv2nat a!a) 0) 25270337207498868667332738707133544871765824927995378854164262743133579640832 19023683729986998152855449004367162235047603150676477921874092463359369674752)) #b0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000)))
+[pool-2-thread-1] WARN SMTLIBUTILS - failed to parse counter example value from solver:
+(slct_tacCalldatabuf!!103@6 (lambda ((a!a (_ BitVec 256))) (ite (= a!a #b0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000100) #b0110110000000111010101111101110000111110011010110010100010110010010110000000110000000011111111011001111010010110110000100111010010101100111101001111100110011101100100011111101111101100100110110100000110001111101000011101011100000110000001001111111100011100 (ite (bvult a!a #b0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000001000100) ((_ int2bv 256) (ite (= (bv2nat a!a) 0) 65955133271484797600261350459683756532805699451836107848961498002499578101760 19023683729986998152855449004367162235047603150676477921874092463359369674752)) #b0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000))))
+[pool-2-thread-1] WARN SMTLIBUTILS - failed to parse counter example value from solver:
+(slct_tacCalldatabuf!!101@6 (lambda ((a!a (_ BitVec 256))) (ite (bvult a!a #b0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000001000100) ((_ int2bv 256) (ite (= (bv2nat a!a) 0) 65955133271484797600261350459683756532805699451836107848961498002499578101760 19023683729986998152855449004367162235047603150676477921874092463359369674752)) #b0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000)))
+[pool-2-thread-1] WARN SMTLIBUTILS - failed to parse counter example value from solver:
+(slct_tacCalldatabuf@5 (lambda ((a!a (_ BitVec 256))) (ite (bvult a!a #b0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000100) ((_ int2bv 256) (ite (= (bv2nat a!a) 0) 2648829884577630631334959040495142531697657349952632291529591606110821810176 19023683729986998152855449004367162235047603150676477921874092463359369674752)) #b0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000)))
+[ForkJoinPool-1-worker-5] WARN AUTOCONFIG - The given logic does not match any BaseLogic: BitVector
+Total time for fixedFeeSetterRejectsValuesAboveCap-rule_not_vacuous: 0 seconds ; Split time: 0 seconds ; Number of problems: 1 ; Solver time : 0 seconds
+Violated: fixedFeeSetterRejectsValuesAboveCap-rule_not_vacuous
+fixedFeeSetterRejectsValuesAboveCap-rule_not_vacuous: A property is violated
+[ForkJoinPool-1-worker-5] WARN COMMON - Got a non-constant, non-variable operand (Operand(out=R63:bv256, exp=ForwarderHarness.routingModeRaw())) that is not in the builderState. Failed to construct its complete syntax-tree
+[ForkJoinPool-1-worker-5] WARN COMMON - Got a non-constant, non-variable operand (Operand(out=R63:bv256, exp=ForwarderHarness.routingModeRaw())) that is not in the builderState. Failed to construct its complete syntax-tree
+[ForkJoinPool-1-worker-5] WARN COMMON - Got a non-constant, non-variable operand (Operand(out=R77:bv256, exp=ForwarderHarness.lowerFeeModelRaw())) that is not in the builderState. Failed to construct its complete syntax-tree
+[ForkJoinPool-1-worker-5] WARN COMMON - Got a non-constant, non-variable operand (Operand(out=B181:bool, exp=ForwarderHarness.lowerFeeModelRaw() < 4)) that is not in the builderState. Failed to construct its complete syntax-tree
+[ForkJoinPool-1-worker-5] WARN COMMON - Got a non-constant, non-variable operand (Operand(out=R87:bv256, exp=ForwarderHarness.upperFeeModelRaw())) that is not in the builderState. Failed to construct its complete syntax-tree
+[ForkJoinPool-1-worker-5] WARN COMMON - Got a non-constant, non-variable operand (Operand(out=CANON36!!80:bool, exp=ForwarderHarness.routingModeRaw() < 4 && ForwarderHarness.lowerFeeModelRaw() < 4)) that is not in the builderState. Failed to construct its complete syntax-tree
+[ForkJoinPool-1-worker-5] WARN COMMON - Got a non-constant, non-variable operand (Operand(out=B178:bool, exp=ForwarderHarness.upperFeeModelRaw() < 4)) that is not in the builderState. Failed to construct its complete syntax-tree
+[ForkJoinPool-1-worker-5] WARN COMMON - Got a non-constant, non-variable operand (Operand(out=CANON3:int, exp=e.msg.value)) that is not in the builderState. Failed to construct its complete syntax-tree
+[ForkJoinPool-1-worker-5] WARN CALLTRACE - displayName ghostNativeAmount given to two symbols: CANON92!!161:int and CANON92!!17:int
+[ForkJoinPool-1-worker-5] WARN CALLTRACE - displayName ghostNativeRecipient given to two symbols: CANON93!!162:int and CANON93!!18:int
+[ForkJoinPool-1-worker-5] WARN CALLTRACE - displayName ghostNativeTransfers given to two symbols: CANON94!!163:int and CANON94!!19:int
+Result for fixedFeeSetterRejectsValuesAboveCap: fixedFeeSetterRejectsValuesAboveCap: Assert_value__10000000__reverted_(Forwarder_spec_321_5): SUCCESS
+Assert_value__10000000__isManager__reverted_(Forwarder_spec_322_5): SUCCESS
+CheckAutoGeneratedAsserts: SUCCESS
+[ForkJoinPool-1-worker-18] WARN AUTOCONFIG - The given logic does not match any BaseLogic: BitVector
+[ForkJoinPool-1-worker-18] WARN AUTOCONFIG - The given logic does not match any BaseLogic: BitVector
+[ForkJoinPool-1-worker-18] WARN AUTOCONFIG - The given logic does not match any BaseLogic: BitVector
+[ForkJoinPool-1-worker-18] WARN AUTOCONFIG - The given logic does not match any BaseLogic: BitVector
+[ForkJoinPool-1-worker-18] WARN AUTOCONFIG - The given logic does not match any BaseLogic: BitVector
+[ForkJoinPool-1-worker-18] WARN AUTOCONFIG - The given logic does not match any BaseLogic: BitVector
+[ForkJoinPool-1-worker-18] WARN AUTOCONFIG - The given logic does not match any BaseLogic: BitVector
+[ForkJoinPool-1-worker-18] WARN AUTOCONFIG - The given logic does not match any BaseLogic: BitVector
+[ForkJoinPool-1-worker-18] WARN AUTOCONFIG - The given logic does not match any BaseLogic: BitVector
+[ForkJoinPool-1-worker-18] WARN AUTOCONFIG - The given logic does not match any BaseLogic: BitVector
+[pool-2-thread-10] WARN SMT_CMDPROCESSOR - solver Bitwuzla does not support (reset), restarting the solver process instead
+[ForkJoinPool-1-worker-26] WARN COUNTEREXAMPLEMODEL - failed to translate smt exp to tac value, leaving it out of the tac-level model; tac symbol: tacCalldatabuf@3:bytemap, smt symbol: slct_tacCalldatabuf@3, model value: (lambda ((a!a (_ BitVec 256))) (ite (bvult a!a (_ bv4 256)) (mslct_CANON34!21 a!a (_ bv4 256) (_ bv705627647 256)) (_ bv0 256)))
+[ForkJoinPool-1-worker-26] WARN COUNTEREXAMPLEMODEL - failed to translate smt exp to tac value, leaving it out of the tac-level model; tac symbol: tacCalldatabuf@4:bytemap, smt symbol: slct_tacCalldatabuf@4, model value: (lambda ((a!a (_ BitVec 256))) (ite (bvult a!a (_ bv4 256)) (mslct_CANON34!21 a!a (_ bv4 256) (_ bv1413774744 256)) (_ bv0 256)))
+[ForkJoinPool-1-worker-26] WARN COUNTEREXAMPLEMODEL - failed to translate smt exp to tac value, leaving it out of the tac-level model; tac symbol: tacCalldatabuf@5:bytemap, smt symbol: slct_tacCalldatabuf@5, model value: (lambda ((a!a (_ BitVec 256))) (ite (bvult a!a (_ bv4 256)) (mslct_CANON34!21 a!a (_ bv4 256) (_ bv4216383527 256)) (_ bv0 256)))
+[ForkJoinPool-1-worker-26] WARN COUNTEREXAMPLEMODEL - failed to translate smt exp to tac value, leaving it out of the tac-level model; tac symbol: tacCalldatabuf@2:bytemap, smt symbol: slct_tacCalldatabuf@2, model value: (lambda ((a!a (_ BitVec 256))) (ite (bvult a!a (_ bv36 256)) (mslct_CANON34!21 a!a (_ bv36 256) (_ bv2577782599 256)) (_ bv0 256)))
+[ForkJoinPool-1-worker-26] WARN COUNTEREXAMPLEMODEL - failed to translate smt exp to tac value, leaving it out of the tac-level model; tac symbol: tacCalldatabuf!!112@1:bytemap, smt symbol: slct_tacCalldatabuf!!112@1, model value: (lambda ((a!a (_ BitVec 256))) (ite (= a!a (_ bv100 256)) (_ bv5 256) (ite (= (_ bv68 256) a!a) (_ bv8 256) (ite (= (_ bv36 256) a!a) (_ bv3 256) (ite (= (_ bv4 256) a!a) (_ bv1 256) (ite (bvult a!a (_ bv164 256)) (mslct_CANON34!21 a!a (_ bv164 256) (_ bv3902163470 256)) (_ bv0 256)))))))
+[ForkJoinPool-1-worker-26] WARN COUNTEREXAMPLEMODEL - failed to translate smt exp to tac value, leaving it out of the tac-level model; tac symbol: tacCalldatabuf!!110@1:bytemap, smt symbol: slct_tacCalldatabuf!!110@1, model value: (lambda ((a!a (_ BitVec 256))) (ite (= a!a (_ bv68 256)) (_ bv8 256) (ite (= (_ bv36 256) a!a) (_ bv3 256) (ite (= (_ bv4 256) a!a) (_ bv1 256) (ite (bvult a!a (_ bv164 256)) (mslct_CANON34!21 a!a (_ bv164 256) (_ bv3902163470 256)) (_ bv0 256))))))
+[ForkJoinPool-1-worker-26] WARN COUNTEREXAMPLEMODEL - failed to translate smt exp to tac value, leaving it out of the tac-level model; tac symbol: tacCalldatabuf!!108@1:bytemap, smt symbol: slct_tacCalldatabuf!!108@1, model value: (lambda ((a!a (_ BitVec 256))) (ite (= a!a (_ bv36 256)) (_ bv3 256) (ite (= (_ bv4 256) a!a) (_ bv1 256) (ite (bvult a!a (_ bv164 256)) (mslct_CANON34!21 a!a (_ bv164 256) (_ bv3902163470 256)) (_ bv0 256)))))
+[ForkJoinPool-1-worker-26] WARN COUNTEREXAMPLEMODEL - failed to translate smt exp to tac value, leaving it out of the tac-level model; tac symbol: tacCalldatabuf!!107@1:bytemap, smt symbol: slct_tacCalldatabuf!!107@1, model value: (lambda ((a!a (_ BitVec 256))) (ite (= (_ bv4 256) a!a) (_ bv1 256) (ite (bvult a!a (_ bv164 256)) (mslct_CANON34!21 a!a (_ bv164 256) (_ bv3902163470 256)) (_ bv0 256))))
+[ForkJoinPool-1-worker-26] WARN COUNTEREXAMPLEMODEL - failed to translate smt exp to tac value, leaving it out of the tac-level model; tac symbol: tacCalldatabuf!!105@1:bytemap, smt symbol: slct_tacCalldatabuf!!105@1, model value: (lambda ((a!a (_ BitVec 256))) (ite (bvult a!a (_ bv164 256)) (mslct_CANON34!21 a!a (_ bv164 256) (_ bv3902163470 256)) (_ bv0 256)))
+[ForkJoinPool-1-worker-26] WARN COUNTEREXAMPLEMODEL - failed to translate smt exp to tac value, leaving it out of the tac-level model; tac symbol: tacCalldatabuf@6:bytemap, smt symbol: slct_tacCalldatabuf@6, model value: (lambda ((a!a (_ BitVec 256))) (ite (bvult a!a (_ bv4 256)) (mslct_CANON34!21 a!a (_ bv4 256) (_ bv1553423035 256)) (_ bv0 256)))
+[ForkJoinPool-1-worker-26] WARN AUTOCONFIG - The given logic does not match any BaseLogic: BitVector
+[ForkJoinPool-1-worker-26] WARN AUTOCONFIG - The given logic does not match any BaseLogic: BitVector
+[ForkJoinPool-1-worker-26] WARN AUTOCONFIG - The given logic does not match any BaseLogic: BitVector
+[ForkJoinPool-1-worker-26] WARN AUTOCONFIG - The given logic does not match any BaseLogic: BitVector
+[ForkJoinPool-1-worker-26] WARN AUTOCONFIG - The given logic does not match any BaseLogic: BitVector
+[ForkJoinPool-1-worker-26] WARN AUTOCONFIG - The given logic does not match any BaseLogic: BitVector
+[ForkJoinPool-1-worker-26] WARN AUTOCONFIG - The given logic does not match any BaseLogic: BitVector
+[ForkJoinPool-1-worker-26] WARN AUTOCONFIG - The given logic does not match any BaseLogic: BitVector
+[ForkJoinPool-1-worker-26] WARN AUTOCONFIG - The given logic does not match any BaseLogic: BitVector
+[ForkJoinPool-1-worker-26] WARN AUTOCONFIG - The given logic does not match any BaseLogic: BitVector
+Total time for feeMatchesSpecificationForAnyConfiguration-Assert_revert_condition_(Forwarder_spec_703_5): 18 seconds ; Split time: 0 seconds ; Number of problems: 6 ; Solver time : 17 seconds
+Violated: feeMatchesSpecificationForAnyConfiguration-Assert_revert_condition_(Forwarder_spec_703_5)
+feeMatchesSpecificationForAnyConfiguration-Assert_revert_condition_(Forwarder_spec_703_5): A property is violated
+[ForkJoinPool-1-worker-26] WARN COMMON - Got a non-constant, non-variable operand (Operand(out=R62:bv256, exp=ForwarderHarness.routingModeRaw())) that is not in the builderState. Failed to construct its complete syntax-tree
+[ForkJoinPool-1-worker-26] WARN COMMON - Got a non-constant, non-variable operand (Operand(out=R62:bv256, exp=ForwarderHarness.routingModeRaw())) that is not in the builderState. Failed to construct its complete syntax-tree
+[ForkJoinPool-1-worker-26] WARN COMMON - Got a non-constant, non-variable operand (Operand(out=R76:bv256, exp=ForwarderHarness.lowerFeeModelRaw())) that is not in the builderState. Failed to construct its complete syntax-tree
+[ForkJoinPool-1-worker-26] WARN COMMON - Got a non-constant, non-variable operand (Operand(out=B206:bool, exp=ForwarderHarness.lowerFeeModelRaw() < 4)) that is not in the builderState. Failed to construct its complete syntax-tree
+[ForkJoinPool-1-worker-26] WARN COMMON - Got a non-constant, non-variable operand (Operand(out=R86:bv256, exp=ForwarderHarness.upperFeeModelRaw())) that is not in the builderState. Failed to construct its complete syntax-tree
+[ForkJoinPool-1-worker-26] WARN COMMON - Got a non-constant, non-variable operand (Operand(out=CANON41!!79:bool, exp=ForwarderHarness.routingModeRaw() < 4 && ForwarderHarness.lowerFeeModelRaw() < 4)) that is not in the builderState. Failed to construct its complete syntax-tree
+[ForkJoinPool-1-worker-26] WARN COMMON - Got a non-constant, non-variable operand (Operand(out=B203:bool, exp=ForwarderHarness.upperFeeModelRaw() < 4)) that is not in the builderState. Failed to construct its complete syntax-tree
+[ForkJoinPool-1-worker-26] WARN CALLTRACE - displayName ghostNativeAmount given to two symbols: CANON110!!22:int and CANON110!!195:int
+[ForkJoinPool-1-worker-26] WARN CALLTRACE - displayName ghostNativeTransfers given to two symbols: CANON112!!197:int and CANON112!!24:int
+[ForkJoinPool-1-worker-26] WARN CALLTRACE - displayName ghostNativeRecipient given to two symbols: CANON111!!23:int and CANON111!!196:int
+[ForkJoinPool-1-worker-5] WARN AUTOCONFIG - The given logic does not match any BaseLogic: BitVector
+[ForkJoinPool-1-worker-5] WARN AUTOCONFIG - The given logic does not match any BaseLogic: BitVector
+[ForkJoinPool-1-worker-5] WARN AUTOCONFIG - The given logic does not match any BaseLogic: BitVector
+[ForkJoinPool-1-worker-5] WARN AUTOCONFIG - The given logic does not match any BaseLogic: BitVector
+[ForkJoinPool-1-worker-5] WARN AUTOCONFIG - The given logic does not match any BaseLogic: BitVector
+[ForkJoinPool-1-worker-5] WARN AUTOCONFIG - The given logic does not match any BaseLogic: BitVector
+[ForkJoinPool-1-worker-5] WARN AUTOCONFIG - The given logic does not match any BaseLogic: BitVector
+[ForkJoinPool-1-worker-5] WARN AUTOCONFIG - The given logic does not match any BaseLogic: BitVector
+[ForkJoinPool-1-worker-5] WARN AUTOCONFIG - The given logic does not match any BaseLogic: BitVector
+[ForkJoinPool-1-worker-5] WARN AUTOCONFIG - The given logic does not match any BaseLogic: BitVector
+[pool-2-thread-10] WARN SMT_CMDPROCESSOR - solver Bitwuzla does not support (reset), restarting the solver process instead
+[ForkJoinPool-1-worker-6] WARN AUTOCONFIG - The given logic does not match any BaseLogic: BitVector
+[ForkJoinPool-1-worker-6] WARN AUTOCONFIG - The given logic does not match any BaseLogic: BitVector
+[ForkJoinPool-1-worker-6] WARN AUTOCONFIG - The given logic does not match any BaseLogic: BitVector
+[ForkJoinPool-1-worker-6] WARN AUTOCONFIG - The given logic does not match any BaseLogic: BitVector
+[ForkJoinPool-1-worker-6] WARN AUTOCONFIG - The given logic does not match any BaseLogic: BitVector
+[ForkJoinPool-1-worker-6] WARN AUTOCONFIG - The given logic does not match any BaseLogic: BitVector
+[ForkJoinPool-1-worker-6] WARN AUTOCONFIG - The given logic does not match any BaseLogic: BitVector
+[ForkJoinPool-1-worker-6] WARN AUTOCONFIG - The given logic does not match any BaseLogic: BitVector
+[ForkJoinPool-1-worker-6] WARN AUTOCONFIG - The given logic does not match any BaseLogic: BitVector
+[ForkJoinPool-1-worker-6] WARN AUTOCONFIG - The given logic does not match any BaseLogic: BitVector
+[pool-2-thread-5] WARN SMT_CMDPROCESSOR - solver Bitwuzla does not support (reset), restarting the solver process instead
+[ForkJoinPool-1-worker-17] WARN AUTOCONFIG - The given logic does not match any BaseLogic: BitVector
+[ForkJoinPool-1-worker-17] WARN AUTOCONFIG - The given logic does not match any BaseLogic: BitVector
+[ForkJoinPool-1-worker-17] WARN AUTOCONFIG - The given logic does not match any BaseLogic: BitVector
+[ForkJoinPool-1-worker-17] WARN AUTOCONFIG - The given logic does not match any BaseLogic: BitVector
+[ForkJoinPool-1-worker-17] WARN AUTOCONFIG - The given logic does not match any BaseLogic: BitVector
+[ForkJoinPool-1-worker-17] WARN AUTOCONFIG - The given logic does not match any BaseLogic: BitVector
+[ForkJoinPool-1-worker-17] WARN AUTOCONFIG - The given logic does not match any BaseLogic: BitVector
+[ForkJoinPool-1-worker-17] WARN AUTOCONFIG - The given logic does not match any BaseLogic: BitVector
+[ForkJoinPool-1-worker-17] WARN AUTOCONFIG - The given logic does not match any BaseLogic: BitVector
+[ForkJoinPool-1-worker-17] WARN AUTOCONFIG - The given logic does not match any BaseLogic: BitVector
+Attempted 10 splits, and proved a total weighing 93.75% for feeMatchesSpecificationForAnyConfiguration-Assert_fee_value_(Forwarder_spec_704_5)
+[pool-2-thread-4] WARN SMT_CMDPROCESSOR - solver Bitwuzla does not support (reset), restarting the solver process instead
+[ForkJoinPool-1-worker-11] WARN AUTOCONFIG - The given logic does not match any BaseLogic: BitVector
+[ForkJoinPool-1-worker-11] WARN AUTOCONFIG - The given logic does not match any BaseLogic: BitVector
+[ForkJoinPool-1-worker-11] WARN AUTOCONFIG - The given logic does not match any BaseLogic: BitVector
+[ForkJoinPool-1-worker-11] WARN AUTOCONFIG - The given logic does not match any BaseLogic: BitVector
+[ForkJoinPool-1-worker-11] WARN AUTOCONFIG - The given logic does not match any BaseLogic: BitVector
+[ForkJoinPool-1-worker-11] WARN AUTOCONFIG - The given logic does not match any BaseLogic: BitVector
+[ForkJoinPool-1-worker-11] WARN AUTOCONFIG - The given logic does not match any BaseLogic: BitVector
+[ForkJoinPool-1-worker-11] WARN AUTOCONFIG - The given logic does not match any BaseLogic: BitVector
+[ForkJoinPool-1-worker-11] WARN AUTOCONFIG - The given logic does not match any BaseLogic: BitVector
+[ForkJoinPool-1-worker-11] WARN AUTOCONFIG - The given logic does not match any BaseLogic: BitVector
+Total time for feeMatchesSpecificationForAnyConfiguration-Assert_fee_value_(Forwarder_spec_704_5): 18 seconds ; Split time: 0 seconds ; Number of problems: 19 ; Solver time : 15 seconds
+Verified: feeMatchesSpecificationForAnyConfiguration-Assert_fee_value_(Forwarder_spec_704_5)
+feeMatchesSpecificationForAnyConfiguration-Assert_fee_value_(Forwarder_spec_704_5): Properties successfully verified on all inputs
+Starting to run on rule feeMatchesSpecificationForAnyConfiguration-rule_not_vacuous
+Ping 1m - Processed 4/4 (100%) rules. 52 tasks complete, 1 pending.
+[ForkJoinPool-1-worker-14] WARN UI - internal function calls/returns not well-nested when exiting outermost internal call
+[pool-2-thread-10] WARN SMT_CMDPROCESSOR - solver Bitwuzla does not support (reset), restarting the solver process instead
+[ForkJoinPool-1-worker-18] WARN COUNTEREXAMPLEMODEL - failed to translate smt exp to tac value, leaving it out of the tac-level model; tac symbol: tacCalldatabuf@3:bytemap, smt symbol: slct_tacCalldatabuf@3, model value: (lambda ((a!a (_ BitVec 256))) (ite (bvult a!a (_ bv4 256)) (mslct_CANON34!23 a!a (_ bv4 256) (_ bv705627647 256)) (_ bv0 256)))
+[ForkJoinPool-1-worker-18] WARN COUNTEREXAMPLEMODEL - failed to translate smt exp to tac value, leaving it out of the tac-level model; tac symbol: tacCalldatabuf@4:bytemap, smt symbol: slct_tacCalldatabuf@4, model value: (lambda ((a!a (_ BitVec 256))) (ite (bvult a!a (_ bv4 256)) (mslct_CANON34!23 a!a (_ bv4 256) (_ bv1413774744 256)) (_ bv0 256)))
+[ForkJoinPool-1-worker-18] WARN COUNTEREXAMPLEMODEL - failed to translate smt exp to tac value, leaving it out of the tac-level model; tac symbol: tacCalldatabuf@5:bytemap, smt symbol: slct_tacCalldatabuf@5, model value: (lambda ((a!a (_ BitVec 256))) (ite (bvult a!a (_ bv4 256)) (mslct_CANON34!23 a!a (_ bv4 256) (_ bv4216383527 256)) (_ bv0 256)))
+[ForkJoinPool-1-worker-18] WARN COUNTEREXAMPLEMODEL - failed to translate smt exp to tac value, leaving it out of the tac-level model; tac symbol: tacCalldatabuf@2:bytemap, smt symbol: slct_tacCalldatabuf@2, model value: (lambda ((a!a (_ BitVec 256))) (ite (bvult a!a (_ bv36 256)) (mslct_CANON34!23 a!a (_ bv36 256) (_ bv2577782599 256)) (_ bv0 256)))
+[ForkJoinPool-1-worker-18] WARN COUNTEREXAMPLEMODEL - failed to translate smt exp to tac value, leaving it out of the tac-level model; tac symbol: tacCalldatabuf!!114@1:bytemap, smt symbol: slct_tacCalldatabuf!!114@1, model value: (lambda ((a!a (_ BitVec 256))) (ite (= a!a (_ bv100 256)) I104 (ite (= (_ bv68 256) a!a) R261 (ite (= (_ bv36 256) a!a) R170 (ite (= (_ bv4 256) a!a) R101 (ite (bvult a!a (_ bv164 256)) (mslct_CANON34!23 a!a (_ bv164 256) (_ bv3902163470 256)) (_ bv0 256)))))))
+[ForkJoinPool-1-worker-18] WARN COUNTEREXAMPLEMODEL - failed to translate smt exp to tac value, leaving it out of the tac-level model; tac symbol: tacCalldatabuf!!112@1:bytemap, smt symbol: slct_tacCalldatabuf!!112@1, model value: (lambda ((a!a (_ BitVec 256))) (ite (= a!a (_ bv68 256)) R261 (ite (= (_ bv36 256) a!a) R170 (ite (= (_ bv4 256) a!a) R101 (ite (bvult a!a (_ bv164 256)) (mslct_CANON34!23 a!a (_ bv164 256) (_ bv3902163470 256)) (_ bv0 256))))))
+[ForkJoinPool-1-worker-18] WARN COUNTEREXAMPLEMODEL - failed to translate smt exp to tac value, leaving it out of the tac-level model; tac symbol: tacCalldatabuf!!110@1:bytemap, smt symbol: slct_tacCalldatabuf!!110@1, model value: (lambda ((a!a (_ BitVec 256))) (ite (= a!a (_ bv36 256)) R170 (ite (= (_ bv4 256) a!a) R101 (ite (bvult a!a (_ bv164 256)) (mslct_CANON34!23 a!a (_ bv164 256) (_ bv3902163470 256)) (_ bv0 256)))))
+[ForkJoinPool-1-worker-18] WARN COUNTEREXAMPLEMODEL - failed to translate smt exp to tac value, leaving it out of the tac-level model; tac symbol: tacCalldatabuf!!109@1:bytemap, smt symbol: slct_tacCalldatabuf!!109@1, model value: (lambda ((a!a (_ BitVec 256))) (ite (= (_ bv4 256) a!a) R101 (ite (bvult a!a (_ bv164 256)) (mslct_CANON34!23 a!a (_ bv164 256) (_ bv3902163470 256)) (_ bv0 256))))
+[ForkJoinPool-1-worker-18] WARN COUNTEREXAMPLEMODEL - failed to translate smt exp to tac value, leaving it out of the tac-level model; tac symbol: tacCalldatabuf!!107@1:bytemap, smt symbol: slct_tacCalldatabuf!!107@1, model value: (lambda ((a!a (_ BitVec 256))) (ite (bvult a!a (_ bv164 256)) (mslct_CANON34!23 a!a (_ bv164 256) (_ bv3902163470 256)) (_ bv0 256)))
+[ForkJoinPool-1-worker-18] WARN COUNTEREXAMPLEMODEL - failed to translate smt exp to tac value, leaving it out of the tac-level model; tac symbol: tacCalldatabuf@6:bytemap, smt symbol: slct_tacCalldatabuf@6, model value: (lambda ((a!a (_ BitVec 256))) (ite (bvult a!a (_ bv4 256)) (mslct_CANON34!23 a!a (_ bv4 256) (_ bv1553423035 256)) (_ bv0 256)))
+[ForkJoinPool-1-worker-18] WARN AUTOCONFIG - The given logic does not match any BaseLogic: BitVector
+[ForkJoinPool-1-worker-18] WARN AUTOCONFIG - The given logic does not match any BaseLogic: BitVector
+[ForkJoinPool-1-worker-18] WARN AUTOCONFIG - The given logic does not match any BaseLogic: BitVector
+[ForkJoinPool-1-worker-18] WARN AUTOCONFIG - The given logic does not match any BaseLogic: BitVector
+[ForkJoinPool-1-worker-18] WARN AUTOCONFIG - The given logic does not match any BaseLogic: BitVector
+[ForkJoinPool-1-worker-18] WARN AUTOCONFIG - The given logic does not match any BaseLogic: BitVector
+[ForkJoinPool-1-worker-18] WARN AUTOCONFIG - The given logic does not match any BaseLogic: BitVector
+[ForkJoinPool-1-worker-18] WARN AUTOCONFIG - The given logic does not match any BaseLogic: BitVector
+[ForkJoinPool-1-worker-18] WARN AUTOCONFIG - The given logic does not match any BaseLogic: BitVector
+[ForkJoinPool-1-worker-18] WARN AUTOCONFIG - The given logic does not match any BaseLogic: BitVector
+Total time for feeMatchesSpecificationForAnyConfiguration-rule_not_vacuous: 3 seconds ; Split time: 0 seconds ; Number of problems: 1 ; Solver time : 3 seconds
+Violated: feeMatchesSpecificationForAnyConfiguration-rule_not_vacuous
+feeMatchesSpecificationForAnyConfiguration-rule_not_vacuous: A property is violated
+[ForkJoinPool-1-worker-18] WARN COMMON - Got a non-constant, non-variable operand (Operand(out=R64:bv256, exp=ForwarderHarness.routingModeRaw())) that is not in the builderState. Failed to construct its complete syntax-tree
+[ForkJoinPool-1-worker-18] WARN COMMON - Got a non-constant, non-variable operand (Operand(out=R64:bv256, exp=ForwarderHarness.routingModeRaw())) that is not in the builderState. Failed to construct its complete syntax-tree
+[ForkJoinPool-1-worker-18] WARN COMMON - Got a non-constant, non-variable operand (Operand(out=R78:bv256, exp=ForwarderHarness.lowerFeeModelRaw())) that is not in the builderState. Failed to construct its complete syntax-tree
+[ForkJoinPool-1-worker-18] WARN COMMON - Got a non-constant, non-variable operand (Operand(out=B245:bool, exp=ForwarderHarness.lowerFeeModelRaw() < 4)) that is not in the builderState. Failed to construct its complete syntax-tree
+[ForkJoinPool-1-worker-18] WARN COMMON - Got a non-constant, non-variable operand (Operand(out=R88:bv256, exp=ForwarderHarness.upperFeeModelRaw())) that is not in the builderState. Failed to construct its complete syntax-tree
+[ForkJoinPool-1-worker-18] WARN COMMON - Got a non-constant, non-variable operand (Operand(out=CANON41!!81:bool, exp=ForwarderHarness.routingModeRaw() < 4 && ForwarderHarness.lowerFeeModelRaw() < 4)) that is not in the builderState. Failed to construct its complete syntax-tree
+[ForkJoinPool-1-worker-18] WARN COMMON - Got a non-constant, non-variable operand (Operand(out=B242:bool, exp=ForwarderHarness.upperFeeModelRaw() < 4)) that is not in the builderState. Failed to construct its complete syntax-tree
+[ForkJoinPool-1-worker-18] WARN COMMON - Got a non-constant, non-variable operand (Operand(out=CANON97!!249:int, exp=to_mathint(fee))) that is not in the builderState. Failed to construct its complete syntax-tree
+[ForkJoinPool-1-worker-18] WARN COMMON - Got a non-constant, non-variable operand (Operand(out=I222:int, exp=specFeeWith(m,amount,fixedF,variableF))) that is not in the builderState. Failed to construct its complete syntax-tree
+[ForkJoinPool-1-worker-18] WARN CALLTRACE - displayName ghostNativeAmount given to two symbols: CANON147!!24:int and CANON147!!197:int
+[ForkJoinPool-1-worker-18] WARN CALLTRACE - displayName fee given to two symbols: CANON97!!182:int and CANON97!!247:int
+[ForkJoinPool-1-worker-18] WARN CALLTRACE - displayName fee given to two symbols: CANON97!!247:int and CANON97!!249:int
+[ForkJoinPool-1-worker-18] WARN CALLTRACE - displayName ghostNativeRecipient given to two symbols: CANON148!!25:int and CANON148!!198:int
+[ForkJoinPool-1-worker-18] WARN CALLTRACE - displayName amount given to two symbols: CANON17:int and CANON121:int
+[ForkJoinPool-1-worker-18] WARN CALLTRACE - displayName fixedF given to two symbols: CANON15:int and CANON123:int
+[ForkJoinPool-1-worker-18] WARN CALLTRACE - displayName variableF given to two symbols: CANON16:int and CANON125:int
+[ForkJoinPool-1-worker-18] WARN CALLTRACE - displayName m given to two symbols: CANON119:bv256 and CANON81:bv256
+[ForkJoinPool-1-worker-18] WARN CALLTRACE - displayName ghostNativeTransfers given to two symbols: CANON149!!26:int and CANON149!!199:int
+Result for feeMatchesSpecificationForAnyConfiguration: feeMatchesSpecificationForAnyConfiguration: Assert_revert_condition_(Forwarder_spec_703_5): FAIL: revert condition
+Assert_fee_value_(Forwarder_spec_704_5): SUCCESS
+CheckAutoGeneratedAsserts: SUCCESS
+Results for envfreeFuncsStaticCheck:
+*---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------*
+|Rule name                               |Verified     |Time (sec)|Description                                                 |Local vars                                        |
+|----------------------------------------|-------------|----------|------------------------------------------------------------|--------------------------------------------------|
+|DummyUSDC.balanceOf(address)            |Not violated |0         |                                                            |no local variables                                |
+|                                        |(unsat)      |          |                                                            |                                                  |
+|DummyUSDC.blocked(address)              |Not violated |0         |                                                            |no local variables                                |
+|                                        |(unsat)      |          |                                                            |                                                  |
+|DummyUSDC.allowance(address,address)    |Not violated |0         |                                                            |no local variables                                |
+|                                        |(unsat)      |          |                                                            |                                                  |
+|DummyVault2.underlying()                |Not violated |0         |                                                            |no local variables                                |
+|                                        |(unsat)      |          |                                                            |                                                  |
+|DummyVault.underlying()                 |Not violated |0         |                                                            |no local variables                                |
+|                                        |(unsat)      |          |                                                            |                                                  |
+|DummyVault.balanceOf(address)           |Not violated |0         |                                                            |no local variables                                |
+|                                        |(unsat)      |          |                                                            |                                                  |
+|DummyVault.depositReverts()             |Not violated |0         |                                                            |no local variables                                |
+|                                        |(unsat)      |          |                                                            |                                                  |
+|lowerFeeModelRaw()                      |Not violated |0         |                                                            |no local variables                                |
+|                                        |(unsat)      |          |                                                            |                                                  |
+|vaultAllowance()                        |Not violated |0         |                                                            |no local variables                                |
+|                                        |(unsat)      |          |                                                            |                                                  |
+|lowerFeeModel()                         |Not violated |0         |                                                            |no local variables                                |
+|                                        |(unsat)      |          |                                                            |                                                  |
+|getRoleAdmin(bytes32)                   |Not violated |0         |                                                            |no local variables                                |
+|                                        |(unsat)      |          |                                                            |                                                  |
+|upperFeeModelRaw()                      |Not violated |0         |                                                            |no local variables                                |
+|                                        |(unsat)      |          |                                                            |                                                  |
+|treasury()                              |Not violated |0         |                                                            |no local variables                                |
+|                                        |(unsat)      |          |                                                            |                                                  |
+|pendingDefaultAdmin()                   |Not violated |0         |                                                            |no local variables                                |
+|                                        |(unsat)      |          |                                                            |                                                  |
+|paused()                                |Not violated |0         |                                                            |no local variables                                |
+|                                        |(unsat)      |          |                                                            |                                                  |
+|FEE_MANAGER_ROLE()                      |Not violated |0         |                                                            |no local variables                                |
+|                                        |(unsat)      |          |                                                            |                                                  |
+|allowanceTo(address)                    |Not violated |0         |                                                            |no local variables                                |
+|                                        |(unsat)      |          |                                                            |                                                  |
+|variableFee()                           |Not violated |0         |                                                            |no local variables                                |
+|                                        |(unsat)      |          |                                                            |                                                  |
+|routingMode()                           |Not violated |0         |                                                            |no local variables                                |
+|                                        |(unsat)      |          |                                                            |                                                  |
+|calculateFee(uint256)                   |Not violated |0         |                                                            |no local variables                                |
+|                                        |(unsat)      |          |                                                            |                                                  |
+|upperFeeModel()                         |Not violated |0         |                                                            |no local variables                                |
+|                                        |(unsat)      |          |                                                            |                                                  |
+|vault()                                 |Not violated |0         |                                                            |no local variables                                |
+|                                        |(unsat)      |          |                                                            |                                                  |
+|hasRole(bytes32,address)                |Not violated |0         |                                                            |no local variables                                |
+|                                        |(unsat)      |          |                                                            |                                                  |
+|usdcAddress()                           |Not violated |0         |                                                            |no local variables                                |
+|                                        |(unsat)      |          |                                                            |                                                  |
+|fixedFee()                              |Not violated |0         |                                                            |no local variables                                |
+|                                        |(unsat)      |          |                                                            |                                                  |
+|DEFAULT_ADMIN_ROLE()                    |Not violated |0         |                                                            |no local variables                                |
+|                                        |(unsat)      |          |                                                            |                                                  |
+|reentrancyGuardEntered()                |Not violated |0         |                                                            |no local variables                                |
+|                                        |(unsat)      |          |                                                            |                                                  |
+|usdcBalance(address)                    |Not violated |0         |                                                            |no local variables                                |
+|                                        |(unsat)      |          |                                                            |                                                  |
+|threshold()                             |Not violated |0         |                                                            |no local variables                                |
+|                                        |(unsat)      |          |                                                            |                                                  |
+|defaultAdmin()                          |Not violated |0         |                                                            |no local variables                                |
+|                                        |(unsat)      |          |                                                            |                                                  |
+|routingModeRaw()                        |Not violated |0         |                                                            |no local variables                                |
+|                                        |(unsat)      |          |                                                            |                                                  |
+*---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------*
+
+Results for setFeeConfigStoresConfiguration:
+*---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------*
+|Rule name                               |Verified     |Time (sec)|Description                                                 |Local vars                                        |
+|----------------------------------------|-------------|----------|------------------------------------------------------------|--------------------------------------------------|
+|Assert_lower_(Forwarder_spec_718_5)     |Not violated |3         |                                                            |no local variables                                |
+|                                        |(unsat)      |          |                                                            |                                                  |
+|Assert_upper_(Forwarder_spec_719_5)     |Not violated |2         |                                                            |no local variables                                |
+|                                        |(unsat)      |          |                                                            |                                                  |
+|Assert_values_(Forwarder_spec_720_5)    |Not violated |3         |                                                            |no local variables                                |
+|                                        |(unsat)      |          |                                                            |                                                  |
+|CheckAutoGeneratedAsserts               |Not violated |0         |                                                            |no local variables                                |
+|                                        |(unsat)      |          |                                                            |                                                  |
+*---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------*
+
+Results for fixedFeeSetterRejectsValuesAboveCap:
+*---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------*
+|Rule name                               |Verified     |Time (sec)|Description                                                 |Local vars                                        |
+|----------------------------------------|-------------|----------|------------------------------------------------------------|--------------------------------------------------|
+|Assert_value__10000000__reverted_(Forwar|Not violated |3         |                                                            |no local variables                                |
+|der_spec_321_5)                         |(unsat)      |          |                                                            |                                                  |
+|Assert_value__10000000__isManager__rever|Not violated |2         |                                                            |no local variables                                |
+|ted_(Forwarder_spec_322_5)              |(unsat)      |          |                                                            |                                                  |
+|CheckAutoGeneratedAsserts               |Not violated |0         |                                                            |no local variables                                |
+|                                        |(unsat)      |          |                                                            |                                                  |
+*---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------*
+
+Results for settersRejectValuesAboveCaps:
+*---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------*
+|Rule name                               |Verified     |Time (sec)|Description                                                 |Local vars                                        |
+|----------------------------------------|-------------|----------|------------------------------------------------------------|--------------------------------------------------|
+|Assert_value__10000__reverted_(Forwarder|Not violated |2         |                                                            |no local variables                                |
+|_spec_311_5)                            |(unsat)      |          |                                                            |                                                  |
+|Assert_value__10000__isManager__reverted|Not violated |4         |                                                            |no local variables                                |
+|_(Forwarder_spec_312_5)                 |(unsat)      |          |                                                            |                                                  |
+|CheckAutoGeneratedAsserts               |Not violated |0         |                                                            |no local variables                                |
+|                                        |(unsat)      |          |                                                            |                                                  |
+*---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------*
+
+Results for feeMatchesSpecificationForAnyConfiguration:
+*---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------*
+|Rule name                               |Verified     |Time (sec)|Description                                                 |Local vars                                        |
+|----------------------------------------|-------------|----------|------------------------------------------------------------|--------------------------------------------------|
+|Assert_revert_condition_(Forwarder_spec_|Violated     |20        |Assert message: revert condition                            |DummyUSDC=14                                      |
+|703_5)                                  |(sat)        |          |                                                            |DummyVault=15                                     |
+|                                        |             |          |                                                            |DummyVault2=12                                    |
+|                                        |             |          |                                                            |ForwarderHarness=13                               |
+|                                        |             |          |                                                            |amount=0xffffffffffffffffff030303fffffffffffffffff|
+|                                        |             |          |                                                            |ffffffffffffffffffffffe                           |
+|                                        |             |          |                                                            |eManager.block.basefee=0                          |
+|                                        |             |          |                                                            |eManager.block.blobbasefee=9                      |
+|                                        |             |          |                                                            |eManager.block.coinbase=0x2717                    |
+|                                        |             |          |                                                            |eManager.block.difficulty=11                      |
+|                                        |             |          |                                                            |eManager.block.gaslimit=7                         |
+|                                        |             |          |                                                            |eManager.block.number=10                          |
+|                                        |             |          |                                                            |eManager.block.timestamp=6                        |
+|                                        |             |          |                                                            |eManager.msg.sender=0x607                         |
+|                                        |             |          |                                                            |eManager.msg.value=0                              |
+|                                        |             |          |                                                            |eManager.tx.origin=0x407                          |
+|                                        |             |          |                                                            |fee=...                                           |
+|                                        |             |          |                                                            |fixedF=5                                          |
+|                                        |             |          |                                                            |lower=Forwarder.FeeModel.FIXED                    |
+|                                        |             |          |                                                            |m=Forwarder.FeeModel.FIXED_PLUS_PERCENT           |
+|                                        |             |          |                                                            |overflow=false                                    |
+|                                        |             |          |                                                            |percentModel=true                                 |
+|                                        |             |          |                                                            |thr=8                                             |
+|                                        |             |          |                                                            |upper=Forwarder.FeeModel.FIXED_PLUS_PERCENT       |
+|                                        |             |          |                                                            |variableF=2                                       |
+|Assert_fee_value_(Forwarder_spec_704_5) |Not violated |19        |                                                            |no local variables                                |
+|                                        |(unsat)      |          |                                                            |                                                  |
+|CheckAutoGeneratedAsserts               |Not violated |0         |                                                            |no local variables                                |
+|                                        |(unsat)      |          |                                                            |                                                  |
+*---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------*
+
+Results for all:
+*---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------*
+|Rule name                               |Verified     |Time (sec)|Description                                                 |Local vars                                        |
+|----------------------------------------|-------------|----------|------------------------------------------------------------|--------------------------------------------------|
+|envfreeFuncsStaticCheck                 |Not violated |0         |                                                            |no local variables                                |
+|                                        |(unsat)      |          |                                                            |                                                  |
+|CheckAutoGeneratedAsserts               |Not violated |0         |                                                            |no local variables                                |
+|                                        |(unsat)      |          |                                                            |                                                  |
+|Assert_values_(Forwarder_spec_720_5)    |Not violated |3         |                                                            |no local variables                                |
+|                                        |(unsat)      |          |                                                            |                                                  |
+|CheckAutoGeneratedAsserts               |Not violated |0         |                                                            |no local variables                                |
+|                                        |(unsat)      |          |                                                            |                                                  |
+|Assert_lower_(Forwarder_spec_718_5)     |Not violated |3         |                                                            |no local variables                                |
+|                                        |(unsat)      |          |                                                            |                                                  |
+|CheckAutoGeneratedAsserts               |Not violated |0         |                                                            |no local variables                                |
+|                                        |(unsat)      |          |                                                            |                                                  |
+|CheckAutoGeneratedAsserts               |Not violated |0         |                                                            |no local variables                                |
+|                                        |(unsat)      |          |                                                            |                                                  |
+|Assert_value__10000__isManager__reverted|Not violated |4         |                                                            |no local variables                                |
+|_(Forwarder_spec_312_5)                 |(unsat)      |          |                                                            |                                                  |
+|Assert_upper_(Forwarder_spec_719_5)     |Not violated |2         |                                                            |no local variables                                |
+|                                        |(unsat)      |          |                                                            |                                                  |
+|setFeeConfigStoresConfiguration         |Not violated |5         |                                                            |no local variables                                |
+|                                        |(unsat)      |          |                                                            |                                                  |
+|Assert_value__10000000__reverted_(Forwar|Not violated |3         |                                                            |no local variables                                |
+|der_spec_321_5)                         |(unsat)      |          |                                                            |                                                  |
+|Assert_value__10000000__isManager__rever|Not violated |2         |                                                            |no local variables                                |
+|ted_(Forwarder_spec_322_5)              |(unsat)      |          |                                                            |                                                  |
+|fixedFeeSetterRejectsValuesAboveCap     |Not violated |5         |                                                            |no local variables                                |
+|                                        |(unsat)      |          |                                                            |                                                  |
+|Assert_value__10000__reverted_(Forwarder|Not violated |2         |                                                            |no local variables                                |
+|_spec_311_5)                            |(unsat)      |          |                                                            |                                                  |
+|settersRejectValuesAboveCaps            |Not violated |8         |                                                            |no local variables                                |
+|                                        |(unsat)      |          |                                                            |                                                  |
+|rule_not_vacuous                        |Not violated |2         |Assert message: sanity check for rule setFeeConfigStores... |DummyUSDC=0x80000000000000000000000000000000000000|
+|                                        |(sat)        |          |                                                            |c2                                                |
+|                                        |             |          |                                                            |DummyVault=0x8000000000000000000000000000000000000|
+|                                        |             |          |                                                            |0c0                                               |
+|                                        |             |          |                                                            |DummyVault2=0x800000000000000000000000000000000000|
+|                                        |             |          |                                                            |0080                                              |
+|                                        |             |          |                                                            |ForwarderHarness=128                              |
+|                                        |             |          |                                                            |eManager.block.basefee=0                          |
+|                                        |             |          |                                                            |eManager.block.blobbasefee=0                      |
+|                                        |             |          |                                                            |eManager.block.coinbase=0x0                       |
+|                                        |             |          |                                                            |eManager.block.difficulty=0                       |
+|                                        |             |          |                                                            |eManager.block.gaslimit=0                         |
+|                                        |             |          |                                                            |eManager.block.number=0                           |
+|                                        |             |          |                                                            |eManager.block.timestamp=0                        |
+|                                        |             |          |                                                            |eManager.msg.sender=0x8000000000000000000000000000|
+|                                        |             |          |                                                            |000000000000                                      |
+|                                        |             |          |                                                            |eManager.msg.value=0                              |
+|                                        |             |          |                                                            |eManager.tx.origin=0x0                            |
+|                                        |             |          |                                                            |fixedF=0                                          |
+|                                        |             |          |                                                            |lower=Forwarder.FeeModel.NONE                     |
+|                                        |             |          |                                                            |thr=0                                             |
+|                                        |             |          |                                                            |upper=Forwarder.FeeModel.NONE                     |
+|                                        |             |          |                                                            |variableF=0                                       |
+|rule_not_vacuous                        |Not violated |3         |Assert message: sanity check for rule settersRejectValue... |DummyUSDC=2                                       |
+|                                        |(sat)        |          |                                                            |DummyVault=1                                      |
+|                                        |             |          |                                                            |DummyVault2=4                                     |
+|                                        |             |          |                                                            |ForwarderHarness=9                                |
+|                                        |             |          |                                                            |e.block.basefee=0                                 |
+|                                        |             |          |                                                            |e.block.blobbasefee=0                             |
+|                                        |             |          |                                                            |e.block.coinbase=0x0                              |
+|                                        |             |          |                                                            |e.block.difficulty=0                              |
+|                                        |             |          |                                                            |e.block.gaslimit=0                                |
+|                                        |             |          |                                                            |e.block.number=0                                  |
+|                                        |             |          |                                                            |e.block.timestamp=0                               |
+|                                        |             |          |                                                            |e.msg.sender=ForwarderHarness                     |
+|                                        |             |          |                                                            |e.msg.value=0                                     |
+|                                        |             |          |                                                            |e.tx.origin=0x0                                   |
+|                                        |             |          |                                                            |isManager=false                                   |
+|                                        |             |          |                                                            |reverted=true                                     |
+|                                        |             |          |                                                            |value=10001                                       |
+|rule_not_vacuous                        |Not violated |3         |Assert message: sanity check for rule fixedFeeSetterReje... |DummyUSDC=2                                       |
+|                                        |(sat)        |          |                                                            |DummyVault=1                                      |
+|                                        |             |          |                                                            |DummyVault2=4                                     |
+|                                        |             |          |                                                            |ForwarderHarness=9                                |
+|                                        |             |          |                                                            |e.block.basefee=0                                 |
+|                                        |             |          |                                                            |e.block.blobbasefee=0                             |
+|                                        |             |          |                                                            |e.block.coinbase=0x0                              |
+|                                        |             |          |                                                            |e.block.difficulty=0                              |
+|                                        |             |          |                                                            |e.block.gaslimit=0                                |
+|                                        |             |          |                                                            |e.block.number=0                                  |
+|                                        |             |          |                                                            |e.block.timestamp=0                               |
+|                                        |             |          |                                                            |e.msg.sender=ForwarderHarness                     |
+|                                        |             |          |                                                            |e.msg.value=0                                     |
+|                                        |             |          |                                                            |e.tx.origin=0x0                                   |
+|                                        |             |          |                                                            |isManager=false                                   |
+|                                        |             |          |                                                            |reverted=true                                     |
+|                                        |             |          |                                                            |value=10000001                                    |
+|Assert_revert_condition_(Forwarder_spec_|Violated     |20        |Assert message: revert condition                            |DummyUSDC=14                                      |
+|703_5)                                  |(sat)        |          |                                                            |DummyVault=15                                     |
+|                                        |             |          |                                                            |DummyVault2=12                                    |
+|                                        |             |          |                                                            |ForwarderHarness=13                               |
+|                                        |             |          |                                                            |amount=0xffffffffffffffffff030303fffffffffffffffff|
+|                                        |             |          |                                                            |ffffffffffffffffffffffe                           |
+|                                        |             |          |                                                            |eManager.block.basefee=0                          |
+|                                        |             |          |                                                            |eManager.block.blobbasefee=9                      |
+|                                        |             |          |                                                            |eManager.block.coinbase=0x2717                    |
+|                                        |             |          |                                                            |eManager.block.difficulty=11                      |
+|                                        |             |          |                                                            |eManager.block.gaslimit=7                         |
+|                                        |             |          |                                                            |eManager.block.number=10                          |
+|                                        |             |          |                                                            |eManager.block.timestamp=6                        |
+|                                        |             |          |                                                            |eManager.msg.sender=0x607                         |
+|                                        |             |          |                                                            |eManager.msg.value=0                              |
+|                                        |             |          |                                                            |eManager.tx.origin=0x407                          |
+|                                        |             |          |                                                            |fee=...                                           |
+|                                        |             |          |                                                            |fixedF=5                                          |
+|                                        |             |          |                                                            |lower=Forwarder.FeeModel.FIXED                    |
+|                                        |             |          |                                                            |m=Forwarder.FeeModel.FIXED_PLUS_PERCENT           |
+|                                        |             |          |                                                            |overflow=false                                    |
+|                                        |             |          |                                                            |percentModel=true                                 |
+|                                        |             |          |                                                            |thr=8                                             |
+|                                        |             |          |                                                            |upper=Forwarder.FeeModel.FIXED_PLUS_PERCENT       |
+|                                        |             |          |                                                            |variableF=2                                       |
+|Assert_fee_value_(Forwarder_spec_704_5) |Not violated |19        |                                                            |no local variables                                |
+|                                        |(unsat)      |          |                                                            |                                                  |
+|feeMatchesSpecificationForAnyConfigurati|Violated     |23        |Assert message: revert condition                            |no local variables                                |
+|on                                      |(sat)        |          |                                                            |                                                  |
+|rule_not_vacuous                        |Not violated |4         |Assert message: sanity check for rule feeMatchesSpecific... |DummyUSDC=255                                     |
+|                                        |(sat)        |          |                                                            |DummyVault=511                                    |
+|                                        |             |          |                                                            |DummyVault2=507                                   |
+|                                        |             |          |                                                            |ForwarderHarness=0x8000000000000000000000000000000|
+|                                        |             |          |                                                            |0000001fb                                         |
+|                                        |             |          |                                                            |amount=50175                                      |
+|                                        |             |          |                                                            |eManager.block.basefee=0                          |
+|                                        |             |          |                                                            |eManager.block.blobbasefee=0                      |
+|                                        |             |          |                                                            |eManager.block.coinbase=0x0                       |
+|                                        |             |          |                                                            |eManager.block.difficulty=0                       |
+|                                        |             |          |                                                            |eManager.block.gaslimit=0                         |
+|                                        |             |          |                                                            |eManager.block.number=0                           |
+|                                        |             |          |                                                            |eManager.block.timestamp=0                        |
+|                                        |             |          |                                                            |eManager.msg.sender=0x9e96c274acf4f99d91fbec9b418f|
+|                                        |             |          |                                                            |a1d70604ff1c                                      |
+|                                        |             |          |                                                            |eManager.msg.value=0                              |
+|                                        |             |          |                                                            |eManager.tx.origin=0x0                            |
+|                                        |             |          |                                                            |fee=0                                             |
+|                                        |             |          |                                                            |fixedF=0                                          |
+|                                        |             |          |                                                            |lower=Forwarder.FeeModel.NONE                     |
+|                                        |             |          |                                                            |m=Forwarder.FeeModel.NONE                         |
+|                                        |             |          |                                                            |overflow=false                                    |
+|                                        |             |          |                                                            |percentModel=false                                |
+|                                        |             |          |                                                            |thr=MAX_UINT256                                   |
+|                                        |             |          |                                                            |upper=Forwarder.FeeModel.FIXED_PLUS_PERCENT       |
+|                                        |             |          |                                                            |variableF=1                                       |
+*---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------*
+
+Failures summary:
+Failed on rule_not_vacuous:
+Assert message: sanity check for rule setFeeConfigStores...
+
+sanity check (vacuity of rule) for rule setFeeConfigStoresConfiguration
+Failed on rule_not_vacuous:
+Assert message: sanity check for rule settersRejectValue...
+
+sanity check (vacuity of rule) for rule settersRejectValuesAboveCaps
+Failed on rule_not_vacuous:
+Assert message: sanity check for rule fixedFeeSetterReje...
+
+sanity check (vacuity of rule) for rule fixedFeeSetterRejectsValuesAboveCap
+Failed on Assert_revert_condition_(Forwarder_spec_703_5):
+Assert message: revert condition
+
+
+Failed on feeMatchesSpecificationForAnyConfiguration:
+Assert message: revert condition
+Violated for: 
+Assert_revert_condition_(Forwarder_spec_703_5)
+
+Failed on rule_not_vacuous:
+Assert message: sanity check for rule feeMatchesSpecific...
+
+sanity check (vacuity of rule) for rule feeMatchesSpecificationForAnyConfiguration
+
+Duration 67555, RuleCheckResultsStats: numTotal = 4; numVerified = 3; numViolated = 1; numTimeout = 0; numError = 0
+Done 1m
+Done 1m
+Event reporter: all events were sent without errors

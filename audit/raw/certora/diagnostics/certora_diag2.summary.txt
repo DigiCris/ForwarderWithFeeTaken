@@ -1,0 +1,16 @@
+Result for envfreeFuncsStaticCheck: envfreeFuncsStaticCheck: upperFeeModelRaw(): SUCCESS
+Result for ctlUpperRawTwo: ctlUpperRawTwo: Satisfy_ForwarderHarness_upperFeeModelRaw__2_(Diag2_spec_27_5): SANITY_FAIL
+Result for ctlSatisfyTrue: ctlSatisfyTrue: Satisfy_true_(Diag2_spec_11_5): FAIL: true
+Result for ctlThresholdFive: ctlThresholdFive: Satisfy_ForwarderHarness_threshold__5_(Diag2_spec_15_5): FAIL: ForwarderHarness.threshold() == 5
+Result for ctlUpperFixed: ctlUpperFixed: Satisfy_ForwarderHarness_upperFeeModel__Forwarder_FeeModel_FIXED_(Diag2_spec_19_5): SANITY_FAIL
+Result for ctlUpperPercent: ctlUpperPercent: Satisfy_ForwarderHarness_upperFeeModel__Forwarder_FeeModel_PERCENT_(Diag2_spec_23_5): SANITY_FAIL
+Result for ctlPercentFeePositive: ctlPercentFeePositive: Satisfy_ForwarderHarness_calculateFeeamountamount__0_(Diag2_spec_32_5): SANITY_FAIL
+Result for ctlPercentFeeAssert: ctlPercentFeeAssert: SANITY_FAIL
+ERROR: Prover found violations:
+[rule] ctlPercentFeeAssert: SANITY_FAIL
+[rule] ctlPercentFeePositive: FAIL
+[rule] ctlUpperFixed: FAIL
+[rule] ctlUpperPercent: FAIL
+[rule] ctlUpperRawTwo: FAIL
+report url: https://prover.certora.com/output/3658204/39e6ab65178f4ec093a1735e19088afd?anonymousKey=<redacted>
+exit=1

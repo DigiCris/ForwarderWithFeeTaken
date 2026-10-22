@@ -1,0 +1,49 @@
+job: https://prover.certora.com/output/3658204/3e6503ed995c441e8075f559b81b3f75
+config: certora/conf/Forwarder.conf
+Result for pausedFeeIsZero: pausedFeeIsZero: SUCCESS
+Result for fixedPlusPercentModelIsReachable: fixedPlusPercentModelIsReachable: Satisfy_to_mathintForwarderHarness_calculateFeeamountamount__to_mathintForwarderHarness_fixedFee_(Forwarder_spec_263_5): FAIL: to_mathint(ForwarderHarness.calculateFee...
+Result for fixedModelIsReachable: fixedModelIsReachable: Satisfy_ForwarderHarness_calculateFeeamountamount__0_(Forwarder_spec_251_5): FAIL: ForwarderHarness.calculateFee(amount=amo...
+Result for fixedFeeSetterRejectsValuesAboveCap: fixedFeeSetterRejectsValuesAboveCap: SUCCESS
+Result for percentUsesWholeAmount: percentUsesWholeAmount: SUCCESS
+Result for settersRejectValuesAboveCaps: settersRejectValuesAboveCaps: SUCCESS
+Result for lowerModelUpToThreshold: lowerModelUpToThreshold: SUCCESS
+Result for percentModelIsReachable: percentModelIsReachable: Satisfy_ForwarderHarness_calculateFeeamountamount__0_(Forwarder_spec_257_5): FAIL: ForwarderHarness.calculateFee(amount=amo...
+Result for envfreeFuncsStaticCheck: envfreeFuncsStaticCheck: DummyUSDC.balanceOf(address): SUCCESS
+Result for feeMatchesSpecification: feeMatchesSpecification: SUCCESS
+Result for upperModelAboveThreshold: upperModelAboveThreshold: SUCCESS
+Result for percentUsesWholeAmountIsNotTheExcessFee: percentUsesWholeAmountIsNotTheExcessFee: Satisfy_to_mathintForwarderHarness_calculateFeeamountamount__amount__ForwarderHarness_threshold__ForwarderHarness_variableFee__100000_(Forwarder_spec_301_5): FAIL: to_mathint(ForwarderHarness.calculateFee...
+Result for fixedPlusPercentModelChargesAfterConfiguration: fixedPlusPercentModelChargesAfterConfiguration: Satisfy_to_mathintForwarderHarness_calculateFeeamountamount__to_mathintfixedF_(Forwarder_spec_750_5): FAIL: to_mathint(ForwarderHarness.calculateFee...
+Result for fixedModelChargesAfterConfiguration: fixedModelChargesAfterConfiguration: Satisfy_ForwarderHarness_calculateFeeamountamount__0_(Forwarder_spec_744_5): FAIL: ForwarderHarness.calculateFee(amount=amo...
+Result for onlyFeeManagerChangesFeeConfig: onlyFeeManagerChangesFeeConfig: pause(): SUCCESS
+Result for percentAboveThresholdIsNotExcessFee: percentAboveThresholdIsNotExcessFee: Satisfy_to_mathintForwarderHarness_calculateFeeamountamount__amount__thr__variableF__100000_(Forwarder_spec_737_5): FAIL: to_mathint(ForwarderHarness.calculateFee...
+Result for onlyAdminChangesVault: onlyAdminChangesVault: setUpperFeeModel(uint8): SUCCESS
+Result for feeManagerCannotAdminister: feeManagerCannotAdminister: setRoutingMode(uint8): SUCCESS
+Result for onlyAdminChangesTreasury: onlyAdminChangesTreasury: grantRole(bytes32,address): SUCCESS
+Result for unprivilegedChangesNoConfiguration: unprivilegedChangesNoConfiguration: setLowerFeeModel(uint8): SUCCESS
+Result for rescueNativeOnlyToTreasury: rescueNativeOnlyToTreasury: SUCCESS
+Result for routingModeAllowance: routingModeAllowance: SUCCESS
+Result for rescueTokenOnlyToTreasury: rescueTokenOnlyToTreasury: SUCCESS
+Result for setFeeConfigStoresConfiguration: setFeeConfigStoresConfiguration: SUCCESS
+Result for onlyPrivilegedPause: onlyPrivilegedPause: grantRole(bytes32,address): SUCCESS
+Result for percentAboveThresholdUsesWholeAmount: percentAboveThresholdUsesWholeAmount: SUCCESS
+Result for setVaultAllowances: setVaultAllowances: SUCCESS
+Result for healthCheckUsesOnlyCallerFunds: healthCheckUsesOnlyCallerFunds: SUCCESS
+Result for feeManagerRoleOnlyChangedByAdminOrSelf: feeManagerRoleOnlyChangedByAdminOrSelf: setLowerFeeModel(uint8): SUCCESS
+Result for forwardDoesNotChangeConfiguration: forwardDoesNotChangeConfiguration: SUCCESS
+Result for forwardNeverApproves: forwardNeverApproves: SUCCESS
+Result for pausedForwardDeliversWholeAmount: pausedForwardDeliversWholeAmount: SUCCESS
+Result for feeMatchesSpecificationForAnyConfiguration: feeMatchesSpecificationForAnyConfiguration: SUCCESS
+Result for forwardOnlyAcceptsUsdc: forwardOnlyAcceptsUsdc: SUCCESS
+Result for forwardUserReceivesAmountMinusFee: forwardUserReceivesAmountMinusFee: SUCCESS
+Result for forwardTreasuryAccounting: forwardTreasuryAccounting: SUCCESS
+Result for onlyAdminUnpauses: onlyAdminUnpauses: changeDefaultAdminDelay(uint48): SUCCESS
+Result for onlyAdminChangesRoutingMode: onlyAdminChangesRoutingMode: setFixedFee(uint256): SUCCESS
+Result for treasuryFailureNeverRevertsForward: treasuryFailureNeverRevertsForward: SUCCESS
+Result for pausedForwardDeliversWholeAmountForAnyConfiguration: pausedForwardDeliversWholeAmountForAnyConfiguration: SUCCESS
+Result for treasuryFailureNeverRevertsForwardForAnyConfiguration: treasuryFailureNeverRevertsForwardForAnyConfiguration: SUCCESS
+Result for forwardUserReceivesAmountMinusFeeForAnyConfiguration: forwardUserReceivesAmountMinusFeeForAnyConfiguration: SUCCESS
+Result for forwardTreasuryAccountingForAnyConfiguration: forwardTreasuryAccountingForAnyConfiguration: SUCCESS
+No errors found by Prover!
+exit=0
+verified sub-checks: 231
+violated sub-checks (rule_not_vacuous / satisfy witnesses are reported as 'Violated' when the check succeeds): 224

@@ -1,0 +1,23 @@
+No files changed, compilation skipped
+
+Ran 13 tests for test/ForwarderFuzz.t.sol:ForwarderFuzzTest
+[PASS] testFuzz_AnyValidRecipient(address,uint256) (runs: 50000, μ: 125019, ~: 125755)
+[PASS] testFuzz_CalculateFeeMatchesSpecification((uint8,uint8,uint256,uint256,uint256,bool),uint256) (runs: 50000, μ: 102784, ~: 102988)
+[PASS] testFuzz_CalculateFeeNeverRevertsForRealisticAmounts((uint8,uint8,uint256,uint256,uint256,bool),uint256) (runs: 50000, μ: 102139, ~: 102140)
+[PASS] testFuzz_FeeAboveThresholdUsesFullAmount(uint256,uint256,uint256) (runs: 50000, μ: 79413, ~: 79922)
+[PASS] testFuzz_FeeIsBoundedByCaps((uint8,uint8,uint256,uint256,uint256,bool),uint256) (runs: 50000, μ: 102454, ~: 102612)
+[PASS] testFuzz_ForwardAccounting((uint8,uint8,uint256,uint256,uint256,bool),uint256,uint8,uint256,bool,bool) (runs: 50000, μ: 320266, ~: 328600)
+[PASS] testFuzz_HealthCheckAcceptsAnyPositiveReturn(uint256) (runs: 50000, μ: 1514628, ~: 1517759)
+[PASS] testFuzz_PausedFeeIsZero((uint8,uint8,uint256,uint256,uint256,bool),uint256) (runs: 50000, μ: 103927, ~: 105159)
+[PASS] testFuzz_RescueSendsEverythingToTreasury(uint256,uint256) (runs: 50000, μ: 574085, ~: 575186)
+[PASS] testFuzz_RevertWhen_TokenIsNotUsdc(address,uint256) (runs: 50000, μ: 14370, ~: 14370)
+[PASS] testFuzz_RoutingSequenceAllowance(uint8[8]) (runs: 50000, μ: 128341, ~: 127143)
+[PASS] testFuzz_SetterBounds(uint256,uint256) (runs: 50000, μ: 40840, ~: 30355)
+[PASS] testFuzz_UnprivilegedCallerCannotConfigure(address,uint8,uint256) (runs: 50000, μ: 40084, ~: 40102)
+Suite result: ok. 13 passed; 0 failed; 0 skipped; finished in 33.10s (249.84s CPU time)
+
+Ran 1 test suite in 33.10s (33.10s CPU time): 13 tests passed, 0 failed, 0 skipped (13 total tests)
+
+real	0m33.399s
+user	2m37.711s
+sys	0m0.296s

@@ -1,0 +1,13 @@
+job: https://prover.certora.com/output/3658204/79a63e178af844dea2a24082656b832c
+config: certora/conf/ForwarderInvariants.conf
+Result for envfreeFuncsStaticCheck: envfreeFuncsStaticCheck: DummyUSDC.balanceOf(address): SUCCESS
+Result for directDirectMeansNoVaultAllowance: directDirectMeansNoVaultAllowance: Induction base: After the constructor: SUCCESS
+Result for treasuryIsValid: treasuryIsValid: Induction base: After the constructor: SUCCESS
+Result for feeCaps: feeCaps: Induction base: After the constructor: SUCCESS
+Result for feeManagerAdminIsDefaultAdmin: feeManagerAdminIsDefaultAdmin: Induction base: After the constructor: SUCCESS
+Result for vaultModeHasVault: vaultModeHasVault: Induction base: After the constructor: SUCCESS
+Result for enumsAreValid: enumsAreValid: Induction base: After the constructor: SUCCESS
+No errors found by Prover!
+exit=0
+verified sub-checks: 144
+violated sub-checks (rule_not_vacuous / satisfy witnesses are reported as 'Violated' when the check succeeds): 288

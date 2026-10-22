@@ -1,0 +1,42 @@
+== configuration at latest block 52925421
+USDC()(address) = 0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913 
+defaultAdmin()(address) = 0x420675DFAf02750a7DdFad702D13e32eb2C67602 
+owner()(address) = 0x420675DFAf02750a7DdFad702D13e32eb2C67602 
+defaultAdminDelay()(uint48) = 259200 [2.592e5] 
+pendingDefaultAdmin()(address,uint48) = 0x0000000000000000000000000000000000000000 0 
+treasury()(address) = 0x7a5F8A4aF0FEDaBb1625b6f04bA38fC75e7E843e 
+vault()(address) = 0xc462cA16286a9a877a499f9474827bA801f2090D 
+routingMode()(uint8) = 0 
+lowerFeeModel()(uint8) = 0 
+upperFeeModel()(uint8) = 0 
+threshold()(uint256) = 0 
+fixedFee()(uint256) = 0 
+variableFee()(uint256) = 0 
+paused()(bool) = false 
+FEE_MANAGER_ROLE()(bytes32) = 0x6c0757dc3e6b28b2580c03fd9e96c274acf4f99d91fbec9b418fa1d70604ff1c 
+FEE_DENOMINATOR()(uint256) = 100000 [1e5] 
+MAX_VARIABLE_FEE()(uint256) = 10000 [1e4] 
+MAX_FIXED_FEE()(uint256) = 10000000 [1e7] 
+VAULT_TEST_AMOUNT()(uint256) = 1000 
+calculateFee(1000000e6) = 0
+== roles
+FEE_MANAGER 0xa737cB590c0F4d00D2140a429728681e1e74C5db = true | ADMIN = false
+FEE_MANAGER 0x31B5aBcF044049daa96cDC387a44747a48a0ac62 = true | ADMIN = false
+FEE_MANAGER 0x61D4d1Ab7eA7B3A54C7B2D646Eb8189faD7B1050 = true | ADMIN = false
+FEE_MANAGER 0xa82a5201E630b40914bf4fed0B0b40180BCB93F7 = true | ADMIN = false
+FEE_MANAGER 0xe3685F1C0652430e501B314b3035CB7Dd5b21c5f = true | ADMIN = false
+FEE_MANAGER 0x5aDF0B683B49217704eff3f85eda468651C50A48 = true | ADMIN = false
+FEE_MANAGER 0x18e129122a338f2e6871764fe0e4426dE848Ef99 = true | ADMIN = false
+ADMIN 0x420675DFAf02750a7DdFad702D13e32eb2C67602 = true | FEE_MANAGER = false
+== balances and allowances
+Forwarder USDC = 0
+Forwarder vault shares = 0
+allowance Forwarder->vault = 0
+allowance deployer->Forwarder = 0
+Forwarder ETH = 0
+deployer USDC now = 84759158 [8.475e7] (before 84759159)
+== eth_call forward(USDC, 0, 0x...dEaD) from 0x...dEaD on a real Base node (exercises TSTORE/TLOAD)
+0x
+eth_call forward: SUCCESS (empty return)
+== eth_call forward with a non-USDC token must revert UnsupportedToken
+Error: server returned an error response: error code 3: execution reverted, data: "0xbf16aab60000000000000000000000004200000000000000000000000000000000000006"

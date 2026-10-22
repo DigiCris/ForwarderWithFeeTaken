@@ -1,0 +1,16 @@
+Result for envfreeFuncsStaticCheck: envfreeFuncsStaticCheck: lowerFeeModelRaw(): SUCCESS
+Result for diagUpperPercentReachable: diagUpperPercentReachable: Satisfy_true_(Diag_spec_15_5): SANITY_FAIL
+Result for diagUpperRawPercentCalculates: diagUpperRawPercentCalculates: Satisfy_lastReverted_(Diag_spec_31_5): SANITY_FAIL
+Result for diagUpperPercentCalculates: diagUpperPercentCalculates: Satisfy_lastReverted_(Diag_spec_23_5): SANITY_FAIL
+Result for diagSetLowerKeepsRawRouting: diagSetLowerKeepsRawRouting: FAIL: ForwarderHarness.routingModeRaw() == bef...
+Result for diagSetLowerKeepsRoutingWhenValid: diagSetLowerKeepsRoutingWhenValid: FAIL: ForwarderHarness.routingMode() == before
+Result for diagSetLowerKeepsRouting: diagSetLowerKeepsRouting: FAIL: ForwarderHarness.routingMode() == before
+ERROR: Prover found violations:
+[rule] diagSetLowerKeepsRawRouting: FAIL
+[rule] diagSetLowerKeepsRouting: FAIL
+[rule] diagSetLowerKeepsRoutingWhenValid: FAIL
+[rule] diagUpperPercentCalculates: FAIL
+[rule] diagUpperPercentReachable: FAIL
+[rule] diagUpperRawPercentCalculates: FAIL
+report url: https://prover.certora.com/output/3658204/5c42ab30ab214e6a9b572bdcb0f3882b?anonymousKey=<redacted>
+exit=1

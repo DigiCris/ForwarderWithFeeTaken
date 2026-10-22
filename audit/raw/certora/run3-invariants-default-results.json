@@ -1,0 +1,237 @@
+{
+  "rules": {
+    "directDirectMeansNoVaultAllowance": {
+      "Induction base: After the constructor": "UNKNOWN",
+      "Induction step: Reset transient storage": "SUCCESS",
+      "Induction step: after external (non-view) methods": {
+        "Using general requirements": {
+          "FAIL": [
+            "setFeeConfig(uint8,uint8,uint256,uint256,uint256)",
+            "setLowerFeeModel(uint8)",
+            "setUpperFeeModel(uint8)"
+          ],
+          "SUCCESS": [
+            "acceptDefaultAdminTransfer()",
+            "beginDefaultAdminTransfer(address)",
+            "cancelDefaultAdminTransfer()",
+            "changeDefaultAdminDelay(uint48)",
+            "forward(address,uint256,address)",
+            "grantRole(bytes32,address)",
+            "pause()",
+            "renounceRole(bytes32,address)",
+            "rescueNative()",
+            "rescueToken(address)",
+            "revokeRole(bytes32,address)",
+            "rollbackDefaultAdminDelay()",
+            "setFixedFee(uint256)",
+            "setRoutingMode(uint8)",
+            "setThreshold(uint256)",
+            "setTreasury(address)",
+            "setVariableFee(uint256)",
+            "setVault(address)",
+            "unpause()"
+          ]
+        }
+      }
+    },
+    "enumsAreValid": {
+      "Induction base: After the constructor": "UNKNOWN",
+      "Induction step: Reset transient storage": "SUCCESS",
+      "Induction step: after external (non-view) methods": {
+        "Using general requirements": {
+          "FAIL": [
+            "setFeeConfig(uint8,uint8,uint256,uint256,uint256)",
+            "setLowerFeeModel(uint8)",
+            "setUpperFeeModel(uint8)"
+          ],
+          "SUCCESS": [
+            "acceptDefaultAdminTransfer()",
+            "beginDefaultAdminTransfer(address)",
+            "cancelDefaultAdminTransfer()",
+            "changeDefaultAdminDelay(uint48)",
+            "forward(address,uint256,address)",
+            "grantRole(bytes32,address)",
+            "pause()",
+            "renounceRole(bytes32,address)",
+            "rescueNative()",
+            "rescueToken(address)",
+            "revokeRole(bytes32,address)",
+            "rollbackDefaultAdminDelay()",
+            "setFixedFee(uint256)",
+            "setRoutingMode(uint8)",
+            "setThreshold(uint256)",
+            "setTreasury(address)",
+            "setVariableFee(uint256)",
+            "setVault(address)",
+            "unpause()"
+          ]
+        }
+      }
+    },
+    "envfreeFuncsStaticCheck": {
+      "SUCCESS": [
+        "DEFAULT_ADMIN_ROLE()",
+        "DummyUSDC.allowance(address,address)",
+        "DummyUSDC.balanceOf(address)",
+        "DummyUSDC.blocked(address)",
+        "DummyVault.balanceOf(address)",
+        "DummyVault.depositReverts()",
+        "DummyVault.underlying()",
+        "DummyVault2.underlying()",
+        "FEE_MANAGER_ROLE()",
+        "allowanceTo(address)",
+        "calculateFee(uint256)",
+        "defaultAdmin()",
+        "fixedFee()",
+        "getRoleAdmin(bytes32)",
+        "hasRole(bytes32,address)",
+        "lowerFeeModel()",
+        "lowerFeeModelRaw()",
+        "paused()",
+        "pendingDefaultAdmin()",
+        "reentrancyGuardEntered()",
+        "routingMode()",
+        "routingModeRaw()",
+        "threshold()",
+        "treasury()",
+        "upperFeeModel()",
+        "upperFeeModelRaw()",
+        "usdcAddress()",
+        "usdcBalance(address)",
+        "variableFee()",
+        "vault()",
+        "vaultAllowance()"
+      ]
+    },
+    "feeCaps": {
+      "Induction base: After the constructor": "UNKNOWN",
+      "Induction step: Reset transient storage": "SUCCESS",
+      "Induction step: after external (non-view) methods": {
+        "Using general requirements": {
+          "SUCCESS": [
+            "acceptDefaultAdminTransfer()",
+            "beginDefaultAdminTransfer(address)",
+            "cancelDefaultAdminTransfer()",
+            "changeDefaultAdminDelay(uint48)",
+            "forward(address,uint256,address)",
+            "grantRole(bytes32,address)",
+            "pause()",
+            "renounceRole(bytes32,address)",
+            "rescueNative()",
+            "rescueToken(address)",
+            "revokeRole(bytes32,address)",
+            "rollbackDefaultAdminDelay()",
+            "setFeeConfig(uint8,uint8,uint256,uint256,uint256)",
+            "setFixedFee(uint256)",
+            "setLowerFeeModel(uint8)",
+            "setRoutingMode(uint8)",
+            "setThreshold(uint256)",
+            "setTreasury(address)",
+            "setUpperFeeModel(uint8)",
+            "setVariableFee(uint256)",
+            "setVault(address)",
+            "unpause()"
+          ]
+        }
+      }
+    },
+    "feeManagerAdminIsDefaultAdmin": {
+      "Induction base: After the constructor": "UNKNOWN",
+      "Induction step: Reset transient storage": "SUCCESS",
+      "Induction step: after external (non-view) methods": {
+        "Using general requirements": {
+          "SUCCESS": [
+            "acceptDefaultAdminTransfer()",
+            "beginDefaultAdminTransfer(address)",
+            "cancelDefaultAdminTransfer()",
+            "changeDefaultAdminDelay(uint48)",
+            "forward(address,uint256,address)",
+            "grantRole(bytes32,address)",
+            "pause()",
+            "renounceRole(bytes32,address)",
+            "rescueNative()",
+            "rescueToken(address)",
+            "revokeRole(bytes32,address)",
+            "rollbackDefaultAdminDelay()",
+            "setFeeConfig(uint8,uint8,uint256,uint256,uint256)",
+            "setFixedFee(uint256)",
+            "setLowerFeeModel(uint8)",
+            "setRoutingMode(uint8)",
+            "setThreshold(uint256)",
+            "setTreasury(address)",
+            "setUpperFeeModel(uint8)",
+            "setVariableFee(uint256)",
+            "setVault(address)",
+            "unpause()"
+          ]
+        }
+      }
+    },
+    "treasuryIsValid": {
+      "Induction base: After the constructor": "UNKNOWN",
+      "Induction step: Reset transient storage": "SUCCESS",
+      "Induction step: after external (non-view) methods": {
+        "Using general requirements": {
+          "SUCCESS": [
+            "acceptDefaultAdminTransfer()",
+            "beginDefaultAdminTransfer(address)",
+            "cancelDefaultAdminTransfer()",
+            "changeDefaultAdminDelay(uint48)",
+            "forward(address,uint256,address)",
+            "grantRole(bytes32,address)",
+            "pause()",
+            "renounceRole(bytes32,address)",
+            "rescueNative()",
+            "rescueToken(address)",
+            "revokeRole(bytes32,address)",
+            "rollbackDefaultAdminDelay()",
+            "setFeeConfig(uint8,uint8,uint256,uint256,uint256)",
+            "setFixedFee(uint256)",
+            "setLowerFeeModel(uint8)",
+            "setRoutingMode(uint8)",
+            "setThreshold(uint256)",
+            "setTreasury(address)",
+            "setUpperFeeModel(uint8)",
+            "setVariableFee(uint256)",
+            "setVault(address)",
+            "unpause()"
+          ]
+        }
+      }
+    },
+    "vaultModeHasVault": {
+      "Induction base: After the constructor": "UNKNOWN",
+      "Induction step: Reset transient storage": "SUCCESS",
+      "Induction step: after external (non-view) methods": {
+        "Using general requirements": {
+          "FAIL": [
+            "setFeeConfig(uint8,uint8,uint256,uint256,uint256)",
+            "setLowerFeeModel(uint8)",
+            "setUpperFeeModel(uint8)"
+          ],
+          "SUCCESS": [
+            "acceptDefaultAdminTransfer()",
+            "beginDefaultAdminTransfer(address)",
+            "cancelDefaultAdminTransfer()",
+            "changeDefaultAdminDelay(uint48)",
+            "forward(address,uint256,address)",
+            "grantRole(bytes32,address)",
+            "pause()",
+            "renounceRole(bytes32,address)",
+            "rescueNative()",
+            "rescueToken(address)",
+            "revokeRole(bytes32,address)",
+            "rollbackDefaultAdminDelay()",
+            "setFixedFee(uint256)",
+            "setRoutingMode(uint8)",
+            "setThreshold(uint256)",
+            "setTreasury(address)",
+            "setVariableFee(uint256)",
+            "setVault(address)",
+            "unpause()"
+          ]
+        }
+      }
+    }
+  }
+}
