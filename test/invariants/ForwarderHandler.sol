@@ -152,6 +152,8 @@ contract ForwarderHandler is Test {
         uint256 treasuryDelta = treasuryValue() - treasuryBefore;
         ghostTreasuryReceived += treasuryDelta;
         if (treasuryDelta + usdc.balanceOf(address(forwarder)) != forwarderBefore + fee) ghostTreasuryMismatches++;
+        // A successful treasury delivery always takes the whole balance (fee + anything pending), never part of it.
+        if (treasuryDelta != 0 && usdc.balanceOf(address(forwarder)) != 0) ghostTreasuryMismatches++;
 
         if (_usesVault(forwarder.routingMode())) {
             ghostAllowance[address(currentVault)] -= usdc.balanceOf(address(currentVault)) - vaultUsdcBefore;

@@ -170,6 +170,8 @@ contract ForwarderEchidna {
         uint256 treasuryDelta = _treasuryValue() - treasuryBefore;
         treasuryReceived += treasuryDelta;
         if (treasuryDelta + usdc.balanceOf(address(forwarder)) != forwarderBefore + fee) treasuryMismatches++;
+        // A successful treasury delivery always takes the whole balance (fee + anything pending), never part of it.
+        if (treasuryDelta != 0 && usdc.balanceOf(address(forwarder)) != 0) treasuryMismatches++;
         if (_usesVault(forwarder.routingMode())) {
             expectedAllowance[address(currentVault)] -= usdc.balanceOf(address(currentVault)) - vaultUsdcBefore;
         }
