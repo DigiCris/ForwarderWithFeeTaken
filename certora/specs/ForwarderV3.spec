@@ -101,6 +101,11 @@ methods {
     // Native transfer of rescueNative.
     function Address.sendValue(address recipient, uint256 amount) internal => cvlSendValue(recipient, amount);
 
+    // OpenZeppelin 5.7 `Math.min` is branchless (`b ^ ((a ^ b) * toUint(a < b))`); mixing XOR and multiplication makes
+    // the comparisons between two fees time out. It is summarized with its exact definition, proven equal to the real
+    // implementation in certora/specs/MathMinSummary.spec (job ForwarderV3MathMin).
+    function Math.min(uint256 a, uint256 b) internal returns (uint256) => cvlMin(a, b);
+
     // High-level calls made by the Forwarder and the vault models.
     function _.deposit(uint256, address) external => DISPATCHER(true);
     function _.redeem(uint256, address, address) external => DISPATCHER(true);
@@ -155,6 +160,10 @@ function cvlApprove(address caller, address token, address spender, uint256 valu
         bool ok = usdc.approve(e, spender, value);
         require ok;
     }
+}
+
+function cvlMin(uint256 a, uint256 b) returns uint256 {
+    return a < b ? a : b;
 }
 
 function cvlSendValue(address recipient, uint256 amount) {

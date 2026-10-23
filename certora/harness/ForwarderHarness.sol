@@ -3,6 +3,7 @@ pragma solidity 0.8.30;
 
 import {IERC20} from "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 import {IERC4626} from "@openzeppelin/contracts/interfaces/IERC4626.sol";
+import {Math} from "@openzeppelin/contracts/utils/math/Math.sol";
 
 import {Forwarder} from "../../src/Forwarder.sol";
 
@@ -123,5 +124,11 @@ contract ForwarderHarness is Forwarder {
 
     function overrideUntil(address recipient) external view returns (uint256) {
         return userFeeOverrides[recipient].validUntil;
+    }
+
+    /// @dev The OpenZeppelin `Math.min` used by `calculateFeeFor`, exposed to prove that the CVL summary of
+    /// certora/specs/ForwarderV3.spec is exact (certora/specs/MathMinSummary.spec).
+    function mathMin(uint256 a, uint256 b) external pure returns (uint256) {
+        return Math.min(a, b);
     }
 }
