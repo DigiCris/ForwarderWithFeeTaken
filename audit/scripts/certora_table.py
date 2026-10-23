@@ -34,6 +34,11 @@ def parse(path):
             status[rule].add("FAIL")
         else:
             status[rule].add("UNKNOWN: " + rest[-60:])
+    # Rules that only appear in the final violation list (e.g. UNKNOWN after an internal prover error).
+    for line in text.splitlines():
+        m = re.match(r"\[rule\] (\w+): (\w+)$", line)
+        if m and m.group(1) not in status:
+            status[m.group(1)].add("UNKNOWN" if m.group(2) == "UNKNOWN" else m.group(2))
     witnesses = collections.Counter()
     vacuous = collections.Counter()
     for line in text.splitlines():

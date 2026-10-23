@@ -1,0 +1,11 @@
+== commit 34fe4e3 / src sha256 22aeb8e536cabe68d5ba3005decb1f43179d38ffc261b032a14085432ffd3d6b (deployed source)
+== SOLC_VERSION=0.8.30 certoraRun certora/conf/ForwarderV3Lemmas.conf --wait_for_results all   (run 4: pure lemmas, -smt_nonLinearArithmetic true)
+job: https://prover.certora.com/output/3658204/54635c6208b54ca0974e56d534db2f4d
+job: https://prover.certora.com/output/3658204/54635c6208b54ca0974e56d534db2f4d?anonymousKey=<redacted>
+Result for envfreeFuncsStaticCheck: envfreeFuncsStaticCheck: DummyUSDC.balanceOf(address): SUCCESS
+Result for percentPartIsMonotone: percentPartIsMonotone: SUCCESS
+Result for specFeeIsMonotone: specFeeIsMonotone: SUCCESS
+Result for effectiveSpecFeeNeverExceedsGlobalSpecFee: effectiveSpecFeeNeverExceedsGlobalSpecFee: SUCCESS
+Result for productIsMonotone: productIsMonotone: FAIL: amount * x <= amount * y
+verdict: Prover found violations
+[rule] productIsMonotone: FAIL

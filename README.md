@@ -188,9 +188,10 @@ SOLC_VERSION=0.8.30 echidna echidna/ForwarderV3Echidna.sol --contract ForwarderV
 SOLC_VERSION=0.8.30 echidna echidna/ForwarderVaultChangeEchidna.sol --contract ForwarderVaultChangeEchidna \
   --config echidna/echidna-v2.yaml --workers 4                                    # vault lifecycle (V2)
 SOLC_VERSION=0.8.30 echidna echidna/ForwarderEchidna.sol --contract ForwarderEchidna --config echidna/echidna.yaml
-for c in Lifecycle Fees Forward Access Vault Invariants; do
+for c in Lifecycle Fees Forward Access Vault Invariants MathMin Recheck Lemmas; do
   SOLC_VERSION=0.8.30 certoraRun certora/conf/ForwarderV3$c.conf --wait_for_results all   # complete V3 spec
 done
+python3 audit/scripts/lemmas_z3.py   # arithmetic lemmas of the fee comparison, exact integer arithmetic (Z3)
 python3 audit/scripts/mutation_v3.py <work dir> <report.md> --jobs 2   # V2 + V3 mutation testing
 ```
 

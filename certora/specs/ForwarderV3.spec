@@ -18,10 +18,10 @@
  * - Vaults (active, pending and candidates) are DummyVault / DummyVault2 (1:1, deposits and redeems can revert).
  *   Invalid candidates (EOA, wrong asset, non ERC-4626) are covered by the Foundry and fork suites.
  * - Parametric rules and invariants range over the Forwarder's own external functions.
- * - The packed slot `vault | routingMode | lowerFeeModel | upperFeeModel` starts with the enum bytes at zero in the
- *   prover's initial state, so the rules that need an arbitrary fee configuration first write it with the real
- *   functions (`configureFees`: proposeFeeConfig, then executeFeeConfigChange once matured), as V1 did with its
- *   setters (rules named *ForAnyConfiguration).
+ * - Besides the rules over an arbitrary initial state (which, with storage splitting disabled, includes every fee
+ *   model: see the witnesses fixedModelIsReachable / percentModelIsReachable / fixedPlusPercentModelIsReachable), the
+ *   rules named *ForAnyConfiguration first write the fee configuration with the real functions (`configureFees`:
+ *   proposeFeeConfig, then executeFeeConfigChange once matured), as V1 did with its setters.
  */
 
 using DummyUSDC as usdc;
