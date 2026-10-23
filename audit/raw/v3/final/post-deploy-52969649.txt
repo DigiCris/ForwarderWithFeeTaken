@@ -1,0 +1,169 @@
+== commit 5dd1dfb / src sha256 22aeb8e536cabe68d5ba3005decb1f43179d38ffc261b032a14085432ffd3d6b (deployed source)
+== DEPLOYED_FORWARDER=0x66c101cb2617256EC61833B607e3F0d98e0C1968 POST_DEPLOY_FORK_BLOCK=52969649 forge test --match-contract ForwarderPostDeployForkTest -vv
+Compiling 1 files with Solc 0.8.30
+Solc 0.8.30 finished in 9.31s
+Compiler run successful!
+
+Ran 37 tests for test/ForwarderPostDeployFork.t.sol:ForwarderPostDeployForkTest
+[PASS] test_Fork_AccidentalUsdcIsSwept() (gas: 1032159)
+Logs:
+  Fork block: 52969649
+
+[PASS] test_Fork_AdminSafeCanAdminister() (gas: 170824)
+Logs:
+  Fork block: 52969649
+
+[PASS] test_Fork_AllRoutingModes() (gas: 2087979)
+Logs:
+  Fork block: 52969649
+  forward gas, mode 0 91782
+  forward gas, mode 1 244829
+  forward gas, mode 2 245797
+  forward gas, mode 3 418818
+
+[PASS] test_Fork_AllowanceTransitionsWithRealUsdc() (gas: 885364)
+Logs:
+  Fork block: 52969649
+
+[PASS] test_Fork_EveryFeeManagerCanConfigureAndPauseButNotAdminister() (gas: 1945119)
+Logs:
+  Fork block: 52969649
+
+[PASS] test_Fork_FailedExecutionKeepsPendingChange() (gas: 2440626)
+Logs:
+  Fork block: 52969649
+
+[PASS] test_Fork_FeeConfigChangeLifecycle() (gas: 587634)
+Logs:
+  Fork block: 52969649
+
+[PASS] test_Fork_FeeEqualToAndAboveAmount() (gas: 970883)
+Logs:
+  Fork block: 52969649
+
+[PASS] test_Fork_FeeUsesFullAmountAboveThreshold() (gas: 1087555)
+Logs:
+  Fork block: 52969649
+
+[PASS] test_Fork_GuardianCancelsFeeAndTreasuryChanges() (gas: 284615)
+Logs:
+  Fork block: 52969649
+
+[PASS] test_Fork_GuardianCancelsPendingVaultChange() (gas: 4357264)
+Logs:
+  Fork block: 52969649
+
+[PASS] test_Fork_GuardianCannotProposeOrExecute() (gas: 959404)
+Logs:
+  Fork block: 52969649
+
+[PASS] test_Fork_HealthCheckOnLucaVaultAcceptsRounding() (gas: 2380558)
+Logs:
+  Fork block: 52969649
+  Luca vault proposal health check: assets returned 999
+  Luca vault health check: shares 989647513655155 assets returned 999
+
+[PASS] test_Fork_PausedFeesForwardFullAmount() (gas: 1059584)
+Logs:
+  Fork block: 52969649
+
+[PASS] test_Fork_ProductionConfiguration() (gas: 136809)
+Logs:
+  Fork block: 52969649
+
+[PASS] test_Fork_RejectInvalidVaults() (gas: 265588)
+Logs:
+  Fork block: 52969649
+
+[PASS] test_Fork_RejectsDirectNative() (gas: 17381)
+Logs:
+  Fork block: 52969649
+
+[PASS] test_Fork_ReplaceVaultWithThirdPartyVault() (gas: 2770824)
+Logs:
+  Fork block: 52969649
+
+[PASS] test_Fork_RescueRealTokensAndNative() (gas: 1009420)
+Logs:
+  Fork block: 52969649
+
+[PASS] test_Fork_RevertWhen_UserIsBlacklisted() (gas: 300515)
+Logs:
+  Fork block: 52969649
+
+[PASS] test_Fork_RevokingGuardiansDoesNotShortenTheDelay() (gas: 1250300)
+Logs:
+  Fork block: 52969649
+
+[PASS] test_Fork_RoutingToDirectWhilePending() (gas: 1735737)
+Logs:
+  Fork block: 52969649
+
+[PASS] test_Fork_RoutingToVaultWhilePending() (gas: 2048752)
+Logs:
+  Fork block: 52969649
+
+[PASS] test_Fork_SecondProposalRequiresCancellation() (gas: 1199079)
+Logs:
+  Fork block: 52969649
+
+[PASS] test_Fork_StrangerCannotDoAnything() (gas: 81308)
+Logs:
+  Fork block: 52969649
+
+[PASS] test_Fork_TreasuryChangeLifecycle() (gas: 1311240)
+Logs:
+  Fork block: 52969649
+
+[PASS] test_Fork_TreasuryDirectFailureIsRetried() (gas: 1036729)
+Logs:
+  Fork block: 52969649
+
+[PASS] test_Fork_TreasuryVaultFailureIsRetried() (gas: 1176715)
+Logs:
+  Fork block: 52969649
+
+[PASS] test_Fork_UserFallbackAboveVaultCapacity() (gas: 478482)
+Logs:
+  Fork block: 52969649
+
+[PASS] test_Fork_UserFallbackWhenAllowanceIsExhausted() (gas: 498510)
+Logs:
+  Fork block: 52969649
+
+[PASS] test_Fork_UserFallbackWhenVaultDepositsArePaused() (gas: 774344)
+Logs:
+  Fork block: 52969649
+
+[PASS] test_Fork_UserFeeOverrideWithRealUsdcAndVault() (gas: 1789917)
+Logs:
+  Fork block: 52969649
+
+[PASS] test_Fork_VaultChangeLifecycleWithRealVaults() (gas: 2057180)
+Logs:
+  Fork block: 52969649
+
+[PASS] test_Fork_VaultFeeAndTreasuryChangesPendingTogether() (gas: 1849534)
+Logs:
+  Fork block: 52969649
+
+[PASS] test_Fork_ZeroAmount() (gas: 486948)
+Logs:
+  Fork block: 52969649
+  Luca vault deposit(0) fell back to USDC: true
+
+[PASS] test_PostDeploy_InitialConfiguration() (gas: 65963)
+Logs:
+  Fork block: 52969649
+
+[PASS] test_PostDeploy_RuntimeCodeMatchesAuditedSource() (gas: 4034752)
+Logs:
+  Fork block: 52969649
+
+Suite result: ok. 37 passed; 0 failed; 0 skipped; finished in 41.25s (288.58s CPU time)
+
+Ran 1 test suite in 41.27s (41.25s CPU time): 37 tests passed, 0 failed, 0 skipped (37 total tests)
+
+real	0m53.061s
+user	0m11.729s
+sys	0m0.915s
