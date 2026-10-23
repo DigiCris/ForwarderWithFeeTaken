@@ -2233,22 +2233,25 @@ rule rescueNativeOnlyToTreasury(env e) {
 // an instance of a proven universal statement, which is sound) so that the rest of the query is linear.
 // -------------------------------------------------------------------------------------------------------------------
 
-/// Lemma: multiplying by a non-negative amount preserves the order.
+/// Lemma: multiplying by a non-negative amount preserves the order, for rates up to MAX_VARIABLE_FEE (the only rates
+/// the contract can hold: invariant feeCaps). The domain is bounded because with precise_bitwise_ops the prover
+/// encodes integers with a fixed width: for unbounded rates (products up to 2^512) it reports a counterexample of the
+/// encoding, not of the arithmetic (run 3 and run 4 without this bound).
 rule productIsMonotone(uint256 amount, uint256 x, uint256 y) {
-    require x <= y;
+    require x <= y && y <= 10000;
     assert amount * x <= amount * y;
 }
 
 /// Lemma: the percentage part (floor division by the denominator) is monotone in the rate.
 rule percentPartIsMonotone(uint256 amount, uint256 x, uint256 y) {
-    require x <= y;
+    require x <= y && y <= 10000;
     require amount * x <= amount * y; // productIsMonotone
     assert (amount * x) / 100000 <= (amount * y) / 100000;
 }
 
 /// Lemma: for every model the fee formula is monotone in the fixed and in the variable fee.
 rule specFeeIsMonotone(Forwarder.FeeModel m, uint256 amount, uint256 f1, uint256 v1, uint256 f2, uint256 v2) {
-    require f1 <= f2 && v1 <= v2;
+    require f1 <= f2 && f2 <= 10000000 && v1 <= v2 && v2 <= 10000; // caps (invariant feeCaps)
     require amount * v1 <= amount * v2; // productIsMonotone
     assert specFeeWith(m, amount, f1, v1) <= specFeeWith(m, amount, f2, v2);
 }
@@ -2258,6 +2261,7 @@ rule specFeeIsMonotone(Forwarder.FeeModel m, uint256 amount, uint256 f1, uint256
 /// is. With effectiveFeeMatchesSpecification and feeMatchesSpecification (contract == specification, revert <=>
 /// overflow) this gives calculateFeeFor(r, amount) <= calculateFee(amount) without comparing two contract calls.
 rule effectiveSpecFeeNeverExceedsGlobalSpecFee(env e, address r, uint256 amount) {
+    requireInvariant feeCaps();
     requireInvariant enumsAreValid();
     require !paused();
     mathint variableEff = effectiveVariable(r, e.block.timestamp);
@@ -2269,6 +2273,7 @@ rule effectiveSpecFeeNeverExceedsGlobalSpecFee(env e, address r, uint256 amount)
 
 /// effectiveFeeNeverExceedsGlobalFee with the product lemma instantiated for this state.
 rule effectiveFeeNeverExceedsGlobalFeeAssisted(env e, address r, uint256 amount) {
+    requireInvariant feeCaps();
     requireInvariant enumsAreValid();
     require e.msg.value == 0;
     mathint variableEff = effectiveVariable(r, e.block.timestamp);
