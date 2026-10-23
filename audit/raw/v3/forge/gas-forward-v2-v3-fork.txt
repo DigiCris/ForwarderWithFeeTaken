@@ -1,0 +1,15 @@
+== forward gas on a Base fork (pinned block 52,951,000, real USDC and Luca Vault), test_Fork_AllRoutingModes -vv
+== V2: worktree of feature/forwarder-v2-vault-delay @ 0699df7 (src sha256 2ddd2b60...3c3c)
+[PASS] test_Fork_AllRoutingModes() (gas: 1632196)
+  forward gas, mode 0 89462
+  forward gas, mode 1 374041
+  forward gas, mode 2 246009
+  forward gas, mode 3 415962
+== V3: audit/raw/v3/predeploy/fork-pinned-52951000.txt (commit ae8cd1b, src sha256 22aeb8e5...3d6b)
+  forward gas, mode 0 91782
+  forward gas, mode 1 244561
+  forward gas, mode 2 245529
+  forward gas, mode 3 418282
+== Comparable modes (no Luca Vault yield accrual in either run): mode 0 DIRECT_DIRECT 89462 -> 91782 (+2320), mode 3 VAULT_VAULT 415962 -> 418282 (+2320).
+== Modes 1-2 are not comparable: each test runs as one transaction, so storage warmed by earlier calls makes later calls cheaper. In V2 the mode-1 forward also pays the Luca Vault yield accrual (YieldAccrued); in V3 the test triggers it beforehand (_accrueLucaVaultYield), which also warms the treasury Safe's share balance slot (accrual mint) used by the mode-2 treasury deposit (V3 mode 2 = V2 mode 2 + 2320 - ~2800).
+== Extra cost of V3: one cold SLOAD of userFeeOverrides[recipient].validUntil (2100) plus the calculateFeeFor call (~220) for a recipient without an active override.

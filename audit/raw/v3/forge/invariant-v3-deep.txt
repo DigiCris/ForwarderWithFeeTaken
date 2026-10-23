@@ -1,0 +1,1966 @@
+== commit 0dc47a6 / src sha256 22aeb8e536cabe68d5ba3005decb1f43179d38ffc261b032a14085432ffd3d6b (deployed source)
+== FOUNDRY_INVARIANT_RUNS=2000 FOUNDRY_INVARIANT_DEPTH=250 forge test --match-path test/ForwarderV3Invariant.t.sol -vv   (500,000 calls per invariant)
+Compiling 22 files with Solc 0.8.30
+Solc 0.8.30 finished in 14.68s
+Compiler run successful!
+
+Ran 17 tests for test/ForwarderV3Invariant.t.sol:ForwarderV3InvariantTest
+[PASS] invariant_ActiveFeeConfigurationMatchesTheModel() (runs: 2000, calls: 500000, reverts: 0)
+
+╭--------------------+------------------+-------+---------+----------╮
+| Contract           | Selector         | Calls | Reverts | Discards |
++====================================================================+
+| FeeTreasuryHandler | cancelFees       | 22737 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| FeeTreasuryHandler | cancelTreasury   | 22799 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| FeeTreasuryHandler | donate           | 22813 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| FeeTreasuryHandler | executeFees      | 45388 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| FeeTreasuryHandler | executeTreasury  | 45407 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| FeeTreasuryHandler | forward          | 68239 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| FeeTreasuryHandler | proposeFees      | 22559 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| FeeTreasuryHandler | proposeTreasury  | 22812 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| FeeTreasuryHandler | rescueUsdc       | 22928 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| FeeTreasuryHandler | setOverride      | 45356 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| FeeTreasuryHandler | setRoutingMode   | 22583 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| FeeTreasuryHandler | toggleFailure    | 22650 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| FeeTreasuryHandler | togglePause      | 22652 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| FeeTreasuryHandler | unauthorizedCall | 22691 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| FeeTreasuryHandler | warp             | 68386 | 0       | 0        |
+╰--------------------+------------------+-------+---------+----------╯
+
+Logs:
+  Bound result 2179
+  Bound result 14058
+  Bound result 415955172
+  Bound result 5730956245483
+  Bound result 7311448210329
+  Bound result 7
+  Bound result 22204
+  Bound result 3862952674581
+  Bound result 791112144
+  Bound result 1962
+  Bound result 100678023584
+  Bound result 17
+  Bound result 6043
+  Bound result 984533671829
+  Bound result 720
+  Bound result 10000
+  Bound result 14
+  Bound result 21959
+  Bound result 11681
+  Bound result 4
+  Bound result 8279943388659
+  Bound result 6995415921811
+  Bound result 1312856
+  Bound result 2598
+  Bound result 12883
+  Bound result 11569
+  Bound result 21
+  Bound result 9999999999998
+  Bound result 6279880085041
+  Bound result 20812
+  Bound result 2000
+  Bound result 724
+  Bound result 17553
+  Bound result 4290686348794
+  Bound result 6151
+  Bound result 3
+  Bound result 3432924248117
+  Bound result 5693434511
+  Bound result 8
+  Bound result 5406490839891
+  Bound result 6256240
+  Bound result 9161
+  Bound result 2820536407036
+  Bound result 2749840679468
+  Bound result 1147780867667
+  Bound result 2835717307
+  Bound result 7051840175667
+  Bound result 5184000
+  Bound result 3616035734
+  Bound result 6007500
+  Bound result 5689
+  Bound result 1000000000
+  Bound result 9090910
+  Bound result 6903
+  Bound result 3452
+  Bound result 863352139995
+  Bound result 1
+  Bound result 2
+  Bound result 2
+  Bound result 6015177967206
+  Bound result 12
+  Bound result 7933975
+  Bound result 194695383884
+  Bound result 1696
+  Bound result 8710670
+  Bound result 731
+  Bound result 259200
+  Bound result 50000000
+  Bound result 3816479110855
+  Bound result 2067120
+  Bound result 259
+  proposeFees.ok 4
+  executeFees.ok 1
+  cancelFees.ok 3
+  proposeTreasury.ok 3
+  executeTreasury.ok 1
+  cancelTreasury.ok 2
+  setOverride.ok 14
+  setOverride.improvedActive 3
+  forward.ok 28
+  forward.discounted 2
+  unauthorizedCall 15
+  warp 31
+
+[PASS] invariant_Conservation() (runs: 2000, calls: 500000, reverts: 0)
+
+╭--------------------+------------------+-------+---------+----------╮
+| Contract           | Selector         | Calls | Reverts | Discards |
++====================================================================+
+| FeeTreasuryHandler | cancelFees       | 22737 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| FeeTreasuryHandler | cancelTreasury   | 22799 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| FeeTreasuryHandler | donate           | 22813 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| FeeTreasuryHandler | executeFees      | 45388 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| FeeTreasuryHandler | executeTreasury  | 45407 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| FeeTreasuryHandler | forward          | 68239 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| FeeTreasuryHandler | proposeFees      | 22559 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| FeeTreasuryHandler | proposeTreasury  | 22812 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| FeeTreasuryHandler | rescueUsdc       | 22928 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| FeeTreasuryHandler | setOverride      | 45356 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| FeeTreasuryHandler | setRoutingMode   | 22583 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| FeeTreasuryHandler | toggleFailure    | 22650 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| FeeTreasuryHandler | togglePause      | 22652 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| FeeTreasuryHandler | unauthorizedCall | 22691 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| FeeTreasuryHandler | warp             | 68386 | 0       | 0        |
+╰--------------------+------------------+-------+---------+----------╯
+
+Logs:
+  Bound result 2179
+  Bound result 14058
+  Bound result 415955172
+  Bound result 5730956245483
+  Bound result 7311448210329
+  Bound result 7
+  Bound result 22204
+  Bound result 3862952674581
+  Bound result 791112146
+  Bound result 1962
+  Bound result 100678023584
+  Bound result 17
+  Bound result 6086
+  Bound result 984533671829
+  Bound result 720
+  Bound result 10000
+  Bound result 14
+  Bound result 21988
+  Bound result 12081
+  Bound result 4
+  Bound result 8279943388659
+  Bound result 6995415921811
+  Bound result 1312856
+  Bound result 2598
+  Bound result 12903
+  Bound result 11600
+  Bound result 21
+  Bound result 9999999999998
+  Bound result 6279880085041
+  Bound result 22
+  Bound result 2000
+  Bound result 671
+  Bound result 17590
+  Bound result 4290686348794
+  Bound result 6182
+  Bound result 3
+  Bound result 3432924248117
+  Bound result 5693434511
+  Bound result 8
+  Bound result 5406490839891
+  Bound result 6256240
+  Bound result 9161
+  Bound result 2820536407036
+  Bound result 2749840679468
+  Bound result 1147780867667
+  Bound result 2835717307
+  Bound result 6142701976459
+  Bound result 5184000
+  Bound result 3616035734
+  Bound result 6007500
+  Bound result 5689
+  Bound result 1000000000
+  Bound result 9090910
+  Bound result 6460
+  Bound result 3632
+  Bound result 863352139995
+  Bound result 1
+  Bound result 2
+  Bound result 2
+  Bound result 6015177967206
+  Bound result 12
+  Bound result 1048
+  Bound result 194695383884
+  Bound result 1721
+  Bound result 3592761
+  Bound result 8219
+  Bound result 259200
+  Bound result 50000000
+  Bound result 3816479110855
+  Bound result 2067120
+  Bound result 259
+  proposeFees.ok 4
+  executeFees.ok 1
+  cancelFees.ok 3
+  proposeTreasury.ok 3
+  executeTreasury.ok 1
+  cancelTreasury.ok 2
+  setOverride.ok 16
+  setOverride.improvedActive 3
+  forward.ok 28
+  forward.discounted 2
+  unauthorizedCall 15
+  warp 31
+
+[PASS] invariant_EffectiveFeeNeverExceedsTheGlobalFee() (runs: 2000, calls: 500000, reverts: 0)
+
+╭--------------------+------------------+-------+---------+----------╮
+| Contract           | Selector         | Calls | Reverts | Discards |
++====================================================================+
+| FeeTreasuryHandler | cancelFees       | 22737 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| FeeTreasuryHandler | cancelTreasury   | 22799 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| FeeTreasuryHandler | donate           | 22813 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| FeeTreasuryHandler | executeFees      | 45388 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| FeeTreasuryHandler | executeTreasury  | 45407 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| FeeTreasuryHandler | forward          | 68239 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| FeeTreasuryHandler | proposeFees      | 22559 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| FeeTreasuryHandler | proposeTreasury  | 22812 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| FeeTreasuryHandler | rescueUsdc       | 22928 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| FeeTreasuryHandler | setOverride      | 45356 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| FeeTreasuryHandler | setRoutingMode   | 22583 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| FeeTreasuryHandler | toggleFailure    | 22650 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| FeeTreasuryHandler | togglePause      | 22652 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| FeeTreasuryHandler | unauthorizedCall | 22691 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| FeeTreasuryHandler | warp             | 68386 | 0       | 0        |
+╰--------------------+------------------+-------+---------+----------╯
+
+Logs:
+  Bound result 5526
+  Bound result 14229
+  Bound result 92750568221
+  Bound result 5730956245483
+  Bound result 7311448210329
+  Bound result 7
+  Bound result 1796521618522
+  Bound result 3862952674581
+  Bound result 21958
+  Bound result 1962
+  Bound result 100678023584
+  Bound result 17
+  Bound result 6168
+  Bound result 984533671829
+  Bound result 720
+  Bound result 10000
+  Bound result 14
+  Bound result 25486
+  Bound result 12259
+  Bound result 4
+  Bound result 8279943388659
+  Bound result 6995415921811
+  Bound result 1312856
+  Bound result 2598
+  Bound result 12964
+  Bound result 3257312
+  Bound result 21
+  Bound result 9999999999998
+  Bound result 6279880085041
+  Bound result 5018
+  Bound result 2000
+  Bound result 699
+  Bound result 17624
+  Bound result 4290686348794
+  Bound result 2220280664
+  Bound result 3
+  Bound result 3432924248117
+  Bound result 5693434511
+  Bound result 8
+  Bound result 5406490839891
+  Bound result 6256240
+  Bound result 9161
+  Bound result 2820536407036
+  Bound result 2749840679468
+  Bound result 1147780867667
+  Bound result 2835717307
+  Bound result 5834659222154
+  Bound result 5184000
+  Bound result 3616035734
+  Bound result 6007500
+  Bound result 5689
+  Bound result 1000000000
+  Bound result 9090910
+  Bound result 7513
+  Bound result 3736
+  Bound result 863352139995
+  Bound result 1
+  Bound result 2
+  Bound result 2
+  Bound result 6015177967206
+  Bound result 12
+  Bound result 747000
+  Bound result 194695383884
+  Bound result 1722
+  Bound result 5618534
+  Bound result 7262
+  Bound result 259200
+  Bound result 50000000
+  Bound result 3816479110855
+  Bound result 2067120
+  Bound result 259
+  proposeFees.ok 4
+  executeFees.ok 1
+  cancelFees.ok 3
+  proposeTreasury.ok 4
+  executeTreasury.ok 1
+  cancelTreasury.ok 3
+  setOverride.ok 13
+  setOverride.improvedActive 3
+  forward.ok 26
+  forward.discounted 3
+  unauthorizedCall 15
+  warp 31
+
+[PASS] invariant_ExpiredOverrideIsTheGlobalFee() (runs: 2000, calls: 500000, reverts: 0)
+
+╭--------------------+------------------+-------+---------+----------╮
+| Contract           | Selector         | Calls | Reverts | Discards |
++====================================================================+
+| FeeTreasuryHandler | cancelFees       | 22737 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| FeeTreasuryHandler | cancelTreasury   | 22799 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| FeeTreasuryHandler | donate           | 22813 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| FeeTreasuryHandler | executeFees      | 45388 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| FeeTreasuryHandler | executeTreasury  | 45407 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| FeeTreasuryHandler | forward          | 68239 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| FeeTreasuryHandler | proposeFees      | 22559 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| FeeTreasuryHandler | proposeTreasury  | 22812 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| FeeTreasuryHandler | rescueUsdc       | 22928 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| FeeTreasuryHandler | setOverride      | 45356 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| FeeTreasuryHandler | setRoutingMode   | 22583 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| FeeTreasuryHandler | toggleFailure    | 22650 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| FeeTreasuryHandler | togglePause      | 22652 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| FeeTreasuryHandler | unauthorizedCall | 22691 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| FeeTreasuryHandler | warp             | 68386 | 0       | 0        |
+╰--------------------+------------------+-------+---------+----------╯
+
+Logs:
+  Bound result 5527
+  Bound result 14077
+  Bound result 19859
+  Bound result 5730956245483
+  Bound result 7311448210329
+  Bound result 7
+  Bound result 22204
+  Bound result 3862952674581
+  Bound result 651743040
+  Bound result 1962
+  Bound result 100678023584
+  Bound result 17
+  Bound result 252198793914
+  Bound result 984533671829
+  Bound result 720
+  Bound result 10000
+  Bound result 14
+  Bound result 23214
+  Bound result 11679
+  Bound result 4
+  Bound result 8279943388659
+  Bound result 6995415921811
+  Bound result 1312856
+  Bound result 2598
+  Bound result 12882
+  Bound result 11545
+  Bound result 21
+  Bound result 9999999999998
+  Bound result 6279880085041
+  Bound result 4602
+  Bound result 2000
+  Bound result 216
+  Bound result 17531
+  Bound result 4290686348794
+  Bound result 6151
+  Bound result 3
+  Bound result 3432924248117
+  Bound result 5693434511
+  Bound result 8
+  Bound result 5406490839891
+  Bound result 6256240
+  Bound result 9161
+  Bound result 2820536407036
+  Bound result 2749840679468
+  Bound result 1147780867667
+  Bound result 2835717307
+  Bound result 999
+  Bound result 5184000
+  Bound result 3616035734
+  Bound result 6007500
+  Bound result 5689
+  Bound result 1000000000
+  Bound result 9090910
+  Bound result 7147
+  Bound result 3370
+  Bound result 863352139995
+  Bound result 1
+  Bound result 2
+  Bound result 2
+  Bound result 6015177967206
+  Bound result 12
+  Bound result 483145976595
+  Bound result 194695383884
+  Bound result 1613
+  Bound result 2118175
+  Bound result 2687
+  Bound result 259200
+  Bound result 50000000
+  Bound result 3816479110855
+  Bound result 2067120
+  Bound result 259
+  proposeFees.ok 4
+  executeFees.ok 1
+  cancelFees.ok 3
+  proposeTreasury.ok 3
+  executeTreasury.ok 1
+  cancelTreasury.ok 2
+  setOverride.ok 14
+  setOverride.improvedActive 5
+  forward.ok 24
+  forward.discounted 2
+  unauthorizedCall 15
+  warp 31
+
+[PASS] invariant_FeeCapsAlwaysHold() (runs: 2000, calls: 500000, reverts: 0)
+
+╭--------------------+------------------+-------+---------+----------╮
+| Contract           | Selector         | Calls | Reverts | Discards |
++====================================================================+
+| FeeTreasuryHandler | cancelFees       | 22737 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| FeeTreasuryHandler | cancelTreasury   | 22799 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| FeeTreasuryHandler | donate           | 22813 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| FeeTreasuryHandler | executeFees      | 45388 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| FeeTreasuryHandler | executeTreasury  | 45407 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| FeeTreasuryHandler | forward          | 68239 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| FeeTreasuryHandler | proposeFees      | 22559 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| FeeTreasuryHandler | proposeTreasury  | 22812 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| FeeTreasuryHandler | rescueUsdc       | 22928 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| FeeTreasuryHandler | setOverride      | 45356 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| FeeTreasuryHandler | setRoutingMode   | 22583 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| FeeTreasuryHandler | toggleFailure    | 22650 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| FeeTreasuryHandler | togglePause      | 22652 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| FeeTreasuryHandler | unauthorizedCall | 22691 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| FeeTreasuryHandler | warp             | 68386 | 0       | 0        |
+╰--------------------+------------------+-------+---------+----------╯
+
+Logs:
+  Bound result 2179
+  Bound result 14058
+  Bound result 415955172
+  Bound result 5730956245483
+  Bound result 7311448210329
+  Bound result 7
+  Bound result 22204
+  Bound result 3862952674581
+  Bound result 791112144
+  Bound result 1962
+  Bound result 100678023584
+  Bound result 17
+  Bound result 6044
+  Bound result 984533671829
+  Bound result 720
+  Bound result 10000
+  Bound result 14
+  Bound result 23214
+  Bound result 11679
+  Bound result 4
+  Bound result 8279943388659
+  Bound result 6995415921811
+  Bound result 1312856
+  Bound result 2598
+  Bound result 12881
+  Bound result 11570
+  Bound result 21
+  Bound result 9999999999998
+  Bound result 6279880085041
+  Bound result 20813
+  Bound result 2000
+  Bound result 218
+  Bound result 17531
+  Bound result 4290686348794
+  Bound result 6151
+  Bound result 3
+  Bound result 3432924248117
+  Bound result 5693434511
+  Bound result 8
+  Bound result 5406490839891
+  Bound result 6256240
+  Bound result 9161
+  Bound result 2820536407036
+  Bound result 2749840679468
+  Bound result 1147780867667
+  Bound result 2835717307
+  Bound result 7051840175667
+  Bound result 5184000
+  Bound result 3616035734
+  Bound result 6007500
+  Bound result 5689
+  Bound result 1000000000
+  Bound result 9090910
+  Bound result 6903
+  Bound result 3452
+  Bound result 863352139995
+  Bound result 1
+  Bound result 2
+  Bound result 2
+  Bound result 6015177967206
+  Bound result 12
+  Bound result 7933975
+  Bound result 194695383884
+  Bound result 1696
+  Bound result 9613929
+  Bound result 733
+  Bound result 259200
+  Bound result 50000000
+  Bound result 3816479110855
+  Bound result 2067120
+  Bound result 259
+  proposeFees.ok 4
+  executeFees.ok 1
+  cancelFees.ok 3
+  proposeTreasury.ok 3
+  executeTreasury.ok 1
+  cancelTreasury.ok 2
+  setOverride.ok 14
+  setOverride.improvedActive 3
+  forward.ok 28
+  forward.discounted 2
+  unauthorizedCall 15
+  warp 31
+
+[PASS] invariant_NoExecutionBeforeTheDelay() (runs: 2000, calls: 500000, reverts: 0)
+
+╭--------------------+------------------+-------+---------+----------╮
+| Contract           | Selector         | Calls | Reverts | Discards |
++====================================================================+
+| FeeTreasuryHandler | cancelFees       | 22737 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| FeeTreasuryHandler | cancelTreasury   | 22799 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| FeeTreasuryHandler | donate           | 22813 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| FeeTreasuryHandler | executeFees      | 45388 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| FeeTreasuryHandler | executeTreasury  | 45407 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| FeeTreasuryHandler | forward          | 68239 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| FeeTreasuryHandler | proposeFees      | 22559 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| FeeTreasuryHandler | proposeTreasury  | 22812 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| FeeTreasuryHandler | rescueUsdc       | 22928 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| FeeTreasuryHandler | setOverride      | 45356 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| FeeTreasuryHandler | setRoutingMode   | 22583 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| FeeTreasuryHandler | toggleFailure    | 22650 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| FeeTreasuryHandler | togglePause      | 22652 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| FeeTreasuryHandler | unauthorizedCall | 22691 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| FeeTreasuryHandler | warp             | 68386 | 0       | 0        |
+╰--------------------+------------------+-------+---------+----------╯
+
+Logs:
+  Bound result 2177
+  Bound result 14058
+  Bound result 415955172
+  Bound result 5730956245483
+  Bound result 7311448210329
+  Bound result 7
+  Bound result 22204
+  Bound result 3862952674581
+  Bound result 791112144
+  Bound result 1962
+  Bound result 100678023584
+  Bound result 17
+  Bound result 6043
+  Bound result 984533671829
+  Bound result 720
+  Bound result 10000
+  Bound result 14
+  Bound result 21959
+  Bound result 11681
+  Bound result 4
+  Bound result 8279943388659
+  Bound result 6995415921811
+  Bound result 1312856
+  Bound result 2598
+  Bound result 12883
+  Bound result 11569
+  Bound result 21
+  Bound result 9999999999998
+  Bound result 6279880085041
+  Bound result 20812
+  Bound result 2000
+  Bound result 724
+  Bound result 17553
+  Bound result 4290686348794
+  Bound result 6151
+  Bound result 3
+  Bound result 3432924248117
+  Bound result 5693434511
+  Bound result 8
+  Bound result 5406490839891
+  Bound result 6256240
+  Bound result 9161
+  Bound result 2820536407036
+  Bound result 2749840679468
+  Bound result 1147780867667
+  Bound result 2835717307
+  Bound result 7051840175667
+  Bound result 5184000
+  Bound result 3616035734
+  Bound result 6007500
+  Bound result 5689
+  Bound result 1000000000
+  Bound result 9090910
+  Bound result 6903
+  Bound result 3452
+  Bound result 863352139995
+  Bound result 1
+  Bound result 2
+  Bound result 2
+  Bound result 6015177967206
+  Bound result 12
+  Bound result 519287
+  Bound result 194695383884
+  Bound result 1696
+  Bound result 3558676
+  Bound result 733
+  Bound result 259200
+  Bound result 50000000
+  Bound result 3816479110855
+  Bound result 2067120
+  Bound result 259
+  proposeFees.ok 4
+  executeFees.ok 1
+  cancelFees.ok 3
+  proposeTreasury.ok 3
+  executeTreasury.ok 1
+  cancelTreasury.ok 2
+  setOverride.ok 14
+  setOverride.improvedActive 3
+  forward.ok 28
+  forward.discounted 2
+  unauthorizedCall 15
+  warp 31
+
+[PASS] invariant_NoUnexpectedOutcome() (runs: 2000, calls: 500000, reverts: 0)
+
+╭--------------------+------------------+-------+---------+----------╮
+| Contract           | Selector         | Calls | Reverts | Discards |
++====================================================================+
+| FeeTreasuryHandler | cancelFees       | 22737 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| FeeTreasuryHandler | cancelTreasury   | 22799 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| FeeTreasuryHandler | donate           | 22813 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| FeeTreasuryHandler | executeFees      | 45388 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| FeeTreasuryHandler | executeTreasury  | 45407 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| FeeTreasuryHandler | forward          | 68239 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| FeeTreasuryHandler | proposeFees      | 22559 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| FeeTreasuryHandler | proposeTreasury  | 22812 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| FeeTreasuryHandler | rescueUsdc       | 22928 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| FeeTreasuryHandler | setOverride      | 45356 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| FeeTreasuryHandler | setRoutingMode   | 22583 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| FeeTreasuryHandler | toggleFailure    | 22650 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| FeeTreasuryHandler | togglePause      | 22652 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| FeeTreasuryHandler | unauthorizedCall | 22691 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| FeeTreasuryHandler | warp             | 68386 | 0       | 0        |
+╰--------------------+------------------+-------+---------+----------╯
+
+Logs:
+  Bound result 2177
+  Bound result 14058
+  Bound result 415955172
+  Bound result 5730956245483
+  Bound result 7311448210329
+  Bound result 7
+  Bound result 22204
+  Bound result 3862952674581
+  Bound result 791112144
+  Bound result 1962
+  Bound result 100678023584
+  Bound result 17
+  Bound result 6043
+  Bound result 984533671829
+  Bound result 720
+  Bound result 10000
+  Bound result 14
+  Bound result 21959
+  Bound result 11681
+  Bound result 4
+  Bound result 8279943388659
+  Bound result 6995415921811
+  Bound result 1312856
+  Bound result 2598
+  Bound result 12883
+  Bound result 11569
+  Bound result 21
+  Bound result 9999999999998
+  Bound result 6279880085041
+  Bound result 20812
+  Bound result 2000
+  Bound result 724
+  Bound result 17553
+  Bound result 4290686348794
+  Bound result 6151
+  Bound result 3
+  Bound result 3432924248117
+  Bound result 5693434511
+  Bound result 8
+  Bound result 5406490839891
+  Bound result 6256240
+  Bound result 9161
+  Bound result 2820536407036
+  Bound result 2749840679468
+  Bound result 1147780867667
+  Bound result 2835717307
+  Bound result 7051840175667
+  Bound result 5184000
+  Bound result 3616035734
+  Bound result 6007500
+  Bound result 5689
+  Bound result 1000000000
+  Bound result 9090910
+  Bound result 6903
+  Bound result 3452
+  Bound result 863352139995
+  Bound result 1
+  Bound result 2
+  Bound result 2
+  Bound result 6015177967206
+  Bound result 12
+  Bound result 519287
+  Bound result 194695383884
+  Bound result 1696
+  Bound result 1256
+  Bound result 732
+  Bound result 259200
+  Bound result 50000000
+  Bound result 3816479110855
+  Bound result 2067120
+  Bound result 259
+  proposeFees.ok 4
+  executeFees.ok 1
+  cancelFees.ok 3
+  proposeTreasury.ok 3
+  executeTreasury.ok 1
+  cancelTreasury.ok 2
+  setOverride.ok 14
+  setOverride.improvedActive 3
+  forward.ok 28
+  forward.discounted 2
+  unauthorizedCall 15
+  warp 31
+
+[PASS] invariant_OverridesMatchTheModelAndPromisesHold() (runs: 2000, calls: 500000, reverts: 0)
+
+╭--------------------+------------------+-------+---------+----------╮
+| Contract           | Selector         | Calls | Reverts | Discards |
++====================================================================+
+| FeeTreasuryHandler | cancelFees       | 22737 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| FeeTreasuryHandler | cancelTreasury   | 22799 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| FeeTreasuryHandler | donate           | 22813 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| FeeTreasuryHandler | executeFees      | 45388 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| FeeTreasuryHandler | executeTreasury  | 45407 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| FeeTreasuryHandler | forward          | 68239 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| FeeTreasuryHandler | proposeFees      | 22559 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| FeeTreasuryHandler | proposeTreasury  | 22812 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| FeeTreasuryHandler | rescueUsdc       | 22928 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| FeeTreasuryHandler | setOverride      | 45356 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| FeeTreasuryHandler | setRoutingMode   | 22583 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| FeeTreasuryHandler | toggleFailure    | 22650 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| FeeTreasuryHandler | togglePause      | 22652 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| FeeTreasuryHandler | unauthorizedCall | 22691 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| FeeTreasuryHandler | warp             | 68386 | 0       | 0        |
+╰--------------------+------------------+-------+---------+----------╯
+
+Logs:
+  Bound result 2179
+  Bound result 14075
+  Bound result 3327641369
+  Bound result 5730956245483
+  Bound result 7311448210329
+  Bound result 7
+  Bound result 22204
+  Bound result 3862952674581
+  Bound result 651743040
+  Bound result 1962
+  Bound result 100678023584
+  Bound result 17
+  Bound result 252198793914
+  Bound result 984533671829
+  Bound result 720
+  Bound result 10000
+  Bound result 14
+  Bound result 23214
+  Bound result 11679
+  Bound result 4
+  Bound result 8279943388659
+  Bound result 6995415921811
+  Bound result 1312856
+  Bound result 2598
+  Bound result 12882
+  Bound result 11545
+  Bound result 21
+  Bound result 9999999999998
+  Bound result 6279880085041
+  Bound result 4602
+  Bound result 2000
+  Bound result 216
+  Bound result 17531
+  Bound result 4290686348794
+  Bound result 6151
+  Bound result 3
+  Bound result 3432924248117
+  Bound result 5693434511
+  Bound result 8
+  Bound result 5406490839891
+  Bound result 6256240
+  Bound result 9161
+  Bound result 2820536407036
+  Bound result 2749840679468
+  Bound result 1147780867667
+  Bound result 2835717307
+  Bound result 1001
+  Bound result 5184000
+  Bound result 3616035734
+  Bound result 6007500
+  Bound result 5689
+  Bound result 1000000000
+  Bound result 9090910
+  Bound result 6902
+  Bound result 3408
+  Bound result 863352139995
+  Bound result 1
+  Bound result 2
+  Bound result 2
+  Bound result 6015177967206
+  Bound result 12
+  Bound result 7933974
+  Bound result 194695383884
+  Bound result 1613
+  Bound result 38985
+  Bound result 2686
+  Bound result 259200
+  Bound result 50000000
+  Bound result 3816479110855
+  Bound result 2067120
+  Bound result 259
+  proposeFees.ok 3
+  executeFees.ok 1
+  cancelFees.ok 2
+  proposeTreasury.ok 3
+  executeTreasury.ok 1
+  cancelTreasury.ok 2
+  setOverride.ok 14
+  setOverride.improvedActive 4
+  forward.ok 25
+  forward.discounted 2
+  unauthorizedCall 15
+  warp 31
+
+[PASS] invariant_PausedMeansZeroFee() (runs: 2000, calls: 500000, reverts: 0)
+
+╭--------------------+------------------+-------+---------+----------╮
+| Contract           | Selector         | Calls | Reverts | Discards |
++====================================================================+
+| FeeTreasuryHandler | cancelFees       | 22737 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| FeeTreasuryHandler | cancelTreasury   | 22799 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| FeeTreasuryHandler | donate           | 22813 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| FeeTreasuryHandler | executeFees      | 45388 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| FeeTreasuryHandler | executeTreasury  | 45407 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| FeeTreasuryHandler | forward          | 68239 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| FeeTreasuryHandler | proposeFees      | 22559 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| FeeTreasuryHandler | proposeTreasury  | 22812 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| FeeTreasuryHandler | rescueUsdc       | 22928 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| FeeTreasuryHandler | setOverride      | 45356 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| FeeTreasuryHandler | setRoutingMode   | 22583 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| FeeTreasuryHandler | toggleFailure    | 22650 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| FeeTreasuryHandler | togglePause      | 22652 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| FeeTreasuryHandler | unauthorizedCall | 22691 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| FeeTreasuryHandler | warp             | 68386 | 0       | 0        |
+╰--------------------+------------------+-------+---------+----------╯
+
+Logs:
+  Bound result 2177
+  Bound result 14058
+  Bound result 415955172
+  Bound result 5730956245483
+  Bound result 7311448210329
+  Bound result 7
+  Bound result 22204
+  Bound result 3862952674581
+  Bound result 791112144
+  Bound result 1962
+  Bound result 100678023584
+  Bound result 17
+  Bound result 6043
+  Bound result 984533671829
+  Bound result 720
+  Bound result 10000
+  Bound result 14
+  Bound result 23597
+  Bound result 11888
+  Bound result 4
+  Bound result 8279943388659
+  Bound result 6995415921811
+  Bound result 1312856
+  Bound result 2598
+  Bound result 12891
+  Bound result 11563
+  Bound result 21
+  Bound result 9999999999998
+  Bound result 6279880085041
+  Bound result 20814
+  Bound result 2000
+  Bound result 7614
+  Bound result 17554
+  Bound result 4290686348794
+  Bound result 6366
+  Bound result 3
+  Bound result 3432924248117
+  Bound result 5693434511
+  Bound result 8
+  Bound result 5406490839891
+  Bound result 6256240
+  Bound result 9161
+  Bound result 2820536407036
+  Bound result 2749840679468
+  Bound result 1147780867667
+  Bound result 2835717307
+  Bound result 7051840175668
+  Bound result 5184000
+  Bound result 3616035734
+  Bound result 6007500
+  Bound result 5689
+  Bound result 1000000000
+  Bound result 9090910
+  Bound result 4241
+  Bound result 9764699260107
+  Bound result 863352139995
+  Bound result 1
+  Bound result 2
+  Bound result 2
+  Bound result 6015177967206
+  Bound result 12
+  Bound result 909037407969
+  Bound result 194695383884
+  Bound result 1712
+  Bound result 9339307
+  Bound result 6476
+  Bound result 259200
+  Bound result 50000000
+  Bound result 3816479110855
+  Bound result 2067120
+  Bound result 259
+  proposeFees.ok 4
+  executeFees.ok 1
+  cancelFees.ok 3
+  proposeTreasury.ok 3
+  executeTreasury.ok 0
+  cancelTreasury.ok 3
+  setOverride.ok 14
+  setOverride.improvedActive 4
+  forward.ok 26
+  forward.discounted 3
+  unauthorizedCall 15
+  warp 31
+
+[PASS] invariant_PendingFeeConfigurationMatchesTheModel() (runs: 2000, calls: 500000, reverts: 0)
+
+╭--------------------+------------------+-------+---------+----------╮
+| Contract           | Selector         | Calls | Reverts | Discards |
++====================================================================+
+| FeeTreasuryHandler | cancelFees       | 22737 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| FeeTreasuryHandler | cancelTreasury   | 22799 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| FeeTreasuryHandler | donate           | 22813 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| FeeTreasuryHandler | executeFees      | 45388 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| FeeTreasuryHandler | executeTreasury  | 45407 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| FeeTreasuryHandler | forward          | 68239 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| FeeTreasuryHandler | proposeFees      | 22559 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| FeeTreasuryHandler | proposeTreasury  | 22812 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| FeeTreasuryHandler | rescueUsdc       | 22928 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| FeeTreasuryHandler | setOverride      | 45356 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| FeeTreasuryHandler | setRoutingMode   | 22583 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| FeeTreasuryHandler | toggleFailure    | 22650 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| FeeTreasuryHandler | togglePause      | 22652 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| FeeTreasuryHandler | unauthorizedCall | 22691 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| FeeTreasuryHandler | warp             | 68386 | 0       | 0        |
+╰--------------------+------------------+-------+---------+----------╯
+
+Logs:
+  Bound result 2179
+  Bound result 14058
+  Bound result 415955172
+  Bound result 5730956245483
+  Bound result 7311448210329
+  Bound result 7
+  Bound result 22204
+  Bound result 3862952674581
+  Bound result 791112144
+  Bound result 1962
+  Bound result 100678023584
+  Bound result 17
+  Bound result 6043
+  Bound result 984533671829
+  Bound result 720
+  Bound result 10000
+  Bound result 14
+  Bound result 21959
+  Bound result 11681
+  Bound result 4
+  Bound result 8279943388659
+  Bound result 6995415921811
+  Bound result 1312856
+  Bound result 2598
+  Bound result 12883
+  Bound result 11569
+  Bound result 21
+  Bound result 9999999999998
+  Bound result 6279880085041
+  Bound result 20812
+  Bound result 2000
+  Bound result 724
+  Bound result 17553
+  Bound result 4290686348794
+  Bound result 6151
+  Bound result 3
+  Bound result 3432924248117
+  Bound result 5693434511
+  Bound result 8
+  Bound result 5406490839891
+  Bound result 6256240
+  Bound result 9161
+  Bound result 2820536407036
+  Bound result 2749840679468
+  Bound result 1147780867667
+  Bound result 2835717307
+  Bound result 7051840175667
+  Bound result 5184000
+  Bound result 3616035734
+  Bound result 6007500
+  Bound result 5689
+  Bound result 1000000000
+  Bound result 9090910
+  Bound result 6903
+  Bound result 3452
+  Bound result 863352139995
+  Bound result 1
+  Bound result 2
+  Bound result 2
+  Bound result 6015177967206
+  Bound result 12
+  Bound result 7933975
+  Bound result 194695383884
+  Bound result 1696
+  Bound result 1256
+  Bound result 732
+  Bound result 259200
+  Bound result 50000000
+  Bound result 3816479110855
+  Bound result 2067120
+  Bound result 259
+  proposeFees.ok 4
+  executeFees.ok 1
+  cancelFees.ok 3
+  proposeTreasury.ok 3
+  executeTreasury.ok 1
+  cancelTreasury.ok 2
+  setOverride.ok 14
+  setOverride.improvedActive 3
+  forward.ok 28
+  forward.discounted 2
+  unauthorizedCall 15
+  warp 31
+
+[PASS] invariant_PendingTreasuryNeverReceivesFunds() (runs: 2000, calls: 500000, reverts: 0)
+
+╭--------------------+------------------+-------+---------+----------╮
+| Contract           | Selector         | Calls | Reverts | Discards |
++====================================================================+
+| FeeTreasuryHandler | cancelFees       | 22737 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| FeeTreasuryHandler | cancelTreasury   | 22799 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| FeeTreasuryHandler | donate           | 22813 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| FeeTreasuryHandler | executeFees      | 45388 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| FeeTreasuryHandler | executeTreasury  | 45407 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| FeeTreasuryHandler | forward          | 68239 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| FeeTreasuryHandler | proposeFees      | 22559 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| FeeTreasuryHandler | proposeTreasury  | 22812 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| FeeTreasuryHandler | rescueUsdc       | 22928 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| FeeTreasuryHandler | setOverride      | 45356 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| FeeTreasuryHandler | setRoutingMode   | 22583 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| FeeTreasuryHandler | toggleFailure    | 22650 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| FeeTreasuryHandler | togglePause      | 22652 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| FeeTreasuryHandler | unauthorizedCall | 22691 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| FeeTreasuryHandler | warp             | 68386 | 0       | 0        |
+╰--------------------+------------------+-------+---------+----------╯
+
+Logs:
+  Bound result 2177
+  Bound result 14058
+  Bound result 415955172
+  Bound result 5730956245483
+  Bound result 7311448210329
+  Bound result 7
+  Bound result 22204
+  Bound result 3862952674581
+  Bound result 791112144
+  Bound result 1962
+  Bound result 100678023584
+  Bound result 17
+  Bound result 6043
+  Bound result 984533671829
+  Bound result 720
+  Bound result 10000
+  Bound result 14
+  Bound result 21959
+  Bound result 11681
+  Bound result 4
+  Bound result 8279943388659
+  Bound result 6995415921811
+  Bound result 1312856
+  Bound result 2598
+  Bound result 12883
+  Bound result 11569
+  Bound result 21
+  Bound result 9999999999998
+  Bound result 6279880085041
+  Bound result 20812
+  Bound result 2000
+  Bound result 724
+  Bound result 17553
+  Bound result 4290686348794
+  Bound result 6151
+  Bound result 3
+  Bound result 3432924248117
+  Bound result 5693434511
+  Bound result 8
+  Bound result 5406490839891
+  Bound result 6256240
+  Bound result 9161
+  Bound result 2820536407036
+  Bound result 2749840679468
+  Bound result 1147780867667
+  Bound result 2835717307
+  Bound result 7051840175667
+  Bound result 5184000
+  Bound result 3616035734
+  Bound result 6007500
+  Bound result 5689
+  Bound result 1000000000
+  Bound result 9090910
+  Bound result 6903
+  Bound result 3452
+  Bound result 863352139995
+  Bound result 1
+  Bound result 2
+  Bound result 2
+  Bound result 6015177967206
+  Bound result 12
+  Bound result 7933975
+  Bound result 194695383884
+  Bound result 1696
+  Bound result 5925773
+  Bound result 733
+  Bound result 259200
+  Bound result 50000000
+  Bound result 3816479110855
+  Bound result 2067120
+  Bound result 259
+  proposeFees.ok 4
+  executeFees.ok 1
+  cancelFees.ok 3
+  proposeTreasury.ok 3
+  executeTreasury.ok 1
+  cancelTreasury.ok 2
+  setOverride.ok 14
+  setOverride.improvedActive 3
+  forward.ok 28
+  forward.discounted 2
+  unauthorizedCall 15
+  warp 31
+
+[PASS] invariant_PrivilegesNeverChange() (runs: 2000, calls: 500000, reverts: 0)
+
+╭--------------------+------------------+-------+---------+----------╮
+| Contract           | Selector         | Calls | Reverts | Discards |
++====================================================================+
+| FeeTreasuryHandler | cancelFees       | 22737 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| FeeTreasuryHandler | cancelTreasury   | 22799 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| FeeTreasuryHandler | donate           | 22813 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| FeeTreasuryHandler | executeFees      | 45388 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| FeeTreasuryHandler | executeTreasury  | 45407 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| FeeTreasuryHandler | forward          | 68239 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| FeeTreasuryHandler | proposeFees      | 22559 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| FeeTreasuryHandler | proposeTreasury  | 22812 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| FeeTreasuryHandler | rescueUsdc       | 22928 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| FeeTreasuryHandler | setOverride      | 45356 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| FeeTreasuryHandler | setRoutingMode   | 22583 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| FeeTreasuryHandler | toggleFailure    | 22650 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| FeeTreasuryHandler | togglePause      | 22652 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| FeeTreasuryHandler | unauthorizedCall | 22691 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| FeeTreasuryHandler | warp             | 68386 | 0       | 0        |
+╰--------------------+------------------+-------+---------+----------╯
+
+Logs:
+  Bound result 2179
+  Bound result 14077
+  Bound result 19858
+  Bound result 5730956245483
+  Bound result 7311448210329
+  Bound result 7
+  Bound result 22204
+  Bound result 3862952674581
+  Bound result 791112145
+  Bound result 1962
+  Bound result 100678023584
+  Bound result 17
+  Bound result 6044
+  Bound result 984533671829
+  Bound result 720
+  Bound result 10000
+  Bound result 14
+  Bound result 21959
+  Bound result 1055239861
+  Bound result 4
+  Bound result 8279943388659
+  Bound result 6995415921811
+  Bound result 1312856
+  Bound result 2598
+  Bound result 12892
+  Bound result 11571
+  Bound result 21
+  Bound result 9999999999998
+  Bound result 6279880085041
+  Bound result 20812
+  Bound result 2000
+  Bound result 725
+  Bound result 17552
+  Bound result 4290686348794
+  Bound result 6143
+  Bound result 3
+  Bound result 3432924248117
+  Bound result 5693434511
+  Bound result 8
+  Bound result 5406490839891
+  Bound result 6256240
+  Bound result 9161
+  Bound result 2820536407036
+  Bound result 2749840679468
+  Bound result 1147780867667
+  Bound result 2835717307
+  Bound result 7051840175668
+  Bound result 5184000
+  Bound result 3616035734
+  Bound result 6007500
+  Bound result 5689
+  Bound result 1000000000
+  Bound result 9090910
+  Bound result 7422
+  Bound result 179
+  Bound result 863352139995
+  Bound result 1
+  Bound result 2
+  Bound result 2
+  Bound result 6015177967206
+  Bound result 12
+  Bound result 909037407969
+  Bound result 194695383884
+  Bound result 1713
+  Bound result 199203
+  Bound result 6061
+  Bound result 259200
+  Bound result 50000000
+  Bound result 3816479110855
+  Bound result 2067120
+  Bound result 259
+  proposeFees.ok 4
+  executeFees.ok 1
+  cancelFees.ok 3
+  proposeTreasury.ok 4
+  executeTreasury.ok 1
+  cancelTreasury.ok 3
+  setOverride.ok 13
+  setOverride.improvedActive 3
+  forward.ok 26
+  forward.discounted 2
+  unauthorizedCall 15
+  warp 31
+
+[PASS] invariant_TreasuryAccounting() (runs: 2000, calls: 500000, reverts: 0)
+
+╭--------------------+------------------+-------+---------+----------╮
+| Contract           | Selector         | Calls | Reverts | Discards |
++====================================================================+
+| FeeTreasuryHandler | cancelFees       | 22737 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| FeeTreasuryHandler | cancelTreasury   | 22799 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| FeeTreasuryHandler | donate           | 22813 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| FeeTreasuryHandler | executeFees      | 45388 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| FeeTreasuryHandler | executeTreasury  | 45407 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| FeeTreasuryHandler | forward          | 68239 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| FeeTreasuryHandler | proposeFees      | 22559 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| FeeTreasuryHandler | proposeTreasury  | 22812 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| FeeTreasuryHandler | rescueUsdc       | 22928 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| FeeTreasuryHandler | setOverride      | 45356 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| FeeTreasuryHandler | setRoutingMode   | 22583 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| FeeTreasuryHandler | toggleFailure    | 22650 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| FeeTreasuryHandler | togglePause      | 22652 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| FeeTreasuryHandler | unauthorizedCall | 22691 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| FeeTreasuryHandler | warp             | 68386 | 0       | 0        |
+╰--------------------+------------------+-------+---------+----------╯
+
+Logs:
+  Bound result 2177
+  Bound result 14058
+  Bound result 415955172
+  Bound result 5730956245483
+  Bound result 7311448210329
+  Bound result 7
+  Bound result 22204
+  Bound result 3862952674581
+  Bound result 791112144
+  Bound result 1962
+  Bound result 100678023584
+  Bound result 17
+  Bound result 6043
+  Bound result 984533671829
+  Bound result 720
+  Bound result 10000
+  Bound result 14
+  Bound result 21959
+  Bound result 11681
+  Bound result 4
+  Bound result 8279943388659
+  Bound result 6995415921811
+  Bound result 1312856
+  Bound result 2598
+  Bound result 12883
+  Bound result 11569
+  Bound result 21
+  Bound result 9999999999998
+  Bound result 6279880085041
+  Bound result 20812
+  Bound result 2000
+  Bound result 724
+  Bound result 17553
+  Bound result 4290686348794
+  Bound result 6151
+  Bound result 3
+  Bound result 3432924248117
+  Bound result 5693434511
+  Bound result 8
+  Bound result 5406490839891
+  Bound result 6256240
+  Bound result 9161
+  Bound result 2820536407036
+  Bound result 2749840679468
+  Bound result 1147780867667
+  Bound result 2835717307
+  Bound result 7051840175667
+  Bound result 5184000
+  Bound result 3616035734
+  Bound result 6007500
+  Bound result 5689
+  Bound result 1000000000
+  Bound result 9090910
+  Bound result 6903
+  Bound result 3452
+  Bound result 863352139995
+  Bound result 1
+  Bound result 2
+  Bound result 2
+  Bound result 6015177967206
+  Bound result 12
+  Bound result 697609545313
+  Bound result 194695383884
+  Bound result 1659
+  Bound result 9315696
+  Bound result 4002
+  Bound result 259200
+  Bound result 50000000
+  Bound result 3816479110855
+  Bound result 2067120
+  Bound result 259
+  proposeFees.ok 4
+  executeFees.ok 1
+  cancelFees.ok 3
+  proposeTreasury.ok 3
+  executeTreasury.ok 1
+  cancelTreasury.ok 2
+  setOverride.ok 14
+  setOverride.improvedActive 3
+  forward.ok 28
+  forward.discounted 2
+  unauthorizedCall 15
+  warp 31
+
+[PASS] invariant_TreasuryMatchesTheModel() (runs: 2000, calls: 500000, reverts: 0)
+
+╭--------------------+------------------+-------+---------+----------╮
+| Contract           | Selector         | Calls | Reverts | Discards |
++====================================================================+
+| FeeTreasuryHandler | cancelFees       | 22737 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| FeeTreasuryHandler | cancelTreasury   | 22799 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| FeeTreasuryHandler | donate           | 22813 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| FeeTreasuryHandler | executeFees      | 45388 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| FeeTreasuryHandler | executeTreasury  | 45407 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| FeeTreasuryHandler | forward          | 68239 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| FeeTreasuryHandler | proposeFees      | 22559 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| FeeTreasuryHandler | proposeTreasury  | 22812 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| FeeTreasuryHandler | rescueUsdc       | 22928 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| FeeTreasuryHandler | setOverride      | 45356 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| FeeTreasuryHandler | setRoutingMode   | 22583 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| FeeTreasuryHandler | toggleFailure    | 22650 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| FeeTreasuryHandler | togglePause      | 22652 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| FeeTreasuryHandler | unauthorizedCall | 22691 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| FeeTreasuryHandler | warp             | 68386 | 0       | 0        |
+╰--------------------+------------------+-------+---------+----------╯
+
+Logs:
+  Bound result 2179
+  Bound result 14057
+  Bound result 8752754206890
+  Bound result 5730956245483
+  Bound result 7311448210329
+  Bound result 7
+  Bound result 20236
+  Bound result 3862952674581
+  Bound result 2739854338
+  Bound result 1962
+  Bound result 100678023584
+  Bound result 17
+  Bound result 6087
+  Bound result 984533671829
+  Bound result 720
+  Bound result 10000
+  Bound result 14
+  Bound result 21960
+  Bound result 1055239862
+  Bound result 4
+  Bound result 8279943388659
+  Bound result 6995415921811
+  Bound result 1312856
+  Bound result 2598
+  Bound result 12892
+  Bound result 11571
+  Bound result 21
+  Bound result 9999999999998
+  Bound result 6279880085041
+  Bound result 20812
+  Bound result 2000
+  Bound result 725
+  Bound result 17552
+  Bound result 4290686348794
+  Bound result 6143
+  Bound result 3
+  Bound result 3432924248117
+  Bound result 5693434511
+  Bound result 8
+  Bound result 5406490839891
+  Bound result 6256240
+  Bound result 9161
+  Bound result 2820536407036
+  Bound result 2749840679468
+  Bound result 1147780867667
+  Bound result 2835717307
+  Bound result 1001
+  Bound result 5184000
+  Bound result 3616035734
+  Bound result 6007500
+  Bound result 5689
+  Bound result 1000000000
+  Bound result 9090910
+  Bound result 6901
+  Bound result 3453
+  Bound result 863352139995
+  Bound result 1
+  Bound result 2
+  Bound result 2
+  Bound result 6015177967206
+  Bound result 12
+  Bound result 66443129323
+  Bound result 194695383884
+  Bound result 1694
+  Bound result 501838
+  Bound result 3799
+  Bound result 259200
+  Bound result 50000000
+  Bound result 3816479110855
+  Bound result 2067120
+  Bound result 259
+  proposeFees.ok 4
+  executeFees.ok 1
+  cancelFees.ok 3
+  proposeTreasury.ok 3
+  executeTreasury.ok 0
+  cancelTreasury.ok 3
+  setOverride.ok 13
+  setOverride.improvedActive 3
+  forward.ok 26
+  forward.discounted 3
+  unauthorizedCall 15
+  warp 31
+
+[PASS] invariant_UserGetsExactlyAmountMinusEffectiveFee() (runs: 2000, calls: 500000, reverts: 0)
+
+╭--------------------+------------------+-------+---------+----------╮
+| Contract           | Selector         | Calls | Reverts | Discards |
++====================================================================+
+| FeeTreasuryHandler | cancelFees       | 22737 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| FeeTreasuryHandler | cancelTreasury   | 22799 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| FeeTreasuryHandler | donate           | 22813 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| FeeTreasuryHandler | executeFees      | 45388 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| FeeTreasuryHandler | executeTreasury  | 45407 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| FeeTreasuryHandler | forward          | 68239 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| FeeTreasuryHandler | proposeFees      | 22559 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| FeeTreasuryHandler | proposeTreasury  | 22812 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| FeeTreasuryHandler | rescueUsdc       | 22928 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| FeeTreasuryHandler | setOverride      | 45356 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| FeeTreasuryHandler | setRoutingMode   | 22583 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| FeeTreasuryHandler | toggleFailure    | 22650 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| FeeTreasuryHandler | togglePause      | 22652 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| FeeTreasuryHandler | unauthorizedCall | 22691 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| FeeTreasuryHandler | warp             | 68386 | 0       | 0        |
+╰--------------------+------------------+-------+---------+----------╯
+
+Logs:
+  Bound result 2177
+  Bound result 14058
+  Bound result 415955172
+  Bound result 5730956245483
+  Bound result 7311448210329
+  Bound result 7
+  Bound result 22204
+  Bound result 3862952674581
+  Bound result 791112144
+  Bound result 1962
+  Bound result 100678023584
+  Bound result 17
+  Bound result 6043
+  Bound result 984533671829
+  Bound result 720
+  Bound result 10000
+  Bound result 14
+  Bound result 21959
+  Bound result 11681
+  Bound result 4
+  Bound result 8279943388659
+  Bound result 6995415921811
+  Bound result 1312856
+  Bound result 2598
+  Bound result 12883
+  Bound result 11569
+  Bound result 21
+  Bound result 9999999999998
+  Bound result 6279880085041
+  Bound result 20812
+  Bound result 2000
+  Bound result 724
+  Bound result 17553
+  Bound result 4290686348794
+  Bound result 6151
+  Bound result 3
+  Bound result 3432924248117
+  Bound result 5693434511
+  Bound result 8
+  Bound result 5406490839891
+  Bound result 6256240
+  Bound result 9161
+  Bound result 2820536407036
+  Bound result 2749840679468
+  Bound result 1147780867667
+  Bound result 2835717307
+  Bound result 7051840175667
+  Bound result 5184000
+  Bound result 3616035734
+  Bound result 6007500
+  Bound result 5689
+  Bound result 1000000000
+  Bound result 9090910
+  Bound result 6903
+  Bound result 3452
+  Bound result 863352139995
+  Bound result 1
+  Bound result 2
+  Bound result 2
+  Bound result 6015177967206
+  Bound result 12
+  Bound result 7933975
+  Bound result 194695383884
+  Bound result 1696
+  Bound result 3558677
+  Bound result 733
+  Bound result 259200
+  Bound result 50000000
+  Bound result 3816479110855
+  Bound result 2067120
+  Bound result 259
+  proposeFees.ok 4
+  executeFees.ok 1
+  cancelFees.ok 3
+  proposeTreasury.ok 3
+  executeTreasury.ok 1
+  cancelTreasury.ok 2
+  setOverride.ok 14
+  setOverride.improvedActive 3
+  forward.ok 28
+  forward.discounted 2
+  unauthorizedCall 15
+  warp 31
+
+[PASS] invariant_VaultUntouched() (runs: 2000, calls: 500000, reverts: 0)
+
+╭--------------------+------------------+-------+---------+----------╮
+| Contract           | Selector         | Calls | Reverts | Discards |
++====================================================================+
+| FeeTreasuryHandler | cancelFees       | 22737 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| FeeTreasuryHandler | cancelTreasury   | 22799 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| FeeTreasuryHandler | donate           | 22813 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| FeeTreasuryHandler | executeFees      | 45388 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| FeeTreasuryHandler | executeTreasury  | 45407 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| FeeTreasuryHandler | forward          | 68239 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| FeeTreasuryHandler | proposeFees      | 22559 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| FeeTreasuryHandler | proposeTreasury  | 22812 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| FeeTreasuryHandler | rescueUsdc       | 22928 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| FeeTreasuryHandler | setOverride      | 45356 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| FeeTreasuryHandler | setRoutingMode   | 22583 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| FeeTreasuryHandler | toggleFailure    | 22650 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| FeeTreasuryHandler | togglePause      | 22652 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| FeeTreasuryHandler | unauthorizedCall | 22691 | 0       | 0        |
+|--------------------+------------------+-------+---------+----------|
+| FeeTreasuryHandler | warp             | 68386 | 0       | 0        |
+╰--------------------+------------------+-------+---------+----------╯
+
+Logs:
+  Bound result 2179
+  Bound result 14057
+  Bound result 8752754206890
+  Bound result 5730956245483
+  Bound result 7311448210329
+  Bound result 7
+  Bound result 20276
+  Bound result 3862952674581
+  Bound result 21905
+  Bound result 1962
+  Bound result 100678023584
+  Bound result 17
+  Bound result 6136
+  Bound result 984533671829
+  Bound result 720
+  Bound result 10000
+  Bound result 14
+  Bound result 22012
+  Bound result 12015
+  Bound result 4
+  Bound result 8279943388659
+  Bound result 6995415921811
+  Bound result 1312856
+  Bound result 2598
+  Bound result 12934
+  Bound result 11602
+  Bound result 21
+  Bound result 9999999999998
+  Bound result 6279880085041
+  Bound result 5019
+  Bound result 2000
+  Bound result 3826
+  Bound result 17624
+  Bound result 4290686348794
+  Bound result 6283
+  Bound result 3
+  Bound result 3432924248117
+  Bound result 5693434511
+  Bound result 8
+  Bound result 5406490839891
+  Bound result 6256240
+  Bound result 9161
+  Bound result 2820536407036
+  Bound result 2749840679468
+  Bound result 1147780867667
+  Bound result 2835717306
+  Bound result 946
+  Bound result 5184000
+  Bound result 3616035734
+  Bound result 6007500
+  Bound result 5689
+  Bound result 1000000000
+  Bound result 9090910
+  Bound result 8922
+  Bound result 3772
+  Bound result 863352139995
+  Bound result 1
+  Bound result 2
+  Bound result 2
+  Bound result 6015177967206
+  Bound result 12
+  Bound result 758789422271
+  Bound result 194695383884
+  Bound result 1883
+  Bound result 1312856
+  Bound result 9485
+  Bound result 259200
+  Bound result 50000000
+  Bound result 3816479110855
+  Bound result 2067120
+  Bound result 259
+  proposeFees.ok 4
+  executeFees.ok 1
+  cancelFees.ok 3
+  proposeTreasury.ok 5
+  executeTreasury.ok 3
+  cancelTreasury.ok 2
+  setOverride.ok 15
+  setOverride.improvedActive 4
+  forward.ok 23
+  forward.discounted 5
+  unauthorizedCall 15
+  warp 31
+
+[PASS] test_HandlerReachesEverySuccessfulPath() (gas: 2330959)
+Logs:
+  Bound result 50000000
+  Bound result 2000000
+  Bound result 2000
+  Bound result 0
+  Bound result 1000000
+  Bound result 0
+  Bound result 1000000000
+  Bound result 1000000000
+  Bound result 5000000
+  Bound result 1000000000
+  Bound result 1000000000
+  Bound result 1000000000
+  Bound result 1000000000
+
+Suite result: ok. 17 passed; 0 failed; 0 skipped; finished in 2697.19s (20894.76s CPU time)
+
+Ran 1 test suite in 2697.21s (2697.19s CPU time): 17 tests passed, 0 failed, 0 skipped (17 total tests)
+
+real	45m18.317s
+user	105m15.995s
+sys	0m20.040s

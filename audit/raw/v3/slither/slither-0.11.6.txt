@@ -1,0 +1,99 @@
+0.11.6
+'forge clean' running (wd: /home/cmarchese/undr/yummy/ForwarderWithFeeTaken)
+'forge config --json' running
+'forge build --build-info --deny never --skip ./test/** ./script/** --force' running (wd: /home/cmarchese/undr/yummy/ForwarderWithFeeTaken)
+
+Detector: reentrancy-balance
+Reentrancy in Forwarder._vaultHealthCheck(IERC4626) (src/Forwarder.sol#699-715):
+	External call allowing reentrancy:
+	- candidate.deposit(VAULT_TEST_AMOUNT,address(this)) (src/Forwarder.sol#705)
+	Balance read before the call:
+	- sharesBefore = candidate.balanceOf(address(this)) (src/Forwarder.sol#704)
+	Possible stale balance used after the call in a condition:
+	- shares == 0 (src/Forwarder.sol#707)
+		- stale variable `shares`
+Reentrancy in Forwarder._vaultHealthCheck(IERC4626) (src/Forwarder.sol#699-715):
+	External call allowing reentrancy:
+	- candidate.redeem(shares,address(this),address(this)) (src/Forwarder.sol#710)
+	Balance read before the call:
+	- usdcBeforeRedeem = USDC.balanceOf(address(this)) (src/Forwarder.sol#709)
+	Possible stale balance used after the call in a condition:
+	- assets == 0 (src/Forwarder.sol#712)
+		- stale variable `assets`
+Reference: https://github.com/crytic/slither/wiki/Detector-Documentation#reentrancy-vulnerabilities
+
+Detector: incorrect-equality
+Forwarder._deliverToTreasury(Forwarder.RoutingMode,IERC4626,address) (src/Forwarder.sol#647-665) uses a dangerous strict equality:
+	- balance == 0 (src/Forwarder.sol#649)
+Forwarder._vaultHealthCheck(IERC4626) (src/Forwarder.sol#699-715) uses a dangerous strict equality:
+	- shares == 0 (src/Forwarder.sol#707)
+Forwarder._vaultHealthCheck(IERC4626) (src/Forwarder.sol#699-715) uses a dangerous strict equality:
+	- assets == 0 (src/Forwarder.sol#712)
+Reference: https://github.com/crytic/slither/wiki/Detector-Documentation#dangerous-strict-equalities
+
+Detector: reentrancy-no-eth
+Reentrancy in Forwarder._setVault(IERC4626) (src/Forwarder.sol#673-684):
+	External calls:
+	- (shares,assets) = _vaultHealthCheck(newVault) (src/Forwarder.sol#679)
+		- candidate.deposit(VAULT_TEST_AMOUNT,address(this)) (src/Forwarder.sol#705)
+		- candidate.redeem(shares,address(this),address(this)) (src/Forwarder.sol#710)
+	State variables written after the call(s):
+	- vault = newVault (src/Forwarder.sol#681)
+	Forwarder.vault (src/Forwarder.sol#113) can be used in cross function reentrancies:
+	- Forwarder._setRoutingMode(Forwarder.RoutingMode) (src/Forwarder.sol#717-728)
+	- Forwarder._setVault(IERC4626) (src/Forwarder.sol#673-684)
+	- Forwarder.vault (src/Forwarder.sol#113)
+Reference: https://github.com/crytic/slither/wiki/Detector-Documentation#reentrancy-vulnerabilities-2
+
+Detector: uninitialized-local
+Forwarder.forward(address,uint256,address).userVaultDeposit (src/Forwarder.sol#328) is a local variable never initialized
+Forwarder.forward(address,uint256,address).userShares (src/Forwarder.sol#329) is a local variable never initialized
+Reference: https://github.com/crytic/slither/wiki/Detector-Documentation#uninitialized-local-variables
+
+Detector: unused-return
+Forwarder._vaultHealthCheck(IERC4626) (src/Forwarder.sol#699-715) ignores return value by candidate.deposit(VAULT_TEST_AMOUNT,address(this)) (src/Forwarder.sol#705)
+Forwarder._vaultHealthCheck(IERC4626) (src/Forwarder.sol#699-715) ignores return value by candidate.redeem(shares,address(this),address(this)) (src/Forwarder.sol#710)
+Reference: https://github.com/crytic/slither/wiki/Detector-Documentation#unused-return
+
+Detector: reentrancy-events
+Reentrancy in Forwarder._setVault(IERC4626) (src/Forwarder.sol#673-684):
+	External calls:
+	- (shares,assets) = _vaultHealthCheck(newVault) (src/Forwarder.sol#679)
+		- candidate.deposit(VAULT_TEST_AMOUNT,address(this)) (src/Forwarder.sol#705)
+		- candidate.redeem(shares,address(this),address(this)) (src/Forwarder.sol#710)
+	Event emitted after the call(s):
+	- VaultUpdated(address(previousVault),address(newVault),shares,assets) (src/Forwarder.sol#683)
+Reference: https://github.com/crytic/slither/wiki/Detector-Documentation#reentrancy-vulnerabilities-4
+
+Detector: timestamp
+Forwarder.calculateFeeFor(address,uint256) (src/Forwarder.sol#370-383) uses timestamp for comparisons
+	Dangerous comparisons:
+	- block.timestamp >= feeOverride.validUntil (src/Forwarder.sol#372)
+Forwarder.executeFeeConfigChange() (src/Forwarder.sol#443-450) uses timestamp for comparisons
+	Dangerous comparisons:
+	- block.timestamp < config.executableAt (src/Forwarder.sol#446)
+Forwarder.setUserFeeOverride(address,uint256,uint256,uint256) (src/Forwarder.sol#474-499) uses timestamp for comparisons
+	Dangerous comparisons:
+	- validUntil <= block.timestamp (src/Forwarder.sol#481)
+	- block.timestamp < feeOverride.validUntil && (overrideFixedFee > feeOverride.fixedFee || overrideVariableFee > feeOverride.variableFee || validUntil < feeOverride.validUntil) (src/Forwarder.sol#487-490)
+Forwarder.executeTreasuryChange() (src/Forwarder.sol#537-546) uses timestamp for comparisons
+	Dangerous comparisons:
+	- block.timestamp < executableAt (src/Forwarder.sol#541)
+Forwarder.executeVaultChange() (src/Forwarder.sol#591-600) uses timestamp for comparisons
+	Dangerous comparisons:
+	- block.timestamp < executableAt (src/Forwarder.sol#595)
+Reference: https://github.com/crytic/slither/wiki/Detector-Documentation#block-timestamp
+
+Detector: low-level-calls
+Low level call in Forwarder._deliverToTreasury(Forwarder.RoutingMode,IERC4626,address) (src/Forwarder.sol#647-665):
+	- (success,returnData) = address(currentVault).call(abi.encodeCall(IERC4626.deposit,(balance,currentTreasury))) (src/Forwarder.sol#652-653)
+Reference: https://github.com/crytic/slither/wiki/Detector-Documentation#low-level-calls
+
+Detector: naming-convention
+Variable Forwarder.USDC (src/Forwarder.sol#107) is not in mixedCase
+Reference: https://github.com/crytic/slither/wiki/Detector-Documentation#conformance-to-solidity-naming-conventions
+
+Detector: unindexed-event-address
+Event Forwarder.FeeConfigChangeProposed(Forwarder.FeeModel,Forwarder.FeeModel,uint256,uint256,uint256,uint256,address) (src/Forwarder.sol#214-222) has address parameters but no indexed parameters
+Reference: https://github.com/crytic/slither/wiki/Detector-Documentation#unindexed-event-address-parameters
+. analyzed (23 contracts with 102 detectors), 19 result(s) found

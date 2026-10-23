@@ -1,0 +1,68 @@
+0.10.4
+'forge clean' running (wd: /home/cmarchese/undr/yummy/ForwarderWithFeeTaken)
+'forge config --json' running
+'forge build --build-info --skip */test/** */script/** --force' running (wd: /home/cmarchese/undr/yummy/ForwarderWithFeeTaken)
+
+Forwarder._deliverToTreasury(Forwarder.RoutingMode,IERC4626,address) (src/Forwarder.sol#647-665) uses a dangerous strict equality:
+	- balance == 0 (src/Forwarder.sol#649)
+Forwarder._vaultHealthCheck(IERC4626) (src/Forwarder.sol#699-715) uses a dangerous strict equality:
+	- shares == 0 (src/Forwarder.sol#707)
+Forwarder._vaultHealthCheck(IERC4626) (src/Forwarder.sol#699-715) uses a dangerous strict equality:
+	- assets == 0 (src/Forwarder.sol#712)
+Reference: https://github.com/crytic/slither/wiki/Detector-Documentation#dangerous-strict-equalities
+
+Reentrancy in Forwarder._setVault(IERC4626) (src/Forwarder.sol#673-684):
+	External calls:
+	- (shares,assets) = _vaultHealthCheck(newVault) (src/Forwarder.sol#679)
+		- candidate.deposit(VAULT_TEST_AMOUNT,address(this)) (src/Forwarder.sol#705)
+		- candidate.redeem(shares,address(this),address(this)) (src/Forwarder.sol#710)
+	State variables written after the call(s):
+	- vault = newVault (src/Forwarder.sol#681)
+	Forwarder.vault (src/Forwarder.sol#113) can be used in cross function reentrancies:
+	- Forwarder._setRoutingMode(Forwarder.RoutingMode) (src/Forwarder.sol#717-728)
+	- Forwarder._setVault(IERC4626) (src/Forwarder.sol#673-684)
+	- Forwarder.vault (src/Forwarder.sol#113)
+Reference: https://github.com/crytic/slither/wiki/Detector-Documentation#reentrancy-vulnerabilities-1
+
+Forwarder.forward(address,uint256,address).userShares (src/Forwarder.sol#329) is a local variable never initialized
+Forwarder.forward(address,uint256,address).userVaultDeposit (src/Forwarder.sol#328) is a local variable never initialized
+Reference: https://github.com/crytic/slither/wiki/Detector-Documentation#uninitialized-local-variables
+
+Forwarder._vaultHealthCheck(IERC4626) (src/Forwarder.sol#699-715) ignores return value by candidate.deposit(VAULT_TEST_AMOUNT,address(this)) (src/Forwarder.sol#705)
+Forwarder._vaultHealthCheck(IERC4626) (src/Forwarder.sol#699-715) ignores return value by candidate.redeem(shares,address(this),address(this)) (src/Forwarder.sol#710)
+Reference: https://github.com/crytic/slither/wiki/Detector-Documentation#unused-return
+
+Reentrancy in Forwarder._setVault(IERC4626) (src/Forwarder.sol#673-684):
+	External calls:
+	- (shares,assets) = _vaultHealthCheck(newVault) (src/Forwarder.sol#679)
+		- candidate.deposit(VAULT_TEST_AMOUNT,address(this)) (src/Forwarder.sol#705)
+		- candidate.redeem(shares,address(this),address(this)) (src/Forwarder.sol#710)
+	Event emitted after the call(s):
+	- VaultUpdated(address(previousVault),address(newVault),shares,assets) (src/Forwarder.sol#683)
+Reference: https://github.com/crytic/slither/wiki/Detector-Documentation#reentrancy-vulnerabilities-3
+
+Forwarder.calculateFeeFor(address,uint256) (src/Forwarder.sol#370-383) uses timestamp for comparisons
+	Dangerous comparisons:
+	- block.timestamp >= feeOverride.validUntil (src/Forwarder.sol#372)
+Forwarder.executeFeeConfigChange() (src/Forwarder.sol#443-450) uses timestamp for comparisons
+	Dangerous comparisons:
+	- block.timestamp < config.executableAt (src/Forwarder.sol#446)
+Forwarder.setUserFeeOverride(address,uint256,uint256,uint256) (src/Forwarder.sol#474-499) uses timestamp for comparisons
+	Dangerous comparisons:
+	- validUntil <= block.timestamp (src/Forwarder.sol#481)
+	- block.timestamp < feeOverride.validUntil && (overrideFixedFee > feeOverride.fixedFee || overrideVariableFee > feeOverride.variableFee || validUntil < feeOverride.validUntil) (src/Forwarder.sol#487-490)
+Forwarder.executeTreasuryChange() (src/Forwarder.sol#537-546) uses timestamp for comparisons
+	Dangerous comparisons:
+	- block.timestamp < executableAt (src/Forwarder.sol#541)
+Forwarder.executeVaultChange() (src/Forwarder.sol#591-600) uses timestamp for comparisons
+	Dangerous comparisons:
+	- block.timestamp < executableAt (src/Forwarder.sol#595)
+Reference: https://github.com/crytic/slither/wiki/Detector-Documentation#block-timestamp
+
+Low level call in Forwarder._deliverToTreasury(Forwarder.RoutingMode,IERC4626,address) (src/Forwarder.sol#647-665):
+	- (success,returnData) = address(currentVault).call(abi.encodeCall(IERC4626.deposit,(balance,currentTreasury))) (src/Forwarder.sol#652-653)
+Reference: https://github.com/crytic/slither/wiki/Detector-Documentation#low-level-calls
+
+Variable Forwarder.USDC (src/Forwarder.sol#107) is not in mixedCase
+Reference: https://github.com/crytic/slither/wiki/Detector-Documentation#conformance-to-solidity-naming-conventions
+. analyzed (23 contracts with 93 detectors), 16 result(s) found

@@ -1,0 +1,54 @@
+== commit 87f0b70 / src sha256 22aeb8e536cabe68d5ba3005decb1f43179d38ffc261b032a14085432ffd3d6b (deployed source)
+== FOUNDRY_PROFILE=deep forge test --no-match-contract "Fork|Invariant" --match-test testFuzz   (50,000 runs per fuzz test, seed 0x4c756361)
+No files changed, compilation skipped
+
+Ran 13 tests for test/ForwarderFuzz.t.sol:ForwarderFuzzTest
+[PASS] testFuzz_AnyValidRecipient(address,uint256) (runs: 50000, μ: 127012, ~: 127540)
+[PASS] testFuzz_CalculateFeeMatchesSpecification((uint8,uint8,uint256,uint256,uint256,bool),uint256) (runs: 50000, μ: 170925, ~: 173476)
+[PASS] testFuzz_CalculateFeeNeverRevertsForRealisticAmounts((uint8,uint8,uint256,uint256,uint256,bool),uint256) (runs: 50000, μ: 170392, ~: 172730)
+[PASS] testFuzz_FeeAboveThresholdUsesFullAmount(uint256,uint256,uint256) (runs: 50000, μ: 139033, ~: 139595)
+[PASS] testFuzz_FeeIsBoundedByCaps((uint8,uint8,uint256,uint256,uint256,bool),uint256) (runs: 50000, μ: 170662, ~: 173092)
+[PASS] testFuzz_FeeProposalBounds(uint256,uint256) (runs: 50000, μ: 45983, ~: 34245)
+[PASS] testFuzz_ForwardAccounting((uint8,uint8,uint256,uint256,uint256,bool),uint256,uint8,uint256,bool,bool) (runs: 50000, μ: 382779, ~: 386038)
+[PASS] testFuzz_HealthCheckAcceptsAnyPositiveReturn(uint256) (runs: 50000, μ: 1594565, ~: 1598724)
+[PASS] testFuzz_PausedFeeIsZero((uint8,uint8,uint256,uint256,uint256,bool),uint256) (runs: 50000, μ: 171831, ~: 175677)
+[PASS] testFuzz_RescueSendsEverythingToTreasury(uint256,uint256) (runs: 50000, μ: 574442, ~: 575187)
+[PASS] testFuzz_RevertWhen_TokenIsNotUsdc(address,uint256) (runs: 50000, μ: 14326, ~: 14326)
+[PASS] testFuzz_RoutingSequenceAllowance(uint8[8]) (runs: 50000, μ: 128381, ~: 127067)
+[PASS] testFuzz_UnprivilegedCallerCannotConfigure(address,uint8,uint256) (runs: 50000, μ: 1714838, ~: 1714496)
+Suite result: ok. 13 passed; 0 failed; 0 skipped; finished in 240.62s (608.67s CPU time)
+
+Ran 13 tests for test/ForwarderV3Fuzz.t.sol:ForwarderV3FuzzTest
+[PASS] testFuzz_AccessControlOfTheNewFunctions(address,uint8) (runs: 50000, μ: 169643, ~: 175242)
+[PASS] testFuzz_ActiveOverrideNeverExceedsTheGlobalFee((uint8,uint8,uint256,uint256,uint256),(uint8,uint8,uint256,uint256,uint256),uint256,uint256,uint256,bool) (runs: 50000, μ: 323904, ~: 330460)
+[PASS] testFuzz_CancellationsKeepTheActiveConfiguration(uint8,uint256,(uint8,uint8,uint256,uint256,uint256)) (runs: 50000, μ: 251624, ~: 254831)
+[PASS] testFuzz_ExecutableAtBoundariesAtAnyTime(uint256) (runs: 50000, μ: 160267, ~: 160047)
+[PASS] testFuzz_ExpiredOverrideIsTheGlobalFee((uint8,uint8,uint256,uint256,uint256),uint256,uint256,uint256,uint256,uint256) (runs: 50000, μ: 226732, ~: 232877)
+[PASS] testFuzz_FeeConfigChangesOnlyAfterTheDelay((uint8,uint8,uint256,uint256,uint256),(uint8,uint8,uint256,uint256,uint256),uint256) (runs: 50000, μ: 253938, ~: 259745)
+[PASS] testFuzz_FeeLifecycleStateMachine(uint256[16]) (runs: 50001, μ: 323685, ~: 310536)
+[PASS] testFuzz_ForwardAccountingWithTheEffectiveFee((uint8,uint8,uint256,uint256,uint256),uint256,uint256,uint256,uint256,uint256,uint8,bool,bool) (runs: 50000, μ: 384157, ~: 386847)
+[PASS] testFuzz_OverrideLifecycleWithGlobalChanges(uint256[12],uint256) (runs: 50001, μ: 749897, ~: 729776)
+[PASS] testFuzz_OverrideUpdateRule(uint256,uint256,uint256,uint256,uint256,uint256,uint256) (runs: 50000, μ: 202895, ~: 203168)
+[PASS] testFuzz_TreasuryChangesOnlyAfterTheDelay(address,uint256) (runs: 50000, μ: 67183, ~: 72843)
+[PASS] testFuzz_TreasuryLifecycleStateMachine(uint256[16]) (runs: 50000, μ: 584817, ~: 575323)
+[PASS] testFuzz_WithoutOverrideTheFeeIsTheGlobalFee((uint8,uint8,uint256,uint256,uint256),address,uint256) (runs: 50000, μ: 167258, ~: 171725)
+Suite result: ok. 13 passed; 0 failed; 0 skipped; finished in 423.56s (1484.10s CPU time)
+
+Ran 10 tests for test/ForwarderVaultChangeFuzz.t.sol:ForwarderVaultChangeFuzzTest
+[PASS] testFuzz_CancelAuthorization(address,bool,bool,uint256) (runs: 50000, μ: 327555, ~: 329057)
+[PASS] testFuzz_DelayBoundary(uint256,uint256) (runs: 50000, μ: 397007, ~: 323550)
+[PASS] testFuzz_DelayBoundaryNeighbourhood(uint256,uint256) (runs: 50000, μ: 390062, ~: 323530)
+[PASS] testFuzz_ExecutableAtCannotOverflow(uint256) (runs: 50000, μ: 104377, ~: 104421)
+[PASS] testFuzz_ExecutableAtIsProposalTimePlusDelay(uint256) (runs: 50000, μ: 291014, ~: 291017)
+[PASS] testFuzz_FailedSecondHealthCheckKeepsPending(uint8,uint256,uint8) (runs: 50000, μ: 599986, ~: 586448)
+[PASS] testFuzz_GuardianChangesKeepTheDelay(uint8[10],uint256) (runs: 50000, μ: 572294, ~: 571419)
+[PASS] testFuzz_LifecycleStateMachine(uint256[32]) (runs: 50000, μ: 4385753, ~: 4369346)
+[PASS] testFuzz_OnlyAdminProposesOrExecutes(address,bool,bool) (runs: 50000, μ: 372857, ~: 372809)
+[PASS] testFuzz_RoutingWhilePending(uint8,uint8[6]) (runs: 50000, μ: 570391, ~: 573744)
+Suite result: ok. 10 passed; 0 failed; 0 skipped; finished in 563.94s (1729.13s CPU time)
+
+Ran 3 test suites in 563.94s (1228.12s CPU time): 36 tests passed, 0 failed, 0 skipped (36 total tests)
+
+real	9m24.331s
+user	36m7.995s
+sys	0m17.057s

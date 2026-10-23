@@ -1,0 +1,573 @@
+'forge clean' running (wd: /home/cmarchese/undr/yummy/ForwarderWithFeeTaken)
+'forge config --json' running
+'forge build --build-info --deny never --skip ./test/** ./script/** --force' running (wd: /home/cmarchese/undr/yummy/ForwarderWithFeeTaken)
+INFO:Printers:
+Contract AccessControl
++-------------------------------------+-------------------------+--------------------------+
+| Function                            | State variables written | Conditions on msg.sender |
++-------------------------------------+-------------------------+--------------------------+
+| supportsInterface                   | []                      | []                       |
+| supportsInterface                   | []                      | []                       |
+| hasRole                             | []                      | []                       |
+| getRoleAdmin                        | []                      | []                       |
+| grantRole                           | []                      | []                       |
+| revokeRole                          | []                      | []                       |
+| renounceRole                        | []                      | []                       |
+| _msgSender                          | []                      | []                       |
+| _msgData                            | []                      | []                       |
+| _contextSuffixLength                | []                      | []                       |
+| supportsInterface                   | []                      | []                       |
+| hasRole                             | []                      | []                       |
+| _checkRole                          | []                      | []                       |
+| _checkRole                          | []                      | []                       |
+| getRoleAdmin                        | []                      | []                       |
+| grantRole                           | ['_roles']              | []                       |
+| revokeRole                          | ['_roles']              | []                       |
+| renounceRole                        | ['_roles']              | []                       |
+| _setRoleAdmin                       | ['_roles']              | []                       |
+| _grantRole                          | ['_roles']              | []                       |
+| _revokeRole                         | ['_roles']              | []                       |
+| slitherConstructorConstantVariables | ['DEFAULT_ADMIN_ROLE']  | []                       |
++-------------------------------------+-------------------------+--------------------------+
+
+Contract IAccessControl
++--------------+-------------------------+--------------------------+
+| Function     | State variables written | Conditions on msg.sender |
++--------------+-------------------------+--------------------------+
+| hasRole      | []                      | []                       |
+| getRoleAdmin | []                      | []                       |
+| grantRole    | []                      | []                       |
+| revokeRole   | []                      | []                       |
+| renounceRole | []                      | []                       |
++--------------+-------------------------+--------------------------+
+
+Contract AccessControlDefaultAdminRules
++-------------------------------------+--------------------------------------------------------------------------------------------+--------------------------+
+| Function                            | State variables written                                                                    | Conditions on msg.sender |
++-------------------------------------+--------------------------------------------------------------------------------------------+--------------------------+
+| supportsInterface                   | []                                                                                         | []                       |
+| hasRole                             | []                                                                                         | []                       |
+| _checkRole                          | []                                                                                         | []                       |
+| _checkRole                          | []                                                                                         | []                       |
+| getRoleAdmin                        | []                                                                                         | []                       |
+| grantRole                           | ['_currentDefaultAdmin', '_roles']                                                         | []                       |
+| revokeRole                          | ['_currentDefaultAdmin', '_roles']                                                         | []                       |
+| renounceRole                        | ['_currentDefaultAdmin', '_roles']                                                         | []                       |
+| _setRoleAdmin                       | ['_roles']                                                                                 | []                       |
+| _grantRole                          | ['_roles']                                                                                 | []                       |
+| _revokeRole                         | ['_roles']                                                                                 | []                       |
+| supportsInterface                   | []                                                                                         | []                       |
+| supportsInterface                   | []                                                                                         | []                       |
+| hasRole                             | []                                                                                         | []                       |
+| getRoleAdmin                        | []                                                                                         | []                       |
+| grantRole                           | []                                                                                         | []                       |
+| revokeRole                          | []                                                                                         | []                       |
+| renounceRole                        | []                                                                                         | []                       |
+| _msgSender                          | []                                                                                         | []                       |
+| _msgData                            | []                                                                                         | []                       |
+| _contextSuffixLength                | []                                                                                         | []                       |
+| owner                               | []                                                                                         | []                       |
+| defaultAdmin                        | []                                                                                         | []                       |
+| pendingDefaultAdmin                 | []                                                                                         | []                       |
+| defaultAdminDelay                   | []                                                                                         | []                       |
+| pendingDefaultAdminDelay            | []                                                                                         | []                       |
+| beginDefaultAdminTransfer           | []                                                                                         | []                       |
+| cancelDefaultAdminTransfer          | []                                                                                         | []                       |
+| acceptDefaultAdminTransfer          | []                                                                                         | []                       |
+| changeDefaultAdminDelay             | []                                                                                         | []                       |
+| rollbackDefaultAdminDelay           | []                                                                                         | []                       |
+| defaultAdminDelayIncreaseWait       | []                                                                                         | []                       |
+| constructor                         | ['_currentDefaultAdmin', '_currentDelay', '_roles']                                        | []                       |
+| supportsInterface                   | []                                                                                         | []                       |
+| owner                               | []                                                                                         | []                       |
+| grantRole                           | ['_roles']                                                                                 | []                       |
+| revokeRole                          | ['_roles']                                                                                 | []                       |
+| renounceRole                        | ['_pendingDefaultAdminSchedule', '_roles']                                                 | []                       |
+| _grantRole                          | ['_currentDefaultAdmin', '_roles']                                                         | []                       |
+| _revokeRole                         | ['_currentDefaultAdmin', '_roles']                                                         | []                       |
+| _setRoleAdmin                       | ['_roles']                                                                                 | []                       |
+| defaultAdmin                        | []                                                                                         | []                       |
+| pendingDefaultAdmin                 | []                                                                                         | []                       |
+| defaultAdminDelay                   | []                                                                                         | []                       |
+| pendingDefaultAdminDelay            | []                                                                                         | []                       |
+| defaultAdminDelayIncreaseWait       | []                                                                                         | []                       |
+| beginDefaultAdminTransfer           | ['_pendingDefaultAdmin', '_pendingDefaultAdminSchedule']                                   | []                       |
+| _beginDefaultAdminTransfer          | ['_pendingDefaultAdmin', '_pendingDefaultAdminSchedule']                                   | []                       |
+| cancelDefaultAdminTransfer          | ['_pendingDefaultAdmin', '_pendingDefaultAdminSchedule']                                   | []                       |
+| _cancelDefaultAdminTransfer         | ['_pendingDefaultAdmin', '_pendingDefaultAdminSchedule']                                   | []                       |
+| acceptDefaultAdminTransfer          | ['_currentDefaultAdmin', '_pendingDefaultAdmin', '_pendingDefaultAdminSchedule', '_roles'] | []                       |
+| _acceptDefaultAdminTransfer         | ['_currentDefaultAdmin', '_pendingDefaultAdmin', '_pendingDefaultAdminSchedule', '_roles'] | []                       |
+| changeDefaultAdminDelay             | ['_currentDelay', '_pendingDelay', '_pendingDelaySchedule']                                | []                       |
+| _changeDefaultAdminDelay            | ['_currentDelay', '_pendingDelay', '_pendingDelaySchedule']                                | []                       |
+| rollbackDefaultAdminDelay           | ['_currentDelay', '_pendingDelay', '_pendingDelaySchedule']                                | []                       |
+| _rollbackDefaultAdminDelay          | ['_currentDelay', '_pendingDelay', '_pendingDelaySchedule']                                | []                       |
+| _delayChangeWait                    | []                                                                                         | []                       |
+| _setPendingDefaultAdmin             | ['_pendingDefaultAdmin', '_pendingDefaultAdminSchedule']                                   | []                       |
+| _setPendingDelay                    | ['_currentDelay', '_pendingDelay', '_pendingDelaySchedule']                                | []                       |
+| _isScheduleSet                      | []                                                                                         | []                       |
+| _hasSchedulePassed                  | []                                                                                         | []                       |
+| slitherConstructorConstantVariables | ['DEFAULT_ADMIN_ROLE']                                                                     | []                       |
++-------------------------------------+--------------------------------------------------------------------------------------------+--------------------------+
+
+Contract IAccessControlDefaultAdminRules
++-------------------------------+-------------------------+--------------------------+
+| Function                      | State variables written | Conditions on msg.sender |
++-------------------------------+-------------------------+--------------------------+
+| hasRole                       | []                      | []                       |
+| getRoleAdmin                  | []                      | []                       |
+| grantRole                     | []                      | []                       |
+| revokeRole                    | []                      | []                       |
+| renounceRole                  | []                      | []                       |
+| defaultAdmin                  | []                      | []                       |
+| pendingDefaultAdmin           | []                      | []                       |
+| defaultAdminDelay             | []                      | []                       |
+| pendingDefaultAdminDelay      | []                      | []                       |
+| beginDefaultAdminTransfer     | []                      | []                       |
+| cancelDefaultAdminTransfer    | []                      | []                       |
+| acceptDefaultAdminTransfer    | []                      | []                       |
+| changeDefaultAdminDelay       | []                      | []                       |
+| rollbackDefaultAdminDelay     | []                      | []                       |
+| defaultAdminDelayIncreaseWait | []                      | []                       |
++-------------------------------+-------------------------+--------------------------+
+
+Contract IERC1363
++---------------------+-------------------------+--------------------------+
+| Function            | State variables written | Conditions on msg.sender |
++---------------------+-------------------------+--------------------------+
+| supportsInterface   | []                      | []                       |
+| totalSupply         | []                      | []                       |
+| balanceOf           | []                      | []                       |
+| transfer            | []                      | []                       |
+| allowance           | []                      | []                       |
+| approve             | []                      | []                       |
+| transferFrom        | []                      | []                       |
+| transferAndCall     | []                      | []                       |
+| transferAndCall     | []                      | []                       |
+| transferFromAndCall | []                      | []                       |
+| transferFromAndCall | []                      | []                       |
+| approveAndCall      | []                      | []                       |
+| approveAndCall      | []                      | []                       |
++---------------------+-------------------------+--------------------------+
+
+Contract IERC4626
++-----------------+-------------------------+--------------------------+
+| Function        | State variables written | Conditions on msg.sender |
++-----------------+-------------------------+--------------------------+
+| name            | []                      | []                       |
+| symbol          | []                      | []                       |
+| decimals        | []                      | []                       |
+| totalSupply     | []                      | []                       |
+| balanceOf       | []                      | []                       |
+| transfer        | []                      | []                       |
+| allowance       | []                      | []                       |
+| approve         | []                      | []                       |
+| transferFrom    | []                      | []                       |
+| asset           | []                      | []                       |
+| totalAssets     | []                      | []                       |
+| convertToShares | []                      | []                       |
+| convertToAssets | []                      | []                       |
+| maxDeposit      | []                      | []                       |
+| previewDeposit  | []                      | []                       |
+| deposit         | []                      | []                       |
+| maxMint         | []                      | []                       |
+| previewMint     | []                      | []                       |
+| mint            | []                      | []                       |
+| maxWithdraw     | []                      | []                       |
+| previewWithdraw | []                      | []                       |
+| withdraw        | []                      | []                       |
+| maxRedeem       | []                      | []                       |
+| previewRedeem   | []                      | []                       |
+| redeem          | []                      | []                       |
++-----------------+-------------------------+--------------------------+
+
+Contract IERC5313
++----------+-------------------------+--------------------------+
+| Function | State variables written | Conditions on msg.sender |
++----------+-------------------------+--------------------------+
+| owner    | []                      | []                       |
++----------+-------------------------+--------------------------+
+
+Contract IERC20
++--------------+-------------------------+--------------------------+
+| Function     | State variables written | Conditions on msg.sender |
++--------------+-------------------------+--------------------------+
+| totalSupply  | []                      | []                       |
+| balanceOf    | []                      | []                       |
+| transfer     | []                      | []                       |
+| allowance    | []                      | []                       |
+| approve      | []                      | []                       |
+| transferFrom | []                      | []                       |
++--------------+-------------------------+--------------------------+
+
+Contract IERC20Metadata
++--------------+-------------------------+--------------------------+
+| Function     | State variables written | Conditions on msg.sender |
++--------------+-------------------------+--------------------------+
+| totalSupply  | []                      | []                       |
+| balanceOf    | []                      | []                       |
+| transfer     | []                      | []                       |
+| allowance    | []                      | []                       |
+| approve      | []                      | []                       |
+| transferFrom | []                      | []                       |
+| name         | []                      | []                       |
+| symbol       | []                      | []                       |
+| decimals     | []                      | []                       |
++--------------+-------------------------+--------------------------+
+
+Contract SafeERC20
++----------------------------+-------------------------+--------------------------+
+| Function                   | State variables written | Conditions on msg.sender |
++----------------------------+-------------------------+--------------------------+
+| safeTransfer               | []                      | []                       |
+| safeTransferFrom           | []                      | []                       |
+| trySafeTransfer            | []                      | []                       |
+| trySafeTransferFrom        | []                      | []                       |
+| safeIncreaseAllowance      | []                      | []                       |
+| safeDecreaseAllowance      | []                      | []                       |
+| forceApprove               | []                      | []                       |
+| transferAndCallRelaxed     | []                      | []                       |
+| transferFromAndCallRelaxed | []                      | []                       |
+| approveAndCallRelaxed      | []                      | []                       |
+| tryGetDecimals             | []                      | []                       |
+| _safeTransfer              | []                      | []                       |
+| _safeTransferFrom          | []                      | []                       |
+| _safeApprove               | []                      | []                       |
++----------------------------+-------------------------+--------------------------+
+
+Contract Address
++----------------------------+-------------------------+--------------------------+
+| Function                   | State variables written | Conditions on msg.sender |
++----------------------------+-------------------------+--------------------------+
+| sendValue                  | []                      | []                       |
+| functionCall               | []                      | []                       |
+| functionCallWithValue      | []                      | []                       |
+| functionStaticCall         | []                      | []                       |
+| functionDelegateCall       | []                      | []                       |
+| verifyCallResultFromTarget | []                      | []                       |
+| verifyCallResult           | []                      | []                       |
++----------------------------+-------------------------+--------------------------+
+
+Contract Context
++----------------------+-------------------------+--------------------------+
+| Function             | State variables written | Conditions on msg.sender |
++----------------------+-------------------------+--------------------------+
+| _msgSender           | []                      | []                       |
+| _msgData             | []                      | []                       |
+| _contextSuffixLength | []                      | []                       |
++----------------------+-------------------------+--------------------------+
+
+Contract Errors
++----------+-------------------------+--------------------------+
+| Function | State variables written | Conditions on msg.sender |
++----------+-------------------------+--------------------------+
++----------+-------------------------+--------------------------+
+
+Contract LowLevelCall
++---------------------------+-------------------------+--------------------------+
+| Function                  | State variables written | Conditions on msg.sender |
++---------------------------+-------------------------+--------------------------+
+| callNoReturn              | []                      | []                       |
+| callNoReturn              | []                      | []                       |
+| callReturn64Bytes         | []                      | []                       |
+| callReturn64Bytes         | []                      | []                       |
+| staticcallNoReturn        | []                      | []                       |
+| staticcallReturn64Bytes   | []                      | []                       |
+| delegatecallNoReturn      | []                      | []                       |
+| delegatecallReturn64Bytes | []                      | []                       |
+| returnDataSize            | []                      | []                       |
+| returnData                | []                      | []                       |
+| bubbleRevert              | []                      | []                       |
+| bubbleRevert              | []                      | []                       |
++---------------------------+-------------------------+--------------------------+
+
+Contract Panic
++-------------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+--------------------------+
+| Function                            | State variables written                                                                                                                                                                                 | Conditions on msg.sender |
++-------------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+--------------------------+
+| panic                               | []                                                                                                                                                                                                      | []                       |
+| slitherConstructorConstantVariables | ['ARRAY_OUT_OF_BOUNDS', 'ASSERT', 'DIVISION_BY_ZERO', 'EMPTY_ARRAY_POP', 'ENUM_CONVERSION_ERROR', 'GENERIC', 'INVALID_INTERNAL_FUNCTION', 'RESOURCE_ERROR', 'STORAGE_ENCODING_ERROR', 'UNDER_OVERFLOW'] | []                       |
++-------------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+--------------------------+
+
+Contract Pausable
++----------------------+-------------------------+--------------------------+
+| Function             | State variables written | Conditions on msg.sender |
++----------------------+-------------------------+--------------------------+
+| _msgSender           | []                      | []                       |
+| _msgData             | []                      | []                       |
+| _contextSuffixLength | []                      | []                       |
+| paused               | []                      | []                       |
+| _requireNotPaused    | []                      | []                       |
+| _requirePaused       | []                      | []                       |
+| _pause               | ['_paused']             | []                       |
+| _unpause             | ['_paused']             | []                       |
++----------------------+-------------------------+--------------------------+
+
+Contract ReentrancyGuardTransient
++-------------------------------------+------------------------------+--------------------------+
+| Function                            | State variables written      | Conditions on msg.sender |
++-------------------------------------+------------------------------+--------------------------+
+| _nonReentrantBeforeView             | []                           | []                       |
+| _nonReentrantBefore                 | []                           | []                       |
+| _nonReentrantAfter                  | []                           | []                       |
+| _reentrancyGuardEntered             | []                           | []                       |
+| _reentrancyGuardStorageSlot         | []                           | []                       |
+| slitherConstructorConstantVariables | ['REENTRANCY_GUARD_STORAGE'] | []                       |
++-------------------------------------+------------------------------+--------------------------+
+
+Contract TransientSlot
++-----------+-------------------------+--------------------------+
+| Function  | State variables written | Conditions on msg.sender |
++-----------+-------------------------+--------------------------+
+| asAddress | []                      | []                       |
+| asBoolean | []                      | []                       |
+| asBytes32 | []                      | []                       |
+| asUint256 | []                      | []                       |
+| asInt256  | []                      | []                       |
+| tload     | []                      | []                       |
+| tstore    | []                      | []                       |
+| tload     | []                      | []                       |
+| tstore    | []                      | []                       |
+| tload     | []                      | []                       |
+| tstore    | []                      | []                       |
+| tload     | []                      | []                       |
+| tstore    | []                      | []                       |
+| tload     | []                      | []                       |
+| tstore    | []                      | []                       |
++-----------+-------------------------+--------------------------+
+
+Contract ERC165
++-------------------+-------------------------+--------------------------+
+| Function          | State variables written | Conditions on msg.sender |
++-------------------+-------------------------+--------------------------+
+| supportsInterface | []                      | []                       |
+| supportsInterface | []                      | []                       |
++-------------------+-------------------------+--------------------------+
+
+Contract IERC165
++-------------------+-------------------------+--------------------------+
+| Function          | State variables written | Conditions on msg.sender |
++-------------------+-------------------------+--------------------------+
+| supportsInterface | []                      | []                       |
++-------------------+-------------------------+--------------------------+
+
+Contract Math
++------------------+-------------------------+--------------------------+
+| Function         | State variables written | Conditions on msg.sender |
++------------------+-------------------------+--------------------------+
+| add512           | []                      | []                       |
+| mul512           | []                      | []                       |
+| tryAdd           | []                      | []                       |
+| trySub           | []                      | []                       |
+| tryMul           | []                      | []                       |
+| tryDiv           | []                      | []                       |
+| tryMod           | []                      | []                       |
+| saturatingAdd    | []                      | []                       |
+| saturatingSub    | []                      | []                       |
+| saturatingMul    | []                      | []                       |
+| ternary          | []                      | []                       |
+| max              | []                      | []                       |
+| min              | []                      | []                       |
+| average          | []                      | []                       |
+| ceilDiv          | []                      | []                       |
+| mulDiv           | []                      | []                       |
+| mulDiv           | []                      | []                       |
+| mulShr           | []                      | []                       |
+| mulShr           | []                      | []                       |
+| invMod           | []                      | []                       |
+| invModPrime      | []                      | []                       |
+| modExp           | []                      | []                       |
+| tryModExp        | []                      | []                       |
+| modExp           | []                      | []                       |
+| tryModExp        | []                      | []                       |
+| _zeroBytes       | []                      | []                       |
+| sqrt             | []                      | []                       |
+| sqrt             | []                      | []                       |
+| log2             | []                      | []                       |
+| log2             | []                      | []                       |
+| log10            | []                      | []                       |
+| log10            | []                      | []                       |
+| log256           | []                      | []                       |
+| log256           | []                      | []                       |
+| unsignedRoundsUp | []                      | []                       |
+| clz              | []                      | []                       |
++------------------+-------------------------+--------------------------+
+
+Contract SafeCast
++-----------+-------------------------+--------------------------+
+| Function  | State variables written | Conditions on msg.sender |
++-----------+-------------------------+--------------------------+
+| toUint248 | []                      | []                       |
+| toUint240 | []                      | []                       |
+| toUint232 | []                      | []                       |
+| toUint224 | []                      | []                       |
+| toUint216 | []                      | []                       |
+| toUint208 | []                      | []                       |
+| toUint200 | []                      | []                       |
+| toUint192 | []                      | []                       |
+| toUint184 | []                      | []                       |
+| toUint176 | []                      | []                       |
+| toUint168 | []                      | []                       |
+| toUint160 | []                      | []                       |
+| toUint152 | []                      | []                       |
+| toUint144 | []                      | []                       |
+| toUint136 | []                      | []                       |
+| toUint128 | []                      | []                       |
+| toUint120 | []                      | []                       |
+| toUint112 | []                      | []                       |
+| toUint104 | []                      | []                       |
+| toUint96  | []                      | []                       |
+| toUint88  | []                      | []                       |
+| toUint80  | []                      | []                       |
+| toUint72  | []                      | []                       |
+| toUint64  | []                      | []                       |
+| toUint56  | []                      | []                       |
+| toUint48  | []                      | []                       |
+| toUint40  | []                      | []                       |
+| toUint32  | []                      | []                       |
+| toUint24  | []                      | []                       |
+| toUint16  | []                      | []                       |
+| toUint8   | []                      | []                       |
+| toUint256 | []                      | []                       |
+| toInt248  | []                      | []                       |
+| toInt240  | []                      | []                       |
+| toInt232  | []                      | []                       |
+| toInt224  | []                      | []                       |
+| toInt216  | []                      | []                       |
+| toInt208  | []                      | []                       |
+| toInt200  | []                      | []                       |
+| toInt192  | []                      | []                       |
+| toInt184  | []                      | []                       |
+| toInt176  | []                      | []                       |
+| toInt168  | []                      | []                       |
+| toInt160  | []                      | []                       |
+| toInt152  | []                      | []                       |
+| toInt144  | []                      | []                       |
+| toInt136  | []                      | []                       |
+| toInt128  | []                      | []                       |
+| toInt120  | []                      | []                       |
+| toInt112  | []                      | []                       |
+| toInt104  | []                      | []                       |
+| toInt96   | []                      | []                       |
+| toInt88   | []                      | []                       |
+| toInt80   | []                      | []                       |
+| toInt72   | []                      | []                       |
+| toInt64   | []                      | []                       |
+| toInt56   | []                      | []                       |
+| toInt48   | []                      | []                       |
+| toInt40   | []                      | []                       |
+| toInt32   | []                      | []                       |
+| toInt24   | []                      | []                       |
+| toInt16   | []                      | []                       |
+| toInt8    | []                      | []                       |
+| toInt256  | []                      | []                       |
+| toUint    | []                      | []                       |
++-----------+-------------------------+--------------------------+
+
+Contract Forwarder
++-------------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-------------------------------------------------------------------------------------------------------------------------------------+
+| Function                            | State variables written                                                                                                                                                                                           | Conditions on msg.sender                                                                                                            |
++-------------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-------------------------------------------------------------------------------------------------------------------------------------+
+| _nonReentrantBeforeView             | []                                                                                                                                                                                                                | []                                                                                                                                  |
+| _nonReentrantBefore                 | []                                                                                                                                                                                                                | []                                                                                                                                  |
+| _nonReentrantAfter                  | []                                                                                                                                                                                                                | []                                                                                                                                  |
+| _reentrancyGuardEntered             | []                                                                                                                                                                                                                | []                                                                                                                                  |
+| _reentrancyGuardStorageSlot         | []                                                                                                                                                                                                                | []                                                                                                                                  |
+| paused                              | []                                                                                                                                                                                                                | []                                                                                                                                  |
+| _requireNotPaused                   | []                                                                                                                                                                                                                | []                                                                                                                                  |
+| _requirePaused                      | []                                                                                                                                                                                                                | []                                                                                                                                  |
+| _pause                              | ['_paused']                                                                                                                                                                                                       | []                                                                                                                                  |
+| _unpause                            | ['_paused']                                                                                                                                                                                                       | []                                                                                                                                  |
+| _msgSender                          | []                                                                                                                                                                                                                | []                                                                                                                                  |
+| _msgData                            | []                                                                                                                                                                                                                | []                                                                                                                                  |
+| _contextSuffixLength                | []                                                                                                                                                                                                                | []                                                                                                                                  |
+| constructor                         | ['_currentDefaultAdmin', '_currentDelay', '_roles']                                                                                                                                                               | []                                                                                                                                  |
+| supportsInterface                   | []                                                                                                                                                                                                                | []                                                                                                                                  |
+| owner                               | []                                                                                                                                                                                                                | []                                                                                                                                  |
+| grantRole                           | ['_roles']                                                                                                                                                                                                        | []                                                                                                                                  |
+| revokeRole                          | ['_roles']                                                                                                                                                                                                        | []                                                                                                                                  |
+| renounceRole                        | ['_pendingDefaultAdminSchedule', '_roles']                                                                                                                                                                        | []                                                                                                                                  |
+| _grantRole                          | ['_currentDefaultAdmin', '_roles']                                                                                                                                                                                | []                                                                                                                                  |
+| _revokeRole                         | ['_currentDefaultAdmin', '_roles']                                                                                                                                                                                | []                                                                                                                                  |
+| _setRoleAdmin                       | ['_roles']                                                                                                                                                                                                        | []                                                                                                                                  |
+| defaultAdmin                        | []                                                                                                                                                                                                                | []                                                                                                                                  |
+| pendingDefaultAdmin                 | []                                                                                                                                                                                                                | []                                                                                                                                  |
+| defaultAdminDelay                   | []                                                                                                                                                                                                                | []                                                                                                                                  |
+| pendingDefaultAdminDelay            | []                                                                                                                                                                                                                | []                                                                                                                                  |
+| defaultAdminDelayIncreaseWait       | []                                                                                                                                                                                                                | []                                                                                                                                  |
+| beginDefaultAdminTransfer           | ['_pendingDefaultAdmin', '_pendingDefaultAdminSchedule']                                                                                                                                                          | []                                                                                                                                  |
+| _beginDefaultAdminTransfer          | ['_pendingDefaultAdmin', '_pendingDefaultAdminSchedule']                                                                                                                                                          | []                                                                                                                                  |
+| cancelDefaultAdminTransfer          | ['_pendingDefaultAdmin', '_pendingDefaultAdminSchedule']                                                                                                                                                          | []                                                                                                                                  |
+| _cancelDefaultAdminTransfer         | ['_pendingDefaultAdmin', '_pendingDefaultAdminSchedule']                                                                                                                                                          | []                                                                                                                                  |
+| acceptDefaultAdminTransfer          | ['_currentDefaultAdmin', '_pendingDefaultAdmin', '_pendingDefaultAdminSchedule', '_roles']                                                                                                                        | []                                                                                                                                  |
+| _acceptDefaultAdminTransfer         | ['_currentDefaultAdmin', '_pendingDefaultAdmin', '_pendingDefaultAdminSchedule', '_roles']                                                                                                                        | []                                                                                                                                  |
+| changeDefaultAdminDelay             | ['_currentDelay', '_pendingDelay', '_pendingDelaySchedule']                                                                                                                                                       | []                                                                                                                                  |
+| _changeDefaultAdminDelay            | ['_currentDelay', '_pendingDelay', '_pendingDelaySchedule']                                                                                                                                                       | []                                                                                                                                  |
+| rollbackDefaultAdminDelay           | ['_currentDelay', '_pendingDelay', '_pendingDelaySchedule']                                                                                                                                                       | []                                                                                                                                  |
+| _rollbackDefaultAdminDelay          | ['_currentDelay', '_pendingDelay', '_pendingDelaySchedule']                                                                                                                                                       | []                                                                                                                                  |
+| _delayChangeWait                    | []                                                                                                                                                                                                                | []                                                                                                                                  |
+| _setPendingDefaultAdmin             | ['_pendingDefaultAdmin', '_pendingDefaultAdminSchedule']                                                                                                                                                          | []                                                                                                                                  |
+| _setPendingDelay                    | ['_currentDelay', '_pendingDelay', '_pendingDelaySchedule']                                                                                                                                                       | []                                                                                                                                  |
+| _isScheduleSet                      | []                                                                                                                                                                                                                | []                                                                                                                                  |
+| _hasSchedulePassed                  | []                                                                                                                                                                                                                | []                                                                                                                                  |
+| supportsInterface                   | []                                                                                                                                                                                                                | []                                                                                                                                  |
+| hasRole                             | []                                                                                                                                                                                                                | []                                                                                                                                  |
+| _checkRole                          | []                                                                                                                                                                                                                | []                                                                                                                                  |
+| _checkRole                          | []                                                                                                                                                                                                                | []                                                                                                                                  |
+| getRoleAdmin                        | []                                                                                                                                                                                                                | []                                                                                                                                  |
+| grantRole                           | ['_currentDefaultAdmin', '_roles']                                                                                                                                                                                | []                                                                                                                                  |
+| revokeRole                          | ['_currentDefaultAdmin', '_roles']                                                                                                                                                                                | []                                                                                                                                  |
+| renounceRole                        | ['_currentDefaultAdmin', '_roles']                                                                                                                                                                                | []                                                                                                                                  |
+| _setRoleAdmin                       | ['_roles']                                                                                                                                                                                                        | []                                                                                                                                  |
+| _grantRole                          | ['_roles']                                                                                                                                                                                                        | []                                                                                                                                  |
+| _revokeRole                         | ['_roles']                                                                                                                                                                                                        | []                                                                                                                                  |
+| supportsInterface                   | []                                                                                                                                                                                                                | []                                                                                                                                  |
+| supportsInterface                   | []                                                                                                                                                                                                                | []                                                                                                                                  |
+| hasRole                             | []                                                                                                                                                                                                                | []                                                                                                                                  |
+| getRoleAdmin                        | []                                                                                                                                                                                                                | []                                                                                                                                  |
+| grantRole                           | []                                                                                                                                                                                                                | []                                                                                                                                  |
+| revokeRole                          | []                                                                                                                                                                                                                | []                                                                                                                                  |
+| renounceRole                        | []                                                                                                                                                                                                                | []                                                                                                                                  |
+| owner                               | []                                                                                                                                                                                                                | []                                                                                                                                  |
+| defaultAdmin                        | []                                                                                                                                                                                                                | []                                                                                                                                  |
+| pendingDefaultAdmin                 | []                                                                                                                                                                                                                | []                                                                                                                                  |
+| defaultAdminDelay                   | []                                                                                                                                                                                                                | []                                                                                                                                  |
+| pendingDefaultAdminDelay            | []                                                                                                                                                                                                                | []                                                                                                                                  |
+| beginDefaultAdminTransfer           | []                                                                                                                                                                                                                | []                                                                                                                                  |
+| cancelDefaultAdminTransfer          | []                                                                                                                                                                                                                | []                                                                                                                                  |
+| acceptDefaultAdminTransfer          | []                                                                                                                                                                                                                | []                                                                                                                                  |
+| changeDefaultAdminDelay             | []                                                                                                                                                                                                                | []                                                                                                                                  |
+| rollbackDefaultAdminDelay           | []                                                                                                                                                                                                                | []                                                                                                                                  |
+| defaultAdminDelayIncreaseWait       | []                                                                                                                                                                                                                | []                                                                                                                                  |
+| constructor                         | ['USDC', '_currentDefaultAdmin', '_currentDelay', '_roles', 'routingMode', 'treasury', 'vault']                                                                                                                   | []                                                                                                                                  |
+| forward                             | []                                                                                                                                                                                                                | []                                                                                                                                  |
+| calculateFee                        | []                                                                                                                                                                                                                | []                                                                                                                                  |
+| calculateFeeFor                     | []                                                                                                                                                                                                                | []                                                                                                                                  |
+| _setFeeConfig                       | ['fixedFee', 'lowerFeeModel', 'threshold', 'upperFeeModel', 'variableFee']                                                                                                                                        | []                                                                                                                                  |
+| proposeFeeConfig                    | ['pendingFeeConfig']                                                                                                                                                                                              | []                                                                                                                                  |
+| executeFeeConfigChange              | ['fixedFee', 'lowerFeeModel', 'pendingFeeConfig', 'threshold', 'upperFeeModel', 'variableFee']                                                                                                                    | []                                                                                                                                  |
+| cancelFeeConfigChange               | ['pendingFeeConfig']                                                                                                                                                                                              | ['! hasRole(FEE_MANAGER_ROLE,msg.sender) && ! hasRole(VAULT_GUARDIAN_ROLE,msg.sender) && ! hasRole(DEFAULT_ADMIN_ROLE,msg.sender)'] |
+| setUserFeeOverride                  | ['userFeeOverrides']                                                                                                                                                                                              | []                                                                                                                                  |
+| pause                               | ['_paused']                                                                                                                                                                                                       | ['! hasRole(FEE_MANAGER_ROLE,msg.sender) && ! hasRole(DEFAULT_ADMIN_ROLE,msg.sender)']                                              |
+| unpause                             | ['_paused']                                                                                                                                                                                                       | []                                                                                                                                  |
+| proposeTreasury                     | ['pendingTreasury', 'pendingTreasuryExecutableAt']                                                                                                                                                                | []                                                                                                                                  |
+| executeTreasuryChange               | ['pendingTreasury', 'pendingTreasuryExecutableAt', 'treasury']                                                                                                                                                    | []                                                                                                                                  |
+| cancelTreasuryChange                | ['pendingTreasury', 'pendingTreasuryExecutableAt']                                                                                                                                                                | ['! hasRole(VAULT_GUARDIAN_ROLE,msg.sender) && ! hasRole(DEFAULT_ADMIN_ROLE,msg.sender)']                                           |
+| proposeVault                        | ['pendingVault', 'pendingVaultExecutableAt']                                                                                                                                                                      | []                                                                                                                                  |
+| executeVaultChange                  | ['pendingVault', 'pendingVaultExecutableAt', 'vault']                                                                                                                                                             | []                                                                                                                                  |
+| cancelVaultChange                   | ['pendingVault', 'pendingVaultExecutableAt']                                                                                                                                                                      | ['! hasRole(VAULT_GUARDIAN_ROLE,msg.sender) && ! hasRole(DEFAULT_ADMIN_ROLE,msg.sender)']                                           |
+| setRoutingMode                      | ['routingMode']                                                                                                                                                                                                   | []                                                                                                                                  |
+| rescueToken                         | []                                                                                                                                                                                                                | []                                                                                                                                  |
+| rescueNative                        | []                                                                                                                                                                                                                | []                                                                                                                                  |
+| _deliverToTreasury                  | []                                                                                                                                                                                                                | []                                                                                                                                  |
+| _setTreasury                        | ['treasury']                                                                                                                                                                                                      | []                                                                                                                                  |
+| _setVault                           | ['vault']                                                                                                                                                                                                         | []                                                                                                                                  |
+| _validateVault                      | []                                                                                                                                                                                                                | []                                                                                                                                  |
+| _vaultHealthCheck                   | []                                                                                                                                                                                                                | []                                                                                                                                  |
+| _setRoutingMode                     | ['routingMode']                                                                                                                                                                                                   | []                                                                                                                                  |
+| _checkVariableFee                   | []                                                                                                                                                                                                                | []                                                                                                                                  |
+| _checkFixedFee                      | []                                                                                                                                                                                                                | []                                                                                                                                  |
+| _emitFeeConfig                      | []                                                                                                                                                                                                                | []                                                                                                                                  |
+| slitherConstructorConstantVariables | ['DEFAULT_ADMIN_ROLE', 'FEE_CHANGE_DELAY', 'FEE_DENOMINATOR', 'FEE_MANAGER_ROLE', 'MAX_FIXED_FEE', 'MAX_VARIABLE_FEE', 'TREASURY_CHANGE_DELAY', 'VAULT_CHANGE_DELAY', 'VAULT_GUARDIAN_ROLE', 'VAULT_TEST_AMOUNT'] | []                                                                                                                                  |
++-------------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-------------------------------------------------------------------------------------------------------------------------------------+
+
+INFO:Slither:. analyzed (23 contracts)

@@ -1,0 +1,21 @@
+== commit 21c9d3b / src sha256 22aeb8e536cabe68d5ba3005decb1f43179d38ffc261b032a14085432ffd3d6b (deployed source)
+== SOLC_VERSION=0.8.30 certoraRun certora/conf/ForwarderV3Forward.conf --wait_for_results all
+job: https://prover.certora.com/output/3658204/d3fbb7c4a1954cf0aecc8a2dc999d755
+job: https://prover.certora.com/output/3658204/d3fbb7c4a1954cf0aecc8a2dc999d755?anonymousKey=<redacted>
+Result for envfreeFuncsStaticCheck: envfreeFuncsStaticCheck: DummyUSDC.balanceOf(address): SUCCESS
+Result for rescueNativeOnlyToTreasury: rescueNativeOnlyToTreasury: SUCCESS
+Result for rescueTokenOnlyToTreasury: rescueTokenOnlyToTreasury: SUCCESS
+Result for routingModeAllowance: routingModeAllowance: SUCCESS
+Result for forwardDoesNotChangeConfiguration: forwardDoesNotChangeConfiguration: SUCCESS
+Result for forwardOnlyAcceptsUsdc: forwardOnlyAcceptsUsdc: SUCCESS
+Result for forwardNeverApproves: forwardNeverApproves: SUCCESS
+Result for pausedForwardDeliversWholeAmount: pausedForwardDeliversWholeAmount: SUCCESS
+Result for forwardTreasuryAccounting: forwardTreasuryAccounting: SUCCESS
+Result for forwardUserReceivesAmountMinusFee: forwardUserReceivesAmountMinusFee: SUCCESS
+Result for treasuryFailureNeverRevertsForward: treasuryFailureNeverRevertsForward: SUCCESS
+Result for forwardUserReceivesAmountMinusFeeForAnyConfiguration: forwardUserReceivesAmountMinusFeeForAnyConfiguration: TIMEOUT
+Result for forwardTreasuryAccountingForAnyConfiguration: forwardTreasuryAccountingForAnyConfiguration: SUCCESS
+Result for pausedForwardDeliversWholeAmountForAnyConfiguration: pausedForwardDeliversWholeAmountForAnyConfiguration: SUCCESS
+Result for treasuryFailureNeverRevertsForwardForAnyConfiguration: treasuryFailureNeverRevertsForwardForAnyConfiguration: SUCCESS
+verdict: Prover found violations
+[rule] forwardUserReceivesAmountMinusFeeForAnyConfiguration: TIMEOUT

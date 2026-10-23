@@ -1,0 +1,18 @@
+== commit 21c9d3b / src sha256 22aeb8e536cabe68d5ba3005decb1f43179d38ffc261b032a14085432ffd3d6b (deployed source)
+== SOLC_VERSION=0.8.30 certoraRun certora/conf/ForwarderV3Access.conf --wait_for_results all
+job: https://prover.certora.com/output/3658204/e23c9babdf124878a9c0cd5d06d39b86
+Result for envfreeFuncsStaticCheck: envfreeFuncsStaticCheck: DummyUSDC.balanceOf(address): SUCCESS
+Result for guardianCanOnlyCancel: guardianCanOnlyCancel: rescueToken(address): SUCCESS
+Result for onlyAdminChangesVault: onlyAdminChangesVault: cancelDefaultAdminTransfer(): SUCCESS
+Result for guardianRoleOnlyChangedByAdminOrSelf: guardianRoleOnlyChangedByAdminOrSelf: revokeRole(bytes32,address): SUCCESS
+Result for unprivilegedChangesNoConfiguration: unprivilegedChangesNoConfiguration: executeVaultChange(): SUCCESS
+Result for feeManagerCannotTouchTheTreasury: feeManagerCannotTouchTheTreasury: rollbackDefaultAdminDelay(): SUCCESS
+Result for onlyAdminChangesTreasury: onlyAdminChangesTreasury: forward(address,uint256,address): SUCCESS
+Result for adminWithoutFeeRoleCannotChangeFees: adminWithoutFeeRoleCannotChangeFees: rollbackDefaultAdminDelay(): SUCCESS
+Result for feeManagerRoleOnlyChangedByAdminOrSelf: feeManagerRoleOnlyChangedByAdminOrSelf: rescueToken(address): SUCCESS
+Result for onlyPrivilegedPause: onlyPrivilegedPause: changeDefaultAdminDelay(uint48): SUCCESS
+Result for onlyAdminChangesRoutingMode: onlyAdminChangesRoutingMode: proposeFeeConfig(uint8,uint8,uint256,uint256,uint256): SUCCESS
+Result for feeManagerCannotAdminister: feeManagerCannotAdminister: executeFeeConfigChange(): SUCCESS
+Result for onlyAdminUnpauses: onlyAdminUnpauses: executeVaultChange(): SUCCESS
+Result for onlyFeeManagerChangesFeeConfig: onlyFeeManagerChangesFeeConfig: acceptDefaultAdminTransfer(): SUCCESS
+verdict: No errors found by Prover!

@@ -1,0 +1,21 @@
+== commit 21c9d3b / src sha256 22aeb8e536cabe68d5ba3005decb1f43179d38ffc261b032a14085432ffd3d6b (deployed source)
+== SOLC_VERSION=0.8.30 certoraRun certora/conf/ForwarderV3Invariants.conf --wait_for_results all
+job: https://prover.certora.com/output/3658204/dc93b8ba4fae4e58a4bf3e937a3c8703
+Result for envfreeFuncsStaticCheck: envfreeFuncsStaticCheck: DummyUSDC.balanceOf(address): SUCCESS
+Result for pendingFeeConsistency: pendingFeeConsistency: Induction base: After the constructor: SUCCESS
+Result for pendingTreasuryIsValid: pendingTreasuryIsValid: Induction base: After the constructor: SUCCESS
+Result for guardianAdminIsDefaultAdmin: guardianAdminIsDefaultAdmin: Induction base: After the constructor: SUCCESS
+Result for directDirectMeansNoVaultAllowance: directDirectMeansNoVaultAllowance: Induction base: After the constructor: SUCCESS
+Result for pendingVaultIsNotActive: pendingVaultIsNotActive: Induction base: After the constructor: SUCCESS
+Result for pendingVaultConsistency: pendingVaultConsistency: Induction base: After the constructor: SUCCESS
+Result for zeroAddressHasNoOverride: zeroAddressHasNoOverride: Induction base: After the constructor: SUCCESS
+Result for pendingTreasuryConsistency: pendingTreasuryConsistency: Induction base: After the constructor: SUCCESS
+Result for feeManagerAdminIsDefaultAdmin: feeManagerAdminIsDefaultAdmin: Induction base: After the constructor: SUCCESS
+Result for treasuryIsValid: treasuryIsValid: Induction base: After the constructor: SUCCESS
+Result for pendingFeeCaps: pendingFeeCaps: Induction base: After the constructor: SUCCESS
+Result for pendingVaultHasNoAllowance: pendingVaultHasNoAllowance: Induction base: After the constructor: SUCCESS
+Result for pendingFeeEnumsAreValid: pendingFeeEnumsAreValid: Induction base: After the constructor: SUCCESS
+Result for enumsAreValid: enumsAreValid: Induction base: After the constructor: SUCCESS
+Result for feeCaps: feeCaps: Induction base: After the constructor: SUCCESS
+Result for vaultModeHasVault: vaultModeHasVault: Induction base: After the constructor: SUCCESS
+verdict: No errors found by Prover!

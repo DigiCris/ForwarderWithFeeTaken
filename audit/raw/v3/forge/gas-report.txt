@@ -1,0 +1,824 @@
+== commit 0dc47a6 / src sha256 22aeb8e536cabe68d5ba3005decb1f43179d38ffc261b032a14085432ffd3d6b (deployed source)
+== forge test --no-match-contract "Fork|Invariant" --gas-report
+Compiling 12 files with Solc 0.8.30
+Solc 0.8.30 finished in 52.37s
+Compiler run successful with warnings:
+Warning (2519): This declaration shadows an existing declaration.
+   --> test/ForwarderVaultChangeFuzz.t.sol:160:9:
+    |
+160 |         address[4] memory pool = [guardian, guardian2, makeAddr("g3"), feeManager];
+    |         ^^^^^^^^^^^^^^^^^^^^^^
+Note: The shadowed declaration is here:
+   --> test/ForwarderVaultChangeFuzz.t.sol:269:5:
+    |
+269 |     MockVault[3] internal pool;
+    |     ^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Warning (5159): "selfdestruct" has been deprecated. Note that, starting from the Cancun hard fork, the underlying opcode no longer deletes the code and data associated with an account and only transfers its Ether to the beneficiary, unless executed in the same transaction in which the contract was created (see EIP-6780). Any use in newly deployed contracts is strongly discouraged even if the new behavior is taken into account. Future changes to the EVM might further reduce the functionality of the opcode.
+  --> test/mocks/MockTokens.sol:79:9:
+   |
+79 |         selfdestruct(target);
+   |         ^^^^^^^^^^^^
+
+
+Ran 17 tests for test/Forwarder.t.sol:ForwarderAccessControlTest
+[PASS] test_AdminAndStrangerCannotCallFeeManagerFunctions() (gas: 177502)
+[PASS] test_AdminCanPause() (gas: 45466)
+[PASS] test_AdminCanUnpause() (gas: 77890)
+[PASS] test_AdminManagesFeeManagers() (gas: 246541)
+[PASS] test_CompromisedFeeManagerBlastRadius() (gas: 360534)
+[PASS] test_DefaultAdminCannotBeGrantedDirectly() (gas: 36852)
+[PASS] test_DefaultAdminTransferRespectsDelay() (gas: 281067)
+[PASS] test_EveryFeeManagerCanSetFees() (gas: 868900)
+[PASS] test_FeeManagerAndStrangerCannotCallAdminFunctions() (gas: 925529)
+[PASS] test_FeeManagerCanPause() (gas: 44969)
+[PASS] test_FeeManagerCanRenounce() (gas: 36387)
+[PASS] test_FeeManagerCannotChangeTreasuryVaultRoutingOrRescue() (gas: 264986)
+[PASS] test_FeeManagerCannotGrantRoles() (gas: 97909)
+[PASS] test_FeeManagerCannotUnpause() (gas: 70956)
+[PASS] test_RevertWhen_PauseWhilePaused() (gas: 69433)
+[PASS] test_RevertWhen_StrangerPauses() (gas: 39311)
+[PASS] test_RevertWhen_UnpauseWhileNotPaused() (gas: 36490)
+Suite result: ok. 17 passed; 0 failed; 0 skipped; finished in 65.09ms (40.92ms CPU time)
+
+Ran 11 tests for test/Forwarder.t.sol:ForwarderValidationTest
+[PASS] test_AnyCallerCanForwardItsOwnFunds() (gas: 204639)
+[PASS] test_ForwardWorksWhilePaused() (gas: 238597)
+[PASS] test_RevertWhen_CallerHasNoAllowance() (gas: 118769)
+[PASS] test_RevertWhen_CallerHasNoBalance() (gas: 124822)
+[PASS] test_RevertWhen_RecipientIsForwarder() (gas: 154249)
+[PASS] test_RevertWhen_RecipientIsZero() (gas: 153857)
+[PASS] test_RevertWhen_TokenIsNotUsdc() (gas: 614316)
+[PASS] test_RevertWhen_TreasuryIsZeroOrForwarder() (gas: 68399)
+[PASS] test_RevertWhen_UsdcIsPaused() (gas: 222318)
+[PASS] test_RevertWhen_VaultModeWithoutVault() (gas: 3588957)
+[PASS] test_SetTreasury() (gas: 129528)
+Suite result: ok. 11 passed; 0 failed; 0 skipped; finished in 77.42ms (29.21ms CPU time)
+
+Ran 13 tests for test/ForwarderVaultAndRescue.t.sol:ForwarderRescueTest
+[PASS] test_RescueArbitraryToken() (gas: 690828)
+[PASS] test_RescueDaiLikeToken() (gas: 698497)
+[PASS] test_RescueForcedNative() (gas: 167905)
+[PASS] test_RescueGoesToCurrentTreasury() (gas: 264202)
+[PASS] test_RescueNative() (gas: 78115)
+[PASS] test_RescueNativeZeroBalance() (gas: 43088)
+[PASS] test_RescueUsdc() (gas: 155967)
+[PASS] test_RescueUsdcInVaultModeGoesDirectlyToTreasury() (gas: 217810)
+[PASS] test_RescueUsdtLikeToken() (gas: 535049)
+[PASS] test_RescueVaultShares() (gas: 330872)
+[PASS] test_RescueZeroBalance() (gas: 66192)
+[PASS] test_RevertWhen_RescueTokenReturnsFalse() (gas: 651287)
+[PASS] test_RevertWhen_TreasuryRejectsNative() (gas: 271187)
+Suite result: ok. 13 passed; 0 failed; 0 skipped; finished in 125.01ms (103.93ms CPU time)
+
+Ran 34 tests for test/ForwarderTreasuryChange.t.sol:ForwarderTreasuryChangeTest
+[PASS] test_AdminCancels() (gas: 352750)
+[PASS] test_AdminProposes() (gas: 112853)
+[PASS] test_AdminRotationDoesNotChangeExecutableAt() (gas: 260564)
+[PASS] test_AnotherGuardianCancels() (gas: 351349)
+[PASS] test_CancelBeforeAtAndAfterMaturity() (gas: 401235)
+[PASS] test_CancelledChangeCannotBeExecuted() (gas: 154304)
+[PASS] test_ExecuteExactlyAtExecutableAt() (gas: 149756)
+[PASS] test_ExecuteLongAfterExecutableAt() (gas: 143460)
+[PASS] test_ExecutionOnlyChangesTheTreasury() (gas: 2541975)
+[PASS] test_ForwardDeliversToTheActiveTreasuryUntilExecution() (gas: 1871788)
+[PASS] test_GuardianCancels() (gas: 351413)
+[PASS] test_ProposalDoesNotTouchAnythingElse() (gas: 551305)
+[PASS] test_ProposeAgainAfterCancellationRestartsTheDelay() (gas: 239605)
+[PASS] test_ProposeAgainAfterExecution() (gas: 211847)
+[PASS] test_RescueAfterExecutionGoesToTheNewTreasury() (gas: 335525)
+[PASS] test_RescueNativeBeforeExecutionGoesToTheActiveTreasury() (gas: 165993)
+[PASS] test_RescueTokenBeforeExecutionGoesToTheActiveTreasury() (gas: 935828)
+[PASS] test_RevertWhen_CancellingWithNothingPending() (gas: 67968)
+[PASS] test_RevertWhen_ExecutingImmediately() (gas: 132140)
+[PASS] test_RevertWhen_ExecutingOneSecondEarly() (gas: 142322)
+[PASS] test_RevertWhen_ExecutingTwice() (gas: 150333)
+[PASS] test_RevertWhen_ExecutingWithNothingPending() (gas: 36522)
+[PASS] test_RevertWhen_FeeManagerExecutes() (gas: 130699)
+[PASS] test_RevertWhen_FeeManagerProposes() (gas: 50312)
+[PASS] test_RevertWhen_FeeManagerWithoutGuardianRoleCancels() (gas: 132626)
+[PASS] test_RevertWhen_GuardianExecutes() (gas: 130664)
+[PASS] test_RevertWhen_GuardianProposes() (gas: 50345)
+[PASS] test_RevertWhen_ProposingAnInvalidTreasury() (gas: 75951)
+[PASS] test_RevertWhen_ProposingWhileAChangeIsPending() (gas: 171108)
+[PASS] test_RevertWhen_StrangerCancels() (gas: 132573)
+[PASS] test_RevertWhen_StrangerExecutes() (gas: 130641)
+[PASS] test_RevertWhen_StrangerProposes() (gas: 50311)
+[PASS] test_RevokingAllGuardiansDoesNotShortenTheDelay() (gas: 197459)
+[PASS] test_StuckFeesReachTheNewTreasuryOnlyAfterExecution() (gas: 1015012)
+Suite result: ok. 34 passed; 0 failed; 0 skipped; finished in 158.44ms (121.00ms CPU time)
+
+Ran 21 tests for test/Forwarder.t.sol:ForwarderFeeTest
+[PASS] test_AllModelCombinationsAroundThreshold() (gas: 4730752)
+[PASS] test_DefaultThresholdZero() (gas: 252820)
+[PASS] test_EachFeeModel() (gas: 803188)
+[PASS] test_ExecuteFeeConfigChangeEmitsFullConfig() (gas: 283514)
+[PASS] test_FeeEqualToAmount() (gas: 411252)
+[PASS] test_FeeJustBelowAmount() (gas: 410535)
+[PASS] test_FeeUsesFullAmountAboveThreshold() (gas: 493566)
+[PASS] test_FeeUsesFullAmountWhenUpperIsFixedPlusPercent() (gas: 273970)
+[PASS] test_FixedFeeValues() (gas: 523472)
+[PASS] test_MaxThresholdAlwaysUsesLowerModel() (gas: 271692)
+[PASS] test_MaximumFeeConfiguration() (gas: 226765)
+[PASS] test_PausedFeeIsZero() (gas: 569171)
+[PASS] test_PercentRoundsDown() (gas: 219974)
+[PASS] test_RevertWhen_FeeAboveAmount() (gas: 344867)
+[PASS] test_RevertWhen_FixedFeeAboveMaximum() (gas: 86426)
+[PASS] test_RevertWhen_FixedFeeAndZeroAmount() (gas: 223696)
+[PASS] test_RevertWhen_InvalidEnumValue() (gas: 80471)
+[PASS] test_RevertWhen_VariableFeeAboveMaximum() (gas: 86522)
+[PASS] test_ThresholdBoundaries() (gas: 299981)
+[PASS] test_VariableFeeAtMaximumIsAccepted() (gas: 168774)
+[PASS] test_VariableFeeGranularity() (gas: 877930)
+Suite result: ok. 21 passed; 0 failed; 0 skipped; finished in 141.48ms (155.19ms CPU time)
+
+Ran 13 tests for test/ForwarderVaultChange.t.sol:ForwarderExecuteVaultChangeTest
+[PASS] test_ExecuteExactlyAtExecutableAt() (gas: 198264)
+[PASS] test_ExecuteLongAfterExecutableAt() (gas: 198352)
+[PASS] test_ExecutionDoesNotTouchFeesTreasuryOrPause() (gas: 745632)
+[PASS] test_ForwardUsesTheNewVaultAfterExecution() (gas: 535268)
+[PASS] test_RevertWhen_ExecutingImmediately() (gas: 64035)
+[PASS] test_RevertWhen_ExecutingOneSecondEarly() (gas: 54871)
+[PASS] test_RevertWhen_ExecutionIsNotFunded() (gas: 131049)
+[PASS] test_RevertWhen_FeeManagerExecutes() (gas: 52474)
+[PASS] test_RevertWhen_GuardianExecutes() (gas: 52484)
+[PASS] test_RevertWhen_NothingIsPending() (gas: 62896)
+[PASS] test_RevertWhen_StrangerExecutes() (gas: 52461)
+[PASS] test_SuccessfulExecutionInDirectDirect() (gas: 285545)
+[PASS] test_SuccessfulExecutionInEachVaultMode() (gas: 4620492)
+Suite result: ok. 13 passed; 0 failed; 0 skipped; finished in 161.28ms (135.10ms CPU time)
+
+Ran 9 tests for test/ForwarderVaultAndRescue.t.sol:ForwarderReentrancyTest
+[PASS] test_CandidateVaultCannotReenterForwardDuringHealthCheck() (gas: 2317326)
+[PASS] test_CandidateVaultCannotReenterProposeDuringHealthCheck() (gas: 2291212)
+[PASS] test_ForwardCannotBeReentered() (gas: 528832)
+[PASS] test_ForwardUsesConfigurationSnapshot() (gas: 715469)
+[PASS] test_ProposeVaultCannotBeReenteredFromForward() (gas: 485327)
+[PASS] test_RescueNativeCannotBeReenteredFromForward() (gas: 419471)
+[PASS] test_RescueTokenCannotBeReenteredFromForward() (gas: 475823)
+[PASS] test_RescuedTokenCannotReenter() (gas: 1427577)
+[PASS] test_SetRoutingModeCannotBeReenteredFromForward() (gas: 453527)
+Suite result: ok. 9 passed; 0 failed; 0 skipped; finished in 61.51ms (33.92ms CPU time)
+
+Ran 7 tests for test/ForwarderVaultChange.t.sol:ForwarderGuardianLifecycleTest
+[PASS] test_AdminRotationDoesNotChangeExecutableAt() (gas: 726968)
+[PASS] test_GrantingAndRenouncingGuardiansDoesNotChangeExecutableAt() (gas: 424090)
+[PASS] test_GuardianHasNoOtherPower() (gas: 2374524)
+[PASS] test_OnlyAdminGrantsAndRevokesGuardians() (gas: 319057)
+[PASS] test_RevokedGuardianCannotCancel() (gas: 374987)
+[PASS] test_RevokingAGuardianDoesNotChangeExecutableAt() (gas: 366833)
+[PASS] test_RevokingAllGuardiansDoesNotShortenTheDelay() (gas: 772905)
+Suite result: ok. 7 passed; 0 failed; 0 skipped; finished in 64.39ms (47.30ms CPU time)
+
+Ran 20 tests for test/ForwarderVaultAndRescue.t.sol:ForwarderVaultHealthCheckTest
+[PASS] test_ExecuteVaultChange() (gas: 625748)
+[PASS] test_FailedHealthCheckLeavesNoPartialState() (gas: 570544)
+[PASS] test_HealthCheckNeverUsesForwarderFunds() (gas: 704441)
+[PASS] test_HealthCheckOnlyRedeemsNewShares() (gas: 796742)
+[PASS] test_HealthCheckRefundsAssetsTheVaultDidNotPull() (gas: 663463)
+[PASS] test_ProposeVault() (gas: 392546)
+[PASS] test_RevertWhen_CallerDidNotFundHealthCheck() (gas: 103970)
+[PASS] test_RevertWhen_ProposingTheActiveVault() (gas: 185900)
+[PASS] test_RevertWhen_ProposingTheActiveVaultInVaultMode() (gas: 262577)
+[PASS] test_RevertWhen_VaultAssetIsNotUsdc() (gas: 2200336)
+[PASS] test_RevertWhen_VaultDepositFails() (gas: 370092)
+[PASS] test_RevertWhen_VaultIsEoa() (gas: 182266)
+[PASS] test_RevertWhen_VaultIsNotErc4626() (gas: 292629)
+[PASS] test_RevertWhen_VaultIsPaused() (gas: 359892)
+[PASS] test_RevertWhen_VaultIsZero() (gas: 177823)
+[PASS] test_RevertWhen_VaultMintsNoShares() (gas: 405946)
+[PASS] test_RevertWhen_VaultRedeemFails() (gas: 452798)
+[PASS] test_RevertWhen_VaultRedeemReturnsNothing() (gas: 464819)
+[PASS] test_VaultReturningLessThanDepositedIsAccepted() (gas: 694232)
+[PASS] test_VaultWithRoundingLossIsAccepted() (gas: 898593)
+Suite result: ok. 20 passed; 0 failed; 0 skipped; finished in 107.31ms (93.74ms CPU time)
+
+Ran 13 tests for test/ForwarderVaultChange.t.sol:ForwarderCancelVaultChangeTest
+[PASS] test_AdminCancels() (gas: 47788)
+[PASS] test_CancelAfterTheDelay() (gas: 54232)
+[PASS] test_CancelBeforeTheDelay() (gas: 46802)
+[PASS] test_CancelDoesNotTouchFeesTreasuryOrPause() (gas: 618638)
+[PASS] test_CancelExactlyAtExecutableAt() (gas: 54180)
+[PASS] test_CancelKeepsActiveVaultAllowanceAndRouting() (gas: 417168)
+[PASS] test_CancelledChangeCannotBeExecuted() (gas: 191410)
+[PASS] test_EveryGuardianCanCancel() (gas: 762732)
+[PASS] test_FeeManagerWithGuardianRoleCancelsAndKeepsFeePowers() (gas: 326872)
+[PASS] test_GuardianCancels() (gas: 46341)
+[PASS] test_RevertWhen_FeeManagerWithoutGuardianRoleCancels() (gas: 44498)
+[PASS] test_RevertWhen_NothingIsPending() (gas: 90062)
+[PASS] test_RevertWhen_StrangerCancels() (gas: 44533)
+Suite result: ok. 13 passed; 0 failed; 0 skipped; finished in 42.19ms (23.99ms CPU time)
+
+Ran 10 tests for test/ForwarderVaultChange.t.sol:ForwarderProposeVaultTest
+[PASS] test_AdminProposes() (gas: 378950)
+[PASS] test_ExecutableAtIsExactlyProposalTimePlus72Hours() (gas: 314886)
+[PASS] test_ProposeAgainAfterCancellationRestartsTheDelay() (gas: 625694)
+[PASS] test_ProposeAgainAfterExecution() (gas: 906191)
+[PASS] test_ProposeDoesNotTouchFeesTreasuryOrPause() (gas: 879362)
+[PASS] test_ProposeInVaultModeKeepsActiveVaultAllowanceAndRouting() (gas: 678216)
+[PASS] test_RevertWhen_FeeManagerProposes() (gas: 170214)
+[PASS] test_RevertWhen_GuardianProposes() (gas: 170181)
+[PASS] test_RevertWhen_ProposingWhileAChangeIsPending() (gas: 1962317)
+[PASS] test_RevertWhen_StrangerProposes() (gas: 50213)
+Suite result: ok. 10 passed; 0 failed; 0 skipped; finished in 65.27ms (48.32ms CPU time)
+
+Ran 9 tests for test/ForwarderRouting.t.sol:ForwarderUserFallbackTest
+[PASS] test_FallbackInVaultVaultKeepsTreasuryFundsWhenBothDepositsFail() (gas: 402573)
+[PASS] test_FallbackWhenAllowanceIsExhausted() (gas: 359418)
+[PASS] test_FallbackWhenDepositCapIsExceededWhileTreasuryDepositWorks() (gas: 446469)
+[PASS] test_FallbackWhenDepositReverts() (gas: 403965)
+[PASS] test_FallbackWhenVaultIsPaused() (gas: 358003)
+[PASS] test_RevertWhen_DirectUserTransferFails() (gas: 271864)
+[PASS] test_RevertWhen_FallbackTransferAlsoFails() (gas: 415817)
+[PASS] test_UserLegRevertsWhenVaultReturnsMalformedData() (gas: 2503959)
+[PASS] test_VaultDepositResumesAfterRecovery() (gas: 665858)
+Suite result: ok. 9 passed; 0 failed; 0 skipped; finished in 99.19ms (77.19ms CPU time)
+
+Ran 5 tests for test/ForwarderVaultChange.t.sol:ForwarderRoutingWhilePendingTest
+[PASS] test_CaseA_DirectDirectSelectedWhilePending() (gas: 764162)
+[PASS] test_CaseB_VaultVaultSelectedWhilePending() (gas: 720910)
+[PASS] test_ForwardWhilePendingUsesTheActiveVault() (gas: 922140)
+[PASS] test_RoutingAtExecutionDecidesForEveryPair() (gas: 34551446)
+[PASS] test_RoutingChangesNeverGiveAllowanceToThePendingVault() (gas: 812605)
+Suite result: ok. 5 passed; 0 failed; 0 skipped; finished in 164.69ms (157.52ms CPU time)
+
+Ran 6 tests for test/ForwarderRouting.t.sol:ForwarderRoutingTest
+[PASS] test_DirectDirect() (gas: 296250)
+[PASS] test_DirectUserVaultTreasury() (gas: 428107)
+[PASS] test_RecipientCanBeTheTreasury() (gas: 211248)
+[PASS] test_SequentialForwardsAcrossModeChanges() (gas: 1134280)
+[PASS] test_VaultUserDirectTreasury() (gas: 453378)
+[PASS] test_VaultVault() (gas: 444083)
+Suite result: ok. 6 passed; 0 failed; 0 skipped; finished in 119.99ms (90.14ms CPU time)
+
+Ran 6 tests for test/ForwarderRouting.t.sol:ForwarderZeroValuesTest
+[PASS] test_ZeroAmountDirect() (gas: 91220)
+[PASS] test_ZeroAmountVaultDepositThatRevertsFallsBack() (gas: 228397)
+[PASS] test_ZeroAmountVaultDepositThatWorks() (gas: 190788)
+[PASS] test_ZeroFee() (gas: 214365)
+[PASS] test_ZeroUserAmountWithFallback() (gas: 523746)
+[PASS] test_ZeroUserAmountWithWorkingZeroDeposit() (gas: 549215)
+Suite result: ok. 6 passed; 0 failed; 0 skipped; finished in 55.27ms (46.35ms CPU time)
+
+Ran 8 tests for test/ForwarderVaultChange.t.sol:ForwarderSecondHealthCheckTest
+[PASS] test_CandidateAssetChangesAfterProposal() (gas: 2849880)
+[PASS] test_CandidateCodeRemovedAfterProposal() (gas: 768625)
+[PASS] test_CandidatePausedAfterProposal() (gas: 924871)
+[PASS] test_CandidateStopsMintingSharesAfterProposal() (gas: 971086)
+[PASS] test_CandidateStopsReturningAssetsAfterProposal() (gas: 1030077)
+[PASS] test_DepositStartsFailingAfterProposal() (gas: 935167)
+[PASS] test_FailedExecutionCanBeCancelled() (gas: 828456)
+[PASS] test_RedeemStartsFailingAfterProposal() (gas: 1017863)
+Suite result: ok. 8 passed; 0 failed; 0 skipped; finished in 121.78ms (96.93ms CPU time)
+
+Ran 4 tests for test/ForwarderRouting.t.sol:ForwarderAccidentalBalanceTest
+[PASS] test_DonationIsDepositedForTreasury() (gas: 490548)
+[PASS] test_DonationIsSweptDirectly() (gas: 326714)
+[PASS] test_DonationIsSweptEvenWithoutFees() (gas: 425387)
+[PASS] test_UserNeverReceivesTheDonation() (gas: 446915)
+Suite result: ok. 4 passed; 0 failed; 0 skipped; finished in 37.31ms (24.27ms CPU time)
+
+Ran 9 tests for test/ForwarderVaultChange.t.sol:ForwarderVaultChangeReentrancyTest
+[PASS] test_ActiveVaultCannotReenterExecuteFromForward() (gas: 1463113)
+[PASS] test_CandidateCannotReenterExecuteDuringExecution() (gas: 756850)
+[PASS] test_CandidateCannotReenterExecuteDuringProposal() (gas: 466933)
+[PASS] test_CandidateCannotReenterForwardDuringExecution() (gas: 817368)
+[PASS] test_CandidateCannotReenterProposeDuringExecution() (gas: 806452)
+[PASS] test_CandidateCannotReenterSetRoutingModeDuringExecution() (gas: 799069)
+[PASS] test_NoReentrantPathExecutesBeforeTheDelay() (gas: 1626879)
+[PASS] test_ReentrantCancelDuringExecutionFindsNothingPending() (gas: 744468)
+[PASS] test_ReentrantCancelDuringProposalLeavesConsistentState() (gas: 468709)
+Suite result: ok. 9 passed; 0 failed; 0 skipped; finished in 78.59ms (58.23ms CPU time)
+
+Ran 6 tests for test/ForwarderRouting.t.sol:ForwarderAllowanceTest
+[PASS] test_EveryRoutingTransition() (gas: 2120367)
+[PASS] test_FailedReplacementKeepsAllowances() (gas: 1982700)
+[PASS] test_ForwardNeverApproves() (gas: 1160751)
+[PASS] test_UsdcStyleAllowanceDecrementAndRefresh() (gas: 553908)
+[PASS] test_VaultReplacementInDirectMode() (gas: 2165430)
+[PASS] test_VaultReplacementInVaultMode() (gas: 2480600)
+Suite result: ok. 6 passed; 0 failed; 0 skipped; finished in 79.73ms (66.25ms CPU time)
+
+Ran 8 tests for test/ForwarderRouting.t.sol:ForwarderTreasuryDeliveryTest
+[PASS] test_DirectTreasuryTransferReturningFalse() (gas: 566351)
+[PASS] test_DirectTreasuryTransferReverting() (gas: 547517)
+[PASS] test_FailuresAccumulateAndAreDeliveredTogether() (gas: 926616)
+[PASS] test_NoTreasuryActionWhenNothingIsLeft() (gas: 1139000)
+[PASS] test_PendingFundsGoToTheNewTreasury() (gas: 629795)
+[PASS] test_TreasuryLegNeverRevertsOnMalformedVaultReturn() (gas: 2516980)
+[PASS] test_TreasuryOnlyVaultFailureInVaultVault() (gas: 771037)
+[PASS] test_TreasuryVaultFailureKeepsFundsAndRetries() (gas: 731888)
+Suite result: ok. 8 passed; 0 failed; 0 skipped; finished in 15.60s (191.75ms CPU time)
+
+Ran 10 tests for test/ForwarderVaultChangeFuzz.t.sol:ForwarderVaultChangeFuzzTest
+[PASS] testFuzz_CancelAuthorization(address,bool,bool,uint256) (runs: 1000, μ: 441520, ~: 437641)
+[PASS] testFuzz_DelayBoundary(uint256,uint256) (runs: 1000, μ: 552380, ~: 488091)
+[PASS] testFuzz_DelayBoundaryNeighbourhood(uint256,uint256) (runs: 1000, μ: 549688, ~: 488108)
+[PASS] testFuzz_ExecutableAtCannotOverflow(uint256) (runs: 1000, μ: 172967, ~: 173009)
+[PASS] testFuzz_ExecutableAtIsProposalTimePlusDelay(uint256) (runs: 1000, μ: 318446, ~: 318425)
+[PASS] testFuzz_FailedSecondHealthCheckKeepsPending(uint8,uint256,uint8) (runs: 1000, μ: 1002392, ~: 986683)
+[PASS] testFuzz_GuardianChangesKeepTheDelay(uint8[10],uint256) (runs: 1000, μ: 1402042, ~: 1393506)
+[PASS] testFuzz_LifecycleStateMachine(uint256[32]) (runs: 1000, μ: 11344272, ~: 11340561)
+[PASS] testFuzz_OnlyAdminProposesOrExecutes(address,bool,bool) (runs: 1000, μ: 590121, ~: 590676)
+[PASS] testFuzz_RoutingWhilePending(uint8,uint8[6]) (runs: 1000, μ: 1127222, ~: 1126829)
+Suite result: ok. 10 passed; 0 failed; 0 skipped; finished in 41.64s (100.94s CPU time)
+
+Ran 13 tests for test/ForwarderFuzz.t.sol:ForwarderFuzzTest
+[PASS] testFuzz_AnyValidRecipient(address,uint256) (runs: 1000, μ: 220770, ~: 221033)
+[PASS] testFuzz_CalculateFeeMatchesSpecification((uint8,uint8,uint256,uint256,uint256,bool),uint256) (runs: 1000, μ: 290332, ~: 284967)
+[PASS] testFuzz_CalculateFeeNeverRevertsForRealisticAmounts((uint8,uint8,uint256,uint256,uint256,bool),uint256) (runs: 1000, μ: 289659, ~: 284094)
+[PASS] testFuzz_FeeAboveThresholdUsesFullAmount(uint256,uint256,uint256) (runs: 1000, μ: 247708, ~: 248115)
+[PASS] testFuzz_FeeIsBoundedByCaps((uint8,uint8,uint256,uint256,uint256,bool),uint256) (runs: 1000, μ: 289999, ~: 284383)
+[PASS] testFuzz_FeeProposalBounds(uint256,uint256) (runs: 1000, μ: 76463, ~: 65333)
+[PASS] testFuzz_ForwardAccounting((uint8,uint8,uint256,uint256,uint256,bool),uint256,uint8,uint256,bool,bool) (runs: 1000, μ: 765505, ~: 779092)
+[PASS] testFuzz_HealthCheckAcceptsAnyPositiveReturn(uint256) (runs: 1000, μ: 2130474, ~: 2141770)
+[PASS] testFuzz_PausedFeeIsZero((uint8,uint8,uint256,uint256,uint256,bool),uint256) (runs: 1000, μ: 294253, ~: 298056)
+[PASS] testFuzz_RescueSendsEverythingToTreasury(uint256,uint256) (runs: 1000, μ: 775167, ~: 776107)
+[PASS] testFuzz_RevertWhen_TokenIsNotUsdc(address,uint256) (runs: 1000, μ: 36297, ~: 36302)
+[PASS] testFuzz_RoutingSequenceAllowance(uint8[8]) (runs: 1000, μ: 529414, ~: 521203)
+[PASS] testFuzz_UnprivilegedCallerCannotConfigure(address,uint8,uint256) (runs: 1000, μ: 2126298, ~: 2125712)
+Suite result: ok. 13 passed; 0 failed; 0 skipped; finished in 42.22s (32.16s CPU time)
+
+Ran 36 tests for test/ForwarderFeeChange.t.sol:ForwarderFeeChangeTest
+[PASS] test_AdminCancels() (gas: 603410)
+[PASS] test_AdminWithFeeManagerRoleStillWaitsTheDelay() (gas: 290332)
+[PASS] test_AllSixteenCombinationsWithForward() (gas: 15239297)
+[PASS] test_AnotherFeeManagerCancels() (gas: 600587)
+[PASS] test_AnotherFeeManagerExecutes() (gas: 184675)
+[PASS] test_CancelBeforeAtAndAfterMaturity() (gas: 468695)
+[PASS] test_CancelledChangeCannotBeExecuted() (gas: 200821)
+[PASS] test_EveryFeeManagerCanPropose() (gas: 251446)
+[PASS] test_ExecutableAtIsAlwaysProposalTimePlus72Hours() (gas: 436207)
+[PASS] test_ExecuteAfterExecutableAt() (gas: 389524)
+[PASS] test_ExecuteExactlyAtExecutableAt() (gas: 329486)
+[PASS] test_ExecutionOnlyChangesTheFeeConfiguration() (gas: 2679595)
+[PASS] test_FeeManagerProposes() (gas: 165626)
+[PASS] test_GuardianCancels() (gas: 601941)
+[PASS] test_PauseStaysImmediateWhileAChangeIsPending() (gas: 535688)
+[PASS] test_ProposalDoesNotChangeActiveConfiguration() (gas: 835465)
+[PASS] test_ProposalValidatesTheCaps() (gas: 270275)
+[PASS] test_ProposeAgainAfterCancellationRestartsTheDelay() (gas: 296080)
+[PASS] test_ProposeAgainAfterExecution() (gas: 301633)
+[PASS] test_ProposeAndExecuteWhilePausedKeepsTheFeeAtZero() (gas: 553596)
+[PASS] test_ProposingFeeManagerCancels() (gas: 598542)
+[PASS] test_RevertWhen_AdminExecutes() (gas: 161633)
+[PASS] test_RevertWhen_AdminProposes() (gas: 50985)
+[PASS] test_RevertWhen_CancellingWithNothingPending() (gas: 102331)
+[PASS] test_RevertWhen_ExecutingImmediately() (gas: 200252)
+[PASS] test_RevertWhen_ExecutingOneSecondEarly() (gas: 217210)
+[PASS] test_RevertWhen_ExecutingTwice() (gas: 217837)
+[PASS] test_RevertWhen_ExecutingWithNothingPending() (gas: 45272)
+[PASS] test_RevertWhen_GuardianExecutes() (gas: 161732)
+[PASS] test_RevertWhen_GuardianProposes() (gas: 51041)
+[PASS] test_RevertWhen_InvalidModelIsProposed() (gas: 68637)
+[PASS] test_RevertWhen_ProposingWhileAChangeIsPending() (gas: 231387)
+[PASS] test_RevertWhen_StrangerCancels() (gas: 156052)
+[PASS] test_RevertWhen_StrangerExecutes() (gas: 161643)
+[PASS] test_RevertWhen_StrangerProposes() (gas: 51029)
+[PASS] test_V2ImmediateSettersAreGone() (gas: 607215)
+Suite result: ok. 36 passed; 0 failed; 0 skipped; finished in 42.15s (169.25ms CPU time)
+
+Ran 41 tests for test/ForwarderFeeOverride.t.sol:ForwarderFeeOverrideTest
+[PASS] test_ActiveOverrideSurvivesGlobalChangesAndPause() (gas: 571736)
+[PASS] test_AnyFeeManagerCanSetAndImproveAnOverride() (gas: 361262)
+[PASS] test_ExpectedOverrideFeeMatchesForEveryModelPair() (gas: 20207296)
+[PASS] test_ExpiredOverrideForwardChargesTheGlobalFee() (gas: 470485)
+[PASS] test_ExpiredOverrideUsesTheGlobalFee() (gas: 419876)
+[PASS] test_ExtendingAnActiveOverride() (gas: 436913)
+[PASS] test_ExtendingWhileTheGlobalFeeIsBelowTheOverride() (gas: 584077)
+[PASS] test_ForwardWithOverrideChargesTheDiscountedFeeInEveryMode() (gas: 1847917)
+[PASS] test_ForwardWithoutOverrideChargesTheGlobalFeeInEveryMode() (gas: 1714390)
+[PASS] test_ForwardedEventReportsTheEffectiveFee() (gas: 482997)
+[PASS] test_LoweringAnActiveOverride() (gas: 436237)
+[PASS] test_NoOverrideIsExactlyTheGlobalFee() (gas: 9619357)
+[PASS] test_OverrideCanMakeASmallDepositPossible() (gas: 530116)
+[PASS] test_OverrideDoesNotChangeTheGlobalConfiguration() (gas: 572365)
+[PASS] test_OverrideEqualToTheGlobalFeeIsAllowed() (gas: 351061)
+[PASS] test_OverrideExpiresExactlyAtValidUntil() (gas: 375095)
+[PASS] test_OverrideIsActiveOneSecondBeforeValidUntil() (gas: 330598)
+[PASS] test_OverrideLowersFixedPlusPercent() (gas: 355653)
+[PASS] test_OverrideLowersTheFixedFee() (gas: 348661)
+[PASS] test_OverrideLowersThePercentFee() (gas: 378496)
+[PASS] test_OverrideOnlyAffectsItsRecipient() (gas: 306197)
+[PASS] test_OverrideUsesTheGlobalLowerAndUpperModels() (gas: 457102)
+[PASS] test_OverrideWithModelNoneIsZero() (gas: 384045)
+[PASS] test_PausedFeeIsZeroWithOverride() (gas: 637969)
+[PASS] test_ReplacingAnExpiredOverrideFreely() (gas: 372077)
+[PASS] test_RevertWhen_NotAFeeManager() (gas: 106377)
+[PASS] test_RevertWhen_OverrideAboveTheGlobalFee() (gas: 284813)
+[PASS] test_RevertWhen_OverrideWithGlobalFeesAtZero() (gas: 99589)
+[PASS] test_RevertWhen_RaisingTheFixedFeeOfAnActiveOverride() (gas: 395003)
+[PASS] test_RevertWhen_RaisingTheVariableFeeOfAnActiveOverride() (gas: 399270)
+[PASS] test_RevertWhen_RecipientIsZero() (gas: 35312)
+[PASS] test_RevertWhen_ShorteningAnActiveOverride() (gas: 399397)
+[PASS] test_RevertWhen_ValidUntilIsNotInTheFuture() (gas: 150868)
+[PASS] test_RevertWhen_WorseningOneSecondBeforeExpiry() (gas: 352055)
+[PASS] test_SetOverrideStoresAndEmits() (gas: 326911)
+[PASS] test_SettingTheSameActiveOverrideAgain() (gas: 363356)
+[PASS] test_TheUserNeverPaysMoreThanTheCurrentGlobalFee() (gas: 1050744)
+[PASS] test_TreasuryBestEffortWithOverride() (gas: 823080)
+[PASS] test_UserVaultFallbackWithOverride() (gas: 660142)
+[PASS] test_ValidationUsesTheActiveConfiguration() (gas: 575285)
+[PASS] test_ZeroOverride() (gas: 1027108)
+Suite result: ok. 41 passed; 0 failed; 0 skipped; finished in 43.75s (344.99ms CPU time)
+
+Ran 13 tests for test/ForwarderV3Fuzz.t.sol:ForwarderV3FuzzTest
+[PASS] testFuzz_AccessControlOfTheNewFunctions(address,uint8) (runs: 1000, μ: 246378, ~: 241819)
+[PASS] testFuzz_ActiveOverrideNeverExceedsTheGlobalFee((uint8,uint8,uint256,uint256,uint256),(uint8,uint8,uint256,uint256,uint256),uint256,uint256,uint256,bool) (runs: 1000, μ: 670850, ~: 672575)
+[PASS] testFuzz_CancellationsKeepTheActiveConfiguration(uint8,uint256,(uint8,uint8,uint256,uint256,uint256)) (runs: 1000, μ: 526319, ~: 529897)
+[PASS] testFuzz_ExecutableAtBoundariesAtAnyTime(uint256) (runs: 1000, μ: 378510, ~: 378199)
+[PASS] testFuzz_ExpiredOverrideIsTheGlobalFee((uint8,uint8,uint256,uint256,uint256),uint256,uint256,uint256,uint256,uint256) (runs: 1000, μ: 406944, ~: 412600)
+[PASS] testFuzz_FeeConfigChangesOnlyAfterTheDelay((uint8,uint8,uint256,uint256,uint256),(uint8,uint8,uint256,uint256,uint256),uint256) (runs: 1000, μ: 484843, ~: 488929)
+[PASS] testFuzz_FeeLifecycleStateMachine(uint256[16]) (runs: 1000, μ: 1757369, ~: 1753054)
+[PASS] testFuzz_ForwardAccountingWithTheEffectiveFee((uint8,uint8,uint256,uint256,uint256),uint256,uint256,uint256,uint256,uint256,uint8,bool,bool) (runs: 1000, μ: 762098, ~: 766081)
+[PASS] testFuzz_OverrideLifecycleWithGlobalChanges(uint256[12],uint256) (runs: 1000, μ: 4350082, ~: 4355388)
+[PASS] testFuzz_OverrideUpdateRule(uint256,uint256,uint256,uint256,uint256,uint256,uint256) (runs: 1000, μ: 412454, ~: 410782)
+[PASS] testFuzz_TreasuryChangesOnlyAfterTheDelay(address,uint256) (runs: 1000, μ: 137179, ~: 138623)
+[PASS] testFuzz_TreasuryLifecycleStateMachine(uint256[16]) (runs: 1000, μ: 1752220, ~: 1734136)
+[PASS] testFuzz_WithoutOverrideTheFeeIsTheGlobalFee((uint8,uint8,uint256,uint256,uint256),address,uint256) (runs: 1000, μ: 279552, ~: 283064)
+Suite result: ok. 13 passed; 0 failed; 0 skipped; finished in 45.16s (199.12s CPU time)
+
+Ran 21 tests for test/Forwarder.t.sol:ForwarderConstructorTest
+[PASS] test_Constants() (gas: 58637)
+[PASS] test_DeployActivatesInitialVaultWithoutDelay() (gas: 3670772)
+[PASS] test_DeployEmitsConfigurationEvents() (gas: 3666673)
+[PASS] test_DeployWithDuplicatedFeeManagers() (gas: 3483260)
+[PASS] test_DeployWithEachVaultModeSetsMaxAllowance() (gas: 10968968)
+[PASS] test_DeployWithoutGuardians() (gas: 3430068)
+[PASS] test_DeployWithoutVault() (gas: 3476914)
+[PASS] test_DeploymentHealthCheckUsesAndRefundsDeployerFunds() (gas: 44745)
+[PASS] test_InitialState() (gas: 373471)
+[PASS] test_RejectsDirectNativeTransfers() (gas: 38639)
+[PASS] test_RevertWhen_DeployHealthCheckNotFunded() (gas: 518635)
+[PASS] test_RevertWhen_DeployVaultModeWithoutVault() (gas: 1464949)
+[PASS] test_RevertWhen_DeployWithFailingVault() (gas: 882898)
+[PASS] test_RevertWhen_DeployWithWrongAssetVault() (gas: 2674346)
+[PASS] test_RevertWhen_DeployZeroAdmin() (gas: 403312)
+[PASS] test_RevertWhen_DeployZeroFeeManager() (gas: 525210)
+[PASS] test_RevertWhen_DeployZeroGuardian() (gas: 574876)
+[PASS] test_RevertWhen_DeployZeroTreasury() (gas: 472573)
+[PASS] test_RevertWhen_DeployZeroUsdc() (gas: 472193)
+[PASS] test_RuntimeCodeHasNoDelegatecallOrSelfdestruct() (gas: 11266269)
+[PASS] test_SupportsInterface() (gas: 22972)
+Suite result: ok. 21 passed; 0 failed; 0 skipped; finished in 45.31s (503.54ms CPU time)
+
+╭--------------------------------------+-----------------+--------+--------+--------+---------╮
+| src/Forwarder.sol:Forwarder Contract |                 |        |        |        |         |
++=============================================================================================+
+| Deployment Cost                      | Deployment Size |        |        |        |         |
+|--------------------------------------+-----------------+--------+--------+--------+---------|
+| 3535317                              | 18931           |        |        |        |         |
+|--------------------------------------+-----------------+--------+--------+--------+---------|
+|                                      |                 |        |        |        |         |
+|--------------------------------------+-----------------+--------+--------+--------+---------|
+| Function Name                        | Min             | Avg    | Median | Max    | # Calls |
+|--------------------------------------+-----------------+--------+--------+--------+---------|
+| DEFAULT_ADMIN_ROLE                   | 294             | 294    | 294    | 294    | 364     |
+|--------------------------------------+-----------------+--------+--------+--------+---------|
+| FEE_CHANGE_DELAY                     | 316             | 316    | 316    | 316    | 1       |
+|--------------------------------------+-----------------+--------+--------+--------+---------|
+| FEE_DENOMINATOR                      | 250             | 250    | 250    | 250    | 1       |
+|--------------------------------------+-----------------+--------+--------+--------+---------|
+| FEE_MANAGER_ROLE                     | 281             | 281    | 281    | 281    | 364     |
+|--------------------------------------+-----------------+--------+--------+--------+---------|
+| MAX_FIXED_FEE                        | 316             | 316    | 316    | 316    | 1       |
+|--------------------------------------+-----------------+--------+--------+--------+---------|
+| MAX_VARIABLE_FEE                     | 273             | 273    | 273    | 273    | 1       |
+|--------------------------------------+-----------------+--------+--------+--------+---------|
+| TREASURY_CHANGE_DELAY                | 295             | 295    | 295    | 295    | 1       |
+|--------------------------------------+-----------------+--------+--------+--------+---------|
+| USDC                                 | 348             | 348    | 348    | 348    | 1       |
+|--------------------------------------+-----------------+--------+--------+--------+---------|
+| VAULT_CHANGE_DELAY                   | 253             | 253    | 253    | 253    | 2       |
+|--------------------------------------+-----------------+--------+--------+--------+---------|
+| VAULT_GUARDIAN_ROLE                  | 323             | 323    | 323    | 323    | 364     |
+|--------------------------------------+-----------------+--------+--------+--------+---------|
+| VAULT_TEST_AMOUNT                    | 296             | 296    | 296    | 296    | 1       |
+|--------------------------------------+-----------------+--------+--------+--------+---------|
+| acceptDefaultAdminTransfer           | 23942           | 51017  | 60043  | 60043  | 4       |
+|--------------------------------------+-----------------+--------+--------+--------+---------|
+| beginDefaultAdminTransfer            | 24302           | 28938  | 28938  | 33575  | 6       |
+|--------------------------------------+-----------------+--------+--------+--------+---------|
+| calculateFee                         | 2531            | 5816   | 6851   | 11397  | 12246   |
+|--------------------------------------+-----------------+--------+--------+--------+---------|
+| calculateFeeFor                      | 4801            | 8307   | 9174   | 18008  | 10774   |
+|--------------------------------------+-----------------+--------+--------+--------+---------|
+| cancelDefaultAdminTransfer           | 23804           | 23804  | 23804  | 23804  | 2       |
+|--------------------------------------+-----------------+--------+--------+--------+---------|
+| cancelFeeConfigChange                | 25847           | 33495  | 33204  | 43632  | 1071    |
+|--------------------------------------+-----------------+--------+--------+--------+---------|
+| cancelTreasuryChange                 | 25843           | 27416  | 26084  | 30154  | 1097    |
+|--------------------------------------+-----------------+--------+--------+--------+---------|
+| cancelVaultChange                    | 25821           | 27173  | 28124  | 30136  | 1307    |
+|--------------------------------------+-----------------+--------+--------+--------+---------|
+| changeDefaultAdminDelay              | 24079           | 24079  | 24079  | 24079  | 2       |
+|--------------------------------------+-----------------+--------+--------+--------+---------|
+| defaultAdmin                         | 2441            | 2441   | 2441   | 2441   | 2       |
+|--------------------------------------+-----------------+--------+--------+--------+---------|
+| defaultAdminDelay                    | 4642            | 4642   | 4642   | 4642   | 1       |
+|--------------------------------------+-----------------+--------+--------+--------+---------|
+| executeFeeConfigChange               | 23768           | 71779  | 82123  | 102023 | 6697    |
+|--------------------------------------+-----------------+--------+--------+--------+---------|
+| executeTreasuryChange                | 23805           | 27605  | 28059  | 32627  | 1459    |
+|--------------------------------------+-----------------+--------+--------+--------+---------|
+| executeVaultChange                   | 23805           | 119025 | 28371  | 267661 | 3307    |
+|--------------------------------------+-----------------+--------+--------+--------+---------|
+| fixedFee                             | 2351            | 2351   | 2351   | 2351   | 20425   |
+|--------------------------------------+-----------------+--------+--------+--------+---------|
+| forward                              | 22696           | 95472  | 92404  | 222603 | 2632    |
+|--------------------------------------+-----------------+--------+--------+--------+---------|
+| getRoleAdmin                         | 2524            | 2524   | 2524   | 2524   | 3       |
+|--------------------------------------+-----------------+--------+--------+--------+---------|
+| grantRole                            | 22010           | 45243  | 51618  | 51618  | 1946    |
+|--------------------------------------+-----------------+--------+--------+--------+---------|
+| hasRole                              | 2747            | 2747   | 2747   | 2747   | 42011   |
+|--------------------------------------+-----------------+--------+--------+--------+---------|
+| lowerFeeModel                        | 2465            | 2465   | 2465   | 2465   | 14533   |
+|--------------------------------------+-----------------+--------+--------+--------+---------|
+| owner                                | 2458            | 2458   | 2458   | 2458   | 1       |
+|--------------------------------------+-----------------+--------+--------+--------+---------|
+| pause                                | 25861           | 30935  | 29955  | 32258  | 1824    |
+|--------------------------------------+-----------------+--------+--------+--------+---------|
+| paused                               | 2437            | 2437   | 2437   | 2437   | 20485   |
+|--------------------------------------+-----------------+--------+--------+--------+---------|
+| pendingDefaultAdmin                  | 2471            | 2471   | 2471   | 2471   | 1       |
+|--------------------------------------+-----------------+--------+--------+--------+---------|
+| pendingFeeConfig                     | 11121           | 11121  | 11121  | 11121  | 10553   |
+|--------------------------------------+-----------------+--------+--------+--------+---------|
+| pendingTreasury                      | 2471            | 2471   | 2471   | 2471   | 4902    |
+|--------------------------------------+-----------------+--------+--------+--------+---------|
+| pendingTreasuryExecutableAt          | 2373            | 2373   | 2373   | 2373   | 4682    |
+|--------------------------------------+-----------------+--------+--------+--------+---------|
+| pendingVault                         | 2426            | 2426   | 2426   | 2426   | 13180   |
+|--------------------------------------+-----------------+--------+--------+--------+---------|
+| pendingVaultExecutableAt             | 2418            | 2418   | 2418   | 2418   | 14743   |
+|--------------------------------------+-----------------+--------+--------+--------+---------|
+| proposeFeeConfig                     | 22063           | 106257 | 119104 | 139388 | 7976    |
+|--------------------------------------+-----------------+--------+--------+--------+---------|
+| proposeTreasury                      | 24016           | 56373  | 72974  | 72974  | 2225    |
+|--------------------------------------+-----------------+--------+--------+--------+---------|
+| proposeVault                         | 24030           | 170166 | 238892 | 286484 | 4374    |
+|--------------------------------------+-----------------+--------+--------+--------+---------|
+| renounceRole                         | 24943           | 25025  | 24943  | 25214  | 557     |
+|--------------------------------------+-----------------+--------+--------+--------+---------|
+| rescueNative                         | 23803           | 59509  | 62306  | 62306  | 280     |
+|--------------------------------------+-----------------+--------+--------+--------+---------|
+| rescueToken                          | 24303           | 54170  | 49935  | 117219 | 835     |
+|--------------------------------------+-----------------+--------+--------+--------+---------|
+| revokeRole                           | 27056           | 29524  | 29453  | 29724  | 3044    |
+|--------------------------------------+-----------------+--------+--------+--------+---------|
+| rollbackDefaultAdminDelay            | 23784           | 23784  | 23784  | 23784  | 2       |
+|--------------------------------------+-----------------+--------+--------+--------+---------|
+| routingMode                          | 2465            | 2465   | 2465   | 2465   | 8762    |
+|--------------------------------------+-----------------+--------+--------+--------+---------|
+| setRoutingMode                       | 21521           | 44051  | 31462  | 66017  | 5714    |
+|--------------------------------------+-----------------+--------+--------+--------+---------|
+| setUserFeeOverride                   | 24510           | 66148  | 78231  | 98167  | 1947    |
+|--------------------------------------+-----------------+--------+--------+--------+---------|
+| supportsInterface                    | 488             | 582    | 605    | 630    | 4       |
+|--------------------------------------+-----------------+--------+--------+--------+---------|
+| threshold                            | 2374            | 2374   | 2374   | 2374   | 14277   |
+|--------------------------------------+-----------------+--------+--------+--------+---------|
+| treasury                             | 2415            | 2415   | 2415   | 2415   | 5163    |
+|--------------------------------------+-----------------+--------+--------+--------+---------|
+| unpause                              | 23805           | 29788  | 29989  | 29989  | 575     |
+|--------------------------------------+-----------------+--------+--------+--------+---------|
+| upperFeeModel                        | 2485            | 2485   | 2485   | 2485   | 14277   |
+|--------------------------------------+-----------------+--------+--------+--------+---------|
+| userFeeOverrides                     | 6854            | 6854   | 6854   | 6854   | 13457   |
+|--------------------------------------+-----------------+--------+--------+--------+---------|
+| variableFee                          | 2371            | 2371   | 2371   | 2371   | 19560   |
+|--------------------------------------+-----------------+--------+--------+--------+---------|
+| vault                                | 2446            | 2446   | 2446   | 2446   | 10599   |
+╰--------------------------------------+-----------------+--------+--------+--------+---------╯
+
+╭----------------------------------------------+-----------------+-------+--------+-------+---------╮
+| test/mocks/MockTokens.sol:MockERC20 Contract |                 |       |        |       |         |
++===================================================================================================+
+| Deployment Cost                              | Deployment Size |       |        |       |         |
+|----------------------------------------------+-----------------+-------+--------+-------+---------|
+| 520754                                       | 2834            |       |        |       |         |
+|----------------------------------------------+-----------------+-------+--------+-------+---------|
+|                                              |                 |       |        |       |         |
+|----------------------------------------------+-----------------+-------+--------+-------+---------|
+| Function Name                                | Min             | Avg   | Median | Max   | # Calls |
+|----------------------------------------------+-----------------+-------+--------+-------+---------|
+| balanceOf                                    | 2559            | 2559  | 2559   | 2559  | 776     |
+|----------------------------------------------+-----------------+-------+--------+-------+---------|
+| decimals                                     | 271             | 271   | 271    | 271   | 2       |
+|----------------------------------------------+-----------------+-------+--------+-------+---------|
+| mint                                         | 28543           | 67825 | 68415  | 68535 | 259     |
+╰----------------------------------------------+-----------------+-------+--------+-------+---------╯
+
+╭---------------------------------------------------------+-----------------+-------+--------+-------+---------╮
+| test/mocks/MockTokens.sol:MockFalseReturnToken Contract |                 |       |        |       |         |
++==============================================================================================================+
+| Deployment Cost                                         | Deployment Size |       |        |       |         |
+|---------------------------------------------------------+-----------------+-------+--------+-------+---------|
+| 505578                                                  | 2320            |       |        |       |         |
+|---------------------------------------------------------+-----------------+-------+--------+-------+---------|
+|                                                         |                 |       |        |       |         |
+|---------------------------------------------------------+-----------------+-------+--------+-------+---------|
+| Function Name                                           | Min             | Avg   | Median | Max   | # Calls |
+|---------------------------------------------------------+-----------------+-------+--------+-------+---------|
+| balanceOf                                               | 2559            | 2559  | 2559   | 2559  | 1       |
+|---------------------------------------------------------+-----------------+-------+--------+-------+---------|
+| mint                                                    | 68415           | 68415 | 68415  | 68415 | 1       |
+╰---------------------------------------------------------+-----------------+-------+--------+-------+---------╯
+
+╭------------------------------------------------------+-----------------+-------+--------+-------+---------╮
+| test/mocks/MockTokens.sol:MockNoReturnToken Contract |                 |       |        |       |         |
++===========================================================================================================+
+| Deployment Cost                                      | Deployment Size |       |        |       |         |
+|------------------------------------------------------+-----------------+-------+--------+-------+---------|
+| 359106                                               | 1442            |       |        |       |         |
+|------------------------------------------------------+-----------------+-------+--------+-------+---------|
+|                                                      |                 |       |        |       |         |
+|------------------------------------------------------+-----------------+-------+--------+-------+---------|
+| Function Name                                        | Min             | Avg   | Median | Max   | # Calls |
+|------------------------------------------------------+-----------------+-------+--------+-------+---------|
+| balanceOf                                            | 2538            | 2538  | 2538   | 2538  | 3       |
+|------------------------------------------------------+-----------------+-------+--------+-------+---------|
+| mint                                                 | 66412           | 66412 | 66412  | 66412 | 1       |
+╰------------------------------------------------------+-----------------+-------+--------+-------+---------╯
+
+╭-------------------------------------------+-----------------+-------+--------+-------+---------╮
+| test/mocks/MockUSDC.sol:MockUSDC Contract |                 |       |        |       |         |
++================================================================================================+
+| Deployment Cost                           | Deployment Size |       |        |       |         |
+|-------------------------------------------+-----------------+-------+--------+-------+---------|
+| 650804                                    | 2987            |       |        |       |         |
+|-------------------------------------------+-----------------+-------+--------+-------+---------|
+|                                           |                 |       |        |       |         |
+|-------------------------------------------+-----------------+-------+--------+-------+---------|
+| Function Name                             | Min             | Avg   | Median | Max   | # Calls |
+|-------------------------------------------+-----------------+-------+--------+-------+---------|
+| allowance                                 | 2788            | 2788  | 2788   | 2788  | 31687   |
+|-------------------------------------------+-----------------+-------+--------+-------+---------|
+| approve                                   | 31217           | 50368 | 53141  | 53201 | 9972    |
+|-------------------------------------------+-----------------+-------+--------+-------+---------|
+| balanceOf                                 | 586             | 1686  | 2586   | 2586  | 46967   |
+|-------------------------------------------+-----------------+-------+--------+-------+---------|
+| decimals                                  | 243             | 243   | 243    | 243   | 1530    |
+|-------------------------------------------+-----------------+-------+--------+-------+---------|
+| mint                                      | 37747           | 55558 | 60483  | 75583 | 10414   |
+|-------------------------------------------+-----------------+-------+--------+-------+---------|
+| setBlacklisted                            | 22312           | 43468 | 44224  | 44224 | 87      |
+|-------------------------------------------+-----------------+-------+--------+-------+---------|
+| setPaused                                 | 43713           | 43713 | 43713  | 43713 | 1       |
+|-------------------------------------------+-----------------+-------+--------+-------+---------|
+| setReturnFalseOnTransferTo                | 22292           | 33248 | 33248  | 44204 | 2       |
+╰-------------------------------------------+-----------------+-------+--------+-------+---------╯
+
+╭---------------------------------------------+-----------------+--------+--------+--------+---------╮
+| test/mocks/MockVault.sol:MockVault Contract |                 |        |        |        |         |
++====================================================================================================+
+| Deployment Cost                             | Deployment Size |        |        |        |         |
+|---------------------------------------------+-----------------+--------+--------+--------+---------|
+| 1431353                                     | 6757            |        |        |        |         |
+|---------------------------------------------+-----------------+--------+--------+--------+---------|
+|                                             |                 |        |        |        |         |
+|---------------------------------------------+-----------------+--------+--------+--------+---------|
+| Function Name                               | Min             | Avg    | Median | Max    | # Calls |
+|---------------------------------------------+-----------------+--------+--------+--------+---------|
+| asset                                       | 258             | 258    | 258    | 258    | 5533    |
+|---------------------------------------------+-----------------+--------+--------+--------+---------|
+| balanceOf                                   | 659             | 1786   | 2659   | 2659   | 10933   |
+|---------------------------------------------+-----------------+--------+--------+--------+---------|
+| convertToAssets                             | 9071            | 9071   | 9071   | 9071   | 15      |
+|---------------------------------------------+-----------------+--------+--------+--------+---------|
+| deposit                                     | 122294          | 122294 | 122294 | 122294 | 3       |
+|---------------------------------------------+-----------------+--------+--------+--------+---------|
+| previewDeposit                              | 9112            | 9112   | 9112   | 9112   | 1       |
+|---------------------------------------------+-----------------+--------+--------+--------+---------|
+| setBlockedReceiver                          | 21817           | 43789  | 43957  | 43957  | 132     |
+|---------------------------------------------+-----------------+--------+--------+--------+---------|
+| setDepositCap                               | 26496           | 26496  | 26496  | 26496  | 1       |
+|---------------------------------------------+-----------------+--------+--------+--------+---------|
+| setDepositReverts                           | 21828           | 35743  | 43740  | 43740  | 211     |
+|---------------------------------------------+-----------------+--------+--------+--------+---------|
+| setMintsNoShares                            | 21775           | 32837  | 43687  | 43687  | 103     |
+|---------------------------------------------+-----------------+--------+--------+--------+---------|
+| setPartialPullBps                           | 43660           | 43660  | 43660  | 43660  | 1       |
+|---------------------------------------------+-----------------+--------+--------+--------+---------|
+| setPaused                                   | 21718           | 32928  | 43630  | 43630  | 86      |
+|---------------------------------------------+-----------------+--------+--------+--------+---------|
+| setRedeemLossBps                            | 23670           | 43360  | 43594  | 43594  | 258     |
+|---------------------------------------------+-----------------+--------+--------+--------+---------|
+| setRedeemPaysNothing                        | 21841           | 33077  | 43753  | 43753  | 78      |
+|---------------------------------------------+-----------------+--------+--------+--------+---------|
+| setRedeemReverts                            | 21731           | 32393  | 23743  | 43643  | 1007    |
+|---------------------------------------------+-----------------+--------+--------+--------+---------|
+| setZeroDepositReverts                       | 43642           | 43642  | 43642  | 43642  | 2       |
+|---------------------------------------------+-----------------+--------+--------+--------+---------|
+| totalAssets                                 | 5701            | 5701   | 5701   | 5701   | 4       |
+|---------------------------------------------+-----------------+--------+--------+--------+---------|
+| totalSupply                                 | 2348            | 2348   | 2348   | 2348   | 5       |
+╰---------------------------------------------+-----------------+--------+--------+--------+---------╯
+
+╭-----------------------------------------------------+-----------------+-------+--------+-------+---------╮
+| test/mocks/MockVault.sol:NoReturnDataVault Contract |                 |       |        |       |         |
++==========================================================================================================+
+| Deployment Cost                                     | Deployment Size |       |        |       |         |
+|-----------------------------------------------------+-----------------+-------+--------+-------+---------|
+| 1452471                                             | 6857            |       |        |       |         |
+|-----------------------------------------------------+-----------------+-------+--------+-------+---------|
+|                                                     |                 |       |        |       |         |
+|-----------------------------------------------------+-----------------+-------+--------+-------+---------|
+| Function Name                                       | Min             | Avg   | Median | Max   | # Calls |
+|-----------------------------------------------------+-----------------+-------+--------+-------+---------|
+| asset                                               | 258             | 258   | 258    | 258   | 4       |
+|-----------------------------------------------------+-----------------+-------+--------+-------+---------|
+| balanceOf                                           | 659             | 1770  | 2659   | 2659  | 9       |
+|-----------------------------------------------------+-----------------+-------+--------+-------+---------|
+| convertToAssets                                     | 9071            | 9071  | 9071   | 9071  | 1       |
+|-----------------------------------------------------+-----------------+-------+--------+-------+---------|
+| setReturnsNoData                                    | 43740           | 43740 | 43740  | 43740 | 2       |
+╰-----------------------------------------------------+-----------------+-------+--------+-------+---------╯
+
+╭---------------------------------------------+-----------------+-----+--------+-----+---------╮
+| test/mocks/MockVault.sol:NotAVault Contract |                 |     |        |     |         |
++==============================================================================================+
+| Deployment Cost                             | Deployment Size |     |        |     |         |
+|---------------------------------------------+-----------------+-----+--------+-----+---------|
+| 79611                                       | 147             |     |        |     |         |
+|---------------------------------------------+-----------------+-----+--------+-----+---------|
+|                                             |                 |     |        |     |         |
+|---------------------------------------------+-----------------+-----+--------+-----+---------|
+| Function Name                               | Min             | Avg | Median | Max | # Calls |
+|---------------------------------------------+-----------------+-----+--------+-----+---------|
+| asset                                       | 101             | 101 | 101    | 101 | 1       |
+╰---------------------------------------------+-----------------+-----+--------+-----+---------╯
+
+╭--------------------------------------------------------+-----------------+-------+--------+--------+---------╮
+| test/mocks/ReentrancyMocks.sol:ReentrantToken Contract |                 |       |        |        |         |
++==============================================================================================================+
+| Deployment Cost                                        | Deployment Size |       |        |        |         |
+|--------------------------------------------------------+-----------------+-------+--------+--------+---------|
+| 843286                                                 | 3879            |       |        |        |         |
+|--------------------------------------------------------+-----------------+-------+--------+--------+---------|
+|                                                        |                 |       |        |        |         |
+|--------------------------------------------------------+-----------------+-------+--------+--------+---------|
+| Function Name                                          | Min             | Avg   | Median | Max    | # Calls |
+|--------------------------------------------------------+-----------------+-------+--------+--------+---------|
+| arm                                                    | 46770           | 98539 | 89685  | 159162 | 3       |
+|--------------------------------------------------------+-----------------+-------+--------+--------+---------|
+| balanceOf                                              | 2560            | 2560  | 2560   | 2560   | 4       |
+|--------------------------------------------------------+-----------------+-------+--------+--------+---------|
+| mint                                                   | 51382           | 62782 | 68482  | 68482  | 3       |
+|--------------------------------------------------------+-----------------+-------+--------+--------+---------|
+| reentryReturnData                                      | 3210            | 3210  | 3210   | 3210   | 3       |
+|--------------------------------------------------------+-----------------+-------+--------+--------+---------|
+| reentrySucceeded                                       | 2415            | 2415  | 2415   | 2415   | 3       |
+╰--------------------------------------------------------+-----------------+-------+--------+--------+---------╯
+
+╭--------------------------------------------------------+-----------------+--------+--------+--------+---------╮
+| test/mocks/ReentrancyMocks.sol:ReentrantVault Contract |                 |        |        |        |         |
++===============================================================================================================+
+| Deployment Cost                                        | Deployment Size |        |        |        |         |
+|--------------------------------------------------------+-----------------+--------+--------+--------+---------|
+| 1766687                                                | 8310            |        |        |        |         |
+|--------------------------------------------------------+-----------------+--------+--------+--------+---------|
+|                                                        |                 |        |        |        |         |
+|--------------------------------------------------------+-----------------+--------+--------+--------+---------|
+| Function Name                                          | Min             | Avg    | Median | Max    | # Calls |
+|--------------------------------------------------------+-----------------+--------+--------+--------+---------|
+| arm                                                    | 89729           | 118263 | 124296 | 159206 | 16      |
+|--------------------------------------------------------+-----------------+--------+--------+--------+---------|
+| asset                                                  | 346             | 346    | 346    | 346    | 34      |
+|--------------------------------------------------------+-----------------+--------+--------+--------+---------|
+| attempted                                              | 2394            | 2394   | 2394   | 2394   | 14      |
+|--------------------------------------------------------+-----------------+--------+--------+--------+---------|
+| balanceOf                                              | 593             | 1635   | 2593   | 2593   | 71      |
+|--------------------------------------------------------+-----------------+--------+--------+--------+---------|
+| convertToAssets                                        | 9071            | 9071   | 9071   | 9071   | 2       |
+|--------------------------------------------------------+-----------------+--------+--------+--------+---------|
+| reentryReturnData                                      | 3211            | 3211   | 3211   | 3211   | 14      |
+|--------------------------------------------------------+-----------------+--------+--------+--------+---------|
+| reentrySucceeded                                       | 2438            | 2438   | 2438   | 2438   | 16      |
+╰--------------------------------------------------------+-----------------+--------+--------+--------+---------╯
+
+╭-----------------------------------------------------------+-----------------+-------+--------+-------+---------╮
+| test/mocks/VaultChangeMocks.sol:AssetSwitchVault Contract |                 |       |        |       |         |
++================================================================================================================+
+| Deployment Cost                                           | Deployment Size |       |        |       |         |
+|-----------------------------------------------------------+-----------------+-------+--------+-------+---------|
+| 1434072                                                   | 6731            |       |        |       |         |
+|-----------------------------------------------------------+-----------------+-------+--------+-------+---------|
+|                                                           |                 |       |        |       |         |
+|-----------------------------------------------------------+-----------------+-------+--------+-------+---------|
+| Function Name                                             | Min             | Avg   | Median | Max   | # Calls |
+|-----------------------------------------------------------+-----------------+-------+--------+-------+---------|
+| asset                                                     | 2418            | 2457  | 2418   | 2535  | 3       |
+|-----------------------------------------------------------+-----------------+-------+--------+-------+---------|
+| balanceOf                                                 | 681             | 1681  | 1681   | 2681  | 4       |
+|-----------------------------------------------------------+-----------------+-------+--------+-------+---------|
+| setReportedAsset                                          | 21860           | 32930 | 32930  | 44000 | 2       |
+╰-----------------------------------------------------------+-----------------+-------+--------+-------+---------╯
+
+
+Ran 26 test suites in 62.89s (277.65s CPU time): 363 tests passed, 0 failed, 0 skipped (363 total tests)
+
+real	2m1.655s
+user	2m13.123s
+sys	0m3.260s

@@ -1,0 +1,31 @@
+== commit 21c9d3b / src sha256 22aeb8e536cabe68d5ba3005decb1f43179d38ffc261b032a14085432ffd3d6b (deployed source)
+== SOLC_VERSION=0.8.30 certoraRun certora/conf/ForwarderV3Vault.conf --wait_for_results all
+job: https://prover.certora.com/output/3658204/36947fbad73b41e0bcc9f06c458d4f46
+Result for vaultChangeDelayIs72Hours: vaultChangeDelayIs72Hours: SUCCESS
+Result for envfreeFuncsStaticCheck: envfreeFuncsStaticCheck: DummyUSDC.balanceOf(address): SUCCESS
+Result for onlyAdminOrGuardianCancels: onlyAdminOrGuardianCancels: SUCCESS
+Result for guardianOrAdminCanAlwaysCancel: guardianOrAdminCanAlwaysCancel: SUCCESS
+Result for cancelClearsPendingOnly: cancelClearsPendingOnly: SUCCESS
+Result for onlyAdminExecutes: onlyAdminExecutes: SUCCESS
+Result for onlyAdminProposes: onlyAdminProposes: SUCCESS
+Result for proposeRevertsWhileAChangeIsPending: proposeRevertsWhileAChangeIsPending: SUCCESS
+Result for executeRevertsWithoutPendingChange: executeRevertsWithoutPendingChange: SUCCESS
+Result for executeRevertsBeforeExecutableAt: executeRevertsBeforeExecutableAt: SUCCESS
+Result for proposeStoresCandidateWithExactDelay: proposeStoresCandidateWithExactDelay: SUCCESS
+Result for unprivilegedCannotTouchVaultLifecycle: unprivilegedCannotTouchVaultLifecycle: cancelVaultChange(): SUCCESS
+Result for guardianRoleChangesKeepPendingChange: guardianRoleChangesKeepPendingChange: grantRole(bytes32,address): SUCCESS
+Result for feeManagerCannotAdministerVault: feeManagerCannotAdministerVault: setUserFeeOverride(address,uint256,uint256,uint256): SUCCESS
+Result for guardianCannotProposeOrExecute: guardianCannotProposeOrExecute: executeVaultChange(): SUCCESS
+Result for failedExecutionKeepsState: failedExecutionKeepsState: SUCCESS
+Result for proposeLeavesNoCandidateAllowance: proposeLeavesNoCandidateAllowance: SUCCESS
+Result for executeActivatesPendingVaultAndClearsIt: executeActivatesPendingVaultAndClearsIt: SUCCESS
+Result for proposeHealthCheckUsesOnlyCallerFunds: proposeHealthCheckUsesOnlyCallerFunds: SUCCESS
+Result for vaultOnlyChangesThroughExecuteAfterDelay: vaultOnlyChangesThroughExecuteAfterDelay: setRoutingMode(uint8): SUCCESS
+Result for pendingChangeCannotBeShortened: pendingChangeCannotBeShortened: forward(address,uint256,address): SUCCESS
+Result for pendingOnlyClearedByCancelOrExecute: pendingOnlyClearedByCancelOrExecute: proposeVault(address): SUCCESS
+Result for executeAllowancesFollowCurrentRouting: executeAllowancesFollowCurrentRouting: SUCCESS
+Result for executeHealthCheckUsesOnlyCallerFunds: executeHealthCheckUsesOnlyCallerFunds: SUCCESS
+Result for forwardKeepsPendingChange: forwardKeepsPendingChange: SUCCESS
+Result for vaultLifecycleKeepsConfiguration: vaultLifecycleKeepsConfiguration: executeVaultChange(): SUCCESS
+Result for executeUsesRoutingInForceAtExecution: executeUsesRoutingInForceAtExecution: SUCCESS
+verdict: No errors found by Prover!
