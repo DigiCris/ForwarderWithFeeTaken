@@ -2221,3 +2221,136 @@ rule rescueNativeOnlyToTreasury(env e) {
     assert ghostNativeRecipient == t;
     assert ghostNativeAmount == balanceBefore;
 }
+
+// -------------------------------------------------------------------------------------------------------------------
+// Decomposition of the fee comparisons (added in run 3)
+//
+// The direct comparisons between two fee computations (effectiveFeeNeverExceedsGlobalFee,
+// effectiveFeeFollowsLaterGlobalChanges and the extra inequality of
+// forwardUserReceivesAmountMinusFeeForAnyConfiguration) timed out in runs 1 and 2: they contain the non-linear step
+// amount * x <= amount * y. That step is proven once, for all values, by the pure lemma `productIsMonotone`; the rules
+// below either compose lemmas (no contract call) or instantiate that lemma for the values of the state (`require` of
+// an instance of a proven universal statement, which is sound) so that the rest of the query is linear.
+// -------------------------------------------------------------------------------------------------------------------
+
+/// Lemma: multiplying by a non-negative amount preserves the order.
+rule productIsMonotone(uint256 amount, uint256 x, uint256 y) {
+    require x <= y;
+    assert amount * x <= amount * y;
+}
+
+/// Lemma: the percentage part (floor division by the denominator) is monotone in the rate.
+rule percentPartIsMonotone(uint256 amount, uint256 x, uint256 y) {
+    require x <= y;
+    require amount * x <= amount * y; // productIsMonotone
+    assert (amount * x) / 100000 <= (amount * y) / 100000;
+}
+
+/// Lemma: for every model the fee formula is monotone in the fixed and in the variable fee.
+rule specFeeIsMonotone(Forwarder.FeeModel m, uint256 amount, uint256 f1, uint256 v1, uint256 f2, uint256 v2) {
+    require f1 <= f2 && v1 <= v2;
+    require amount * v1 <= amount * v2; // productIsMonotone
+    assert specFeeWith(m, amount, f1, v1) <= specFeeWith(m, amount, f2, v2);
+}
+
+/// Lemma on the specifications: the effective fee of the specification (min(override, global) while active, zero while
+/// paused) never exceeds the global fee of the specification, and it is defined (no overflow) whenever the global one
+/// is. With effectiveFeeMatchesSpecification and feeMatchesSpecification (contract == specification, revert <=>
+/// overflow) this gives calculateFeeFor(r, amount) <= calculateFee(amount) without comparing two contract calls.
+rule effectiveSpecFeeNeverExceedsGlobalSpecFee(env e, address r, uint256 amount) {
+    requireInvariant enumsAreValid();
+    require !paused();
+    mathint variableEff = effectiveVariable(r, e.block.timestamp);
+    require amount * variableEff <= amount * variableFee(); // productIsMonotone (variableEff <= variableFee)
+    Forwarder.FeeModel m = amount <= threshold() ? lowerFeeModel() : upperFeeModel();
+    assert specFeeFor(r, e.block.timestamp, amount) <= specFee(m, amount);
+    assert amount * variableFee() <= MAX_UINT() => amount * variableEff <= MAX_UINT();
+}
+
+/// effectiveFeeNeverExceedsGlobalFee with the product lemma instantiated for this state.
+rule effectiveFeeNeverExceedsGlobalFeeAssisted(env e, address r, uint256 amount) {
+    requireInvariant enumsAreValid();
+    require e.msg.value == 0;
+    mathint variableEff = effectiveVariable(r, e.block.timestamp);
+    require amount * variableEff <= amount * variableFee(); // productIsMonotone (variableEff <= variableFee)
+    uint256 globalFee = calculateFee@withrevert(amount);
+    bool globalReverted = lastReverted;
+    uint256 fee = calculateFeeFor@withrevert(e, r, amount);
+    assert !globalReverted => !lastReverted && fee <= globalFee;
+}
+
+/// effectiveFeeFollowsLaterGlobalChanges with the product lemma instantiated for the final configuration.
+rule effectiveFeeFollowsLaterGlobalChangesAssisted(
+    env eManager,
+    env eExecute,
+    env eOverride,
+    env eManager2,
+    env eExecute2,
+    env e,
+    Forwarder.FeeModel lower,
+    Forwarder.FeeModel upper,
+    uint256 thr,
+    uint256 fixedF,
+    uint256 variableF,
+    uint256 fixedF2,
+    uint256 variableF2,
+    address r,
+    uint256 overrideF,
+    uint256 overrideV,
+    uint256 until,
+    uint256 amount
+) {
+    linkModel();
+    require !paused();
+    configureFees(eManager, eExecute, lower, upper, thr, fixedF, variableF);
+    setUserFeeOverride(eOverride, r, overrideF, overrideV, until);
+    configureFees(eManager2, eExecute2, lower, upper, thr, fixedF2, variableF2);
+    require e.msg.value == 0 && amount < 2^200;
+    bool active = e.block.timestamp < until;
+    Forwarder.FeeModel m = amount <= thr ? lower : upper;
+    mathint fixedEff = active ? minOf(overrideF, fixedF2) : to_mathint(fixedF2);
+    mathint variableEff = active ? minOf(overrideV, variableF2) : to_mathint(variableF2);
+    require amount * variableEff <= amount * variableF2; // productIsMonotone (variableEff <= variableF2)
+
+    uint256 globalFee = calculateFee(amount);
+    uint256 fee = calculateFeeFor(e, r, amount);
+
+    assert to_mathint(fee) == specFeeWith(m, amount, fixedEff, variableEff);
+    assert fee <= globalFee;
+}
+
+/// The V1 shape of the accounting rule (exact amount received) for every fee configuration, routing mode and
+/// override; the comparison with the global fee is proven by the rules above.
+rule forwardUserReceivesAmountMinusEffectiveFeeForAnyConfiguration(
+    env e,
+    env eManager,
+    env eExecute,
+    env eAdmin,
+    env eOverride,
+    Forwarder.FeeModel lower,
+    Forwarder.FeeModel upper,
+    uint256 thr,
+    uint256 fixedF,
+    uint256 variableF,
+    Forwarder.RoutingMode mode,
+    uint256 overrideF,
+    uint256 overrideV,
+    uint256 until,
+    uint256 amount,
+    address recipient
+) {
+    linkForward();
+    require vault() == dvault;
+    configureAll(eManager, eExecute, eAdmin, eOverride, lower, upper, thr, fixedF, variableF, mode, recipient, overrideF, overrideV, until);
+    require recipient != currentContract && recipient != treasury() && recipient != e.msg.sender;
+    require recipient != usdc && recipient != dvault;
+    require e.msg.sender != currentContract;
+    uint256 fee = calculateFeeFor(e, recipient, amount);
+    mathint usdcBefore = usdcBalance(recipient);
+    mathint sharesBefore = dvault.balanceOf(recipient);
+
+    forward(e, usdc, amount, recipient);
+
+    mathint received = usdcBalance(recipient) - usdcBefore + dvault.balanceOf(recipient) - sharesBefore;
+    assert received == amount - fee;
+}
