@@ -1,0 +1,8 @@
+== commit 0dc47a6 / src sha256 22aeb8e536cabe68d5ba3005decb1f43179d38ffc261b032a14085432ffd3d6b (deployed source)
+== SOLC_VERSION=0.8.30 certoraRun certora/conf/ForwarderV3MathMin.conf --wait_for_results all   (run 2: final spec)
+job: https://prover.certora.com/output/3658204/72f3ce3a32d9406593232141a929a7c7
+Result for envfreeFuncsStaticCheck: envfreeFuncsStaticCheck: mathMin(uint256,uint256): SUCCESS
+Result for mathMinReturnsTheSecondArgument: mathMinReturnsTheSecondArgument: Satisfy_a__b__ForwarderHarness_mathMinaa_bb__b_(MathMinSummary_spec_21_5): FAIL: a > b && ForwarderHarness.mathMin(a=a, b...
+Result for mathMinReturnsTheFirstArgument: mathMinReturnsTheFirstArgument: Satisfy_a__b__ForwarderHarness_mathMinaa_bb__a_(MathMinSummary_spec_17_5): FAIL: a < b && ForwarderHarness.mathMin(a=a, b...
+Result for mathMinIsTheMinimum: mathMinIsTheMinimum: SUCCESS
+verdict: No errors found by Prover!

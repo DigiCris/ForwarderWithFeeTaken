@@ -1,0 +1,35 @@
+== commit 0dc47a6 / src sha256 22aeb8e536cabe68d5ba3005decb1f43179d38ffc261b032a14085432ffd3d6b (deployed source)
+== SOLC_VERSION=0.8.30 certoraRun certora/conf/ForwarderV3Fees.conf --wait_for_results all   (run 2: final spec)
+job: https://prover.certora.com/output/3658204/5522537e57d64a0f9a7265c090d5e4fa
+job: https://prover.certora.com/output/3658204/5522537e57d64a0f9a7265c090d5e4fa?anonymousKey=<redacted>
+Result for envfreeFuncsStaticCheck: envfreeFuncsStaticCheck: DummyUSDC.balanceOf(address): SUCCESS
+Result for fixedPlusPercentModelIsReachable: fixedPlusPercentModelIsReachable: Satisfy_to_mathintForwarderHarness_calculateFeeamountamount__to_mathintForwarderHarness_fixedFee_(ForwarderV3_spec_434_5): FAIL: to_mathint(ForwarderHarness.calculateFee...
+Result for fixedPlusPercentModelChargesAfterConfiguration: fixedPlusPercentModelChargesAfterConfiguration: Satisfy_to_mathintForwarderHarness_calculateFeeamountamount__to_mathintfixedF_(ForwarderV3_spec_544_5): FAIL: to_mathint(ForwarderHarness.calculateFee...
+Result for fixedModelIsReachable: fixedModelIsReachable: Satisfy_ForwarderHarness_calculateFeeamountamount__0_(ForwarderV3_spec_422_5): FAIL: ForwarderHarness.calculateFee(amount=amo...
+Result for fixedModelChargesAfterConfiguration: fixedModelChargesAfterConfiguration: Satisfy_ForwarderHarness_calculateFeeamountamount__0_(ForwarderV3_spec_523_5): FAIL: ForwarderHarness.calculateFee(amount=amo...
+Result for percentModelIsReachable: percentModelIsReachable: Satisfy_ForwarderHarness_calculateFeeamountamount__0_(ForwarderV3_spec_428_5): FAIL: ForwarderHarness.calculateFee(amount=amo...
+Result for percentUsesWholeAmountIsNotTheExcessFee: percentUsesWholeAmountIsNotTheExcessFee: Satisfy_to_mathintForwarderHarness_calculateFeeamountamount__amount__ForwarderHarness_threshold__ForwarderHarness_variableFee__100000_(ForwarderV3_spec_472_5): FAIL: to_mathint(ForwarderHarness.calculateFee...
+Result for pausedEffectiveFeeIsZero: pausedEffectiveFeeIsZero: SUCCESS
+Result for pausedFeeIsZero: pausedFeeIsZero: SUCCESS
+Result for lowerModelUpToThreshold: lowerModelUpToThreshold: SUCCESS
+Result for upperModelAboveThreshold: upperModelAboveThreshold: SUCCESS
+Result for percentUsesWholeAmount: percentUsesWholeAmount: SUCCESS
+Result for discountedFeeIsReachable: discountedFeeIsReachable: Satisfy_ForwarderHarness_calculateFeeFore_r_amount__ForwarderHarness_calculateFeeamountamount_(ForwarderV3_spec_698_5): FAIL: ForwarderHarness.calculateFeeFor(e, r, a...
+Result for percentAboveThresholdIsNotExcessFee: percentAboveThresholdIsNotExcessFee: Satisfy_to_mathintForwarderHarness_calculateFeeamountamount__amount__thr__variableF__100000_(ForwarderV3_spec_515_5): FAIL: to_mathint(ForwarderHarness.calculateFee...
+Result for onlyFeeManagerSetsOverrides: onlyFeeManagerSetsOverrides: SUCCESS
+Result for setUserFeeOverrideValidation: setUserFeeOverrideValidation: SUCCESS
+Result for setUserFeeOverrideLiveness: setUserFeeOverrideLiveness: SUCCESS
+Result for feeMatchesSpecification: feeMatchesSpecification: SUCCESS
+Result for expiredOverrideIsTheGlobalFee: expiredOverrideIsTheGlobalFee: SUCCESS
+Result for percentAboveThresholdUsesWholeAmount: percentAboveThresholdUsesWholeAmount: SUCCESS
+Result for setUserFeeOverrideTouchesOnlyThatOverride: setUserFeeOverrideTouchesOnlyThatOverride: SUCCESS
+Result for effectiveFeeMatchesSpecification: effectiveFeeMatchesSpecification: SUCCESS
+Result for feeMatchesSpecificationForAnyConfiguration: feeMatchesSpecificationForAnyConfiguration: SUCCESS
+Result for activeOverrideIsNeverWorsened: activeOverrideIsNeverWorsened: pause(): SUCCESS
+Result for overridesOnlyChangeThroughSetUserFeeOverride: overridesOnlyChangeThroughSetUserFeeOverride: revokeRole(bytes32,address): SUCCESS
+Result for effectiveFeeNeverExceedsGlobalFee: effectiveFeeNeverExceedsGlobalFee: TIMEOUT
+Result for effectiveFeeMatchesSpecificationForAnyConfiguration: effectiveFeeMatchesSpecificationForAnyConfiguration: SUCCESS
+Result for effectiveFeeFollowsLaterGlobalChanges: effectiveFeeFollowsLaterGlobalChanges: TIMEOUT
+verdict: Prover found violations
+[rule] effectiveFeeFollowsLaterGlobalChanges: TIMEOUT
+[rule] effectiveFeeNeverExceedsGlobalFee: TIMEOUT
